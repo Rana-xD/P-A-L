@@ -36,4 +36,40 @@ class System extends Controller
             }
           }
     }
+    public function kpiData(Request $request)
+    {
+        // return $request->all();
+
+        // filter time input
+        $stop_hour_1 = $request->input('stop_hour_1');
+        $stop_minute_1 = $request->input('stop_minute_1');
+        $stop_hour_2 = $request->input('stop_hour_2');
+        $stop_minute_2 = $request->input('stop_minute_2');
+        $stop_hour_3 = $request->input('stop_hour_3');
+        $stop_minute_3 = $request->input('stop_minute_3');
+        $stop_hour_4 = $request->input('stop_hour_4');
+        $stop_minute_4 = $request->input('stop_minute_4');
+
+        // cocatenate hour with minute
+        $stop_time_1 = $stop_hour_1.':'.$stop_minute_1;
+        $stop_time_2 = $stop_hour_2.':'.$stop_minute_2;
+        $stop_time_3 = $stop_hour_3.':'.$stop_minute_3;
+        $stop_time_4 = $stop_hour_4.':'.$stop_minute_2;
+
+        // filter only tasks data input
+        $data = $request->except(['_token','stop_hour_1','stop_hour_2','stop_hour_3','stop_hour_4','stop_minute_1','stop_minute_2','stop_minute_3','stop_minute_4','files']);
+
+        // loop through tasks data
+        foreach ($data as $key => $value) {
+            $output[$key] = $value;
+        }
+
+        // assign new time
+        $output['stop_time_1'] = $stop_time_1;
+        $output['stop_time_2'] = $stop_time_2;
+        $output['stop_time_3'] = $stop_time_3;
+        $output['stop_time_4'] = $stop_time_4;
+
+        return $output;
+    }
 }

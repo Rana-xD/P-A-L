@@ -85,7 +85,8 @@
   	        </div>
   	    </div>
   	</div>
-
+  <form class="" action="kpi-data" method="post">
+    {{ csrf_field() }}
     <div class="container">
       <div class="content" style="margin-bottom: 50px">
 
@@ -102,7 +103,7 @@
                           <span class="increase increaseHour">
                               <i class="fa fa-plus"></i>
                           </span>
-                          <input name="start-hour"
+                          <input name="stop_hour_1"
                                  type="text"
                                  class="time-input"
                                  value="06">
@@ -119,7 +120,7 @@
                           <span class="increase increaseMinute">
                               <i class="fa fa-plus"></i>
                           </span>
-                          <input name="start-minute"
+                          <input name="stop_minute_1"
                                  type="text"
                                  class="time-input"
                                  value="00">
@@ -147,7 +148,7 @@
                           <span class="increase increaseHour">
                               <i class="fa fa-plus"></i>
                           </span>
-                          <input name="stop-hour"
+                          <input name="stop_hour_2"
                                  type="text"
                                  class="time-input"
                                  value="06">
@@ -162,7 +163,7 @@
                           <span class="increase increaseMinute">
                               <i class="fa fa-plus"></i>
                           </span>
-                          <input name="stop-minute"
+                          <input name="stop_minute_2"
                                  type="text"
                                  class="time-input"
                                  value="00">
@@ -190,7 +191,7 @@
                           <span class="increase increaseHour">
                               <i class="fa fa-plus"></i>
                           </span>
-                          <input name="stop-hour"
+                          <input name="stop_hour_3"
                                  type="text"
                                  class="time-input"
                                  value="06">
@@ -205,7 +206,7 @@
                           <span class="increase increaseMinute">
                               <i class="fa fa-plus"></i>
                           </span>
-                          <input name="stop-minute"
+                          <input name="stop_minute_3"
                                  type="text"
                                  class="time-input"
                                  value="00">
@@ -233,7 +234,7 @@
                           <span class="increase increaseHour">
                               <i class="fa fa-plus"></i>
                           </span>
-                          <input name="stop-hour"
+                          <input name="stop_hour_4"
                                  type="text"
                                  class="time-input"
                                  value="06">
@@ -248,7 +249,7 @@
                           <span class="increase increaseMinute">
                               <i class="fa fa-plus"></i>
                           </span>
-                          <input name="stop-minute"
+                          <input name="stop_minute_4"
                                  type="text"
                                  class="time-input"
                                  value="00">
@@ -274,7 +275,7 @@
             <tr>
               <td>{{ ++$i }}</td>
               <td>{{ $category->category_name }}</td>
-              <td class="text-center"><input data-multiply-by="{{ $category->UOP }}" type="text" id="{{ $i }}" class="multi-field"></td>
+              <td class="text-center"><input name="quantity-{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" id="{{ $i }}" class="multi-field"></td>
               <td name="">
                 <span></span>
                 <input type="hidden" class="total-uop" name="total-uop-{{$i}}" value=""/>
@@ -312,8 +313,8 @@
             <tr>
               <td>{{ ++$j }}</td>
               <td>{{ $category->category_name }}</td>
-              <td class="text-center"><input type="text" name=""></td>
-              <td><input type="text" name=""></td>
+              <td class="text-center"><input type="text" name="quantity-a-{{$j}}"></td>
+              <td><input type="text" name="total-uop-a-{{$j}}"></td>
             </tr>
           @endforeach
           </table>
@@ -322,11 +323,12 @@
             <input id="filebtn" class="uploadfile" type="file" name="files" data-multiple-caption="{count} files selected" multiple />
             <label for="filebtn">Choose file</label>
           </div>
-          <button type="button" class="btn-sumit">Done</button>
+          <button type="submit" class="btn-sumit">Done</button>
         </div>
       </div>
     </div>
-
+  </div>
+</form>
 
   </body>
 </html>

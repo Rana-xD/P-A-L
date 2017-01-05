@@ -104,3 +104,4 @@ Route::get('budget',function(){
 
 Route::get('kpi','System@kpi');
 Route::post('task','login@task');
+Route::post('kpi-data','System@kpiData');
