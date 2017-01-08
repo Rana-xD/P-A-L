@@ -14,6 +14,26 @@
       	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
       	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     	<![endif]-->
+			<script type="text/javascript">
+				$(function(){
+
+					$('.revenue').change(function(){
+						var revenue = $(this).val();
+
+						var cost = $(this).parent().next().find('.cost').val();
+						var profit = revenue - cost;
+						$(this).parent().next().find('span').html(profit);
+						$(this).parent().next().find('.hidden-profit').val(profit);
+					});
+					// $('.cost').change(function(){
+					// 	var cost = $(this).val();
+					// 	var revenue = $(this).parent().next().find('.revenue').val();
+					//
+					// 	var profit = revenue - cost;
+					// 	var cost = $(this).parent().next().find('.profit').html(profit);
+					// });
+				});
+			</script>
 		<style>
 			table.scroll {
 				border-collapse: collapse;
@@ -177,16 +197,18 @@
 								</tr>
 							</thead>
 							<tbody>
+								@foreach ($area_west as $key)
 								<tr>
-									<td>Location 1</td>
+									<td>{{ $key->location_name }}</td>
 									<td>
-										<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
+										<input type="text" name="" class="cost-profit-input revenue">
 									</td>
 									<td>
-										<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
+										<input type="text" name="" class="cost-profit-input cost">
 									</td>
-									<td>&yen;3,000,000</td>
-									<td>20%</td>
+									<td><span></span>
+									<input type="hidden" class="hidden-profit" name="profit"></td>
+									<td class="profit-rate"></td>
 									<td><input type="text" name="" class="setting-rate-box"> %</td>
 
 									<td>
@@ -235,122 +257,7 @@
 									</td>
 
 								</tr>
-								<tr>
-									<td>Location 2</td>
-									<td>
-										<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-									</td>
-									<td>
-										<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-									</td>
-									<td>&yen;500,000</td>
-									<td>50.00%</td>
-									<td><input type="text" name="" class="setting-rate-box"> %</td>
-
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										15%
-									</td>
-
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										15%
-									</td>
-									<td>
-										&yen;400,000,00
-									</td>
-
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										15%
-									</td>
-									<td>
-										&yen;400,000,00
-									</td>
-
-								</tr>
-								<tr>
-									<td>Location N</td>
-									<td>
-										<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-									</td>
-									<td>
-										<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-									</td>
-									<td>&yen;1,000,000</td>
-									<td>6.67%</td>
-									<td><input type="text" name="" class="setting-rate-box"> %</td>
-
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										15%
-									</td>
-
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										15%
-									</td>
-									<td>
-										&yen;400,000,00
-									</td>
-
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										&yen;3,000,000
-									</td>
-									<td>
-										15%
-									</td>
-									<td>
-										&yen;400,000,00
-									</td>
-
-								</tr>
+								@endforeach
 								<tr>
 									<td>Subtotal</td>
 									<td>&yen;26,000,000</td>

@@ -72,4 +72,31 @@ class System extends Controller
 
         return $output;
     }
+
+    public function budget()
+    {
+      $area_west = DB::table('location_master')
+                    ->select('location_name')
+                    ->where('area_id','=',1)
+                    ->get()
+                    ->all();
+      if(session_status()===PHP_SESSION_NONE){
+         session_start();
+        if($_SESSION['role']=='admin'){
+          return view ('admin.BudgetManagement',compact('area_west'));
+        }
+        else {
+          return view ('manager.BudgetManagement',compact('area_west'));
+        }
+         }
+      elseif (session_status()===PHP_SESSION_ACTIVE)
+      {
+        if($_SESSION['role']=='admin'){
+          return view ('admin.BudgetManagement',compact('area_west'));
+        }
+        else {
+          return view ('manager.BudgetManagement',compact('area_west'));
+        }
+      }
+    }
 }

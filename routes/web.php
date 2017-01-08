@@ -81,27 +81,8 @@ Route::get('time_management', function () {
   }
 });
 
-Route::get('budget',function(){
-  if(session_status()===PHP_SESSION_NONE){
-     session_start();
-    if($_SESSION['role']=='admin'){
-      return view ('admin.BudgetManagement');
-    }
-    else {
-      return view ('manager.BudgetManagement');
-    }
-     }
-  elseif (session_status()===PHP_SESSION_ACTIVE)
-  {
-    if($_SESSION['role']=='admin'){
-      return view ('admin.BudgetManagement');
-    }
-    else {
-      return view ('manager.BudgetManagement');
-    }
-  }
-});
 
+Route::get('budget','System@budget');
 Route::get('kpi','System@kpi');
 Route::post('task','login@task');
 Route::post('kpi-data','System@kpiData');
