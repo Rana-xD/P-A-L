@@ -454,14 +454,12 @@ $(function(){
 
 //
 
-
-$(document).ready(function(){
-  var inputs = $('.multi-field');
-  $(inputs).on('change', function(e) {
-
-    var value = $(this).val();
-    var price = $(this).attr('data-multiply-by');
-    $(this).parent().next().find('span').html('&yen;'+ (value * price));
-    $(this).parent().next().find('.total-uop').val(value * price);
-  });
+$(function(){
+  	var inputs = $('.multi-field');
+	$(inputs).on('change', function(e) {
+	    var value = $(this).val();
+	    var price = $(this).attr('data-multiply-by');
+	    $(this).parent().next().find('span').html('&yen;'+ (value * price));
+	    $(this).parent().next().find('.total-uop').val(value * price);
+	});
 });
