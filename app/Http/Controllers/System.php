@@ -9,11 +9,18 @@ class System extends Controller
 {
     public function kpi()
     {
+        if(session_status()===PHP_SESSION_NONE){
+          session_start();
+          $location = $_SESSION['location'];
+        }
+        elseif (session_status()===PHP_SESSION_ACTIVE) {
+          $location = $_SESSION['location'];
+        }
         $accidents = DB::table('accident_master')->get()->all();
         $categories = DB::table('category_master')
         ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
         ->select('category_master.category_name','unit_price_master.UOP')
-        ->where('unit_price_master.location_id','=', 2)
+        ->where('unit_price_master.location_id','=', $location)
         ->get();
         $i = 0;
         $j = 0;
