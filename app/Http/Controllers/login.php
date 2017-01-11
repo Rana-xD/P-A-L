@@ -26,10 +26,18 @@ class login extends Controller
          {
              return view ('TimeManagementIndividual');
          }
-         else if (($name=="manager") || ($name=="Manager"))
+         else if (($name=="manager_yamanaka") || ($name=="Manager_yamanaka"))
          {
              session_start();
              $_SESSION['role'] = 'manager';
+             $_SESSION['location'] = 2;
+             return view ('manager.TimeManagementLocation');
+         }
+         else if (($name=="manager_tokyo") || ($name=="Manager_tokyo"))
+         {
+             session_start();
+             $_SESSION['role'] = 'manager';
+             $_SESSION['location'] = 1;
              return view ('manager.TimeManagementLocation');
          }
          else if (($name=="admin") || ($name=="Admin")) {
