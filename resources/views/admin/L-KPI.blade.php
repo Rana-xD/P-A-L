@@ -328,7 +328,7 @@
               <tr>
                 <td>{{ ++$j }}</td>
                 <td>{{ $category->category_name }}</td>
-                <td class="text-center"><input type="text" data-pair-id="cate_{{$j}}" class="categ_input" name="quantity-a-{{$j}}"></td>
+                <td class="text-center"><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity-a-{{$j}}"></td>
                 <td><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total-uop-a-{{$j}}"></td>
               </tr>
             @endforeach

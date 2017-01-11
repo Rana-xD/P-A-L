@@ -455,11 +455,44 @@ $(function(){
 //
 
 $(function(){
-  	var inputs = $('.multi-field');
-	$(inputs).on('change', function(e) {
-	    var value = $(this).val();
-	    var price = $(this).attr('data-multiply-by');
-	    $(this).parent().next().find('span').html('&yen;'+ (value * price));
-	    $(this).parent().next().find('.total-uop').val(value * price);
-	});
+  	var inputs = $('.categ_input');
+  	$(inputs).each(function(){
+  		if($(this).hasClass('auto_calc')){
+  			$(this).donetyping(function(){
+
+			    var value = $.trim($(this).val()),
+			    	price = $(this).attr('data-multiply-by');
+			    if(value == ""){
+			    	$('[data-id="'+$(this).attr("data-pair-id")+'"]').prop('disabled', false);
+			    	$(this).parent().next().find('span').html('').next().val('');
+			    }else{
+			    	$('[data-id="'+$(this).attr("data-pair-id")+'"]').prop('disabled', true);
+			    	$(this).parent().next().find('span').html('&yen;'+ (value * price));
+			    	$(this).parent().next().find('.total-uop').val(value * price);
+			    }
+			    
+			}, 500);
+  		}else{
+  			$(this).donetyping(function(){
+  				var value = $.trim($(this).val());
+  				if(!value == ""){
+  					$('[data-id="'+$(this).attr("data-pair-id")+'"]').prop('disabled', true);
+  				}else{
+  					var bro = $(this).parents('tr').find('[data-id="'+$(this).attr("data-id")+'"]').not(this);
+  					console.log(bro);
+  					if(bro.val() == ""){
+  						$('[data-id="'+$(this).attr("data-pair-id")+'"]').prop('disabled', false);
+  					}else{
+  						$('[data-id="'+$(this).attr("data-pair-id")+'"]').prop('disabled', true);
+  					}
+  				}
+  			}, 500);
+  		}
+  	});
+
+	
+});
+
+$(function(){
+
 });
