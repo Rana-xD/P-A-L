@@ -26,14 +26,15 @@ class System extends Controller
         $i = 0;
         $j = 0;
         $flag = 0;
+        $error = 0;
         if(session_status()===PHP_SESSION_NONE){
              session_start();
 
-              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag'));
+              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
              }
           elseif (session_status()===PHP_SESSION_ACTIVE)
           {
-            return view ('manager.L-KPI',compact('accidents','categories','i','j','flag'));
+            return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
           }
     }
     public function kpiData(Request $request)
@@ -49,6 +50,26 @@ class System extends Controller
          if ($location == 1)
          {
              $date = $request->date;
+
+             //convert string date into milisecond
+             $date_mini = strtotime($date);
+             $current_date_mini = strtotime($request->current_date);
+
+             //check if user try to input data in advance date
+             if($date_mini > $current_date_mini)
+             {
+                 $accidents = DB::table('accident_master')->get()->all();
+                 $categories = DB::table('category_master')
+                 ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
+                 ->select('category_master.category_name','unit_price_master.UOP')
+                 ->where('unit_price_master.location_id','=', $location)
+                 ->get();
+                 $i = 0;
+                 $j = 0;
+                 $flag = 0;
+                 $error = 1;
+                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
+             }
              // filter time input
              $stop_hour_1 = $request->input('stop_hour_1');
              $stop_minute_1 = $request->input('stop_minute_1');
@@ -67,7 +88,7 @@ class System extends Controller
 
              // filter only tasks data input
              $data = $request->except(['_token','stop_hour_1','stop_hour_2','stop_hour_3','stop_hour_4','stop_minute_1','stop_minute_2','stop_minute_3','stop_minute_4','files']);
-
+             // check whether data come from first part or second part
              if(empty($data['quantity-1']))
              {
                  $output['category-1'] = $data['category-1'];
@@ -137,7 +158,19 @@ class System extends Controller
                  $output['total-uop-5'] = (int)$data['total-uop-5'];
                  $output['tag-5'] = 1;
              }
-
+             for ($i=1; $i < 6; $i++) {
+                 $output['accident-'.$i] = $data['accident-'.$i];
+                 $output['quantity-buy-'.$i] = $data['quantity-buy-'.$i];
+             }
+             // insert data to accident table
+             for ($i=1; $i < 6; $i++) {
+                 $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
+                 $id = $result[0]->id;
+                 DB::table('accident')->insert(
+                   ['location' => $location, 'date' => $date, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
+                 );
+             }
+            // insert data to daily progress table
             for ($i=1; $i < 6; $i++) {
                 $result = DB::table('category_master')->where('category_name','=', $output['category-'.$i])->select('category_id')->get();
                 $id = $result[0]->category_id;
@@ -145,6 +178,8 @@ class System extends Controller
                     ['location' => $location, 'date' => $date, 'category' => $id, 'quantity' => $output['quantity-'.$i], 'price' => $output['total-uop-'.$i], 'tag' => $output['tag-'.$i], 'created_at' => new DateTime]
                 );
             }
+
+            // return to L-KPI page and notify that it is done
             $accidents = DB::table('accident_master')->get()->all();
             $categories = DB::table('category_master')
             ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
@@ -154,7 +189,8 @@ class System extends Controller
             $i = 0;
             $j = 0;
             $flag = 1;
-            return view ('manager.L-KPI',compact('accidents','categories','i','j','flag'));
+            $error = 0;
+            return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
 
              // assign new time
             //  $output['stop_time_1'] = $stop_time_1;
@@ -167,6 +203,26 @@ class System extends Controller
          elseif ($location == 2) {
 
              $date = $request->date;
+
+             //convert string date into milisecond
+             $date_mini = strtotime($date);
+             $current_date_mini = strtotime($request->current_date);
+
+             //check if user try to input data in advance date
+             if($date_mini > $current_date_mini)
+             {
+                 $accidents = DB::table('accident_master')->get()->all();
+                 $categories = DB::table('category_master')
+                 ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
+                 ->select('category_master.category_name','unit_price_master.UOP')
+                 ->where('unit_price_master.location_id','=', $location)
+                 ->get();
+                 $i = 0;
+                 $j = 0;
+                 $flag = 0;
+                 $error = 1;
+                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
+             }
              // filter time input
              $stop_hour_1 = $request->input('stop_hour_1');
              $stop_minute_1 = $request->input('stop_minute_1');
@@ -186,6 +242,7 @@ class System extends Controller
              // filter only tasks data input
              $data = $request->except(['_token','stop_hour_1','stop_hour_2','stop_hour_3','stop_hour_4','stop_minute_1','stop_minute_2','stop_minute_3','stop_minute_4','files']);
 
+             // check whether data come from first part or second part
              if(empty($data['quantity-1']))
              {
                  $output['category-1'] = $data['category-1'];
@@ -378,6 +435,20 @@ class System extends Controller
                  $output['total-uop-14'] = (int)$data['total-uop-14'];
                  $output['tag-14'] = 1;
              }
+
+             for ($i=1; $i < 6; $i++) {
+                 $output['accident-'.$i] = $data['accident-'.$i];
+                 $output['quantity-buy-'.$i] = $data['quantity-buy-'.$i];
+             }
+             // insert data to accident table
+             for ($i=1; $i < 6; $i++) {
+                 $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
+                 $id = $result[0]->id;
+                 DB::table('accident')->insert(
+                   ['location' => $location, 'date' => $date, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
+                 );
+             }
+             // insert data to daily progress table
              for ($i=1; $i < 15; $i++) {
                  $result = DB::table('category_master')->where('category_name','=', $output['category-'.$i])->select('category_id')->get();
                  $id = $result[0]->category_id;
@@ -385,6 +456,7 @@ class System extends Controller
                      ['location' => $location, 'date' => $date, 'category' => $id, 'quantity' => $output['quantity-'.$i], 'price' => $output['total-uop-'.$i], 'tag' => $output['tag-'.$i], 'created_at' => new DateTime]
                  );
              }
+             // return to L-KPI page and notify that it is done
              $accidents = DB::table('accident_master')->get()->all();
              $categories = DB::table('category_master')
              ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
@@ -394,7 +466,8 @@ class System extends Controller
              $i = 0;
              $j = 0;
              $flag = 1;
-             return view ('manager.L-KPI',compact('accidents','categories','i','j','flag'));
+             $error = 0;
+             return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
 
 
 

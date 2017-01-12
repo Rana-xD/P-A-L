@@ -19,9 +19,29 @@
       var flag = @php
         echo $flag;
       @endphp;
+      var error = @php
+        echo $error;
+      @endphp;
       if (flag==1) {
       swal("Done!", "Data have been inserted!", "success")
       }
+      if (error==1)
+      {
+        swal("Oops...", "You cannot input data in advance date!!", "error")
+      }
+      var n =  new Date();
+      var y = n.getFullYear();
+      var m = n.getMonth() + 1;
+      var d = n.getDate();
+      if(m <10)
+      {
+        m = '0' + m;
+      }
+      if(d < 10)
+      {
+        d = '0' + d;
+      }
+      $('#current_date').val(m + "/" + d + "/" + y);
     });
   </script>
   <!--[if lt IE 9]>
@@ -288,6 +308,7 @@
             Select date :
           </h4>
           <input type="text" name="date" class="datepicker">
+          <input type="hidden" name="current_date" id="current_date">
         </div>
         <div class="table-container">
 
@@ -322,8 +343,9 @@
             @foreach ($accidents as $accident)
               <tr>
                 <td>{{ $accident->id }}</td>
-                <td>{{ $accident->accident_type }}</td>
-                <td class="text-center"><input type="text" name=""></td>
+                <td>{{ $accident->accident_type }}
+                <input type="hidden" name="accident-{{ $accident->id }}" value="{{ $accident->accident_type }}"></td>
+                <td class="text-center"><input type="text" name="quantity-buy-{{ $accident->id }}"></td>
                 <td style="border-left: none;"></td>
               </tr>
             @endforeach
