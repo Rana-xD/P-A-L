@@ -59,6 +59,7 @@ class login extends Controller
         $stop_minute = $request->input('stop_minute');
         $total = $stop_hour - $start_hour;
 
+
         // cocatenate hour with minute
         $start_time = $start_hour.':'.$start_minute;
         $stop_time = $stop_hour.':'.$stop_minute;

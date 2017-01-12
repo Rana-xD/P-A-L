@@ -289,7 +289,8 @@
             @foreach ($categories as $category)
               <tr>
                 <td>{{ ++$i }}</td>
-                <td>{{ $category->category_name }}</td>
+                <td>{{ $category->category_name }}
+                <input type="hidden" name="category-{{ $i }}" value="{{ $category->category_name }}"/></td>
                 <td class="text-center"><input name="quantity-{{$i}}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc"></td>
                 <td name="">
                   <span></span>

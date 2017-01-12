@@ -29,7 +29,7 @@
 
 							$(this).parents('tr').find('.profit span').html('&yen;' + profit);
 							$(this).parents('tr').find('.profit .hidden-profit').val(profit);
-							
+
 							$(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
 							$(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
 
@@ -43,17 +43,17 @@
 							console.log(revenue+":"+cost+":"+profit+":"+profitRate);
 							$(this).parents('tr').find('.profit span').html('&yen;' + profit);
 							$(this).parents('tr').find('.profit .hidden-profit').val(profit);
-							
+
 							$(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
 							$(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
 
 							// Calulate subtotal
 							calcSubTotal($(this));
 						}
-		
-	
+
+
 					}, 500);
-					
+
 					// Calculate subtotal
 					function calcSubTotal(ele){
 						var subDiv = $(ele).parents('tbody').find('tr.subtotal'),
@@ -62,29 +62,29 @@
 							profit=0,
 							profitRate=0;
 						$(ele).parents('tbody').find('.revenue, .cost, .hidden-profit, .hidden-profit-rate').each(function(){
-							
+
 							// Found Revenue input
 							if($(this).hasClass('revenue')){
 								sale = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(sale)) : parseFloat(sale);
-								
+
 							}
 
 							// Found cost input
 							else if($(this).hasClass('cost')){
 								cost = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(cost)) : parseFloat(cost);
-								
+
 							}
 
 							// Found hidden-profit input
 							else if($(this).hasClass('hidden-profit')){
 								profit = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(profit)) : parseFloat(profit);
-								
+
 							}
 
 							// Found profit rate input
 							else{
 								profitRate = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(profitRate)) : parseFloat(profitRate);
-								
+
 							}
 						});
 
@@ -94,7 +94,7 @@
 						$(subDiv).find('.sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
 
 					}
-				
+
 				});
 			</script>
 		<style>
@@ -173,7 +173,7 @@
                 <ul>
                     <li><a href="/time_management">Time Management</a></li>
 										<li><a href="budget">Budget Management</a></li>
-										<li><a href="kpi">L-KPI</a></li>
+										{{-- <li><a href="kpi">L-KPI</a></li> --}}
                     <li><a href="work">Shift Table</a></li>
                 </ul>
             </nav>
