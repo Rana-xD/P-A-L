@@ -183,7 +183,7 @@ class System extends Controller
                  $output['total-uop-5'] = (int)$data['total-uop-5'];
                  $output['tag-5'] = 1;
              }
-
+             return "hello";
              for ($i=1; $i < 6; $i++) {
                  $output['accident-'.$i] = $data['accident-'.$i];
                  $output['quantity-buy-'.$i] = $data['quantity-buy-'.$i];
