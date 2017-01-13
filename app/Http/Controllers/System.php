@@ -70,9 +70,6 @@ class System extends Controller
               $date = 1;
               return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
          }
-
-
-
              $date = $request->date;
 
              //convert string date into milisecond
@@ -95,6 +92,7 @@ class System extends Controller
                  $date = 0;
                  return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
              }
+             //convert date into mysql format
              $date_1  = DateTime::createFromFormat('m/d/Y', $date);
              $newdate = $date_1->format('Y-m-d');
 
@@ -275,7 +273,7 @@ class System extends Controller
                  $date = 0;
                  return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
              }
-
+             //convert date into mysql format
              $date_1  = DateTime::createFromFormat('m/d/Y', $date);
              $newdate = $date_1->format('Y-m-d');
 
