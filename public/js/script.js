@@ -70,33 +70,31 @@ $(function(){
 		}
 		var mama = $(this).parent();
 
-		delay(function(){
-
-			// If parent of input is hour
-			if($(mama).hasClass('hour')){
-				if(!isMinMax(parseInt(val), 6, 36)){
-					$(this).val('06');
-					notify('004');
-					return;
-				}else{
-					appendTask();
-					return;
-				}
+		// If parent of input is hour
+		if($(mama).hasClass('hour')){
+			if(!isMinMax(parseInt(val), 6, 36)){
+				$(this).val('06');
+				notify('004');
+				return;
+			}else{
+				appendTask();
+				return;
 			}
+		}
 
-			// If parent is minute input
-			if($(mama).hasClass('minute')){
-				if(!isMinMax(val, 0, 59)){
-					$(this).val('00');
-					notify('005');
-					return;
-				}
-				else{
-					return;
-				}
+		// If parent is minute input
+		if($(mama).hasClass('minute')){
+			if(!isMinMax(val, 0, 59)){
+				$(this).val('00');
+				notify('005');
+				return;
 			}
+			else{
+				return;
+			}
+		}
 
-		},200);
+		
 
 	}, 700);
 
