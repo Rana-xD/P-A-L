@@ -97,7 +97,7 @@ class System extends Controller
              }
              $date_1  = DateTime::createFromFormat('m/d/Y', $date);
              $newdate = $date_1->format('Y-d-m');
-             return $newdate;
+    
              // filter time input
              $stop_hour_1 = $request->input('stop_hour_1');
              $stop_minute_1 = $request->input('stop_minute_1');
