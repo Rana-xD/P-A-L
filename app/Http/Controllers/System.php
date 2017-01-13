@@ -189,14 +189,24 @@ class System extends Controller
                  $output['quantity-buy-'.$i] = $data['quantity-buy-'.$i];
              }
              // insert data to accident table
-             for ($i=1; $i < 6; $i++) {
-                 $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
-                 $id = $result[0]->id;
-                 DB::table('accident')->insert(
-                   ['location' => $location, 'date' => $date, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
-                 );
+             DB::beginTransaction();
+             try{
+                 for ($i=1; $i < 6; $i++) {
+                     $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
+                     $id = $result[0]->id;
+                     DB::table('accident')->insert(
+                       ['location' => $location, 'date' => $date, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
+                     );
+                 }
              }
-             return "hello";
+             catch(\Exception $e)
+             {
+                //  DB::rollback();
+                 $error = $e->getMessage();
+                 return $error;
+      }
+
+
             // insert data to daily progress table
             for ($i=1; $i < 6; $i++) {
                 $result = DB::table('category_master')->where('category_name','=', $output['category-'.$i])->select('category_id')->get();
