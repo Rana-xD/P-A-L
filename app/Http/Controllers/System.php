@@ -183,7 +183,7 @@ class System extends Controller
                  $output['total-uop-5'] = (int)$data['total-uop-5'];
                  $output['tag-5'] = 1;
              }
-             return "hello";
+
              for ($i=1; $i < 6; $i++) {
                  $output['accident-'.$i] = $data['accident-'.$i];
                  $output['quantity-buy-'.$i] = $data['quantity-buy-'.$i];
@@ -196,6 +196,7 @@ class System extends Controller
                    ['location' => $location, 'date' => $date, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
                  );
              }
+             return "hello";
             // insert data to daily progress table
             for ($i=1; $i < 6; $i++) {
                 $result = DB::table('category_master')->where('category_name','=', $output['category-'.$i])->select('category_id')->get();
