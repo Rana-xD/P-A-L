@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DailyProgress extends Migration
+class DailyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,6 +21,7 @@ class DailyProgress extends Migration
           $table->integer('category');
           $table->integer('quantity');
           $table->integer('price');
+          $table->tinyInteger('tag');
           $table->timestamps();
         });
     }
