@@ -96,8 +96,8 @@ class System extends Controller
                  return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
              }
              $date_1  = DateTime::createFromFormat('m/d/Y', $date);
-             $newdate = $date_1->format('Y-d-m');
-    
+             $newdate = $date_1->format('Y-m-d');
+
              // filter time input
              $stop_hour_1 = $request->input('stop_hour_1');
              $stop_minute_1 = $request->input('stop_minute_1');
