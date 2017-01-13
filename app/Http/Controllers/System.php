@@ -95,6 +95,9 @@ class System extends Controller
                  $date = 0;
                  return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
              }
+             $date_1  = DateTime::createFromFormat('m/d/Y', $date);
+             $newdate = $date_1->format('Y-d-m');
+             return $newdate;
              // filter time input
              $stop_hour_1 = $request->input('stop_hour_1');
              $stop_minute_1 = $request->input('stop_minute_1');
@@ -195,7 +198,7 @@ class System extends Controller
                      $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
                      $id = $result[0]->id;
                      DB::table('accident')->insert(
-                       ['location' => $location, 'date' => $date, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
+                       ['location' => $location, 'date' => $newdate, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
                      );
                  }
              }
@@ -212,12 +215,12 @@ class System extends Controller
                 $result = DB::table('category_master')->where('category_name','=', $output['category-'.$i])->select('category_id')->get();
                 $id = $result[0]->category_id;
                 DB::table('daily_progress')->insert(
-                    ['location' => $location, 'date' => $date, 'category' => $id, 'quantity' => $output['quantity-'.$i], 'price' => $output['total-uop-'.$i], 'tag' => $output['tag-'.$i], 'created_at' => new DateTime]
+                    ['location' => $location, 'date' => $newdate, 'category' => $id, 'quantity' => $output['quantity-'.$i], 'price' => $output['total-uop-'.$i], 'tag' => $output['tag-'.$i], 'created_at' => new DateTime]
                 );
             }
             //add end time to endtime table
             DB::table('endtime')->insert(
-                    ['location' => $location, 'date' => $date, 'end_time_1' => $stop_time_1, 'end_time_2' => $stop_time_2,'end_time_3' => $stop_time_3, 'end_time_4' => $stop_time_4, 'created_at' => new DateTime]
+                    ['location' => $location, 'date' => $newdate, 'end_time_1' => $stop_time_1, 'end_time_2' => $stop_time_2,'end_time_3' => $stop_time_3, 'end_time_4' => $stop_time_4, 'created_at' => new DateTime]
             );
 
             // return to L-KPI page and notify that it is done
