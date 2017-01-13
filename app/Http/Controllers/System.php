@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use DateTime;
+use Validator;
 
 class System extends Controller
 {
@@ -27,14 +28,15 @@ class System extends Controller
         $j = 0;
         $flag = 0;
         $error = 0;
+        $date = 0;
         if(session_status()===PHP_SESSION_NONE){
              session_start();
 
-              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
+              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
              }
           elseif (session_status()===PHP_SESSION_ACTIVE)
           {
-            return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
+            return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
           }
     }
     public function kpiData(Request $request)
@@ -49,6 +51,28 @@ class System extends Controller
          }
          if ($location == 1)
          {
+             $validator = Validator::make($request->all(), [
+             'date' => 'required',
+             ]);
+
+
+         if ($validator->fails()) {
+             $accidents = DB::table('accident_master')->get()->all();
+              $categories = DB::table('category_master')
+              ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
+              ->select('category_master.category_name','unit_price_master.UOP')
+              ->where('unit_price_master.location_id','=', $location)
+              ->get();
+              $i = 0;
+              $j = 0;
+              $flag = 0;
+              $error = 0;
+              $date = 1;
+              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
+         }
+
+
+
              $date = $request->date;
 
              //convert string date into milisecond
@@ -68,7 +92,8 @@ class System extends Controller
                  $j = 0;
                  $flag = 0;
                  $error = 1;
-                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
+                 $date = 0;
+                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
              }
              // filter time input
              $stop_hour_1 = $request->input('stop_hour_1');
@@ -158,6 +183,7 @@ class System extends Controller
                  $output['total-uop-5'] = (int)$data['total-uop-5'];
                  $output['tag-5'] = 1;
              }
+
              for ($i=1; $i < 6; $i++) {
                  $output['accident-'.$i] = $data['accident-'.$i];
                  $output['quantity-buy-'.$i] = $data['quantity-buy-'.$i];
@@ -178,6 +204,10 @@ class System extends Controller
                     ['location' => $location, 'date' => $date, 'category' => $id, 'quantity' => $output['quantity-'.$i], 'price' => $output['total-uop-'.$i], 'tag' => $output['tag-'.$i], 'created_at' => new DateTime]
                 );
             }
+            //add end time to endtime table
+            DB::table('endtime')->insert(
+                    ['location' => $location, 'date' => $date, 'end_time_1' => $stop_time_1, 'end_time_2' => $stop_time_2,'end_time_3' => $stop_time_3, 'end_time_4' => $stop_time_4, 'created_at' => new DateTime]
+            );
 
             // return to L-KPI page and notify that it is done
             $accidents = DB::table('accident_master')->get()->all();
@@ -190,17 +220,31 @@ class System extends Controller
             $j = 0;
             $flag = 1;
             $error = 0;
-            return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
-
-             // assign new time
-            //  $output['stop_time_1'] = $stop_time_1;
-            //  $output['stop_time_2'] = $stop_time_2;
-            //  $output['stop_time_3'] = $stop_time_3;
-            //  $output['stop_time_4'] = $stop_time_4;
-
+            $date = 0;
+            return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
 
          }
          elseif ($location == 2) {
+
+             $validator = Validator::make($request->all(), [
+             'date' => 'required',
+             ]);
+
+
+         if ($validator->fails()) {
+             $accidents = DB::table('accident_master')->get()->all();
+              $categories = DB::table('category_master')
+              ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
+              ->select('category_master.category_name','unit_price_master.UOP')
+              ->where('unit_price_master.location_id','=', $location)
+              ->get();
+              $i = 0;
+              $j = 0;
+              $flag = 0;
+              $error = 0;
+              $date = 1;
+              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
+         }
 
              $date = $request->date;
 
@@ -221,7 +265,8 @@ class System extends Controller
                  $j = 0;
                  $flag = 0;
                  $error = 1;
-                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
+                 $date = 0;
+                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
              }
              // filter time input
              $stop_hour_1 = $request->input('stop_hour_1');
@@ -456,6 +501,11 @@ class System extends Controller
                      ['location' => $location, 'date' => $date, 'category' => $id, 'quantity' => $output['quantity-'.$i], 'price' => $output['total-uop-'.$i], 'tag' => $output['tag-'.$i], 'created_at' => new DateTime]
                  );
              }
+             // insert end time to endtime table
+             DB::table('endtime')->insert(
+                     ['location' => $location, 'date' => $date, 'end_time_1' => $stop_time_1, 'end_time_2' => $stop_time_2,'end_time_3' => $stop_time_3, 'end_time_4' => $stop_time_4, 'created_at' => new DateTime]
+             );
+
              // return to L-KPI page and notify that it is done
              $accidents = DB::table('accident_master')->get()->all();
              $categories = DB::table('category_master')
@@ -467,15 +517,8 @@ class System extends Controller
              $j = 0;
              $flag = 1;
              $error = 0;
-             return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error'));
-
-
-
-             // assign new time
-            //  $output['stop_time_1'] = $stop_time_1;
-            //  $output['stop_time_2'] = $stop_time_2;
-            //  $output['stop_time_3'] = $stop_time_3;
-            //  $output['stop_time_4'] = $stop_time_4;
+             $date = 0;
+             return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
 
 
          }

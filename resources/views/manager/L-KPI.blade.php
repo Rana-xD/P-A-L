@@ -22,12 +22,19 @@
       var error = @php
         echo $error;
       @endphp;
+      var date = @php
+        echo $date;
+      @endphp;
       if (flag==1) {
       swal("Done!", "Data have been inserted!", "success")
       }
       if (error==1)
       {
         swal("Oops...", "You cannot input data in advance date!!", "error")
+      }
+      if (date==1)
+      {
+        swal("Oops...", "Please input the date", "error")
       }
       var n =  new Date();
       var y = n.getFullYear();
@@ -192,7 +199,7 @@
                         <input name="stop_hour_2"
                                type="text"
                                class="time-input"
-                               value="06">
+                               value="24">
                         <span class="decrease decreaseHour">
                             <i class="fa fa-minus"></i>
                         </span>
@@ -235,7 +242,7 @@
                         <input name="stop_hour_3"
                                type="text"
                                class="time-input"
-                               value="06">
+                               value="30">
                         <span class="decrease decreaseHour">
                             <i class="fa fa-minus"></i>
                         </span>
@@ -278,7 +285,7 @@
                         <input name="stop_hour_4"
                                type="text"
                                class="time-input"
-                               value="06">
+                               value="30">
                         <span class="decrease decreaseHour">
                             <i class="fa fa-minus"></i>
                         </span>
