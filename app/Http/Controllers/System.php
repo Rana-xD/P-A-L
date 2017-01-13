@@ -192,8 +192,6 @@ class System extends Controller
                  $output['quantity-buy-'.$i] = (int)$data['quantity-buy-'.$i];
              }
              // insert data to accident table
-             DB::beginTransaction();
-             try{
                  for ($i=1; $i < 6; $i++) {
                      $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
                      $id = $result[0]->id;
@@ -201,13 +199,8 @@ class System extends Controller
                        ['location' => $location, 'date' => $newdate, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
                      );
                  }
-             }
-             catch(\Exception $e)
-             {
-                //  DB::rollback();
-                 $error = $e->getMessage();
-                 return $error;
-      }
+
+
 
 
             // insert data to daily progress table
@@ -282,6 +275,10 @@ class System extends Controller
                  $date = 0;
                  return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
              }
+
+             $date_1  = DateTime::createFromFormat('m/d/Y', $date);
+             $newdate = $date_1->format('Y-m-d');
+
              // filter time input
              $stop_hour_1 = $request->input('stop_hour_1');
              $stop_minute_1 = $request->input('stop_minute_1');
@@ -497,14 +494,14 @@ class System extends Controller
 
              for ($i=1; $i < 6; $i++) {
                  $output['accident-'.$i] = $data['accident-'.$i];
-                 $output['quantity-buy-'.$i] = $data['quantity-buy-'.$i];
+                 $output['quantity-buy-'.$i] = (int)$data['quantity-buy-'.$i];
              }
              // insert data to accident table
              for ($i=1; $i < 6; $i++) {
                  $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
                  $id = $result[0]->id;
                  DB::table('accident')->insert(
-                   ['location' => $location, 'date' => $date, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
+                   ['location' => $location, 'date' => $newdate, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
                  );
              }
              // insert data to daily progress table
@@ -512,12 +509,12 @@ class System extends Controller
                  $result = DB::table('category_master')->where('category_name','=', $output['category-'.$i])->select('category_id')->get();
                  $id = $result[0]->category_id;
                  DB::table('daily_progress')->insert(
-                     ['location' => $location, 'date' => $date, 'category' => $id, 'quantity' => $output['quantity-'.$i], 'price' => $output['total-uop-'.$i], 'tag' => $output['tag-'.$i], 'created_at' => new DateTime]
+                     ['location' => $location, 'date' => $newdate, 'category' => $id, 'quantity' => $output['quantity-'.$i], 'price' => $output['total-uop-'.$i], 'tag' => $output['tag-'.$i], 'created_at' => new DateTime]
                  );
              }
              // insert end time to endtime table
              DB::table('endtime')->insert(
-                     ['location' => $location, 'date' => $date, 'end_time_1' => $stop_time_1, 'end_time_2' => $stop_time_2,'end_time_3' => $stop_time_3, 'end_time_4' => $stop_time_4, 'created_at' => new DateTime]
+                     ['location' => $location, 'date' => $newdate, 'end_time_1' => $stop_time_1, 'end_time_2' => $stop_time_2,'end_time_3' => $stop_time_3, 'end_time_4' => $stop_time_4, 'created_at' => new DateTime]
              );
 
              // return to L-KPI page and notify that it is done
