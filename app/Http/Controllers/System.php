@@ -189,7 +189,7 @@ class System extends Controller
 
              for ($i=1; $i < 6; $i++) {
                  $output['accident-'.$i] = $data['accident-'.$i];
-                 $output['quantity-buy-'.$i] = $data['quantity-buy-'.$i];
+                 $output['quantity-buy-'.$i] = (int)$data['quantity-buy-'.$i];
              }
              // insert data to accident table
              DB::beginTransaction();
