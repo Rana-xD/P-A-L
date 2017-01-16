@@ -96,6 +96,20 @@
 					}
 
 				});
+				$(document).ready(function() {
+					$('#month').on('change', function (e) {
+
+					var optionSelected = $("option:selected", this);
+					var valueSelected = this.value;
+					$('#month_a').val(valueSelected);
+					});
+					$('#year').on('change', function (e) {
+
+					var optionSelected = $("option:selected", this);
+					var valueSelected = this.value;
+					$('#year_a').val(valueSelected);
+					});
+				});
 			</script>
 		<style>
 			table.scroll {
@@ -182,9 +196,11 @@
 		</div>
 		<div class="page-content">
 			<div class="container">
+				<form action="budget-admin-date" method="POST">
+					{{ csrf_field() }}
 				<div style="margin-top: 20px">
 					<label for="month">Select a month</label>
-					<select id="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
+					<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
 						<option value="" selected hidden></option>
 						<option value="1">JANUARY</option>
 						<option value="2">FEBRAURY</option>
@@ -211,10 +227,15 @@
 							}
 						@endphp
 					</select>
+					<button type="submit" class="btn-sumit">Done</button>
 				</div>
+				</form>
 				</br>
 				<hr>
-
+				<form action="budget-admin" method="POST">
+					{{ csrf_field() }}
+					<input type="hidden" name="month_a" id="month_a">
+					<input type="hidden" name="year_a" id="year_a">
 				<div class="tables-content">
 
 					<div class="indi-area">
@@ -262,23 +283,24 @@
 							<tbody>
 								@foreach ($area_west as $key)
 								<tr class="record">
-									<td>{{ $key->location_name }}</td>
+									<td>{{ $key->location_name }}
+									<input type="hidden" name="area_west_location_{{ ++$j }}" value="{{ $key->location_name }}"></td>
 									<td>
-										<input type="text" value="" name="revenue" class="revenue-profit-input revenue">
+										<input type="text" value="" name="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue">
 									</td>
 									<td>
-										<input type="text" value="" name="cost" class="cost-profit-input cost">
+										<input type="text" value="" name="area_west_cost_{{ $j }}" class="cost-profit-input cost">
 									</td>
 									<td class="profit">
 										<span></span>
-										<input type="hidden" class="hidden-profit" name="profit">
+										<input type="hidden" class="hidden-profit" name="area_west_profit_{{ $j }}">
 									</td>
 									<td class="profit-rate">
 										<span></span>
-										<input type="hidden" class="hidden-profit-rate" name="profitRate">
+										<input type="hidden" class="hidden-profit-rate" name="area_west_profitRate_{{ $j }}">
 									</td>
 									<td>
-										<input type="text" name="settingRate" class="setting-rate-box"> %
+										<input type="text" name="area_west_settingRate_{{ $j }}" class="setting-rate-box"> %
 									</td>
 
 									<td>
@@ -396,25 +418,26 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach ($area_west as $key)
+								@foreach ($area_central as $key)
 								<tr class="record">
-									<td>{{ $key->location_name }}</td>
+									<td>{{ $key->location_name }}
+									<input type="hidden" name="area_central_location_{{ ++$l }}" value="{{ $key->location_name }}"></td>
 									<td>
-										<input type="text" value="" name="revenue" class="revenue-profit-input revenue">
+										<input type="text" value="" name="area_central_revenue_{{ $l }}" class="revenue-profit-input revenue">
 									</td>
 									<td>
-										<input type="text" value="" name="cost" class="cost-profit-input cost">
+										<input type="text" value="" name="area_central_cost_{{ $l }}" class="cost-profit-input cost">
 									</td>
 									<td class="profit">
 										<span></span>
-										<input type="hidden" class="hidden-profit" name="profit">
+										<input type="hidden" class="hidden-profit" name="area_central_profit_{{ $l }}">
 									</td>
 									<td class="profit-rate">
 										<span></span>
-										<input type="hidden" class="hidden-profit-rate" name="profitRate">
+										<input type="hidden" class="hidden-profit-rate" name="area_central_profitRate_{{ $l }}">
 									</td>
 									<td>
-										<input type="text" name="settingRate" class="setting-rate-box"> %
+										<input type="text" name="area_central_settingRate_{{ $l }}" class="setting-rate-box"> %
 									</td>
 
 									<td>
@@ -532,25 +555,26 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach ($area_west as $key)
+								@foreach ($area_east as $key)
 								<tr class="record">
-									<td>{{ $key->location_name }}</td>
+									<td>{{ $key->location_name }}
+									<input type="hidden" name="area_east_location_{{ ++$k }}" value="{{ $key->location_name }}"></td>
 									<td>
-										<input type="text" value="" name="revenue" class="revenue-profit-input revenue">
+										<input type="text" value="" name="area_east_revenue_{{ $k }}" class="revenue-profit-input revenue">
 									</td>
 									<td>
-										<input type="text" value="" name="cost" class="cost-profit-input cost">
+										<input type="text" value="" name="area_east_cost_{{ $k }}" class="cost-profit-input cost">
 									</td>
 									<td class="profit">
 										<span></span>
-										<input type="hidden" class="hidden-profit" name="profit">
+										<input type="hidden" class="hidden-profit" name="area_east_profit_{{ $k }}">
 									</td>
 									<td class="profit-rate">
 										<span></span>
-										<input type="hidden" class="hidden-profit-rate" name="profitRate">
+										<input type="hidden" class="hidden-profit-rate" name="area_east_profitRate_{{ $k }}">
 									</td>
 									<td>
-										<input type="text" name="settingRate" class="setting-rate-box"> %
+										<input type="text" name="area_east_settingRate_{{ $k }}" class="setting-rate-box"> %
 									</td>
 
 									<td>
@@ -639,8 +663,11 @@
 							</tbody>
 						</table>
 					</div>
+					<div class="submit-row">
+            <button type="submit" class="btn-sumit">Done</button>
+          </div>
 				</div>
-
+				</form>
 			</div>
 		</div>
 

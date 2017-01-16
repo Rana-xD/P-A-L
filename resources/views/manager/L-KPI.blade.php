@@ -330,11 +330,11 @@
               <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $category->category_name }}
-                <input type="hidden" name="category-{{ $i }}" value="{{ $category->category_name }}"/></td>
-                <td class="text-center"><input name="quantity-{{$i}}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc"></td>
+                <input type="hidden" name="category_{{ $i }}" value="{{ $category->category_name }}"/></td>
+                <td class="text-center"><input name="quantity_{{$i}}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc"></td>
                 <td name="">
                   <span></span>
-                  <input type="hidden" class="total-uop" name="total-uop-{{$i}}" value=""/>
+                  <input type="hidden" class="total-uop" name="total_uop_{{$i}}" value=""/>
                 </td>
               </tr>
             @endforeach
@@ -351,8 +351,8 @@
               <tr>
                 <td>{{ $accident->id }}</td>
                 <td>{{ $accident->accident_type }}
-                <input type="hidden" name="accident-{{ $accident->id }}" value="{{ $accident->accident_type }}"></td>
-                <td class="text-center"><input type="text" name="quantity-buy-{{ $accident->id }}"></td>
+                <input type="hidden" name="accident_{{ $accident->id }}" value="{{ $accident->accident_type }}"></td>
+                <td class="text-center"><input type="text" name="quantity_buy_{{ $accident->id }}"></td>
                 <td style="border-left: none;"></td>
               </tr>
             @endforeach
@@ -370,8 +370,8 @@
               <tr>
                 <td>{{ ++$j }}</td>
                 <td>{{ $category->category_name }}</td>
-                <td class="text-center"><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity-a-{{$j}}"></td>
-                <td><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total-uop-a-{{$j}}"></td>
+                <td class="text-center"><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity_a_{{$j}}"></td>
+                <td><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total_uop_a_{{$j}}">&yen;</td>
               </tr>
             @endforeach
             </table>
