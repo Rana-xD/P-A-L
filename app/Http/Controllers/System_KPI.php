@@ -52,6 +52,7 @@ class System_KPI extends Controller
          }
          if ($location == 1)
          {
+
              $validator = Validator::make($request->all(), [
              'date' => 'required',
              ]);
@@ -73,26 +74,6 @@ class System_KPI extends Controller
          }
              $date = $request->date;
 
-             //convert string date into milisecond
-             $date_mini = strtotime($date);
-             $current_date_mini = strtotime($request->current_date);
-
-             //check if user try to input data in advance date
-             if($date_mini > $current_date_mini)
-             {
-                 $accidents = DB::table('accident_master')->get()->all();
-                 $categories = DB::table('category_master')
-                 ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
-                 ->select('category_master.category_name','unit_price_master.UOP')
-                 ->where('unit_price_master.location_id','=', $location)
-                 ->get();
-                 $i = 0;
-                 $j = 0;
-                 $flag = 0;
-                 $error = 1;
-                 $date = 0;
-                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
-             }
              //convert date into mysql format
              $date_1  = DateTime::createFromFormat('m/d/Y', $date);
              $newdate = $date_1->format('Y-m-d');
@@ -115,8 +96,9 @@ class System_KPI extends Controller
 
              // filter only tasks data input
              $data = $request->except(['_token','stop_hour_1','stop_hour_2','stop_hour_3','stop_hour_4','stop_minute_1','stop_minute_2','stop_minute_3','stop_minute_4','files']);
+
              // check whether data come from first part or second part
-             if(empty($data['quantity-1']))
+             if(empty($data['quantity_1']))
              {
                  $output['category-1'] = $data['category_1'];
                  $output['quantity-1'] = (int)$data['quantity_a_1'];
@@ -129,7 +111,7 @@ class System_KPI extends Controller
                  $output['total-uop-1'] = (int)$data['total_uop_1'];
                  $output['tag-1'] = 1;
              }
-             if(empty($data['quantity-2']))
+             if(empty($data['quantity_2']))
              {
                  $output['category-2'] = $data['category_2'];
                  $output['quantity-2'] = (int)$data['quantity_a_2'];
@@ -143,7 +125,7 @@ class System_KPI extends Controller
                  $output['total-uop-2'] = (int)$data['total_uop_2'];
                  $output['tag-2'] = 1;
              }
-             if(empty($data['quantity-3']))
+             if(empty($data['quantity_3']))
              {
                  $output['category-3'] = $data['category_3'];
                  $output['quantity-3'] = (int)$data['quantity_a_3'];
@@ -157,7 +139,7 @@ class System_KPI extends Controller
                  $output['total-uop-3'] = (int)$data['total_uop_3'];
                  $output['tag-3'] = 1;
              }
-             if(empty($data['quantity-4']))
+             if(empty($data['quantity_4']))
              {
                  $output['category-4'] = $data['category_4'];
                  $output['quantity-4'] = (int)$data['quantity_a_4'];
@@ -171,7 +153,7 @@ class System_KPI extends Controller
                  $output['total-uop-4'] = (int)$data['total_uop_4'];
                  $output['tag-4'] = 1;
              }
-             if(empty($data['quantity-5']))
+             if(empty($data['quantity_5']))
              {
                  $output['category-5'] = $data['category-5'];
                  $output['quantity-5'] = (int)$data['quantity_a_5'];
@@ -187,8 +169,8 @@ class System_KPI extends Controller
              }
 
              for ($i=1; $i < 6; $i++) {
-                 $output['accident-'.$i] = $data['accident-'.$i];
-                 $output['quantity-buy-'.$i] = (int)$data['quantity-buy-'.$i];
+                 $output['accident-'.$i] = $data['accident_'.$i];
+                 $output['quantity-buy-'.$i] = (int)$data['quantity_buy_'.$i];
              }
              // insert data to accident table
                  for ($i=1; $i < 6; $i++) {
@@ -231,7 +213,7 @@ class System_KPI extends Controller
 
          }
          elseif ($location == 2) {
-
+             
              $validator = Validator::make($request->all(), [
              'date' => 'required',
              ]);
@@ -258,22 +240,7 @@ class System_KPI extends Controller
              $date_mini = strtotime($date);
              $current_date_mini = strtotime($request->current_date);
 
-             //check if user try to input data in advance date
-             if($date_mini > $current_date_mini)
-             {
-                 $accidents = DB::table('accident_master')->get()->all();
-                 $categories = DB::table('category_master')
-                 ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
-                 ->select('category_master.category_name','unit_price_master.UOP')
-                 ->where('unit_price_master.location_id','=', $location)
-                 ->get();
-                 $i = 0;
-                 $j = 0;
-                 $flag = 0;
-                 $error = 1;
-                 $date = 0;
-                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
-             }
+
              //convert date into mysql format
              $date_1  = DateTime::createFromFormat('m/d/Y', $date);
              $newdate = $date_1->format('Y-m-d');
@@ -298,7 +265,7 @@ class System_KPI extends Controller
              $data = $request->except(['_token','stop_hour_1','stop_hour_2','stop_hour_3','stop_hour_4','stop_minute_1','stop_minute_2','stop_minute_3','stop_minute_4','files']);
 
              // check whether data come from first part or second part
-             if(empty($data['quantity-1']))
+             if(empty($data['quantity_1']))
              {
                  $output['category-1'] = $data['category_1'];
                  $output['quantity-1'] = (int)$data['quantity_a_1'];
@@ -311,7 +278,7 @@ class System_KPI extends Controller
                  $output['total-uop-1'] = (int)$data['total_uop_1'];
                  $output['tag-1'] = 1;
              }
-             if(empty($data['quantity-2']))
+             if(empty($data['quantity_2']))
              {
                  $output['category-2'] = $data['category_2'];
                  $output['quantity-2'] = (int)$data['quantity_a_2'];
@@ -325,7 +292,7 @@ class System_KPI extends Controller
                  $output['total-uop-2'] = (int)$data['total_uop_2'];
                  $output['tag-2'] = 1;
              }
-             if(empty($data['quantity-3']))
+             if(empty($data['quantity_3']))
              {
                  $output['category-3'] = $data['category_3'];
                  $output['quantity-3'] = (int)$data['quantity_a_3'];
@@ -339,7 +306,7 @@ class System_KPI extends Controller
                  $output['total-uop-3'] = (int)$data['total_uop_3'];
                  $output['tag-3'] = 1;
              }
-             if(empty($data['quantity-4']))
+             if(empty($data['quantity_4']))
              {
                  $output['category-4'] = $data['category_4'];
                  $output['quantity-4'] = (int)$data['quantity_a_4'];
@@ -353,7 +320,7 @@ class System_KPI extends Controller
                  $output['total-uop-4'] = (int)$data['total_uop_4'];
                  $output['tag-4'] = 1;
              }
-             if(empty($data['quantity-5']))
+             if(empty($data['quantity_5']))
              {
                  $output['category-5'] = $data['category_5'];
                  $output['quantity-5'] = (int)$data['quantity_a_5'];
@@ -367,7 +334,7 @@ class System_KPI extends Controller
                  $output['total-uop-5'] = (int)$data['total_uop_5'];
                  $output['tag-5'] = 1;
              }
-             if(empty($data['quantity-6']))
+             if(empty($data['quantity_6']))
              {
                  $output['category-6'] = $data['category_6'];
                  $output['quantity-6'] = (int)$data['quantity_a_6'];
@@ -381,7 +348,7 @@ class System_KPI extends Controller
                  $output['total-uop-6'] = (int)$data['total_uop_6'];
                  $output['tag-6'] = 1;
              }
-             if(empty($data['quantity-7']))
+             if(empty($data['quantity_7']))
              {
                  $output['category-7'] = $data['category_7'];
                  $output['quantity-7'] = (int)$data['quantity_a_7'];
@@ -395,7 +362,7 @@ class System_KPI extends Controller
                  $output['total-uop-7'] = (int)$data['total_uop_7'];
                  $output['tag-7'] = 1;
              }
-             if(empty($data['quantity-8']))
+             if(empty($data['quantity_8']))
              {
                  $output['category-8'] = $data['category_8'];
                  $output['quantity-8'] = (int)$data['quantity_a_8'];
@@ -409,7 +376,7 @@ class System_KPI extends Controller
                  $output['total-uop-8'] = (int)$data['total_uop_8'];
                  $output['tag-8'] = 1;
              }
-             if(empty($data['quantity-9']))
+             if(empty($data['quantity_9']))
              {
                  $output['category-9'] = $data['category_9'];
                  $output['quantity-9'] = (int)$data['quantity_a_9'];
@@ -423,7 +390,7 @@ class System_KPI extends Controller
                  $output['total-uop-9'] = (int)$data['total_uop_9'];
                  $output['tag-9'] = 1;
              }
-             if(empty($data['quantity-10']))
+             if(empty($data['quantity_10']))
              {
                  $output['category-10'] = $data['category_10'];
                  $output['quantity-10'] = (int)$data['quantity_a_10'];
@@ -437,7 +404,7 @@ class System_KPI extends Controller
                  $output['total-uop-10'] = (int)$data['total_uop_10'];
                  $output['tag-10'] = 1;
              }
-             if(empty($data['quantity-11']))
+             if(empty($data['quantity_11']))
              {
                  $output['category-11'] = $data['category_11'];
                  $output['quantity-11'] = (int)$data['quantity_a_11'];
@@ -451,7 +418,7 @@ class System_KPI extends Controller
                  $output['total-uop-11'] = (int)$data['total_uop_11'];
                  $output['tag-11'] = 1;
              }
-             if(empty($data['quantity-12']))
+             if(empty($data['quantity_12']))
              {
                  $output['category-12'] = $data['category_12'];
                  $output['quantity-12'] = (int)$data['quantity_a_12'];
@@ -464,7 +431,7 @@ class System_KPI extends Controller
                  $output['total-uop-12'] = (int)$data['total_uop_12'];
                  $output['tag-12'] = 1;
              }
-             if(empty($data['quantity-13']))
+             if(empty($data['quantity_13']))
              {
                  $output['category-13'] = $data['category_13'];
                  $output['quantity-13'] = (int)$data['quantity_a_13'];
@@ -477,7 +444,7 @@ class System_KPI extends Controller
                  $output['total-uop-13'] = (int)$data['total_uop_13'];
                  $output['tag-13'] = 1;
              }
-             if(empty($data['quantity-14']))
+             if(empty($data['quantity_14']))
              {
                  $output['category-14'] = $data['category_14'];
                  $output['quantity-14'] = (int)$data['quantity_a_14'];
@@ -492,8 +459,8 @@ class System_KPI extends Controller
              }
 
              for ($i=1; $i < 6; $i++) {
-                 $output['accident-'.$i] = $data['accident-'.$i];
-                 $output['quantity-buy-'.$i] = (int)$data['quantity-buy-'.$i];
+                 $output['accident-'.$i] = $data['accident_'.$i];
+                 $output['quantity-buy-'.$i] = (int)$data['quantity_buy_'.$i];
              }
              // insert data to accident table
              for ($i=1; $i < 6; $i++) {
