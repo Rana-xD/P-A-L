@@ -479,20 +479,26 @@ $(function(){
   					.parent().next().find('.total-uop')
   					.prop('disabled', true);
   				}else{
-  					var bro = $(this).parents('tr').find('[data-id="'+$(this).attr("data-id")+'"]').not(this);
-  					console.log(bro);
-  					if(bro.val() == ""){
-  						$('[data-id="'+$(this).attr("data-pair-id")+'"]')
-  						.prop('disabled', false)
-  						.parent().next().find('.total-uop')
-  						.prop('disabled', false);
-  					}else{
-  						$('[data-id="'+$(this).attr("data-pair-id")+'"]')
-  						.prop('disabled', true)
-  						.parent().next().find('.total-uop')
-  						.prop('disabled', true);
-  					}
+  					$('[data-id="'+$(this).attr("data-pair-id")+'"]')
+  				 		.prop('disabled', false)
+  				 		.parent().next().find('.total-uop')
+  				 		.prop('disabled', false);
   				}
+  				//else{
+  				// 	var bro = $(this).parents('tr').find('[data-id="'+$(this).attr("data-id")+'"]').not(this);
+  				// 	console.log(bro);
+  				// 	if(bro.val() == ""){
+  				// 		$('[data-id="'+$(this).attr("data-pair-id")+'"]')
+  				// 		.prop('disabled', false)
+  				// 		.parent().next().find('.total-uop')
+  				// 		.prop('disabled', false);
+  				// 	}else{
+  				// 		$('[data-id="'+$(this).attr("data-pair-id")+'"]')
+  				// 		.prop('disabled', true)
+  				// 		.parent().next().find('.total-uop')
+  				// 		.prop('disabled', true);
+  				// 	}
+  				// }
   			}, 500);
   		}
   	});
