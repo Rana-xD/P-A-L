@@ -94,7 +94,7 @@ $(function(){
 			}
 		}
 
-		
+
 
 	}, 700);
 
@@ -468,7 +468,7 @@ $(function(){
 			    	$(this).parent().next().find('span').html('&yen;'+ (value * price));
 			    	$(this).parent().next().find('.total-uop').val(value * price);
 			    }
-			    
+
 			}, 500);
   		}else{
   			$(this).donetyping(function(){
@@ -497,9 +497,85 @@ $(function(){
   		}
   	});
 
-	
+
 });
 
 $(function(){
+  $('.revenue, .cost').donetyping(function(){
+    var sub;
+    if($(this).hasClass('revenue')){
+      var revenue = parseFloat($(this).val());
+      console.log($.isNumeric($(this).parents('tr').find('.cost').val()));
+      var cost = $.isNumeric($(this).parents('tr').find('.cost').val()) ? parseFloat($(this).parents('tr').find('.cost').val()) : parseFloat('0.00');
+      var profit = revenue - cost;
+      var profitRate = (profit * 100) / revenue;
+      console.log(revenue+":"+cost+":"+profit+":"+profitRate);
 
+      $(this).parents('tr').find('.profit span').html('&yen;' + profit);
+      $(this).parents('tr').find('.profit .hidden-profit').val(profit);
+
+      $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
+      $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+
+      // Calulate subtotal
+      calcSubTotal($(this));
+    } else{
+      var revenue = $.isNumeric($(this).parents('tr').find('.revenue').val()) ? parseFloat($(this).parents('tr').find('.revenue').val()) : parseFloat('0.00');
+      var cost = parseFloat($(this).val());
+      var profit = revenue - cost;
+      var profitRate = (profit * 100) / revenue;
+      console.log(revenue+":"+cost+":"+profit+":"+profitRate);
+      $(this).parents('tr').find('.profit span').html('&yen;' + profit);
+      $(this).parents('tr').find('.profit .hidden-profit').val(profit);
+
+      $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
+      $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+
+      // Calulate subtotal
+      calcSubTotal($(this));
+    }
+
+
+  }, 500);
 });
+
+// Calculate subtotal
+function calcSubTotal(ele){
+  var subDiv = $(ele).parents('tbody').find('tr.subtotal'),
+    sale=0,
+    cost=0,
+    profit=0,
+    profitRate=0;
+  $(ele).parents('tbody').find('.revenue, .cost, .hidden-profit, .hidden-profit-rate').each(function(){
+
+    // Found Revenue input
+    if($(this).hasClass('revenue')){
+      sale = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(sale)) : parseFloat(sale);
+
+    }
+
+    // Found cost input
+    else if($(this).hasClass('cost')){
+      cost = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(cost)) : parseFloat(cost);
+
+    }
+
+    // Found hidden-profit input
+    else if($(this).hasClass('hidden-profit')){
+      profit = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(profit)) : parseFloat(profit);
+
+    }
+
+    // Found profit rate input
+    else{
+      profitRate = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(profitRate)) : parseFloat(profitRate);
+
+    }
+  });
+
+  $(subDiv).find('.sub-sale span').html('&yen;'+sale).next().val(sale);
+  $(subDiv).find('.sub-cost span').html('&yen;'+cost).next().val(cost);
+  $(subDiv).find('.sub-profit span').html('&yen;'+profit).next().val(profit);
+  $(subDiv).find('.sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
+
+}

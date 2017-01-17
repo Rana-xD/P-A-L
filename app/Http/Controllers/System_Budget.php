@@ -11,9 +11,35 @@ class System_Budget extends Controller
   public function budget()
     {
       $month = (int)date("m");
+
       $year = (int)date("Y");
       $area_west_budget = DB::table('company_budget')
-                          ->join('location_master','company_budget','');
+                          ->join('location_master','company_budget.location','=','location_master.location_id')
+                          ->select('location_master.location_name','company_budget.revenue','company_budget.cost','company_budget.profit','company_budget.profit_rate','company_budget.setting_rate')
+                          ->where([
+                            ['year','=', $year],
+                            ['month','=', $month],
+                            ['area','=', 1]
+                          ])
+                          ->get();
+      $area_central_budget = DB::table('company_budget')
+                          ->join('location_master','company_budget.location','=','location_master.location_id')
+                          ->select('location_master.location_name','company_budget.revenue','company_budget.cost','company_budget.profit','company_budget.profit_rate','company_budget.setting_rate')
+                          ->where([
+                                    ['year','=', $year],
+                                    ['month','=', $month],
+                                    ['area','=', 2]
+                                  ])
+                          ->get();
+      $area_east_budget = DB::table('company_budget')
+                           ->join('location_master','company_budget.location','=','location_master.location_id')
+                           ->select('location_master.location_name','company_budget.revenue','company_budget.cost','company_budget.profit','company_budget.profit_rate','company_budget.setting_rate')
+                           ->where([
+                                      ['year','=', $year],
+                                      ['month','=', $month],
+                                      ['area','=', 3]
+                                    ])
+                            ->get();
       $area_west = DB::table('location_master')
                     ->select('location_name')
                     ->where('area_id','=',1)
@@ -35,19 +61,19 @@ class System_Budget extends Controller
       if(session_status()===PHP_SESSION_NONE){
          session_start();
         if($_SESSION['role']=='admin'){
-          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k'));
+          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget'));
         }
         else {
-          return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k'));
+          return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget'));
         }
          }
       elseif (session_status()===PHP_SESSION_ACTIVE)
       {
         if($_SESSION['role']=='admin'){
-          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k'));
+          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget'));
         }
         else {
-          return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k'));
+          return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget'));
         }
       }
     }
