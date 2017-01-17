@@ -332,14 +332,11 @@
               <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $category->category_name }}
-                <input type="hidden" name="category-{{ $i }}" value="{{ $category->category_name }}"/></td>
-                <td class="text-center">
-                  <input type="text" name="quantity_{{$i}}" ng-model="quantity_{{$i}}" ng-pattern="/^[0-9]*$/" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" class="categ_input auto_calc" numbers-only wm-block wm-block-length="validLength">
-                  <p ng-show="input_form.quantity_{{$i}}.$error.pattern">Only number allow</p>
-                </td>
+                <input type="hidden" name="category_{{ $i }}" ng-model="category_{{ $i }}" value="{{ $category->category_name }}"/></td>
+                <td class="text-center"><input name="quantity_{{$i}}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc" numbers-only wm-block wm-block-length="validLength"></td>
                 <td name="">
                   <span></span>
-                  <input type="hidden" class="total-uop" name="total-uop-{{$i}}" value=""/>
+                  <input type="hidden" class="total-uop" name="total_uop_{{$i}}" value=""/>
                 </td>
               </tr>
             @endforeach
@@ -356,10 +353,8 @@
               <tr>
                 <td>{{ $accident->id }}</td>
                 <td>{{ $accident->accident_type }}
-                <input type="hidden" name="accident-{{ $accident->id }}" value="{{ $accident->accident_type }}"></td>
-                <td class="text-center">
-                  <input type="text" name="quantitybuy{{ $accident->id }}" ng-model="quantitybuy{{ $accident->id }}" numbers-only wm-block wm-block-length="validLength">
-                </td>
+                <input type="hidden" name="accident_{{ $accident->id }}" value="{{ $accident->accident_type }}"></td>
+                <td class="text-center"><input type="text" name="quantity_buy_{{ $accident->id }}" ng-model="quantity_buy_{{ $accident->id }}" numbers-only wm-block wm-block-length="validLength"></td>
                 <td style="border-left: none;"></td>
               </tr>
             @endforeach
@@ -377,12 +372,8 @@
               <tr>
                 <td>{{ ++$j }}</td>
                 <td>{{ $category->category_name }}</td>
-                <td class="text-center">
-                  <input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantitya{{$j}}" ng-model="quantitya{{$j}}" numbers-only wm-block wm-block-length="validLength">
-                </td>
-                <td>
-                  <input type="text" class="categ_input" name="totaluopa{{$j}}" ng-model="totaluopa{{$j}}" ng-disabled="input_form.quantitya{{$j}}.$pristine || !quantitya{{$j}}">
-                </td>
+                <td class="text-center"><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity_a_{{$j}}" ng-model="quantity_a_{{$j}}" numbers-only wm-block wm-block-length="validLength"></td>
+                <td><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total_uop_a_{{$j}}" ng-model="total_uop_a_{{$j}}" ng-disabled="input_form.quantitya{{$j}}.$pristine || !quantitya{{$j}}">&yen;</td>
               </tr>
             @endforeach
             </table>

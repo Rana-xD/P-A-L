@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use DateTime;
+use Date;
 use Validator;
 
-class System extends Controller
+class System_KPI extends Controller
 {
     public function kpi()
     {
@@ -117,71 +118,71 @@ class System extends Controller
              // check whether data come from first part or second part
              if(empty($data['quantity-1']))
              {
-                 $output['category-1'] = $data['category-1'];
-                 $output['quantity-1'] = (int)$data['quantity-a-1'];
-                 $output['total-uop-1'] = (int)$data['total-uop-a-1'];
+                 $output['category-1'] = $data['category_1'];
+                 $output['quantity-1'] = (int)$data['quantity_a_1'];
+                 $output['total-uop-1'] = (int)$data['total_uop_a_1'];
                  $output['tag-1'] = 2;
              }
              else {
-                 $output['category-1'] = $data['category-1'];
-                 $output['quantity-1'] = (int)$data['quantity-1'];
-                 $output['total-uop-1'] = (int)$data['total-uop-1'];
+                 $output['category-1'] = $data['category_1'];
+                 $output['quantity-1'] = (int)$data['quantity_1'];
+                 $output['total-uop-1'] = (int)$data['total_uop_1'];
                  $output['tag-1'] = 1;
              }
              if(empty($data['quantity-2']))
              {
-                 $output['category-2'] = $data['category-2'];
-                 $output['quantity-2'] = (int)$data['quantity-a-2'];
-                 $output['total-uop-2'] = (int)$data['total-uop-a-2'];
+                 $output['category-2'] = $data['category_2'];
+                 $output['quantity-2'] = (int)$data['quantity_a_2'];
+                 $output['total-uop-2'] = (int)$data['total_uop_a_2'];
                  $output['tag-2'] = 2;
              }
              else {
 
-                 $output['category-2'] = $data['category-2'];
-                 $output['quantity-2'] = (int)$data['quantity-2'];
-                 $output['total-uop-2'] = (int)$data['total-uop-2'];
+                 $output['category-2'] = $data['category_2'];
+                 $output['quantity-2'] = (int)$data['quantity_2'];
+                 $output['total-uop-2'] = (int)$data['total_uop_2'];
                  $output['tag-2'] = 1;
              }
              if(empty($data['quantity-3']))
              {
-                 $output['category-3'] = $data['category-3'];
-                 $output['quantity-3'] = (int)$data['quantity-a-3'];
-                 $output['total-uop-3'] = (int)$data['total-uop-a-3'];
+                 $output['category-3'] = $data['category_3'];
+                 $output['quantity-3'] = (int)$data['quantity_a_3'];
+                 $output['total-uop-3'] = (int)$data['total_uop_a_3'];
                  $output['tag-3'] = 2;
              }
              else {
 
-                 $output['category-3'] = $data['category-3'];
-                 $output['quantity-3'] = (int)$data['quantity-3'];
-                 $output['total-uop-3'] = (int)$data['total-uop-3'];
+                 $output['category-3'] = $data['category_3'];
+                 $output['quantity-3'] = (int)$data['quantity_3'];
+                 $output['total-uop-3'] = (int)$data['total_uop_3'];
                  $output['tag-3'] = 1;
              }
              if(empty($data['quantity-4']))
              {
-                 $output['category-4'] = $data['category-4'];
-                 $output['quantity-4'] = (int)$data['quantity-a-4'];
-                 $output['total-uop-4'] = (int)$data['total-uop-a-4'];
+                 $output['category-4'] = $data['category_4'];
+                 $output['quantity-4'] = (int)$data['quantity_a_4'];
+                 $output['total-uop-4'] = (int)$data['total_uop_a_4'];
                  $output['tag-4'] = 2;
              }
              else {
 
-                 $output['category-4'] = $data['category-4'];
-                 $output['quantity-4'] = (int)$data['quantity-4'];
-                 $output['total-uop-4'] = (int)$data['total-uop-4'];
+                 $output['category-4'] = $data['category_4'];
+                 $output['quantity-4'] = (int)$data['quantity_4'];
+                 $output['total-uop-4'] = (int)$data['total_uop_4'];
                  $output['tag-4'] = 1;
              }
              if(empty($data['quantity-5']))
              {
                  $output['category-5'] = $data['category-5'];
-                 $output['quantity-5'] = (int)$data['quantity-a-5'];
-                 $output['total-uop-5'] = (int)$data['total-uop-a-5'];
+                 $output['quantity-5'] = (int)$data['quantity_a_5'];
+                 $output['total-uop-5'] = (int)$data['total_uop_a_5'];
                  $output['tag-5'] = 2;
              }
              else {
 
-                 $output['category-5'] = $data['category-5'];
-                 $output['quantity-5'] = (int)$data['quantity-5'];
-                 $output['total-uop-5'] = (int)$data['total-uop-5'];
+                 $output['category-5'] = $data['category_5'];
+                 $output['quantity-5'] = (int)$data['quantity_5'];
+                 $output['total-uop-5'] = (int)$data['total_uop_5'];
                  $output['tag-5'] = 1;
              }
 
@@ -528,36 +529,9 @@ class System extends Controller
              $error = 0;
              $date = 0;
              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
-
-
          }
 
     }
 
-    public function budget()
-    {
-      $area_west = DB::table('location_master')
-                    ->select('location_name')
-                    ->where('area_id','=',1)
-                    ->get()
-                    ->all();
-      if(session_status()===PHP_SESSION_NONE){
-         session_start();
-        if($_SESSION['role']=='admin'){
-          return view ('admin.BudgetManagement',compact('area_west'));
-        }
-        else {
-          return view ('manager.BudgetManagement',compact('area_west'));
-        }
-         }
-      elseif (session_status()===PHP_SESSION_ACTIVE)
-      {
-        if($_SESSION['role']=='admin'){
-          return view ('admin.BudgetManagement',compact('area_west'));
-        }
-        else {
-          return view ('manager.BudgetManagement',compact('area_west'));
-        }
-      }
-    }
+
 }
