@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
   <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,9 @@
   <link rel="stylesheet" type="text/css" href="/fonts/font-awesome.css">
   <script src="/js/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script src="/js/script.js"></script>
+  <script src="/js/validationcheck.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="sweetalert.min.js"></script>
@@ -112,7 +114,7 @@
   	</style>
 
   </head>
-  <body>
+  <body ng-controller="MainCtrl">
     <div class="header">
   	    <div class="container">
   	        <div class="logo">
@@ -133,7 +135,7 @@
   	        </div>
   	    </div>
   	</div>
-  <form class="" action="kpi-data" method="post">
+  <form class="" action="kpi-data" method="post" name="input_form">
     {{ csrf_field() }}
     <div class="container">
       <div class="content" style="margin-bottom: 50px">
@@ -330,11 +332,11 @@
               <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $category->category_name }}
-                <input type="hidden" name="category-{{ $i }}" value="{{ $category->category_name }}"/></td>
-                <td class="text-center"><input name="quantity-{{$i}}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc"></td>
+                <input type="hidden" name="category_{{ $i }}" value="{{ $category->category_name }}"/></td>
+                <td class="text-center"><input name="quantity_{{$i}}" ng-model="category_{{ $i }}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc" numbers-only wm-block wm-block-length="validLength"></td>
                 <td name="">
                   <span></span>
-                  <input type="hidden" class="total-uop" name="total-uop-{{$i}}" value=""/>
+                  <input type="hidden" class="total-uop" name="total_uop_{{$i}}" value=""/>
                 </td>
               </tr>
             @endforeach
@@ -351,8 +353,8 @@
               <tr>
                 <td>{{ $accident->id }}</td>
                 <td>{{ $accident->accident_type }}
-                <input type="hidden" name="accident-{{ $accident->id }}" value="{{ $accident->accident_type }}"></td>
-                <td class="text-center"><input type="text" name="quantity-buy-{{ $accident->id }}"></td>
+                <input type="hidden" name="accident_{{ $accident->id }}" value="{{ $accident->accident_type }}"></td>
+                <td class="text-center"><input type="text" name="quantity_buy_{{ $accident->id }}" ng-model="quantity_buy_{{ $accident->id }}" numbers-only wm-block wm-block-length="validLength"></td>
                 <td style="border-left: none;"></td>
               </tr>
             @endforeach
@@ -370,8 +372,8 @@
               <tr>
                 <td>{{ ++$j }}</td>
                 <td>{{ $category->category_name }}</td>
-                <td class="text-center"><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity-a-{{$j}}"></td>
-                <td><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total-uop-a-{{$j}}"></td>
+                <td class="text-center"><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity_a_{{$j}}" ng-model="quantity_a_{{$j}}" numbers-only wm-block wm-block-length="validLength"></td>
+                <td><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total_uop_a_{{$j}}" ng-model="total_uop_a_{{$j}}">&yen;</td>
               </tr>
             @endforeach
             </table>
@@ -380,7 +382,7 @@
               <input id="filebtn" class="uploadfile" type="file" name="files" data-multiple-caption="{count} files selected" multiple />
               <label for="filebtn">Choose file</label>
             </div>
-            <button type="submit" class="btn-sumit">Done</button>
+            <button type="submit" ng-disabled="input_form.$invalid" class="btn-sumit">Done</button>
           </div>
         </div>
       </div>
@@ -389,7 +391,7 @@
 
   <script>
     $(function(){
-      $('.datepicker').datepicker();
+      $('.datepicker').datepicker({ maxDate: new Date() });
     });
   </script>
   </body>
