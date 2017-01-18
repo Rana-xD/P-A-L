@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Budget Management</title>
+		<title>Budget Management admin</title>
 		<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -88,7 +88,8 @@
 				text-align: left;
 				padding: 4px;
 			}
-			.setting-rate-box {
+			.setting-rate-box,
+			.sub-setting-rate-box {
 				width: 100px;
 			}
 			.page-content{
@@ -187,48 +188,58 @@
 								<thead>
 									<tr>
 										<th style="background: transparent; padding-left: 30px;"></th>
-										<th style="background: #e74c3c; padding-left: 30px;" colspan="5">予算</th>
-										<th style="background: #2ecc71; padding-left: 30px;" colspan="4">予測</th>
-										<th style="background: #3498db; padding-left: 30px;" colspan="5">進捗</th>
-										<th style="background: #f1c40f; padding-left: 30px;" colspan="5">確定数値</th>
+										<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+										<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+										<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+										<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 									</tr>
 									<tr>
 										<th>Location</th>
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Setting rate</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="west">
 									@foreach ($area_west as $key)
 									<tr class="record">
 										<td>{{ $key->location_name }}
-										<input type="hidden" name="area_west_location_{{ ++$j }}" value="{{ $key->location_name }}"></td>
+											<input type="hidden" name="area_west_location_{{ ++$j }}" value="{{ $key->location_name }}">
+										</td>
+
+										<!-- Red header -->
 										<td>
 											<input type="text" value="" name="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue">
 										</td>
 										<td>
 											<input type="text" value="" name="area_west_cost_{{ $j }}" class="cost-profit-input cost">
+										</td>
+										<td>
+											<input type="text" value="" name="area_west_expense_{{ $j }}" class="expense-input expense">
 										</td>
 										<td class="profit">
 											<span></span>
@@ -242,11 +253,15 @@
 											<input type="text" name="area_west_settingRate_{{ $j }}" class="setting-rate-box"> %
 										</td>
 
+										<!--  -->
 										<td>
 											&yen;3,000,000
 										</td>
 										<td>
 											&yen;3,000,000
+										</td>
+										<td>
+											&yen;
 										</td>
 										<td>
 											&yen;3,000,000
@@ -260,6 +275,9 @@
 										</td>
 										<td>
 											&yen;3,000,000
+										</td>
+										<td>
+											&yen;
 										</td>
 										<td>
 											&yen;3,000,000
@@ -276,6 +294,9 @@
 										</td>
 										<td>
 											&yen;3,000,000
+										</td>
+										<td>
+											&yen;
 										</td>
 										<td>
 											&yen;3,000,000
@@ -293,21 +314,82 @@
 										<td>Subtotal</td>
 										<td class="sub-sale">
 											<span></span>
-											<input type="hidden" class="sub-sale-hidden" name="">
+											<input type="hidden" class="sub-sale-hidden" name="west_sub_sale">
 										</td>
 										<td class="sub-cost">
 											<span></span>
-											<input type="hidden" class="sub-cost-hidden" name="">
+											<input type="hidden" class="sub-cost-hidden" name="west_sub_cost">
+										</td>
+										<td class="sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" class="sub-profit-hidden" name="west_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
-											<input type="hidden" class="sub-profit-hidden" name="">
+											<input type="hidden" class="sub-expense-hidden" name="west_sub_profit">
 										</td>
 										<td class="sub-profit-rate">
 											<span></span>
-											<input type="hidden" class="sub-rate-hidden" name="">
+											<input type="hidden" class="sub-rate-hidden" name="west_sub_profit_rate">
 										</td>
-										<td><input type="text" name="" class="sub-setting-rate-box"> %</td>
+										<td class="sub-setting-rate">
+											<span>%</span>
+											<input type="hidden" name="west_sub_setting_rate" class="sub-setting-rate-hidden">
+										</td>
+
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -324,39 +406,43 @@
 								<thead>
 									<tr>
 										<th style="background: transparent; padding-left: 30px;"></th>
-										<th style="background: #e74c3c; padding-left: 30px;" colspan="5">予算</th>
-										<th style="background: #2ecc71; padding-left: 30px;" colspan="4">予測</th>
-										<th style="background: #3498db; padding-left: 30px;" colspan="5">進捗</th>
-										<th style="background: #f1c40f; padding-left: 30px;" colspan="5">確定数値</th>
+										<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+										<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+										<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+										<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 									</tr>
 									<tr>
 										<th>Location</th>
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Setting rate</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="central">
 									@foreach ($area_central as $key)
 									<tr class="record">
 										<td>{{ $key->location_name }}
@@ -366,6 +452,9 @@
 										</td>
 										<td>
 											<input type="text" value="" name="area_central_cost_{{ $l }}" class="cost-profit-input cost">
+										</td>
+										<td>
+											<input type="text" value="" name="area_central_expense_{{ $l }}" class="expense-input expense">
 										</td>
 										<td class="profit">
 											<span></span>
@@ -386,6 +475,9 @@
 											&yen;3,000,000
 										</td>
 										<td>
+											&yen;
+										</td>
+										<td>
 											&yen;3,000,000
 										</td>
 										<td>
@@ -397,6 +489,9 @@
 										</td>
 										<td>
 											&yen;3,000,000
+										</td>
+										<td>
+											&yen;
 										</td>
 										<td>
 											&yen;3,000,000
@@ -413,6 +508,9 @@
 										</td>
 										<td>
 											&yen;3,000,000
+										</td>
+										<td>
+											&yen;
 										</td>
 										<td>
 											&yen;3,000,000
@@ -430,21 +528,82 @@
 										<td>Subtotal</td>
 										<td class="sub-sale">
 											<span></span>
-											<input type="hidden" class="sub-sale-hidden" name="">
+											<input type="hidden" class="sub-sale-hidden" name="central_sub_sale">
 										</td>
 										<td class="sub-cost">
 											<span></span>
-											<input type="hidden" class="sub-cost-hidden" name="">
+											<input type="hidden" class="sub-cost-hidden" name="central_sub_cost">
+										</td>
+										<td class="sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" class="sub-profit-hidden" name="central_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
-											<input type="hidden" class="sub-profit-hidden" name="">
+											<input type="hidden" class="sub-expense-hidden" name="central_sub_profit">
 										</td>
 										<td class="sub-profit-rate">
 											<span></span>
-											<input type="hidden" class="sub-rate-hidden" name="">
+											<input type="hidden" class="sub-rate-hidden" name="central_sub_profit_rate">
 										</td>
-										<td><input type="text" name="" class="sub-setting-rate-box"> %</td>
+										<td class="sub-setting-rate">
+											<span>%</span>
+											<input type="hidden" name="central_sub_setting_rate" class="sub-setting-rate-hidden">
+										</td>
+
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -461,39 +620,43 @@
 								<thead>
 									<tr>
 										<th style="background: transparent; padding-left: 30px;"></th>
-										<th style="background: #e74c3c; padding-left: 30px;" colspan="5">予算</th>
-										<th style="background: #2ecc71; padding-left: 30px;" colspan="4">予測</th>
-										<th style="background: #3498db; padding-left: 30px;" colspan="5">進捗</th>
-										<th style="background: #f1c40f; padding-left: 30px;" colspan="5">確定数値</th>
+										<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+										<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+										<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+										<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 									</tr>
 									<tr>
 										<th>Location</th>
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Setting rate</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="east">
 									@foreach ($area_east as $key)
 									<tr class="record">
 										<td>{{ $key->location_name }}
@@ -503,6 +666,9 @@
 										</td>
 										<td>
 											<input type="text" value="" name="area_east_cost_{{ $k }}" class="cost-profit-input cost">
+										</td>
+										<td>
+											<input type="text" value="" name="area_east_expense_{{ $k }}" class="expense-input expense">
 										</td>
 										<td class="profit">
 											<span></span>
@@ -523,6 +689,9 @@
 											&yen;3,000,000
 										</td>
 										<td>
+											&yen;
+										</td>
+										<td>
 											&yen;3,000,000
 										</td>
 										<td>
@@ -534,6 +703,9 @@
 										</td>
 										<td>
 											&yen;3,000,000
+										</td>
+										<td>
+											&yen;
 										</td>
 										<td>
 											&yen;3,000,000
@@ -550,6 +722,9 @@
 										</td>
 										<td>
 											&yen;3,000,000
+										</td>
+										<td>
+											&yen;
 										</td>
 										<td>
 											&yen;3,000,000
@@ -567,21 +742,82 @@
 										<td>Subtotal</td>
 										<td class="sub-sale">
 											<span></span>
-											<input type="hidden" class="sub-sale-hidden" name="">
+											<input type="hidden" class="sub-sale-hidden" name="east_sub_sale">
 										</td>
 										<td class="sub-cost">
 											<span></span>
-											<input type="hidden" class="sub-cost-hidden" name="">
+											<input type="hidden" class="sub-cost-hidden" name="east_sub_cost">
+										</td>
+										<td class="sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" class="sub-profit-hidden" name="east_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
-											<input type="hidden" class="sub-profit-hidden" name="">
+											<input type="hidden" class="sub-expense-hidden" name="east_sub_profit">
 										</td>
 										<td class="sub-profit-rate">
 											<span></span>
-											<input type="hidden" class="sub-rate-hidden" name="">
+											<input type="hidden" class="sub-rate-hidden" name="east_sub_profit_rate">
 										</td>
-										<td><input type="text" name="" class="sub-setting-rate-box"> %</td>
+										<td class="sub-setting-rate">
+											<span>%</span>
+											<input type="hidden" name="east_sub_setting_rate" class="sub-setting-rate-hidden">
+										</td>
+
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
+										<td>
+											&yen;
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -590,14 +826,45 @@
 
 						<div class="gross_total">
 							<table>
+								<thead>
+									<tr>
+										<th></th>
+										<th>Sale</th>
+										<th>Cost</th>
+										<th>Expense</th>
+										<th>Profit</th>
+										<th>Profit Rate</th>
+										<th>Setting Rate</th>
+									</tr>
+								</thead>
 								<tbody>
 									<tr>
 										<td>Gross total</td>
-										<td>&yen;78,000,000</td>
-										<td>&yen;66,800,000</td>
-										<td>&yen;11,200,000</td>
-										<td>14.36%</td>
-										<td></td>
+										<td class="gross-sale">
+											<span>&yen;</span>
+											<input type="hidden" value="" name="gross-sale" class="gross-sale-hidden">
+										</td>
+										<td class="gross-cost">
+											<span>&yen;</span>
+											<input type="hidden" value="" name="gross-cost" class="gross-cost-hidden">
+										</td>
+										<td class="gross-expense">
+											<span>&yen;</span>
+											<input type="hidden" value="" name="gross-expense" class="gross-expense-hidden">
+										</td>
+										<td class="gross-profit">
+											<span>&yen;</span>
+											<input type="hidden" value="" name="gross-profit" class="gross-profit-hidden">
+										</td>
+										<td class="gross-profit-rate">
+											<span>&yen;</span>
+											<input type="hidden" value="" name="gross-profit-rate" class="gross-profit-rate-hidden">
+										</td>
+										<td class="gross-setting-rate">
+											<span>&yen;</span>
+											<input type="hidden" value="" name="gross-setting-rate" class="gross-setting-rate-hidden">
+										</td>
+										
 									</tr>
 								</tbody>
 							</table>
@@ -684,32 +951,37 @@
 									<thead>
 										<tr>
 											<th style="background: transparent; padding-left: 30px;"></th>
-											<th style="background: #e74c3c; padding-left: 30px;" colspan="5">予算</th>
-											<th style="background: #2ecc71; padding-left: 30px;" colspan="4">予測</th>
-											<th style="background: #3498db; padding-left: 30px;" colspan="5">進捗</th>
-											<th style="background: #f1c40f; padding-left: 30px;" colspan="5">確定数値</th>
+											<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+											<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+											<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+											<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 										</tr>
 										<tr>
 											<th>Location</th>
+
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 											<th>Setting rate</th>
 
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 											<th>Profit gap</th>
 
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 											<th>Profit gap</th>
@@ -720,12 +992,17 @@
 										@foreach ($area_west_budget as $key)
 										<tr class="record">
 											<td>{{ $key->location_name }}
-											<input type="hidden" name="area_west_location_{{ ++$j }}" value="{{ $key->location_name }}"></td>
+												<input type="hidden" name="area_west_location_{{ ++$j }}" value="{{ $key->location_name }}">
+											</td>
+
 											<td>
 												<input type="text" value="{{ $key->revenue }}" name="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue">
 											</td>
 											<td>
 												<input type="text" value="{{ $key->cost }}" name="area_west_cost_{{ $j }}" class="cost-profit-input cost">
+											</td>
+											<td>
+												<input type="text" value="" name="area_west_expense_{{ $j }}" class="expense-input expense">
 											</td>
 											<td class="profit">
 												<span>&yen;{{ $key->profit }}</span>
@@ -746,6 +1023,9 @@
 												&yen;3,000,000
 											</td>
 											<td>
+												&yen;
+											</td>
+											<td>
 												&yen;3,000,000
 											</td>
 											<td>
@@ -757,6 +1037,9 @@
 											</td>
 											<td>
 												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
 											</td>
 											<td>
 												&yen;3,000,000
@@ -773,6 +1056,9 @@
 											</td>
 											<td>
 												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
 											</td>
 											<td>
 												&yen;3,000,000
@@ -790,21 +1076,82 @@
 											<td>Subtotal</td>
 											<td class="sub-sale">
 												<span></span>
-												<input type="hidden" class="sub-sale-hidden" name="">
+												<input type="hidden" class="sub-sale-hidden" name="west_sub_sale">
 											</td>
 											<td class="sub-cost">
 												<span></span>
-												<input type="hidden" class="sub-cost-hidden" name="">
+												<input type="hidden" class="sub-cost-hidden" name="west_sub_cost">
+											</td>
+											<td class="sub-expense">
+												<span>&yen;</span>
+												<input type="hidden" class="sub-profit-hidden" name="west_sub_expense">
 											</td>
 											<td class="sub-profit">
 												<span></span>
-												<input type="hidden" class="sub-profit-hidden" name="">
+												<input type="hidden" class="sub-expense-hidden" name="west_sub_profit">
 											</td>
 											<td class="sub-profit-rate">
 												<span></span>
-												<input type="hidden" class="sub-rate-hidden" name="">
+												<input type="hidden" class="sub-rate-hidden" name="west_sub_profit_rate">
 											</td>
-											<td><input type="text" name="" class="sub-setting-rate-box"> %</td>
+											<td class="sub-setting-rate">
+												<span>%</span>
+												<input type="hidden" name="west_sub_setting_rate" class="sub-setting-rate-hidden">
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -821,32 +1168,36 @@
 									<thead>
 										<tr>
 											<th style="background: transparent; padding-left: 30px;"></th>
-											<th style="background: #e74c3c; padding-left: 30px;" colspan="5">予算</th>
-											<th style="background: #2ecc71; padding-left: 30px;" colspan="4">予測</th>
-											<th style="background: #3498db; padding-left: 30px;" colspan="5">進捗</th>
-											<th style="background: #f1c40f; padding-left: 30px;" colspan="5">確定数値</th>
+											<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+											<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+											<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+											<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 										</tr>
 										<tr>
 											<th>Location</th>
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 											<th>Setting rate</th>
 
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 											<th>Profit gap</th>
 
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 											<th>Profit gap</th>
@@ -863,6 +1214,9 @@
 											</td>
 											<td>
 												<input type="text" value="{{ $key->cost }}" name="area_central_cost_{{ $l }}" class="cost-profit-input cost">
+											</td>
+											<td>
+												<input type="text" value="" name="area_central_expense_{{ $l }}" class="expense-input expense">
 											</td>
 											<td class="profit">
 												<span>&yen;{{ $key->profit }}</span>
@@ -883,6 +1237,9 @@
 												&yen;3,000,000
 											</td>
 											<td>
+												&yen;
+											</td>
+											<td>
 												&yen;3,000,000
 											</td>
 											<td>
@@ -894,6 +1251,9 @@
 											</td>
 											<td>
 												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
 											</td>
 											<td>
 												&yen;3,000,000
@@ -910,6 +1270,9 @@
 											</td>
 											<td>
 												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
 											</td>
 											<td>
 												&yen;3,000,000
@@ -927,21 +1290,82 @@
 											<td>Subtotal</td>
 											<td class="sub-sale">
 												<span></span>
-												<input type="hidden" class="sub-sale-hidden" name="">
+												<input type="hidden" class="sub-sale-hidden" name="central_sub_sale">
 											</td>
 											<td class="sub-cost">
 												<span></span>
-												<input type="hidden" class="sub-cost-hidden" name="">
+												<input type="hidden" class="sub-cost-hidden" name="central_sub_cost">
+											</td>
+											<td class="sub-expense">
+												<span>&yen;</span>
+												<input type="hidden" class="sub-profit-hidden" name="central_sub_expense">
 											</td>
 											<td class="sub-profit">
 												<span></span>
-												<input type="hidden" class="sub-profit-hidden" name="">
+												<input type="hidden" class="sub-expense-hidden" name="central_sub_profit">
 											</td>
 											<td class="sub-profit-rate">
 												<span></span>
-												<input type="hidden" class="sub-rate-hidden" name="">
+												<input type="hidden" class="sub-rate-hidden" name="central_sub_profit_rate">
 											</td>
-											<td><input type="text" name="" class="sub-setting-rate-box"> %</td>
+											<td class="sub-setting-rate">
+												<span>%</span>
+												<input type="hidden" name="central_sub_setting_rate" class="sub-setting-rate-hidden">
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -958,32 +1382,36 @@
 									<thead>
 										<tr>
 											<th style="background: transparent; padding-left: 30px;"></th>
-											<th style="background: #e74c3c; padding-left: 30px;" colspan="5">予算</th>
-											<th style="background: #2ecc71; padding-left: 30px;" colspan="4">予測</th>
-											<th style="background: #3498db; padding-left: 30px;" colspan="5">進捗</th>
-											<th style="background: #f1c40f; padding-left: 30px;" colspan="5">確定数値</th>
+											<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+											<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+											<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+											<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 										</tr>
 										<tr>
 											<th>Location</th>
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 											<th>Setting rate</th>
 
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 											<th>Profit gap</th>
 
 											<th>Sales</th>
 											<th>Cost</th>
+											<th>Expense</th>
 											<th>Profit</th>
 											<th>Profit rate</th>
 											<th>Profit gap</th>
@@ -1000,6 +1428,9 @@
 											</td>
 											<td>
 												<input type="text" value="{{ $key->cost }}" name="area_east_cost_{{ $k }}" class="cost-profit-input cost">
+											</td>
+											<td>
+												<input type="text" value="" name="area_east_expense_{{ $k }}" class="expense-input expense">
 											</td>
 											<td class="profit">
 												<span>&yen;{{ $key->profit }}</span>
@@ -1020,6 +1451,9 @@
 												&yen;3,000,000
 											</td>
 											<td>
+												&yen;
+											</td>
+											<td>
 												&yen;3,000,000
 											</td>
 											<td>
@@ -1031,6 +1465,9 @@
 											</td>
 											<td>
 												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
 											</td>
 											<td>
 												&yen;3,000,000
@@ -1047,6 +1484,9 @@
 											</td>
 											<td>
 												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
 											</td>
 											<td>
 												&yen;3,000,000
@@ -1064,21 +1504,82 @@
 											<td>Subtotal</td>
 											<td class="sub-sale">
 												<span></span>
-												<input type="hidden" class="sub-sale-hidden" name="">
+												<input type="hidden" class="sub-sale-hidden" name="east_sub_sale">
 											</td>
 											<td class="sub-cost">
 												<span></span>
-												<input type="hidden" class="sub-cost-hidden" name="">
+												<input type="hidden" class="sub-cost-hidden" name="east_sub_cost">
+											</td>
+											<td class="sub-expense">
+												<span>&yen;</span>
+												<input type="hidden" class="sub-profit-hidden" name="east_sub_expense">
 											</td>
 											<td class="sub-profit">
 												<span></span>
-												<input type="hidden" class="sub-profit-hidden" name="">
+												<input type="hidden" class="sub-expense-hidden" name="east_sub_profit">
 											</td>
 											<td class="sub-profit-rate">
 												<span></span>
-												<input type="hidden" class="sub-rate-hidden" name="">
+												<input type="hidden" class="sub-rate-hidden" name="east_sub_profit_rate">
 											</td>
-											<td><input type="text" name="" class="sub-setting-rate-box"> %</td>
+											<td class="sub-setting-rate">
+												<span>%</span>
+												<input type="hidden" name="east_sub_setting_rate" class="sub-setting-rate-hidden">
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
 										</tr>
 									</tbody>
 								</table>
