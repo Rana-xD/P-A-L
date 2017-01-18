@@ -10,44 +10,63 @@
 		<script src="/js/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
 		<script src="/js/script.js"></script>
+		<script src="sweetalert.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="sweetalert.css">
 		<!--[if lt IE 9]>
       	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
       	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     	<![endif]-->
 			<script type="text/javascript">
+ $(document).ready(function() {
+	 var insert = @php
+ 		echo $insert;
+ 	@endphp;
+ 	var update = @php
+ 		echo $update;
+ 	@endphp;
+ 	if(insert==1)
+ 	{
+ 		swal("Done!", "Data have been inserted!", "success")
+ 	}
+ 	if(update==1)
+ 	{
+ 		swal("Done!", "Data have been updated!", "success")
+ 	}
 
-				$(document).ready(function() {
-					var month = @php
-						echo $month;
-					@endphp;
-					var year = @php
-						echo $year;
-					@endphp;
-					$('#month').val(month);
-					$('#month_a').val(month);
-					$('#year').val(year);
-					$('#year_a').val(year);
+ 	$(document).ready(function() {
+ 		var month = @php
+ 			echo $month;
+ 		@endphp;
+ 		var year = @php
+ 			echo $year;
+ 		@endphp;
+ 		$('#month').val(month);
+ 		$('#month_a').val(month);
+ 		$('#year').val(year);
+ 		$('#year_a').val(year);
 
-					$('#month').on('change', function (e) {
+ 		$('#month').on('change', function (e) {
 
-					var optionSelected = $("option:selected", this);
-					var valueSelected = this.value;
-					$('#month_a').val(valueSelected);
-					});
-					$('#year').on('change', function (e) {
+ 		var optionSelected = $("option:selected", this);
+ 		var valueSelected = this.value;
+ 		$('#month_a').val(valueSelected);
+ 		});
+ 		$('#year').on('change', function (e) {
 
-					var optionSelected = $("option:selected", this);
-					var valueSelected = this.value;
-					$('#year_a').val(valueSelected);
-					});
+ 		var optionSelected = $("option:selected", this);
+ 		var valueSelected = this.value;
+ 		$('#year_a').val(valueSelected);
+ 		});
 
-					var elew = $('#west .revenue')[0];
-					calcSubTotal(elew);
-					var elec = $('#central .revenue')[0];
-					calcSubTotal(elec);
-					var elee = $('#east .revenue')[0];
-					calcSubTotal(elee);
-				});
+ 		var elew = $('#west .revenue')[0];
+ 		calcSubTotal(elew);
+ 		var elec = $('#central .revenue')[0];
+ 		calcSubTotal(elec);
+ 		var elee = $('#east .revenue')[0];
+ 		calcSubTotal(elee);
+ 	});
+ });
+
 			</script>
 		<style>
 			table.scroll {
@@ -371,7 +390,7 @@
 										<td>
 											&yen;
 										</td>
-										
+
 										<td>
 											&yen;
 										</td>
@@ -585,7 +604,7 @@
 										<td>
 											&yen;
 										</td>
-										
+
 										<td>
 											&yen;
 										</td>
@@ -799,7 +818,7 @@
 										<td>
 											&yen;
 										</td>
-										
+
 										<td>
 											&yen;
 										</td>
@@ -864,7 +883,7 @@
 											<span>&yen;</span>
 											<input type="hidden" value="" name="gross-setting-rate" class="gross-setting-rate-hidden">
 										</td>
-										
+
 									</tr>
 								</tbody>
 							</table>
@@ -879,7 +898,7 @@
 			@else
 				<div class="header">
 					<div class="container">
-		        <div class="logo">
+		        <div class="logo">``
 		            <h1>
 		                {{-- <img src="http://www.pal-style.co.jp/img/hdr-logo.png" alt=""> --}}
 		                PAL
@@ -1002,11 +1021,11 @@
 												<input type="text" value="{{ $key->cost }}" name="area_west_cost_{{ $j }}" class="cost-profit-input cost">
 											</td>
 											<td>
-												<input type="text" value="" name="area_west_expense_{{ $j }}" class="expense-input expense">
+												<input type="text" value="{{ $key->headoffice_expense }}" name="area_west_expense_{{ $j }}" class="expense-input expense">
 											</td>
 											<td class="profit">
 												<span>&yen;{{ $key->profit }}</span>
-												<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_west_profit_{{ $j }} ">
+												<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_west_profit_{{ $j }}">
 											</td>
 											<td class="profit-rate">
 												<span>{{ $key->profit_rate }}%</span>
@@ -1133,7 +1152,7 @@
 											<td>
 												&yen;
 											</td>
-											
+
 											<td>
 												&yen;
 											</td>
@@ -1216,7 +1235,7 @@
 												<input type="text" value="{{ $key->cost }}" name="area_central_cost_{{ $l }}" class="cost-profit-input cost">
 											</td>
 											<td>
-												<input type="text" value="" name="area_central_expense_{{ $l }}" class="expense-input expense">
+												<input type="text" value="{{ $key->headoffice_expense }}" name="area_central_expense_{{ $l }}" class="expense-input expense">
 											</td>
 											<td class="profit">
 												<span>&yen;{{ $key->profit }}</span>
@@ -1347,7 +1366,7 @@
 											<td>
 												&yen;
 											</td>
-											
+
 											<td>
 												&yen;
 											</td>
@@ -1430,7 +1449,7 @@
 												<input type="text" value="{{ $key->cost }}" name="area_east_cost_{{ $k }}" class="cost-profit-input cost">
 											</td>
 											<td>
-												<input type="text" value="" name="area_east_expense_{{ $k }}" class="expense-input expense">
+												<input type="text" value="{{ $key->headoffice_expense }}" name="area_east_expense_{{ $k }}" class="expense-input expense">
 											</td>
 											<td class="profit">
 												<span>&yen;{{ $key->profit }}</span>
