@@ -213,7 +213,7 @@ class System_KPI extends Controller
 
          }
          elseif ($location == 2) {
-             
+
              $validator = Validator::make($request->all(), [
              'date' => 'required',
              ]);
@@ -457,7 +457,58 @@ class System_KPI extends Controller
                  $output['total-uop-14'] = (int)$data['total_uop_14'];
                  $output['tag-14'] = 1;
              }
-
+             if(empty($data['quantity_15']))
+             {
+                 $output['category-15'] = $data['category_15'];
+                 $output['quantity-15'] = (int)$data['quantity_a_15'];
+                 $output['total-uop-15'] = (int)$data['total_uop_a_15'];
+                 $output['tag-15'] = 2;
+             }
+             else {
+                 $output['category-15'] = $data['category_15'];
+                 $output['quantity-15'] = (int)$data['quantity_15'];
+                 $output['total-uop-15'] = (int)$data['total_uop_15'];
+                 $output['tag-15'] = 1;
+             }
+             if(empty($data['quantity_16']))
+             {
+                 $output['category-16'] = $data['category_16'];
+                 $output['quantity-16'] = (int)$data['quantity_a_16'];
+                 $output['total-uop-16'] = (int)$data['total_uop_a_16'];
+                 $output['tag-16'] = 2;
+             }
+             else {
+                 $output['category-16'] = $data['category_16'];
+                 $output['quantity-16'] = (int)$data['quantity_16'];
+                 $output['total-uop-16'] = (int)$data['total_uop_16'];
+                 $output['tag-16'] = 1;
+             }
+             if(empty($data['quantity_17']))
+             {
+                 $output['category-17'] = $data['category_17'];
+                 $output['quantity-17'] = (int)$data['quantity_a_17'];
+                 $output['total-uop-17'] = (int)$data['total_uop_a_17'];
+                 $output['tag-17'] = 2;
+             }
+             else {
+                 $output['category-17'] = $data['category_17'];
+                 $output['quantity-17'] = (int)$data['quantity_17'];
+                 $output['total-uop-17'] = (int)$data['total_uop_17'];
+                 $output['tag-17'] = 1;
+             }
+             if(empty($data['quantity_18']))
+             {
+                 $output['category-18'] = $data['category_18'];
+                 $output['quantity-18'] = (int)$data['quantity_a_18'];
+                 $output['total-uop-18'] = (int)$data['total_uop_a_18'];
+                 $output['tag-18'] = 2;
+             }
+             else {
+                 $output['category-18'] = $data['category_18'];
+                 $output['quantity-18'] = (int)$data['quantity_18'];
+                 $output['total-uop-18'] = (int)$data['total_uop_18'];
+                 $output['tag-18'] = 1;
+             }
              for ($i=1; $i < 6; $i++) {
                  $output['accident-'.$i] = $data['accident_'.$i];
                  $output['quantity-buy-'.$i] = (int)$data['quantity_buy_'.$i];
@@ -471,7 +522,7 @@ class System_KPI extends Controller
                  );
              }
              // insert data to daily progress table
-             for ($i=1; $i < 15; $i++) {
+             for ($i=1; $i < 19; $i++) {
                  $result = DB::table('category_master')->where('category_name','=', $output['category-'.$i])->select('category_id')->get();
                  $id = $result[0]->category_id;
                  DB::table('daily_progress')->insert(
