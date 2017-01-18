@@ -56,48 +56,53 @@ $(function(){
 	$(minusMinuteBtn).on('click', decreaseMinute);
 
 	// Listen on input time change event
-	$(timeInput).donetyping(function(){
+	if($(timeInput).parents().hasClass('validate-hour-range')){
+		$(timeInput).donetyping(function(){
 
-		if(!isValidTimeRange()){
-			notify('006');
-			return;
-		}
-
-		var val = $(this).val();
-		if(!isNumisLength(val, val.length)){
-			notify('001');
-			return;
-		}
-		var mama = $(this).parent();
-
-		// If parent of input is hour
-		if($(mama).hasClass('hour')){
-			if(!isMinMax(parseInt(val), 6, 36)){
-				$(this).val('06');
-				notify('004');
-				return;
-			}else{
-				appendTask();
+			if(!isValidTimeRange()){
+				notify('006');
 				return;
 			}
-		}
 
-		// If parent is minute input
-		if($(mama).hasClass('minute')){
-			if(!isMinMax(val, 0, 59)){
-				$(this).val('00');
-				notify('005');
+			var val = $(this).val();
+			if(!isNumisLength(val, val.length)){
+				notify('001');
 				return;
 			}
-			else{
-				return;
+			var mama = $(this).parent();
+
+			// If parent of input is hour
+			if($(mama).hasClass('hour')){
+				if(!isMinMax(parseInt(val), 6, 36)){
+					$(this).val('06');
+					notify('004');
+					return;
+				}else{
+					appendTask();
+					return;
+				}
 			}
+<<<<<<< HEAD
+=======
 		}
 
 
+>>>>>>> d54de0532484c7354b9a06bbb7d89e720763a0dd
 
-	}, 700);
+			// If parent is minute input
+			if($(mama).hasClass('minute')){
+				if(!isMinMax(val, 0, 59)){
+					$(this).val('00');
+					notify('005');
+					return;
+				}
+				else{
+					return;
+				}
+			}
 
+		}, 700);
+	}
 	// Check whether value between min and max
 	function isMinMax(val, min, max){
 		if(!(val >= min && val <= max)){
@@ -240,7 +245,6 @@ $(function(){
 			instance.val(parseInt(value - 1));
 		}
 
-
 	}
 
 	// Set offset hour range
@@ -309,7 +313,6 @@ $(function(){
 				'</li>'
 			);
 		}
-
 
 	}
 
