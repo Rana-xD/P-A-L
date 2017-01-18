@@ -17,6 +17,17 @@
 			<script type="text/javascript">
 
 				$(document).ready(function() {
+					var month = @php
+						echo $month;
+					@endphp;
+					var year = @php
+						echo $year;
+					@endphp;
+					$('#month').val(month);
+					$('#month_a').val(month);
+					$('#year').val(year);
+					$('#year_a').val(year);
+
 					$('#month').on('change', function (e) {
 
 					var optionSelected = $("option:selected", this);
@@ -130,18 +141,18 @@
 						<label for="month">Select a month</label>
 						<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
 							<option value="" selected hidden></option>
-							<option value="1">JANUARY</option>
-							<option value="2">FEBRAURY</option>
-							<option value="3">MARCH</option>
-							<option value="4">APRIL</option>
-							<option value="5">MAY</option>
-							<option value="6">JUNE</option>
-							<option value="7">JULY</option>
-							<option value="8">AUGUST</option>
-							<option value="9">SEPTEMBER</option>
-							<option value="10">OCTOBER</option>
-							<option value="11">NOVEMBER</option>
-							<option value="12">DECEMBER</option>
+							<option value="1" id="1">JANUARY</option>
+							<option value="2" id="2">FEBRAURY</option>
+							<option value="3" id="3">MARCH</option>
+							<option value="4" id="4">APRIL</option>
+							<option value="5" id="5">MAY</option>
+							<option value="6" id="6">JUNE</option>
+							<option value="7" id="7">JULY</option>
+							<option value="8" id="8">AUGUST</option>
+							<option value="9" id="9">SEPTEMBER</option>
+							<option value="10" id="10">OCTOBER</option>
+							<option value="11" id="11">NOVEMBER</option>
+							<option value="12" id="12">DECEMBER</option>
 						</select>
 
 						<label for="year">Year</label>
@@ -150,8 +161,8 @@
 							@php
 
 								$curYear = Date("Y");
-								for($i=1990; $i <= $curYear; $i++){
-									echo "<option value='$i'>$i</option>";
+								for($i=2000; $i <= $curYear; $i++){
+									echo "<option value='$i' id='$i'>$i</option>";
 								}
 							@endphp
 						</select>
@@ -627,18 +638,18 @@
 							<label for="month">Select a month</label>
 							<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
 								<option value="" selected hidden></option>
-								<option value="1">JANUARY</option>
-								<option value="2">FEBRAURY</option>
-								<option value="3">MARCH</option>
-								<option value="4">APRIL</option>
-								<option value="5">MAY</option>
-								<option value="6">JUNE</option>
-								<option value="7">JULY</option>
-								<option value="8">AUGUST</option>
-								<option value="9">SEPTEMBER</option>
-								<option value="10">OCTOBER</option>
-								<option value="11">NOVEMBER</option>
-								<option value="12">DECEMBER</option>
+								<option value="1" id="1">JANUARY</option>
+								<option value="2" id="2">FEBRAURY</option>
+								<option value="3" id="3">MARCH</option>
+								<option value="4" id="4">APRIL</option>
+								<option value="5" id="5">MAY</option>
+								<option value="6" id="6">JUNE</option>
+								<option value="7" id="7">JULY</option>
+								<option value="8" id="8">AUGUST</option>
+								<option value="9" id="9">SEPTEMBER</option>
+								<option value="10" id="10">OCTOBER</option>
+								<option value="11" id="11">NOVEMBER</option>
+								<option value="12" id="12">DECEMBER</option>
 							</select>
 
 							<label for="year">Year</label>
@@ -647,8 +658,8 @@
 								@php
 
 									$curYear = Date("Y");
-									for($i=1990; $i <= $curYear; $i++){
-										echo "<option value='$i'>$i</option>";
+									for($i=2000; $i <= $curYear; $i++){
+										echo "<option value='$i' id='$i'>$i</option>";
 									}
 								@endphp
 							</select>

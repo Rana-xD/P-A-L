@@ -373,7 +373,7 @@
                 <td>{{ ++$j }}</td>
                 <td>{{ $category->category_name }}</td>
                 <td class="text-center"><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity_a_{{$j}}" ng-model="quantity_a_{{$j}}" numbers-only wm-block wm-block-length="validLength"></td>
-                <td><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total_uop_a_{{$j}}" ng-model="total_uop_a_{{$j}}" ng-disabled="input_form.quantity_a_{{$j}}.$pristine || !quantity_a_{{$j}}">&yen;</td>
+                <td><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total_uop_a_{{$j}}" ng-model="total_uop_a_{{$j}}">&yen;</td>
               </tr>
             @endforeach
             </table>
