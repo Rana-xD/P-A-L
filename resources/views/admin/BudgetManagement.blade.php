@@ -10,44 +10,63 @@
 		<script src="/js/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
 		<script src="/js/script.js"></script>
+		<script src="sweetalert.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="sweetalert.css">
 		<!--[if lt IE 9]>
       	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
       	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     	<![endif]-->
 			<script type="text/javascript">
+ $(document).ready(function() {
+	 var insert = @php
+ 		echo $insert;
+ 	@endphp;
+ 	var update = @php
+ 		echo $update;
+ 	@endphp;
+ 	if(insert==1)
+ 	{
+ 		swal("Done!", "Data have been inserted!", "success")
+ 	}
+ 	if(update==1)
+ 	{
+ 		swal("Done!", "Data have been updated!", "success")
+ 	}
 
-				$(document).ready(function() {
-					var month = @php
-						echo $month;
-					@endphp;
-					var year = @php
-						echo $year;
-					@endphp;
-					$('#month').val(month);
-					$('#month_a').val(month);
-					$('#year').val(year);
-					$('#year_a').val(year);
+ 	$(document).ready(function() {
+ 		var month = @php
+ 			echo $month;
+ 		@endphp;
+ 		var year = @php
+ 			echo $year;
+ 		@endphp;
+ 		$('#month').val(month);
+ 		$('#month_a').val(month);
+ 		$('#year').val(year);
+ 		$('#year_a').val(year);
 
-					$('#month').on('change', function (e) {
+ 		$('#month').on('change', function (e) {
 
-					var optionSelected = $("option:selected", this);
-					var valueSelected = this.value;
-					$('#month_a').val(valueSelected);
-					});
-					$('#year').on('change', function (e) {
+ 		var optionSelected = $("option:selected", this);
+ 		var valueSelected = this.value;
+ 		$('#month_a').val(valueSelected);
+ 		});
+ 		$('#year').on('change', function (e) {
 
-					var optionSelected = $("option:selected", this);
-					var valueSelected = this.value;
-					$('#year_a').val(valueSelected);
-					});
+ 		var optionSelected = $("option:selected", this);
+ 		var valueSelected = this.value;
+ 		$('#year_a').val(valueSelected);
+ 		});
 
-					var elew = $('#west .revenue')[0];
-					calcSubTotal(elew);
-					var elec = $('#central .revenue')[0];
-					calcSubTotal(elec);
-					var elee = $('#east .revenue')[0];
-					calcSubTotal(elee);
-				});
+ 		var elew = $('#west .revenue')[0];
+ 		calcSubTotal(elew);
+ 		var elec = $('#central .revenue')[0];
+ 		calcSubTotal(elec);
+ 		var elee = $('#east .revenue')[0];
+ 		calcSubTotal(elee);
+ 	});
+ });
+
 			</script>
 		<style>
 			table.scroll {
@@ -372,7 +391,7 @@
 										<td>
 											&yen;
 										</td>
-										
+
 										<td>
 											&yen;
 										</td>
@@ -586,7 +605,7 @@
 										<td>
 											&yen;
 										</td>
-										
+
 										<td>
 											&yen;
 										</td>
@@ -800,7 +819,7 @@
 										<td>
 											&yen;
 										</td>
-										
+
 										<td>
 											&yen;
 										</td>
@@ -865,7 +884,7 @@
 											<span>&yen;</span>
 											<input type="hidden" value="" name="gross-setting-rate" class="gross-setting-rate-hidden">
 										</td>
-										
+
 									</tr>
 								</tbody>
 							</table>
@@ -878,11 +897,18 @@
 					</div>
 				</form>
 			</div>
+<<<<<<< HEAD
 		</div>
 		@else
 		<div class="header">
 			<div class="container">
 		        <div class="logo">
+=======
+			@else
+				<div class="header">
+					<div class="container">
+		        <div class="logo">``
+>>>>>>> 308c2ec547aa0e6b932e6c55a5ced892b2770867
 		            <h1>
 		                {{-- <img src="http://www.pal-style.co.jp/img/hdr-logo.png" alt=""> --}}
 		                PAL
@@ -1159,6 +1185,7 @@
 							</tbody>
 						</table>
 						<hr>
+<<<<<<< HEAD
 					</div>
 
 					<div class="indi-area">
@@ -1374,6 +1401,658 @@
 						</table>
 						<hr>
 					</div>
+=======
+						<form action="budget-admin" method="POST">
+							{{ csrf_field() }}
+							<input type="hidden" name="month_a" id="month_a">
+							<input type="hidden" name="year_a" id="year_a">
+						<div class="tables-content">
+
+							<div class="indi-area">
+								<div class="area-heading">
+									<h2>
+										AREA WEST
+									</h2>
+								</div>
+								<table class="scroll">
+									<thead>
+										<tr>
+											<th style="background: transparent; padding-left: 30px;"></th>
+											<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+											<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+											<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+											<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
+										</tr>
+										<tr>
+											<th>Location</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+											<th>Setting rate</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+											<th>Profit gap</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+											<th>Profit gap</th>
+
+										</tr>
+									</thead>
+									<tbody id="west">
+										@foreach ($area_west_budget as $key)
+										<tr class="record">
+											<td>{{ $key->location_name }}
+												<input type="hidden" name="area_west_location_{{ ++$j }}" value="{{ $key->location_name }}">
+											</td>
+
+											<td>
+												<input type="text" value="{{ $key->revenue }}" name="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue">
+											</td>
+											<td>
+												<input type="text" value="{{ $key->cost }}" name="area_west_cost_{{ $j }}" class="cost-profit-input cost">
+											</td>
+											<td>
+												<input type="text" value="{{ $key->headoffice_expense }}" name="area_west_expense_{{ $j }}" class="expense-input expense">
+											</td>
+											<td class="profit">
+												<span>&yen;{{ $key->profit }}</span>
+												<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_west_profit_{{ $j }}">
+											</td>
+											<td class="profit-rate">
+												<span>{{ $key->profit_rate }}%</span>
+												<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_west_profitRate_{{ $j }}">
+											</td>
+											<td>
+												<input type="text" value="{{ $key->setting_rate }}" name="area_west_settingRate_{{ $j }}" class="setting-rate-box"> %
+											</td>
+
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												15%
+											</td>
+
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												15%
+											</td>
+											<td>
+												&yen;400,000,00
+											</td>
+
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												15%
+											</td>
+											<td>
+												&yen;400,000,00
+											</td>
+
+										</tr>
+										@endforeach
+										<tr class="subtotal">
+											<td>Subtotal</td>
+											<td class="sub-sale">
+												<span></span>
+												<input type="hidden" class="sub-sale-hidden" name="west_sub_sale">
+											</td>
+											<td class="sub-cost">
+												<span></span>
+												<input type="hidden" class="sub-cost-hidden" name="west_sub_cost">
+											</td>
+											<td class="sub-expense">
+												<span>&yen;</span>
+												<input type="hidden" class="sub-profit-hidden" name="west_sub_expense">
+											</td>
+											<td class="sub-profit">
+												<span></span>
+												<input type="hidden" class="sub-expense-hidden" name="west_sub_profit">
+											</td>
+											<td class="sub-profit-rate">
+												<span></span>
+												<input type="hidden" class="sub-rate-hidden" name="west_sub_profit_rate">
+											</td>
+											<td class="sub-setting-rate">
+												<span>%</span>
+												<input type="hidden" name="west_sub_setting_rate" class="sub-setting-rate-hidden">
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<hr>
+							</div>
+
+							<div class="indi-area">
+								<div class="area-heading">
+									<h2>
+										AREA CENTRAL
+									</h2>
+								</div>
+								<table class="scroll">
+									<thead>
+										<tr>
+											<th style="background: transparent; padding-left: 30px;"></th>
+											<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+											<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+											<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+											<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
+										</tr>
+										<tr>
+											<th>Location</th>
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+											<th>Setting rate</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+											<th>Profit gap</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+											<th>Profit gap</th>
+
+										</tr>
+									</thead>
+									<tbody id="central">
+										@foreach ($area_central_budget as $key)
+										<tr class="record">
+											<td>{{ $key->location_name }}
+											<input type="hidden" name="area_central_location_{{ ++$l }}" value="{{ $key->location_name }}"></td>
+											<td>
+												<input type="text" value="{{ $key->revenue }}" name="area_central_revenue_{{ $l }}" class="revenue-profit-input revenue">
+											</td>
+											<td>
+												<input type="text" value="{{ $key->cost }}" name="area_central_cost_{{ $l }}" class="cost-profit-input cost">
+											</td>
+											<td>
+												<input type="text" value="{{ $key->headoffice_expense }}" name="area_central_expense_{{ $l }}" class="expense-input expense">
+											</td>
+											<td class="profit">
+												<span>&yen;{{ $key->profit }}</span>
+												<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_central_profit_{{ $l }}">
+											</td>
+											<td class="profit-rate">
+												<span>{{ $key->profit_rate }}%</span>
+												<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_central_profitRate_{{ $l }}">
+											</td>
+											<td>
+												<input type="text" value="{{ $key->setting_rate }}" name="area_central_settingRate_{{ $l }}" class="setting-rate-box"> %
+											</td>
+
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												15%
+											</td>
+
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												15%
+											</td>
+											<td>
+												&yen;400,000,00
+											</td>
+
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												15%
+											</td>
+											<td>
+												&yen;400,000,00
+											</td>
+
+										</tr>
+										@endforeach
+										<tr class="subtotal">
+											<td>Subtotal</td>
+											<td class="sub-sale">
+												<span></span>
+												<input type="hidden" class="sub-sale-hidden" name="central_sub_sale">
+											</td>
+											<td class="sub-cost">
+												<span></span>
+												<input type="hidden" class="sub-cost-hidden" name="central_sub_cost">
+											</td>
+											<td class="sub-expense">
+												<span>&yen;</span>
+												<input type="hidden" class="sub-profit-hidden" name="central_sub_expense">
+											</td>
+											<td class="sub-profit">
+												<span></span>
+												<input type="hidden" class="sub-expense-hidden" name="central_sub_profit">
+											</td>
+											<td class="sub-profit-rate">
+												<span></span>
+												<input type="hidden" class="sub-rate-hidden" name="central_sub_profit_rate">
+											</td>
+											<td class="sub-setting-rate">
+												<span>%</span>
+												<input type="hidden" name="central_sub_setting_rate" class="sub-setting-rate-hidden">
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<hr>
+							</div>
+
+							<div class="indi-area">
+								<div class="area-heading">
+									<h2>
+										AREA EAST
+									</h2>
+								</div>
+								<table class="scroll">
+									<thead>
+										<tr>
+											<th style="background: transparent; padding-left: 30px;"></th>
+											<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+											<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+											<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+											<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
+										</tr>
+										<tr>
+											<th>Location</th>
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+											<th>Setting rate</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+											<th>Profit gap</th>
+
+											<th>Sales</th>
+											<th>Cost</th>
+											<th>Expense</th>
+											<th>Profit</th>
+											<th>Profit rate</th>
+											<th>Profit gap</th>
+
+										</tr>
+									</thead>
+									<tbody id="east">
+										@foreach ($area_east_budget as $key)
+										<tr class="record">
+											<td>{{ $key->location_name }}
+											<input type="hidden" name="area_east_location_{{ ++$k }}" value="{{ $key->location_name }}"></td>
+											<td>
+												<input type="text" value="{{ $key->revenue }}" name="area_east_revenue_{{ $k }}" class="revenue-profit-input revenue">
+											</td>
+											<td>
+												<input type="text" value="{{ $key->cost }}" name="area_east_cost_{{ $k }}" class="cost-profit-input cost">
+											</td>
+											<td>
+												<input type="text" value="{{ $key->headoffice_expense }}" name="area_east_expense_{{ $k }}" class="expense-input expense">
+											</td>
+											<td class="profit">
+												<span>&yen;{{ $key->profit }}</span>
+												<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_east_profit_{{ $k }}">
+											</td>
+											<td class="profit-rate">
+												<span>{{ $key->profit_rate }}%</span>
+												<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_east_profitRate_{{ $k }}">
+											</td>
+											<td>
+												<input type="text" value="{{ $key->setting_rate }}" name="area_east_settingRate_{{ $k }}" class="setting-rate-box"> %
+											</td>
+
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												15%
+											</td>
+
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												15%
+											</td>
+											<td>
+												&yen;400,000,00
+											</td>
+
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;3,000,000
+											</td>
+											<td>
+												15%
+											</td>
+											<td>
+												&yen;400,000,00
+											</td>
+
+										</tr>
+										@endforeach
+										<tr class="subtotal">
+											<td>Subtotal</td>
+											<td class="sub-sale">
+												<span></span>
+												<input type="hidden" class="sub-sale-hidden" name="east_sub_sale">
+											</td>
+											<td class="sub-cost">
+												<span></span>
+												<input type="hidden" class="sub-cost-hidden" name="east_sub_cost">
+											</td>
+											<td class="sub-expense">
+												<span>&yen;</span>
+												<input type="hidden" class="sub-profit-hidden" name="east_sub_expense">
+											</td>
+											<td class="sub-profit">
+												<span></span>
+												<input type="hidden" class="sub-expense-hidden" name="east_sub_profit">
+											</td>
+											<td class="sub-profit-rate">
+												<span></span>
+												<input type="hidden" class="sub-rate-hidden" name="east_sub_profit_rate">
+											</td>
+											<td class="sub-setting-rate">
+												<span>%</span>
+												<input type="hidden" name="east_sub_setting_rate" class="sub-setting-rate-hidden">
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<hr>
+							</div>
+>>>>>>> 308c2ec547aa0e6b932e6c55a5ced892b2770867
 
 					<div class="indi-area">
 						<div class="area-heading">

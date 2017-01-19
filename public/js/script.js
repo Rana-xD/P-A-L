@@ -83,6 +83,11 @@ $(function(){
 				}
 			}
 
+<<<<<<< HEAD
+
+
+	}, 700);
+=======
 			// If parent is minute input
 			if($(mama).hasClass('minute')){
 				if(!isMinMax(val, 0, 59)){
@@ -94,6 +99,7 @@ $(function(){
 					return;
 				}
 			}
+>>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e
 
 		}, 700);
 	}
@@ -506,6 +512,7 @@ $(function(){
 
 // Budget Management Page v.1
 $(function(){
+
   $('.revenue, .cost, .expense').donetyping(function(){
     var sub;
     if($(this).hasClass('revenue')){
@@ -514,13 +521,13 @@ $(function(){
       var expense = $.isNumeric($(this).parents('tr').find('.expense').val()) ? parseFloat($(this).parents('tr').find('.expense').val()) : parseFloat('0.00');
       var profit = revenue - cost - expense;
       var profitRate = (profit * 100) / revenue;
-      
 
       $(this).parents('tr').find('.profit span').html('&yen;' + profit);
       $(this).parents('tr').find('.profit .hidden-profit').val(profit);
 
       $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
       $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+
 
       // Calulate Sub Revenue
       calcSubTotal($(this));
@@ -529,6 +536,7 @@ $(function(){
       var cost = parseFloat($(this).val());
       var expense = $.isNumeric($(this).parents('tr').find('.expense').val()) ? parseFloat($(this).parents('tr').find('.expense').val()) : parseFloat('0.00');
       var profit = revenue - cost - expense;
+
       var profitRate = (profit * 100) / revenue;
       console.log(revenue+":"+cost+":"+profit+":"+profitRate);
       $(this).parents('tr').find('.profit span').html('&yen;' + profit);
@@ -654,5 +662,8 @@ function CalcGross(){
 	$('.gross-profit').find('span').html('&yen;'+grossProfit).next().val(grossProfit);
 	$('.gross-profit-rate').find('span').html(grossProfitRate+'%').next().val(grossProfitRate);
 	$('.gross-setting-rate').find('span').html(grossSettingRate+'%').next().val(grossSettingRate);
-
+  
 }
+
+
+
