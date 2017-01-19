@@ -111,6 +111,16 @@
         border: 1px solid #c4c4c4;
       }
 
+      .warn {
+        border: 2px solid red;
+      }
+
+      .custom-error {
+        color: red; 
+        font-size: small; 
+        margin: 0;
+      }
+
   	</style>
 
   </head>
@@ -135,7 +145,7 @@
   	        </div>
   	    </div>
   	</div>
-  <form class="" action="kpi-data" method="post" name="input_form">
+  <form class="input_form" action="kpi-data" method="post" name="input_form" novalidate="novalidate">
     {{ csrf_field() }}
     <div class="container">
       <div class="content" style="margin-bottom: 50px">
@@ -316,7 +326,8 @@
           <h4>
             Select date :
           </h4>
-          <input type="text" name="date" class="datepicker">
+          <input type="text" name="date" ng-model="date" class="datepicker alert" ng-readonly="true" ng-required="true">
+          <p class="custom-error date-err ng-hide" ng-show="input_form.date.$touched && input_form.date.$error.required">This field is required</p>
           <input type="hidden" name="current_date" id="current_date">
         </div>
         <div class="table-container">
@@ -333,7 +344,10 @@
                 <td>{{ ++$i }}</td>
                 <td>{{ $category->category_name }}
                 <input type="hidden" name="category_{{ $i }}" value="{{ $category->category_name }}"/></td>
-                <td class="text-center"><input name="quantity_{{$i}}" ng-model="category_{{ $i }}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc" numbers-only wm-block wm-block-length="validLength"></td>
+                <td class="text-center">
+                  <input name="quantity_{{$i}}" ng-model="quantity_{{$i}}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc" numbers-only my-maxlength="5">
+                  <p class="custom-error" style="display: none;">Allow only five digits</p>
+                </td>
                 <td name="">
                   <span></span>
                   <input type="hidden" class="total-uop" name="total_uop_{{$i}}" value=""/>
@@ -354,7 +368,10 @@
                 <td>{{ $accident->id }}</td>
                 <td>{{ $accident->accident_type }}
                 <input type="hidden" name="accident_{{ $accident->id }}" value="{{ $accident->accident_type }}"></td>
-                <td class="text-center"><input type="text" name="quantity_buy_{{ $accident->id }}" ng-model="quantity_buy_{{ $accident->id }}" numbers-only wm-block wm-block-length="validLength"></td>
+                <td class="text-center">
+                  <input type="text" name="quantity_buy_{{ $accident->id }}" ng-model="quantity_buy_{{ $accident->id }}" numbers-only my-maxlength="5">
+                  <p class="custom-error" style="display: none;">Allow only five digits</p>
+                </td>
                 <td style="border-left: none;"></td>
               </tr>
             @endforeach
@@ -372,8 +389,16 @@
               <tr>
                 <td>{{ ++$j }}</td>
                 <td>{{ $category->category_name }}</td>
-                <td class="text-center"><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity_a_{{$j}}" ng-model="quantity_a_{{$j}}" numbers-only wm-block wm-block-length="validLength"></td>
-                <td><input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total_uop_a_{{$j}}" ng-model="total_uop_a_{{$j}}" ng-disabled="input_form.quantity_a_{{$j}}.$pristine || !quantity_a_{{$j}}">&yen;</td>
+                <td class="text-center">
+                  <input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity_a_{{$j}}" ng-model="quantity_a_{{$j}}" data-ng-required="input_form.total_uop_a_{{$j}}.$touched && !(!total_uop_a_{{$j}})" numbers-only my-maxlength="5">
+                  <p class="custom-error" style="display: none;">Allow only five digits</p>
+                  <p ng-show="!quantity_a_{{$j}} && total_uop_a_{{$j}}" class="custom-error ng-hide">This field is required</p>
+                </td>
+                <td>
+                  <input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total_uop_a_{{$j}}" ng-model="total_uop_a_{{$j}}" data-ng-required="input_form.quantity_a_{{$j}}.$touched && !(!quantity_a_{{$j}})" numbers-only my-maxlength="5">&yen;
+                  <p class="custom-error" style="display: none;">Allow only five digits</p>
+                  <p ng-show="quantity_a_{{$j}} && !total_uop_a_{{$j}}" class="custom-error ng-hide">This field is required</p>
+                </td>
               </tr>
             @endforeach
             </table>
@@ -382,7 +407,8 @@
               <input id="filebtn" class="uploadfile" type="file" name="files" data-multiple-caption="{count} files selected" multiple />
               <label for="filebtn">Choose file</label>
             </div>
-            <button type="submit" ng-disabled="input_form.$invalid" class="btn-sumit">Done</button>
+            <button ng-if="input_form.$valid" type="submit" class="btn-sumit">Done</button>
+            <button id="error-submit" ng-if="input_form.$invalid" type="button" class="btn-sumit">Done</button>
           </div>
         </div>
       </div>
@@ -391,7 +417,9 @@
 
   <script>
     $(function(){
-      $('.datepicker').datepicker({ maxDate: new Date() });
+      $('.datepicker').datepicker({ 
+        maxDate: new Date()
+      });
     });
   </script>
   </body>
