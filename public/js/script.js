@@ -56,48 +56,53 @@ $(function(){
 	$(minusMinuteBtn).on('click', decreaseMinute);
 
 	// Listen on input time change event
-	$(timeInput).donetyping(function(){
+	if($(timeInput).parents().hasClass('validate-hour-range')){
+		$(timeInput).donetyping(function(){
 
-		if(!isValidTimeRange()){
-			notify('006');
-			return;
-		}
-
-		var val = $(this).val();
-		if(!isNumisLength(val, val.length)){
-			notify('001');
-			return;
-		}
-		var mama = $(this).parent();
-
-		// If parent of input is hour
-		if($(mama).hasClass('hour')){
-			if(!isMinMax(parseInt(val), 6, 36)){
-				$(this).val('06');
-				notify('004');
-				return;
-			}else{
-				appendTask();
+			if(!isValidTimeRange()){
+				notify('006');
 				return;
 			}
-		}
 
-		// If parent is minute input
-		if($(mama).hasClass('minute')){
-			if(!isMinMax(val, 0, 59)){
-				$(this).val('00');
-				notify('005');
+			var val = $(this).val();
+			if(!isNumisLength(val, val.length)){
+				notify('001');
 				return;
 			}
-			else{
-				return;
-			}
-		}
+			var mama = $(this).parent();
 
+			// If parent of input is hour
+			if($(mama).hasClass('hour')){
+				if(!isMinMax(parseInt(val), 6, 36)){
+					$(this).val('06');
+					notify('004');
+					return;
+				}else{
+					appendTask();
+					return;
+				}
+			}
+
+<<<<<<< HEAD
 
 
 	}, 700);
+=======
+			// If parent is minute input
+			if($(mama).hasClass('minute')){
+				if(!isMinMax(val, 0, 59)){
+					$(this).val('00');
+					notify('005');
+					return;
+				}
+				else{
+					return;
+				}
+			}
+>>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e
 
+		}, 700);
+	}
 	// Check whether value between min and max
 	function isMinMax(val, min, max){
 		if(!(val >= min && val <= max)){
@@ -240,7 +245,6 @@ $(function(){
 			instance.val(parseInt(value - 1));
 		}
 
-
 	}
 
 	// Set offset hour range
@@ -309,7 +313,6 @@ $(function(){
 				'</li>'
 			);
 		}
-
 
 	}
 
@@ -507,82 +510,160 @@ $(function(){
 
 });
 
-$(function(){
-  $('.revenue, .cost').donetyping(function(){
-    var sub;
-    if($(this).hasClass('revenue')){
-      var revenue = parseFloat($(this).val());
-      console.log($.isNumeric($(this).parents('tr').find('.cost').val()));
-      var cost = $.isNumeric($(this).parents('tr').find('.cost').val()) ? parseFloat($(this).parents('tr').find('.cost').val()) : parseFloat('0.00');
-      var profit = revenue - cost;
-      var profitRate = (profit * 100) / revenue;
-      console.log(revenue+":"+cost+":"+profit+":"+profitRate);
+// // Budget Management Page v.1
+// $(function(){
+// <<<<<<< HEAD
+//   $('.revenue, .cost').donetyping(function(){
+//     var sub;
+//     if($(this).hasClass('revenue')){
+//       var revenue = parseFloat($(this).val());
+//       console.log($.isNumeric($(this).parents('tr').find('.cost').val()));
+//       var cost = $.isNumeric($(this).parents('tr').find('.cost').val()) ? parseFloat($(this).parents('tr').find('.cost').val()) : parseFloat('0.00');
+//       var profit = revenue - cost;
+//       var profitRate = (profit * 100) / revenue;
+//       console.log(revenue+":"+cost+":"+profit+":"+profitRate);
+// =======
+//   $('.revenue, .cost, .expense').donetyping(function(){
+//     var sub;
+//     if($(this).hasClass('revenue')){
+//       var revenue = parseFloat($(this).val());
+//       var cost = $.isNumeric($(this).parents('tr').find('.cost').val()) ? parseFloat($(this).parents('tr').find('.cost').val()) : parseFloat('0.00');
+//       var expense = $.isNumeric($(this).parents('tr').find('.expense').val()) ? parseFloat($(this).parents('tr').find('.expense').val()) : parseFloat('0.00');
+//       var profit = revenue - cost - expense;
+//       var profitRate = (profit * 100) / revenue;
+      
+// >>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e
 
-      $(this).parents('tr').find('.profit span').html('&yen;' + profit);
-      $(this).parents('tr').find('.profit .hidden-profit').val(profit);
+//       $(this).parents('tr').find('.profit span').html('&yen;' + profit);
+//       $(this).parents('tr').find('.profit .hidden-profit').val(profit);
 
-      $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
-      $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+//       $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
+//       $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
 
-      // Calulate subtotal
-      calcSubTotal($(this));
-    } else{
-      var revenue = $.isNumeric($(this).parents('tr').find('.revenue').val()) ? parseFloat($(this).parents('tr').find('.revenue').val()) : parseFloat('0.00');
-      var cost = parseFloat($(this).val());
-      var profit = revenue - cost;
-      var profitRate = (profit * 100) / revenue;
-      console.log(revenue+":"+cost+":"+profit+":"+profitRate);
-      $(this).parents('tr').find('.profit span').html('&yen;' + profit);
-      $(this).parents('tr').find('.profit .hidden-profit').val(profit);
+// <<<<<<< HEAD
+//       // Calulate subtotal
+//       calcSubTotal($(this));
+//     } else{
+//       var revenue = $.isNumeric($(this).parents('tr').find('.revenue').val()) ? parseFloat($(this).parents('tr').find('.revenue').val()) : parseFloat('0.00');
+//       var cost = parseFloat($(this).val());
+//       var profit = revenue - cost;
+// =======
+//       // Calulate Sub Revenue
+//       calcSubTotal($(this));
+//     } else if($(this).hasClass('cost')){
+//       var revenue = $.isNumeric($(this).parents('tr').find('.revenue').val()) ? parseFloat($(this).parents('tr').find('.revenue').val()) : parseFloat('0.00');
+//       var cost = parseFloat($(this).val());
+//       var expense = $.isNumeric($(this).parents('tr').find('.expense').val()) ? parseFloat($(this).parents('tr').find('.expense').val()) : parseFloat('0.00');
+//       var profit = revenue - cost - expense;
+// >>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e
+//       var profitRate = (profit * 100) / revenue;
+//       console.log(revenue+":"+cost+":"+profit+":"+profitRate);
+//       $(this).parents('tr').find('.profit span').html('&yen;' + profit);
+//       $(this).parents('tr').find('.profit .hidden-profit').val(profit);
 
-      $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
-      $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+//       $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
+//       $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
 
-      // Calulate subtotal
-      calcSubTotal($(this));
-    }
+// <<<<<<< HEAD
+//       // Calulate subtotal
+//       calcSubTotal($(this));
+// =======
+//       // Calulate Sub Cost
+//       calcSubTotal($(this));
+//     }else{
+// 	  var revenue = $.isNumeric($(this).parents('tr').find('.revenue').val()) ? parseFloat($(this).parents('tr').find('.revenue').val()) : parseFloat('0.00');
+//       var cost = $.isNumeric($(this).parents('tr').find('.cost').val()) ? parseFloat($(this).parents('tr').find('.cost').val()) : parseFloat('0.00');
+//       var expense = parseFloat($(this).val());
+//       var profit = revenue - cost - expense;
+//       var profitRate = (profit * 100) / revenue;
+      
+//       $(this).parents('tr').find('.profit span').html('&yen;' + profit);
+//       $(this).parents('tr').find('.profit .hidden-profit').val(profit);
+
+//       $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
+//       $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+//     	// Calculate Sub Expense
+//     	calcSubTotal($(this));
+// >>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e
+//     }
 
 
-  }, 500);
-});
+//   }, 500);
+// });
 
-// Calculate subtotal
-function calcSubTotal(ele){
-  var subDiv = $(ele).parents('tbody').find('tr.subtotal'),
-    sale=0,
-    cost=0,
-    profit=0,
-    profitRate=0;
-  $(ele).parents('tbody').find('.revenue, .cost, .hidden-profit, .hidden-profit-rate').each(function(){
+// <<<<<<< HEAD
+// =======
 
-    // Found Revenue input
-    if($(this).hasClass('revenue')){
-      sale = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(sale)) : parseFloat(sale);
+// >>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e
+// // Calculate subtotal
+// function calcSubTotal(ele){
+//   var subDiv = $(ele).parents('tbody').find('tr.subtotal'),
+//     sale=0,
+//     cost=0,
+// <<<<<<< HEAD
+//     profit=0,
+//     profitRate=0;
+//   $(ele).parents('tbody').find('.revenue, .cost, .hidden-profit, .hidden-profit-rate').each(function(){
+// =======
+//     expense=0,
+//     profit=0,
+//     profitRate=0;
+//   $(ele).parents('tbody').find('.revenue, .cost, .expense, .hidden-profit, .hidden-profit-rate').each(function(){
+// >>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e
 
-    }
+//     // Found Revenue input
+//     if($(this).hasClass('revenue')){
+//       sale = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(sale)) : parseFloat(sale);
 
-    // Found cost input
-    else if($(this).hasClass('cost')){
-      cost = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(cost)) : parseFloat(cost);
+//     }
+// <<<<<<< HEAD
 
-    }
+//     // Found cost input
+//     else if($(this).hasClass('cost')){
+//       cost = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(cost)) : parseFloat(cost);
 
-    // Found hidden-profit input
-    else if($(this).hasClass('hidden-profit')){
-      profit = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(profit)) : parseFloat(profit);
+// =======
 
-    }
+//     // Found cost input
+//     else if($(this).hasClass('cost')){
+//       cost = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(cost)) : parseFloat(cost);
 
-    // Found profit rate input
-    else{
-      profitRate = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(profitRate)) : parseFloat(profitRate);
+//     }
 
-    }
-  });
+//      // Found expense input
+//     else if($(this).hasClass('expense')){
+//       expense = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(expense)) : parseFloat(expense);
 
-  $(subDiv).find('.sub-sale span').html('&yen;'+sale).next().val(sale);
-  $(subDiv).find('.sub-cost span').html('&yen;'+cost).next().val(cost);
-  $(subDiv).find('.sub-profit span').html('&yen;'+profit).next().val(profit);
-  $(subDiv).find('.sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
+// >>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e
+//     }
 
-}
+//     // Found hidden-profit input
+//     else if($(this).hasClass('hidden-profit')){
+//       profit = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(profit)) : parseFloat(profit);
+
+//     }
+
+//     // Found profit rate input
+//     else{
+//       profitRate = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(profitRate)) : parseFloat(profitRate);
+
+//     }
+//   });
+
+//   $(subDiv).find('.sub-sale span').html('&yen;'+sale).next().val(sale);
+//   $(subDiv).find('.sub-cost span').html('&yen;'+cost).next().val(cost);
+// <<<<<<< HEAD
+// =======
+//   $(subDiv).find('.sub-expense span').html('&yen;'+expense).next().val(expense);
+// >>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e
+//   $(subDiv).find('.sub-profit span').html('&yen;'+profit).next().val(profit);
+//   $(subDiv).find('.sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
+
+// }
+// <<<<<<< HEAD
+// =======
+
+// function CalcGross(){
+// 	var subtotals = $('.sub-sale-hidden');
+// }
+// >>>>>>> ff9caa1c70e2f6e2f671e4f248a3ccc68bcb302e

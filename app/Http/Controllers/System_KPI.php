@@ -52,6 +52,7 @@ class System_KPI extends Controller
          }
          if ($location == 1)
          {
+
              $validator = Validator::make($request->all(), [
              'date' => 'required',
              ]);
@@ -73,26 +74,6 @@ class System_KPI extends Controller
          }
              $date = $request->date;
 
-             //convert string date into milisecond
-             $date_mini = strtotime($date);
-             $current_date_mini = strtotime($request->current_date);
-
-             //check if user try to input data in advance date
-             if($date_mini > $current_date_mini)
-             {
-                 $accidents = DB::table('accident_master')->get()->all();
-                 $categories = DB::table('category_master')
-                 ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
-                 ->select('category_master.category_name','unit_price_master.UOP')
-                 ->where('unit_price_master.location_id','=', $location)
-                 ->get();
-                 $i = 0;
-                 $j = 0;
-                 $flag = 0;
-                 $error = 1;
-                 $date = 0;
-                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
-             }
              //convert date into mysql format
              $date_1  = DateTime::createFromFormat('m/d/Y', $date);
              $newdate = $date_1->format('Y-m-d');
@@ -115,8 +96,9 @@ class System_KPI extends Controller
 
              // filter only tasks data input
              $data = $request->except(['_token','stop_hour_1','stop_hour_2','stop_hour_3','stop_hour_4','stop_minute_1','stop_minute_2','stop_minute_3','stop_minute_4','files']);
+
              // check whether data come from first part or second part
-             if(empty($data['quantity-1']))
+             if(empty($data['quantity_1']))
              {
                  $output['category-1'] = $data['category_1'];
                  $output['quantity-1'] = (int)$data['quantity_a_1'];
@@ -129,7 +111,7 @@ class System_KPI extends Controller
                  $output['total-uop-1'] = (int)$data['total_uop_1'];
                  $output['tag-1'] = 1;
              }
-             if(empty($data['quantity-2']))
+             if(empty($data['quantity_2']))
              {
                  $output['category-2'] = $data['category_2'];
                  $output['quantity-2'] = (int)$data['quantity_a_2'];
@@ -143,7 +125,7 @@ class System_KPI extends Controller
                  $output['total-uop-2'] = (int)$data['total_uop_2'];
                  $output['tag-2'] = 1;
              }
-             if(empty($data['quantity-3']))
+             if(empty($data['quantity_3']))
              {
                  $output['category-3'] = $data['category_3'];
                  $output['quantity-3'] = (int)$data['quantity_a_3'];
@@ -157,7 +139,7 @@ class System_KPI extends Controller
                  $output['total-uop-3'] = (int)$data['total_uop_3'];
                  $output['tag-3'] = 1;
              }
-             if(empty($data['quantity-4']))
+             if(empty($data['quantity_4']))
              {
                  $output['category-4'] = $data['category_4'];
                  $output['quantity-4'] = (int)$data['quantity_a_4'];
@@ -171,7 +153,7 @@ class System_KPI extends Controller
                  $output['total-uop-4'] = (int)$data['total_uop_4'];
                  $output['tag-4'] = 1;
              }
-             if(empty($data['quantity-5']))
+             if(empty($data['quantity_5']))
              {
                  $output['category-5'] = $data['category-5'];
                  $output['quantity-5'] = (int)$data['quantity_a_5'];
@@ -187,8 +169,8 @@ class System_KPI extends Controller
              }
 
              for ($i=1; $i < 6; $i++) {
-                 $output['accident-'.$i] = $data['accident-'.$i];
-                 $output['quantity-buy-'.$i] = (int)$data['quantity-buy-'.$i];
+                 $output['accident-'.$i] = $data['accident_'.$i];
+                 $output['quantity-buy-'.$i] = (int)$data['quantity_buy_'.$i];
              }
              // insert data to accident table
                  for ($i=1; $i < 6; $i++) {
@@ -258,22 +240,7 @@ class System_KPI extends Controller
              $date_mini = strtotime($date);
              $current_date_mini = strtotime($request->current_date);
 
-             //check if user try to input data in advance date
-             if($date_mini > $current_date_mini)
-             {
-                 $accidents = DB::table('accident_master')->get()->all();
-                 $categories = DB::table('category_master')
-                 ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
-                 ->select('category_master.category_name','unit_price_master.UOP')
-                 ->where('unit_price_master.location_id','=', $location)
-                 ->get();
-                 $i = 0;
-                 $j = 0;
-                 $flag = 0;
-                 $error = 1;
-                 $date = 0;
-                 return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
-             }
+
              //convert date into mysql format
              $date_1  = DateTime::createFromFormat('m/d/Y', $date);
              $newdate = $date_1->format('Y-m-d');
@@ -298,202 +265,253 @@ class System_KPI extends Controller
              $data = $request->except(['_token','stop_hour_1','stop_hour_2','stop_hour_3','stop_hour_4','stop_minute_1','stop_minute_2','stop_minute_3','stop_minute_4','files']);
 
              // check whether data come from first part or second part
-             if(empty($data['quantity-1']))
+             if(empty($data['quantity_1']))
              {
-                 $output['category-1'] = $data['category-1'];
-                 $output['quantity-1'] = (int)$data['quantity-a-1'];
-                 $output['total-uop-1'] = (int)$data['total-uop-a-1'];
+                 $output['category-1'] = $data['category_1'];
+                 $output['quantity-1'] = (int)$data['quantity_a_1'];
+                 $output['total-uop-1'] = (int)$data['total_uop_a_1'];
                  $output['tag-1'] = 2;
              }
              else {
-                 $output['category-1'] = $data['category-1'];
-                 $output['quantity-1'] = (int)$data['quantity-1'];
-                 $output['total-uop-1'] = (int)$data['total-uop-1'];
+                 $output['category-1'] = $data['category_1'];
+                 $output['quantity-1'] = (int)$data['quantity_1'];
+                 $output['total-uop-1'] = (int)$data['total_uop_1'];
                  $output['tag-1'] = 1;
              }
-             if(empty($data['quantity-2']))
+             if(empty($data['quantity_2']))
              {
-                 $output['category-2'] = $data['category-2'];
-                 $output['quantity-2'] = (int)$data['quantity-a-2'];
-                 $output['total-uop-2'] = (int)$data['total-uop-a-2'];
+                 $output['category-2'] = $data['category_2'];
+                 $output['quantity-2'] = (int)$data['quantity_a_2'];
+                 $output['total-uop-2'] = (int)$data['total_uop_a_2'];
                  $output['tag-2'] = 2;
              }
              else {
 
-                 $output['category-2'] = $data['category-2'];
-                 $output['quantity-2'] = (int)$data['quantity-2'];
-                 $output['total-uop-2'] = (int)$data['total-uop-2'];
+                 $output['category-2'] = $data['category_2'];
+                 $output['quantity-2'] = (int)$data['quantity_2'];
+                 $output['total-uop-2'] = (int)$data['total_uop_2'];
                  $output['tag-2'] = 1;
              }
-             if(empty($data['quantity-3']))
+             if(empty($data['quantity_3']))
              {
-                 $output['category-3'] = $data['category-3'];
-                 $output['quantity-3'] = (int)$data['quantity-a-3'];
-                 $output['total-uop-3'] = (int)$data['total-uop-a-3'];
+                 $output['category-3'] = $data['category_3'];
+                 $output['quantity-3'] = (int)$data['quantity_a_3'];
+                 $output['total-uop-3'] = (int)$data['total_uop_a_3'];
                  $output['tag-3'] = 2;
              }
              else {
 
-                 $output['category-3'] = $data['category-3'];
-                 $output['quantity-3'] = (int)$data['quantity-3'];
-                 $output['total-uop-3'] = (int)$data['total-uop-3'];
+                 $output['category-3'] = $data['category_3'];
+                 $output['quantity-3'] = (int)$data['quantity_3'];
+                 $output['total-uop-3'] = (int)$data['total_uop_3'];
                  $output['tag-3'] = 1;
              }
-             if(empty($data['quantity-4']))
+             if(empty($data['quantity_4']))
              {
-                 $output['category-4'] = $data['category-4'];
-                 $output['quantity-4'] = (int)$data['quantity-a-4'];
-                 $output['total-uop-4'] = (int)$data['total-uop-a-4'];
+                 $output['category-4'] = $data['category_4'];
+                 $output['quantity-4'] = (int)$data['quantity_a_4'];
+                 $output['total-uop-4'] = (int)$data['total_uop_a_4'];
                  $output['tag-4'] = 2;
              }
              else {
 
-                 $output['category-4'] = $data['category-4'];
-                 $output['quantity-4'] = (int)$data['quantity-4'];
-                 $output['total-uop-4'] = (int)$data['total-uop-4'];
+                 $output['category-4'] = $data['category_4'];
+                 $output['quantity-4'] = (int)$data['quantity_4'];
+                 $output['total-uop-4'] = (int)$data['total_uop_4'];
                  $output['tag-4'] = 1;
              }
-             if(empty($data['quantity-5']))
+             if(empty($data['quantity_5']))
              {
-                 $output['category-5'] = $data['category-5'];
-                 $output['quantity-5'] = (int)$data['quantity-a-5'];
-                 $output['total-uop-5'] = (int)$data['total-uop-a-5'];
+                 $output['category-5'] = $data['category_5'];
+                 $output['quantity-5'] = (int)$data['quantity_a_5'];
+                 $output['total-uop-5'] = (int)$data['total_uop_a_5'];
                  $output['tag-5'] = 2;
              }
              else {
 
-                 $output['category-5'] = $data['category-5'];
-                 $output['quantity-5'] = (int)$data['quantity-5'];
-                 $output['total-uop-5'] = (int)$data['total-uop-5'];
+                 $output['category-5'] = $data['category_5'];
+                 $output['quantity-5'] = (int)$data['quantity_5'];
+                 $output['total-uop-5'] = (int)$data['total_uop_5'];
                  $output['tag-5'] = 1;
              }
-             if(empty($data['quantity-6']))
+             if(empty($data['quantity_6']))
              {
-                 $output['category-6'] = $data['category-6'];
-                 $output['quantity-6'] = (int)$data['quantity-a-6'];
-                 $output['total-uop-6'] = (int)$data['total-uop-a-6'];
+                 $output['category-6'] = $data['category_6'];
+                 $output['quantity-6'] = (int)$data['quantity_a_6'];
+                 $output['total-uop-6'] = (int)$data['total_uop_a_6'];
                  $output['tag-6'] = 2;
              }
              else {
 
-                 $output['category-6'] = $data['category-6'];
-                 $output['quantity-6'] = (int)$data['quantity-6'];
-                 $output['total-uop-6'] = (int)$data['total-uop-6'];
+                 $output['category-6'] = $data['category_6'];
+                 $output['quantity-6'] = (int)$data['quantity_6'];
+                 $output['total-uop-6'] = (int)$data['total_uop_6'];
                  $output['tag-6'] = 1;
              }
-             if(empty($data['quantity-7']))
+             if(empty($data['quantity_7']))
              {
-                 $output['category-7'] = $data['category-7'];
-                 $output['quantity-7'] = (int)$data['quantity-a-7'];
-                 $output['total-uop-7'] = (int)$data['total-uop-a-7'];
+                 $output['category-7'] = $data['category_7'];
+                 $output['quantity-7'] = (int)$data['quantity_a_7'];
+                 $output['total-uop-7'] = (int)$data['total_uop_a_7'];
                  $output['tag-7'] = 2;
              }
              else {
 
-                 $output['category-7'] = $data['category-7'];
-                 $output['quantity-7'] = (int)$data['quantity-7'];
-                 $output['total-uop-7'] = (int)$data['total-uop-7'];
+                 $output['category-7'] = $data['category_7'];
+                 $output['quantity-7'] = (int)$data['quantity_7'];
+                 $output['total-uop-7'] = (int)$data['total_uop_7'];
                  $output['tag-7'] = 1;
              }
-             if(empty($data['quantity-8']))
+             if(empty($data['quantity_8']))
              {
-                 $output['category-8'] = $data['category-8'];
-                 $output['quantity-8'] = (int)$data['quantity-a-8'];
-                 $output['total-uop-8'] = (int)$data['total-uop-a-8'];
+                 $output['category-8'] = $data['category_8'];
+                 $output['quantity-8'] = (int)$data['quantity_a_8'];
+                 $output['total-uop-8'] = (int)$data['total_uop_a_8'];
                  $output['tag-8'] = 2;
              }
              else {
 
-                 $output['category-8'] = $data['category-8'];
-                 $output['quantity-8'] = (int)$data['quantity-8'];
-                 $output['total-uop-8'] = (int)$data['total-uop-8'];
+                 $output['category-8'] = $data['category_8'];
+                 $output['quantity-8'] = (int)$data['quantity_8'];
+                 $output['total-uop-8'] = (int)$data['total_uop_8'];
                  $output['tag-8'] = 1;
              }
-             if(empty($data['quantity-9']))
+             if(empty($data['quantity_9']))
              {
-                 $output['category-9'] = $data['category-9'];
-                 $output['quantity-9'] = (int)$data['quantity-a-9'];
-                 $output['total-uop-9'] = (int)$data['total-uop-a-9'];
+                 $output['category-9'] = $data['category_9'];
+                 $output['quantity-9'] = (int)$data['quantity_a_9'];
+                 $output['total-uop-9'] = (int)$data['total_uop_a_9'];
                  $output['tag-9'] = 2;
              }
              else {
 
-                 $output['category-9'] = $data['category-9'];
-                 $output['quantity-9'] = (int)$data['quantity-9'];
-                 $output['total-uop-9'] = (int)$data['total-uop-9'];
+                 $output['category-9'] = $data['category_9'];
+                 $output['quantity-9'] = (int)$data['quantity_9'];
+                 $output['total-uop-9'] = (int)$data['total_uop_9'];
                  $output['tag-9'] = 1;
              }
-             if(empty($data['quantity-10']))
+             if(empty($data['quantity_10']))
              {
-                 $output['category-10'] = $data['category-10'];
-                 $output['quantity-10'] = (int)$data['quantity-a-10'];
-                 $output['total-uop-10'] = (int)$data['total-uop-a-10'];
+                 $output['category-10'] = $data['category_10'];
+                 $output['quantity-10'] = (int)$data['quantity_a_10'];
+                 $output['total-uop-10'] = (int)$data['total_uop_a_10'];
                  $output['tag-10'] = 2;
              }
              else {
 
-                 $output['category-10'] = $data['category-10'];
-                 $output['quantity-10'] = (int)$data['quantity-10'];
-                 $output['total-uop-10'] = (int)$data['total-uop-10'];
+                 $output['category-10'] = $data['category_10'];
+                 $output['quantity-10'] = (int)$data['quantity_10'];
+                 $output['total-uop-10'] = (int)$data['total_uop_10'];
                  $output['tag-10'] = 1;
              }
-             if(empty($data['quantity-11']))
+             if(empty($data['quantity_11']))
              {
-                 $output['category-11'] = $data['category-11'];
-                 $output['quantity-11'] = (int)$data['quantity-a-11'];
-                 $output['total-uop-11'] = (int)$data['total-uop-a-11'];
+                 $output['category-11'] = $data['category_11'];
+                 $output['quantity-11'] = (int)$data['quantity_a_11'];
+                 $output['total-uop-11'] = (int)$data['total_uop_a_11'];
                  $output['tag-11'] = 2;
              }
              else {
 
-                 $output['category-11'] = $data['category-11'];
-                 $output['quantity-11'] = (int)$data['quantity-11'];
-                 $output['total-uop-11'] = (int)$data['total-uop-11'];
+                 $output['category-11'] = $data['category_11'];
+                 $output['quantity-11'] = (int)$data['quantity_11'];
+                 $output['total-uop-11'] = (int)$data['total_uop_11'];
                  $output['tag-11'] = 1;
              }
-             if(empty($data['quantity-12']))
+             if(empty($data['quantity_12']))
              {
-                 $output['category-12'] = $data['category-12'];
-                 $output['quantity-12'] = (int)$data['quantity-a-12'];
-                 $output['total-uop-12'] = (int)$data['total-uop-a-12'];
+                 $output['category-12'] = $data['category_12'];
+                 $output['quantity-12'] = (int)$data['quantity_a_12'];
+                 $output['total-uop-12'] = (int)$data['total_uop_a_12'];
                  $output['tag-12'] = 2;
              }
              else {
-                 $output['category-12'] = $data['category-12'];
-                 $output['quantity-12'] = (int)$data['quantity-12'];
-                 $output['total-uop-12'] = (int)$data['total-uop-12'];
+                 $output['category-12'] = $data['category_12'];
+                 $output['quantity-12'] = (int)$data['quantity_12'];
+                 $output['total-uop-12'] = (int)$data['total_uop_12'];
                  $output['tag-12'] = 1;
              }
-             if(empty($data['quantity-13']))
+             if(empty($data['quantity_13']))
              {
-                 $output['category-13'] = $data['category-13'];
-                 $output['quantity-13'] = (int)$data['quantity-a-13'];
-                 $output['total-uop-13'] = (int)$data['total-uop-a-13'];
+                 $output['category-13'] = $data['category_13'];
+                 $output['quantity-13'] = (int)$data['quantity_a_13'];
+                 $output['total-uop-13'] = (int)$data['total_uop_a_13'];
                  $output['tag-13'] = 2;
              }
              else {
-                 $output['category-13'] = $data['category-13'];
-                 $output['quantity-13'] = (int)$data['quantity-13'];
-                 $output['total-uop-13'] = (int)$data['total-uop-13'];
+                 $output['category-13'] = $data['category_13'];
+                 $output['quantity-13'] = (int)$data['quantity_13'];
+                 $output['total-uop-13'] = (int)$data['total_uop_13'];
                  $output['tag-13'] = 1;
              }
-             if(empty($data['quantity-14']))
+             if(empty($data['quantity_14']))
              {
-                 $output['category-14'] = $data['category-14'];
-                 $output['quantity-14'] = (int)$data['quantity-a-14'];
-                 $output['total-uop-14'] = (int)$data['total-uop-a-14'];
+                 $output['category-14'] = $data['category_14'];
+                 $output['quantity-14'] = (int)$data['quantity_a_14'];
+                 $output['total-uop-14'] = (int)$data['total_uop_a_14'];
                  $output['tag-14'] = 2;
              }
              else {
-                 $output['category-14'] = $data['category-14'];
-                 $output['quantity-14'] = (int)$data['quantity-14'];
-                 $output['total-uop-14'] = (int)$data['total-uop-14'];
+                 $output['category-14'] = $data['category_14'];
+                 $output['quantity-14'] = (int)$data['quantity_14'];
+                 $output['total-uop-14'] = (int)$data['total_uop_14'];
                  $output['tag-14'] = 1;
              }
-
+             if(empty($data['quantity_15']))
+             {
+                 $output['category-15'] = $data['category_15'];
+                 $output['quantity-15'] = (int)$data['quantity_a_15'];
+                 $output['total-uop-15'] = (int)$data['total_uop_a_15'];
+                 $output['tag-15'] = 2;
+             }
+             else {
+                 $output['category-15'] = $data['category_15'];
+                 $output['quantity-15'] = (int)$data['quantity_15'];
+                 $output['total-uop-15'] = (int)$data['total_uop_15'];
+                 $output['tag-15'] = 1;
+             }
+             if(empty($data['quantity_16']))
+             {
+                 $output['category-16'] = $data['category_16'];
+                 $output['quantity-16'] = (int)$data['quantity_a_16'];
+                 $output['total-uop-16'] = (int)$data['total_uop_a_16'];
+                 $output['tag-16'] = 2;
+             }
+             else {
+                 $output['category-16'] = $data['category_16'];
+                 $output['quantity-16'] = (int)$data['quantity_16'];
+                 $output['total-uop-16'] = (int)$data['total_uop_16'];
+                 $output['tag-16'] = 1;
+             }
+             if(empty($data['quantity_17']))
+             {
+                 $output['category-17'] = $data['category_17'];
+                 $output['quantity-17'] = (int)$data['quantity_a_17'];
+                 $output['total-uop-17'] = (int)$data['total_uop_a_17'];
+                 $output['tag-17'] = 2;
+             }
+             else {
+                 $output['category-17'] = $data['category_17'];
+                 $output['quantity-17'] = (int)$data['quantity_17'];
+                 $output['total-uop-17'] = (int)$data['total_uop_17'];
+                 $output['tag-17'] = 1;
+             }
+             if(empty($data['quantity_18']))
+             {
+                 $output['category-18'] = $data['category_18'];
+                 $output['quantity-18'] = (int)$data['quantity_a_18'];
+                 $output['total-uop-18'] = (int)$data['total_uop_a_18'];
+                 $output['tag-18'] = 2;
+             }
+             else {
+                 $output['category-18'] = $data['category_18'];
+                 $output['quantity-18'] = (int)$data['quantity_18'];
+                 $output['total-uop-18'] = (int)$data['total_uop_18'];
+                 $output['tag-18'] = 1;
+             }
              for ($i=1; $i < 6; $i++) {
-                 $output['accident-'.$i] = $data['accident-'.$i];
-                 $output['quantity-buy-'.$i] = (int)$data['quantity-buy-'.$i];
+                 $output['accident-'.$i] = $data['accident_'.$i];
+                 $output['quantity-buy-'.$i] = (int)$data['quantity_buy_'.$i];
              }
              // insert data to accident table
              for ($i=1; $i < 6; $i++) {
@@ -504,7 +522,7 @@ class System_KPI extends Controller
                  );
              }
              // insert data to daily progress table
-             for ($i=1; $i < 15; $i++) {
+             for ($i=1; $i < 19; $i++) {
                  $result = DB::table('category_master')->where('category_name','=', $output['category-'.$i])->select('category_id')->get();
                  $id = $result[0]->category_id;
                  DB::table('daily_progress')->insert(
