@@ -606,9 +606,53 @@ function calcSubTotal(ele){
   $(subDiv).find('.sub-expense span').html('&yen;'+expense).next().val(expense);
   $(subDiv).find('.sub-profit span').html('&yen;'+profit).next().val(profit);
   $(subDiv).find('.sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
-
+  CalcGross();
 }
 
 function CalcGross(){
-	var subtotals = $('.sub-sale-hidden');
+	var grossSale = 0,
+		grossCost = 0,
+		grossExpense = 0,
+		grossProfit = 0,
+		grossProfitRate = 0,
+		grossSettingRate =0;
+
+	// Gross for sale
+	$('.sub-sale-hidden').each(function(){
+		grossSale = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossSale)) : parseFloat(grossSale);
+	});
+
+	// Gross for cost
+	$('.sub-cost-hidden').each(function(){
+		grossCost = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossCost)) : parseFloat(grossCost);
+	});
+
+	// Gross for expense
+	$('.sub-expense-hidden').each(function(){
+		grossExpense = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossExpense)) : parseFloat(grossExpense);	});
+
+	// Gross for profit
+	$('.sub-profit-hidden').each(function(){
+		grossProfit = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossProfit)) : parseFloat(grossProfit);
+	});
+
+	// Gross for profit rate
+	$('.sub-rate-hidden').each(function(){
+		grossProfitRate = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossProfitRate)) : parseFloat(grossProfitRate);
+	});
+
+	// Gross for setting rate
+	$('.sub-setting-rate-hidden').each(function(){
+		grossSettingRate = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossSettingRate)) : parseFloat(grossSettingRate);
+	});
+
+	// Render Gross Value
+	
+	$('.gross-sale').find('span').html('&yen;'+grossSale).next().val(grossSale);
+	$('.gross-cost').find('span').html('&yen;'+grossCost).next().val(grossCost);
+	$('.gross-expense').find('span').html('&yen;'+grossExpense).next().val(grossExpense);
+	$('.gross-profit').find('span').html('&yen;'+grossProfit).next().val(grossProfit);
+	$('.gross-profit-rate').find('span').html(grossProfitRate+'%').next().val(grossProfitRate);
+	$('.gross-setting-rate').find('span').html(grossSettingRate+'%').next().val(grossSettingRate);
+
 }
