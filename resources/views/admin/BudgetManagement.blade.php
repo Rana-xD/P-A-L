@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 	<head>
 		<title>Budget Management admin</title>
 		<meta charset="utf-8">
@@ -9,6 +9,8 @@
 		<link rel="stylesheet" type="text/css" href="/fonts/font-awesome.min.css">
 		<script src="/js/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="/js/validationcheck.js"></script>
 		<script src="/js/script.js"></script>
 		<script src="sweetalert.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="sweetalert.css">
@@ -128,10 +130,20 @@
 				font-size: 15px;
 				box-shadow: 1px 0px 1px rgba(0,0,0,0.2);
 			}
+
+			.warn {
+        		border: 2px solid red;
+      		}
+
+      	.custom-error {
+        	color: red; 
+        	font-size: small; 
+        	margin: 0;
+      	}
 		</style>
 
 	</head>
-	<body>
+	<body ng-controller="MainCtrl">
 		@if (empty($area_west_budget[0]))
 			<div class="header">
 				<div class="container">
@@ -252,7 +264,8 @@
 
 										<!-- Red header -->
 										<td>
-											<input type="text" value="" name="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue">
+											<input type="text" value="" name="area_west_revenue_{{ $j }}" ng-model="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue" numbers-only my-maxlength="9">
+											<p class="custom-error" style="display: none;">Allow only five digits</p>
 										</td>
 										<td>
 											<input type="text" value="" name="area_west_cost_{{ $j }}" class="cost-profit-input cost">
@@ -954,7 +967,7 @@
 						</form>
 						</br>
 						<hr>
-						<form action="budget-admin" method="POST">
+						<form action="budget-admin" name="budget-admin" method="POST" novalidate="novalidate">
 							{{ csrf_field() }}
 							<input type="hidden" name="month_a" id="month_a">
 							<input type="hidden" name="year_a" id="year_a">

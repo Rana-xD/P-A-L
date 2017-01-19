@@ -58,7 +58,7 @@ jQuery(document).ready(function($) {
     $('.datepicker').change(function(event) {
         console.log($('.datepicker').val());
         $('.warn').removeClass('warn');
-        $('.input_form').find('.custom-error').removeClass('ng-show').addClass('ng-hide');
+        $(this).parent().find('p').removeClass('ng-show').addClass('ng-hide');
     });
 
     $('.input_form').find('.ng-valid').keyup(function(event) {
