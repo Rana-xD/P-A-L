@@ -30,6 +30,7 @@
  	{
  		swal("Done!", "Data have been inserted!", "success")
  	}
+	
  	if(update==1)
  	{
  		swal("Done!", "Data have been updated!", "success")
@@ -145,30 +146,31 @@
 	</head>
 	<body ng-controller="MainCtrl">
 		@if (empty($area_west_budget[0]))
-			<div class="header">
-				<div class="container">
-	        <div class="logo">
-	            <h1>
-	                {{-- <img src="http://www.pal-style.co.jp/img/hdr-logo.png" alt=""> --}}
-	                PAL
-	            </h1>
-	        </div>
-	        <div class="navbar">
-	            <nav class="global_nav">
-	                <ul>
-	                    <li><a href="/time_management">Time Management</a></li>
-											<li><a href="budget">Budget Management</a></li>
-											{{-- <li><a href="kpi">L-KPI</a></li> --}}
-	                    <li><a href="work">Shift Table</a></li>
-	                </ul>
-	            </nav>
-	        </div>
-	    </div>
-			</div>
-			<div class="page-content">
-				<div class="container">
-					<form action="budget-admin-date" method="POST">
-						{{ csrf_field() }}
+		<div class="header">
+			<div class="container">
+		        <div class="logo">
+		            <h1>
+		                {{-- <img src="http://www.pal-style.co.jp/img/hdr-logo.png" alt=""> --}}
+		                PAL
+		            </h1>
+		        </div>
+
+		        <div class="navbar">
+		            <nav class="global_nav">
+		                <ul>
+		                    <li><a href="/time_management">Time Management</a></li>
+												<li><a href="budget">Budget Management</a></li>
+												{{-- <li><a href="kpi">L-KPI</a></li> --}}
+		                    <li><a href="work">Shift Table</a></li>
+		                </ul>
+		            </nav>
+		        </div>
+	    	</div>
+		</div>
+		<div class="page-content">
+			<div class="container">
+				<form action="budget-admin-date" method="POST">
+					{{ csrf_field() }}
 					<div style="margin-top: 20px">
 						<label for="month">Select a month</label>
 						<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
@@ -200,13 +202,13 @@
 						</select>
 						<button type="submit" class="btn-sumit">Done</button>
 					</div>
-					</form>
-					</br>
-					<hr>
-					<form action="budget-admin" method="POST">
-						{{ csrf_field() }}
-						<input type="hidden" name="month_a" id="month_a">
-						<input type="hidden" name="year_a" id="year_a">
+				</form>
+				</br>
+				<hr>
+				<form action="budget-admin" method="POST">
+					{{ csrf_field() }}
+					<input type="hidden" name="month_a" id="month_a">
+					<input type="hidden" name="year_a" id="year_a">
 					<div class="tables-content">
 
 						<div class="indi-area">
@@ -354,11 +356,11 @@
 										</td>
 										<td class="sub-expense">
 											<span>&yen;</span>
-											<input type="hidden" class="sub-profit-hidden" name="west_sub_expense">
+											<input type="hidden" class="sub-expense-hidden" name="west_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
-											<input type="hidden" class="sub-expense-hidden" name="west_sub_profit">
+											<input type="hidden" class="sub-profit-hidden" name="west_sub_profit">
 										</td>
 										<td class="sub-profit-rate">
 											<span></span>
@@ -568,11 +570,11 @@
 										</td>
 										<td class="sub-expense">
 											<span>&yen;</span>
-											<input type="hidden" class="sub-profit-hidden" name="central_sub_expense">
+											<input type="hidden" class="sub-expense-hidden" name="central_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
-											<input type="hidden" class="sub-expense-hidden" name="central_sub_profit">
+											<input type="hidden" class="sub-profit-hidden" name="central_sub_profit">
 										</td>
 										<td class="sub-profit-rate">
 											<span></span>
@@ -782,11 +784,11 @@
 										</td>
 										<td class="sub-expense">
 											<span>&yen;</span>
-											<input type="hidden" class="sub-profit-hidden" name="east_sub_expense">
+											<input type="hidden" class="sub-expense-hidden" name="east_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
-											<input type="hidden" class="sub-expense-hidden" name="east_sub_profit">
+											<input type="hidden" class="sub-profit-hidden" name="east_sub_profit">
 										</td>
 										<td class="sub-profit-rate">
 											<span></span>
@@ -901,17 +903,26 @@
 								</tbody>
 							</table>
 						</div>
+
 						<div class="submit-row">
-	            <button type="submit" class="btn-sumit">Done</button>
-	          </div>
+	            			<button type="submit" class="btn-sumit">Done</button>
+	          			</div>
+
 					</div>
-					</form>
-				</div>
+				</form>
 			</div>
+<<<<<<< HEAD
+		</div>
+		@else
+		<div class="header">
+			<div class="container">
+		        <div class="logo">
+=======
 			@else
 				<div class="header">
 					<div class="container">
 		        <div class="logo">``
+>>>>>>> 308c2ec547aa0e6b932e6c55a5ced892b2770867
 		            <h1>
 		                {{-- <img src="http://www.pal-style.co.jp/img/hdr-logo.png" alt=""> --}}
 		                PAL
@@ -928,46 +939,488 @@
 		            </nav>
 		        </div>
 		    </div>
+		</div>
+		<div class="page-content">
+			<div class="container">
+				<form action="budget-admin-date" method="POST">
+					{{ csrf_field() }}
+				<div style="margin-top: 20px">
+					<label for="month">Select a month</label>
+					<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
+						<option value="" selected hidden></option>
+						<option value="1" id="1">JANUARY</option>
+						<option value="2" id="2">FEBRAURY</option>
+						<option value="3" id="3">MARCH</option>
+						<option value="4" id="4">APRIL</option>
+						<option value="5" id="5">MAY</option>
+						<option value="6" id="6">JUNE</option>
+						<option value="7" id="7">JULY</option>
+						<option value="8" id="8">AUGUST</option>
+						<option value="9" id="9">SEPTEMBER</option>
+						<option value="10" id="10">OCTOBER</option>
+						<option value="11" id="11">NOVEMBER</option>
+						<option value="12" id="12">DECEMBER</option>
+					</select>
+
+					<label for="year">Year</label>
+					<select id="year" name="year">
+						<option value="" selected hidden></option>
+						@php
+
+							$curYear = Date("Y");
+							for($i=2000; $i <= $curYear; $i++){
+								echo "<option value='$i' id='$i'>$i</option>";
+							}
+						@endphp
+					</select>
+					<button type="submit" class="btn-sumit">Done</button>
 				</div>
-				<div class="page-content">
-					<div class="container">
-						<form action="budget-admin-date" method="POST">
-							{{ csrf_field() }}
-						<div style="margin-top: 20px">
-							<label for="month">Select a month</label>
-							<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
-								<option value="" selected hidden></option>
-								<option value="1" id="1">JANUARY</option>
-								<option value="2" id="2">FEBRAURY</option>
-								<option value="3" id="3">MARCH</option>
-								<option value="4" id="4">APRIL</option>
-								<option value="5" id="5">MAY</option>
-								<option value="6" id="6">JUNE</option>
-								<option value="7" id="7">JULY</option>
-								<option value="8" id="8">AUGUST</option>
-								<option value="9" id="9">SEPTEMBER</option>
-								<option value="10" id="10">OCTOBER</option>
-								<option value="11" id="11">NOVEMBER</option>
-								<option value="12" id="12">DECEMBER</option>
-							</select>
+				</form>
+				</br>
+				<hr>
+				<form action="budget-admin" method="POST">
+					{{ csrf_field() }}
+					<input type="hidden" name="month_a" id="month_a">
+					<input type="hidden" name="year_a" id="year_a">
+				<div class="tables-content">
 
-							<label for="year">Year</label>
-							<select id="year" name="year">
-								<option value="" selected hidden></option>
-								@php
-
-									$curYear = Date("Y");
-									for($i=2000; $i <= $curYear; $i++){
-										echo "<option value='$i' id='$i'>$i</option>";
-									}
-								@endphp
-							</select>
-							<button type="submit" class="btn-sumit">Done</button>
+					<div class="indi-area">
+						<div class="area-heading">
+							<h2>
+								AREA WEST
+							</h2>
 						</div>
-						</form>
-						</br>
+						<table class="scroll">
+							<thead>
+								<tr>
+									<th style="background: transparent; padding-left: 30px;"></th>
+									<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+									<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+									<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+									<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
+								</tr>
+								<tr>
+									<th>Location</th>
+
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+									<th>Setting rate</th>
+
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+									<th>Profit gap</th>
+
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+									<th>Profit gap</th>
+
+								</tr>
+							</thead>
+							<tbody id="west">
+								@foreach ($area_west_budget as $key)
+								<tr class="record">
+									<td>{{ $key->location_name }}
+										<input type="hidden" name="area_west_location_{{ ++$j }}" value="{{ $key->location_name }}">
+									</td>
+
+									<td>
+										<input type="text" value="{{ $key->revenue }}" name="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue">
+									</td>
+									<td>
+										<input type="text" value="{{ $key->cost }}" name="area_west_cost_{{ $j }}" class="cost-profit-input cost">
+									</td>
+									<td>
+										<input type="text" value="" name="area_west_expense_{{ $j }}" class="expense-input expense">
+									</td>
+									<td class="profit">
+										<span>&yen;{{ $key->profit }}</span>
+										<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_west_profit_{{ $j }} ">
+									</td>
+									<td class="profit-rate">
+										<span>{{ $key->profit_rate }}%</span>
+										<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_west_profitRate_{{ $j }}">
+									</td>
+									<td>
+										<input type="text" value="{{ $key->setting_rate }}" name="area_west_settingRate_{{ $j }}" class="setting-rate-box"> %
+									</td>
+
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										15%
+									</td>
+
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										15%
+									</td>
+									<td>
+										&yen;400,000,00
+									</td>
+
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										15%
+									</td>
+									<td>
+										&yen;400,000,00
+									</td>
+
+								</tr>
+								@endforeach
+								<tr class="subtotal">
+									<td>Subtotal</td>
+									<td class="sub-sale">
+										<span></span>
+										<input type="hidden" class="sub-sale-hidden" name="west_sub_sale">
+									</td>
+									<td class="sub-cost">
+										<span></span>
+										<input type="hidden" class="sub-cost-hidden" name="west_sub_cost">
+									</td>
+									<td class="sub-expense">
+										<span>&yen;</span>
+										<input type="hidden" class="sub-expense-hidden" name="west_sub_expense">
+									</td>
+									<td class="sub-profit">
+										<span></span>
+										<input type="hidden" class="sub-profit-hidden" name="west_sub_profit">
+									</td>
+									<td class="sub-profit-rate">
+										<span></span>
+										<input type="hidden" class="sub-rate-hidden" name="west_sub_profit_rate">
+									</td>
+									<td class="sub-setting-rate">
+										<span>%</span>
+										<input type="hidden" name="west_sub_setting_rate" class="sub-setting-rate-hidden">
+									</td>
+
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+								</tr>
+							</tbody>
+						</table>
 						<hr>
+<<<<<<< HEAD
 						<form action="budget-admin" name="budget-admin" method="POST" novalidate="novalidate">
+=======
+<<<<<<< HEAD
+					</div>
+
+					<div class="indi-area">
+						<div class="area-heading">
+							<h2>
+								AREA CENTRAL
+							</h2>
+						</div>
+						<table class="scroll">
+							<thead>
+								<tr>
+									<th style="background: transparent; padding-left: 30px;"></th>
+									<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+									<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+									<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+									<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
+								</tr>
+								<tr>
+									<th>Location</th>
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+									<th>Setting rate</th>
+
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+									<th>Profit gap</th>
+
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+									<th>Profit gap</th>
+
+								</tr>
+							</thead>
+							<tbody id="central">
+								@foreach ($area_central_budget as $key)
+								<tr class="record">
+									<td>{{ $key->location_name }}
+									<input type="hidden" name="area_central_location_{{ ++$l }}" value="{{ $key->location_name }}"></td>
+									<td>
+										<input type="text" value="{{ $key->revenue }}" name="area_central_revenue_{{ $l }}" class="revenue-profit-input revenue">
+									</td>
+									<td>
+										<input type="text" value="{{ $key->cost }}" name="area_central_cost_{{ $l }}" class="cost-profit-input cost">
+									</td>
+									<td>
+										<input type="text" value="" name="area_central_expense_{{ $l }}" class="expense-input expense">
+									</td>
+									<td class="profit">
+										<span>&yen;{{ $key->profit }}</span>
+										<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_central_profit_{{ $l }}">
+									</td>
+									<td class="profit-rate">
+										<span>{{ $key->profit_rate }}%</span>
+										<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_central_profitRate_{{ $l }}">
+									</td>
+									<td>
+										<input type="text" value="{{ $key->setting_rate }}" name="area_central_settingRate_{{ $l }}" class="setting-rate-box"> %
+									</td>
+
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										15%
+									</td>
+
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										15%
+									</td>
+									<td>
+										&yen;400,000,00
+									</td>
+
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										15%
+									</td>
+									<td>
+										&yen;400,000,00
+									</td>
+
+								</tr>
+								@endforeach
+								<tr class="subtotal">
+									<td>Subtotal</td>
+									<td class="sub-sale">
+										<span></span>
+										<input type="hidden" class="sub-sale-hidden" name="central_sub_sale">
+									</td>
+									<td class="sub-cost">
+										<span></span>
+										<input type="hidden" class="sub-cost-hidden" name="central_sub_cost">
+									</td>
+									<td class="sub-expense">
+										<span>&yen;</span>
+										<input type="hidden" class="sub-expense-hidden" name="central_sub_expense">
+									</td>
+									<td class="sub-profit">
+										<span></span>
+										<input type="hidden" class="sub-profit-hidden" name="central_sub_profit">
+									</td>
+									<td class="sub-profit-rate">
+										<span></span>
+										<input type="hidden" class="sub-rate-hidden" name="central_sub_profit_rate">
+									</td>
+									<td class="sub-setting-rate">
+										<span>%</span>
+										<input type="hidden" name="central_sub_setting_rate" class="sub-setting-rate-hidden">
+									</td>
+
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<hr>
+					</div>
+=======
+						<form action="budget-admin" method="POST">
+>>>>>>> 01955d7d02a2f0eb4931f4d06ab02ad5431fa0d0
 							{{ csrf_field() }}
 							<input type="hidden" name="month_a" id="month_a">
 							<input type="hidden" name="year_a" id="year_a">
@@ -1617,30 +2070,275 @@
 								</table>
 								<hr>
 							</div>
+>>>>>>> 308c2ec547aa0e6b932e6c55a5ced892b2770867
 
-							<div class="gross_total">
-								<table>
-									<tbody>
-										<tr>
-											<td>Gross total</td>
-											<td>&yen;78,000,000</td>
-											<td>&yen;66,800,000</td>
-											<td>&yen;11,200,000</td>
-											<td>14.36%</td>
-											<td></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="submit-row">
-		            <button type="submit" class="btn-sumit">Done</button>
-		          </div>
+					<div class="indi-area">
+						<div class="area-heading">
+							<h2>
+								AREA EAST
+							</h2>
 						</div>
-						</form>
-					</div>
-				</div>
+						<table class="scroll">
+							<thead>
+								<tr>
+									<th style="background: transparent; padding-left: 30px;"></th>
+									<th style="background: #e74c3c; padding-left: 30px;" colspan="6">予算</th>
+									<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+									<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+									<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
+								</tr>
+								<tr>
+									<th>Location</th>
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+									<th>Setting rate</th>
 
-@endif
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+									<th>Profit gap</th>
+
+									<th>Sales</th>
+									<th>Cost</th>
+									<th>Expense</th>
+									<th>Profit</th>
+									<th>Profit rate</th>
+									<th>Profit gap</th>
+
+								</tr>
+							</thead>
+							<tbody id="east">
+								@foreach ($area_east_budget as $key)
+								<tr class="record">
+									<td>{{ $key->location_name }}
+									<input type="hidden" name="area_east_location_{{ ++$k }}" value="{{ $key->location_name }}"></td>
+									<td>
+										<input type="text" value="{{ $key->revenue }}" name="area_east_revenue_{{ $k }}" class="revenue-profit-input revenue">
+									</td>
+									<td>
+										<input type="text" value="{{ $key->cost }}" name="area_east_cost_{{ $k }}" class="cost-profit-input cost">
+									</td>
+									<td>
+										<input type="text" value="" name="area_east_expense_{{ $k }}" class="expense-input expense">
+									</td>
+									<td class="profit">
+										<span>&yen;{{ $key->profit }}</span>
+										<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_east_profit_{{ $k }}">
+									</td>
+									<td class="profit-rate">
+										<span>{{ $key->profit_rate }}%</span>
+										<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_east_profitRate_{{ $k }}">
+									</td>
+									<td>
+										<input type="text" value="{{ $key->setting_rate }}" name="area_east_settingRate_{{ $k }}" class="setting-rate-box"> %
+									</td>
+
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										15%
+									</td>
+
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										15%
+									</td>
+									<td>
+										&yen;400,000,00
+									</td>
+
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;3,000,000
+									</td>
+									<td>
+										15%
+									</td>
+									<td>
+										&yen;400,000,00
+									</td>
+
+								</tr>
+								@endforeach
+								<tr class="subtotal">
+									<td>Subtotal</td>
+									<td class="sub-sale">
+										<span></span>
+										<input type="hidden" class="sub-sale-hidden" name="east_sub_sale">
+									</td>
+									<td class="sub-cost">
+										<span></span>
+										<input type="hidden" class="sub-cost-hidden" name="east_sub_cost">
+									</td>
+									<td class="sub-expense">
+										<span>&yen;</span>
+										<input type="hidden" class="sub-expense-hidden" name="east_sub_expense">
+									</td>
+									<td class="sub-profit">
+										<span></span>
+										<input type="hidden" class="sub-profit-hidden" name="east_sub_profit">
+									</td>
+									<td class="sub-profit-rate">
+										<span></span>
+										<input type="hidden" class="sub-rate-hidden" name="east_sub_profit_rate">
+									</td>
+									<td class="sub-setting-rate">
+										<span>%</span>
+										<input type="hidden" class="sub-setting-rate-hidden" name="east_sub_setting_rate">
+									</td>
+
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+									<td>
+										&yen;
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<hr>
+					</div>
+
+					<div class="gross_total">
+						<table>
+							<thead>
+							<tr>
+								<th></th>
+								<th>Sale</th>
+								<th>Cost</th>
+								<th>Expense</th>
+								<th>Profit</th>
+								<th>Profit Rate</th>
+								<th>Setting Rate</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Gross total</td>
+								<td class="gross-sale">
+									<span>&yen;</span>
+									<input type="hidden" value="" name="gross-sale" class="gross-sale-hidden">
+								</td>
+								<td class="gross-cost">
+									<span>&yen;</span>
+									<input type="hidden" value="" name="gross-cost" class="gross-cost-hidden">
+								</td>
+								<td class="gross-expense">
+									<span>&yen;</span>
+									<input type="hidden" value="" name="gross-expense" class="gross-expense-hidden">
+								</td>
+								<td class="gross-profit">
+									<span>&yen;</span>
+									<input type="hidden" value="" name="gross-profit" class="gross-profit-hidden">
+								</td>
+								<td class="gross-profit-rate">
+									<span>&yen;</span>
+									<input type="hidden" value="" name="gross-profit-rate" class="gross-profit-rate-hidden">
+								</td>
+								<td class="gross-setting-rate">
+									<span>&yen;</span>
+									<input type="hidden" value="" name="gross-setting-rate" class="gross-setting-rate-hidden">
+								</td>
+
+							</tr>
+						</tbody>
+						</table>
+					</div>
+					<div class="submit-row">
+            <button type="submit" class="btn-sumit">Done</button>
+          </div>
+				</div>
+				</form>
+			</div>
+		</div>
+		@endif
 
 
 
