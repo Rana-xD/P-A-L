@@ -28,6 +28,7 @@
  	{
  		swal("Done!", "Data have been inserted!", "success")
  	}
+	
  	if(update==1)
  	{
  		swal("Done!", "Data have been updated!", "success")
@@ -893,7 +894,7 @@
 						<div class="submit-row">
 	            			<button type="submit" class="btn-sumit">Done</button>
 	          			</div>
-	          			
+
 					</div>
 				</form>
 			</div>
@@ -1162,7 +1163,7 @@
 									<td>
 										&yen;
 									</td>
-									
+
 									<td>
 										&yen;
 									</td>
@@ -1377,7 +1378,7 @@
 									<td>
 										&yen;
 									</td>
-									
+
 									<td>
 										&yen;
 									</td>
@@ -2308,7 +2309,7 @@
 									<span>&yen;</span>
 									<input type="hidden" value="" name="gross-setting-rate" class="gross-setting-rate-hidden">
 								</td>
-								
+
 							</tr>
 						</tbody>
 						</table>
