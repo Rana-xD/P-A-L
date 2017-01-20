@@ -10,7 +10,7 @@
 		<script src="/js/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
 		<script src="/js/script.js"></script>
-		
+
 		<!--[if lt IE 9]>
       	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
       	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -24,6 +24,7 @@
 				var year = @php
 					echo $year;
 				@endphp;
+
 				$('#month').val(month);
 				$('#month_a').val(month);
 				$('#year').val(year);
@@ -142,7 +143,7 @@
 					{{ csrf_field() }}
 					<div style="margin-top: 20px">
 						<label for="month">Select a month</label>
-						<select id="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
+						<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
 							<option value="" selected hidden></option>
 							<option value="1">JANUARY</option>
 							<option value="2">FEBRAURY</option>
@@ -174,7 +175,7 @@
 				</form>
 				</br>
 				<hr>
-				<form action="budget-admin" method="POST">
+				<form action="budget-manager" method="POST">
 					{{ csrf_field() }}
 					<input type="hidden" name="month_a" id="month_a">
 					<input type="hidden" name="year_a" id="year_a">
@@ -234,17 +235,17 @@
 											{{ $key->location_name }}
 										</td>
 										<td>
-											&yen;2500000
+											&yen;
 										</td>
 										<td>
-											&yen;63000
+											&yen;
 										</td>
-										<td>{{ $key->headoffice_expense }}</td>
+										<td></td>
 										<td class="com-budget-profit">
-											<span>&yen;1600</span>
+											<span>&yen;</span>
 											<input type="hidden" class="hidden-profit" value="1600" name="budget_west_profit{{ $i }}">
 										</td>
-										<td>20%</td>
+										<td>%</td>
 
 										<td>
 											<input type="text" value="" name="forecast_west_revenue_{{ $i }}" class="forecast revenue">
@@ -254,7 +255,7 @@
 										</td>
 										<td class="expense">
 											<span>&yen;10</span>
-											<input type="hidden" value="{{ $key->headoffice_expense }}" class="forecast expense" name="forecast_west_expense_{{ $i }}">
+											<input type="hidden" value="" class="forecast expense" name="forecast_west_expense_{{ $i }}">
 										</td>
 										<td class="profit forecast">
 											<span>&yen;</span>
@@ -265,21 +266,21 @@
 											<input type="hidden" class="forecast hidden-profit-rate" name="forecast_west_profitRate_{{ $i }}">
 										</td>
 
-										<td>&yen;3,000,000</td>
+										<td>&yen;</td>
 										<td>
-											&yen;3,000,000
+											&yen;
 										</td>
 										<td>
-											&yen;5,000,0
+											&yen;
 										</td>
 										<td>
-											&yen;3,000,000
+											&yen;
 										</td>
 										<td>
-											15%
+											%
 										</td>
 										<td>
-											13%
+											%
 										</td>
 
 										<td>
@@ -336,22 +337,22 @@
 										</td>
 
 										<td>
-											
+
 										</td>
 										<td>
-											
+
 										</td>
 										<td>
-											
+
 										</td>
 										<td>
-											
+
 										</td>
 										<td>
-											
+
 										</td>
 										<td>
-											
+
 										</td>
 
 										<td class="final sub-sale">

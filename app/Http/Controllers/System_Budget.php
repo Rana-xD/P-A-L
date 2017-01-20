@@ -75,6 +75,7 @@ class System_Budget extends Controller
           return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
         }
         else {
+
           return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
         }
       }
@@ -395,7 +396,7 @@ class System_Budget extends Controller
     {
       $month = (int)$request->month;
       $year = (int)$request->year;
-      // return $month."+". $year;
+      
       $area_west_budget = DB::table('company_budget')
                           ->join('location_master','company_budget.location','=','location_master.location_id')
                           ->select('location_master.location_name','company_budget.revenue','company_budget.cost','company_budget.profit','company_budget.profit_rate','company_budget.setting_rate','company_budget.headoffice_expense')
