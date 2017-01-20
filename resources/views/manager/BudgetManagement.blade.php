@@ -31,15 +31,15 @@
 
 				$('#month').on('change', function (e) {
 
-				var optionSelected = $("option:selected", this);
-				var valueSelected = this.value;
-				$('#month_a').val(valueSelected);
-				});
-				$('#year').on('change', function (e) {
+					var optionSelected = $("option:selected", $(this));
+					var valueSelected = $(this).val();
+					$('#month_a').val(valueSelected);
+					});
+					$('#year').on('change', function (e) {
 
-				var optionSelected = $("option:selected", this);
-				var valueSelected = this.value;
-				$('#year_a').val(valueSelected);
+					var optionSelected = $("option:selected", $(this));
+					var valueSelected = $(this).val();
+					$('#year_a').val(valueSelected);
 				});
 
 				var elew = $('#west .revenue')[0];
@@ -239,7 +239,7 @@
 										<td>
 											&yen;63000
 										</td>
-										<td>{{ $key->headoffice_expense }}</td>
+										<td>&yen;5000</td>
 										<td class="com-budget-profit">
 											<span>&yen;1600</span>
 											<input type="hidden" class="hidden-profit" value="1600" name="budget_west_profit{{ $i }}">
@@ -254,7 +254,7 @@
 										</td>
 										<td class="expense">
 											<span>&yen;10</span>
-											<input type="hidden" value="{{ $key->headoffice_expense }}" class="forecast expense" name="forecast_west_expense_{{ $i }}">
+											<input type="hidden" value="10" class="forecast expense" name="forecast_west_expense_{{ $i }}">
 										</td>
 										<td class="profit forecast">
 											<span>&yen;</span>
@@ -288,8 +288,9 @@
 										<td>
 											<input type="text" value="" name="final_west_cost_{{ $i }}" class="cost-profit-input final cost">
 										</td>
-										<td>
-											<input type="text" value="" name="final_west_expense_{{ $i }}" class="expense-input final expense">
+										<td class="expense">
+											<span>&yen;15</span>
+											<input type="hidden" value="15" name="final_west_expense_{{ $i }}" class="expense-input final expense">
 										</td>
 										<td class="profit final">
 											<span>&yen;</span>
@@ -314,23 +315,23 @@
 										<td>%</td>
 										<td>%</td>
 
-										<td class="forecast sub-sale">
+										<td class="forecast-sub-sale">
 											<span>&yen;</span>
 											<input type="hidden" class="forecast sub-sale-hidden" name="forecast_west_sub_sale">
 										</td>
-										<td class="forecast sub-cost">
+										<td class="forecast-sub-cost">
 											<span>&yen;</span>
 											<input type="hidden" class="forecast sub-cost-hidden" name="forecast_west_sub_cost">
 										</td>
-										<td class="forecast sub-expense">
+										<td class="forecast-sub-expense">
 											<span>&yen;</span>
 											<input type="hidden" class="forecast sub-expense-hidden" name="forecast_west_sub_expense">
 										</td>
-										<td class="forecast sub-profit">
+										<td class="forecast-sub-profit">
 											<span>&yen;</span>
 											<input type="hidden" class="forecast sub-profit-hidden" name="forecast_west_sub_profit">
 										</td>
-										<td class="forecast sub-profit-rate">
+										<td class="forecast-sub-profit-rate">
 											<span>%</span>
 											<input type="hidden" class="forecast sub-rate-hidden" name="forecast_west_sub_profit_rate">
 										</td>
@@ -354,28 +355,28 @@
 											
 										</td>
 
-										<td class="final sub-sale">
+										<td class="final-sub-sale">
 											<span>&yen;</span>
 											<input type="hidden" value="" class="final sub-sale-hidden" name="final_west_sub_sale">
 										</td>
-										<td class="final sub-cost">
+										<td class="final-sub-cost">
 											<span>&yen;</span>
 											<input type="hidden" value="" class="final sub-cost-hidden" name="final_west_sub_cost">
 										</td>
-										<td class="final sub-expense">
+										<td class="final-sub-expense">
 											<span>&yen;</span>
 											<input type="hidden" value="" class="final sub-expense-hidden" name="final_west_sub_expense">
 										</td>
-										<td class="final sub-profit">
+										<td class="final-sub-profit">
 											<span>&yen;</span>
 											<input type="hidden" value="" class="final sub-profit-hidden" name="final_west_sub_profit">
 										</td>
-										<td class="final sub-profit-rate">
+										<td class="final-sub-profit-rate">
 											<span>%</span>
 											<input type="hidden" value="" class="final sub-rate-hidden" name="final_west_sub_profit_rate">
 										</td>
-										<td class="final sub-profit-gap">
-											<span>%</span>
+										<td class="final-sub-profit-gap">
+											<span>&yen;</span>
 											<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_west_sub_profitgap">
 										</td>
 									</tr>
