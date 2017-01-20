@@ -133,14 +133,14 @@
 			}
 
 			.warn {
-        		border: 2px solid red;
+        		border: 2px solid red !important;
       		}
 
-      	.custom-error {
-        	color: red;
-        	font-size: small;
-        	margin: 0;
-      	}
+	      	.custom-error {
+	        	color: red;
+	        	font-size: small;
+	        	margin: 0;
+	      	}
 		</style>
 
 	</head>
@@ -205,7 +205,7 @@
 				</form>
 				</br>
 				<hr>
-				<form action="budget-admin" method="POST">
+				<form action="budget-admin" name="budget_form" class="budget_form" method="POST">
 					{{ csrf_field() }}
 					<input type="hidden" name="month_a" id="month_a">
 					<input type="hidden" name="year_a" id="year_a">
@@ -266,14 +266,19 @@
 
 										<!-- Red header -->
 										<td>
-											<input type="text" value="" name="area_west_revenue_{{ $j }}" ng-model="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue" numbers-only my-maxlength="9">
-											<p class="custom-error" style="display: none;">Allow only five digits</p>
+											<input type="text" value="" name="area_west_revenue_{{ $j }}" ng-model="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 										<td>
-											<input type="text" value="" name="area_west_cost_{{ $j }}" class="cost-profit-input cost">
+											<input type="text" value="" name="area_west_cost_{{ $j }}" ng-model="area_west_cost_{{ $j }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 										<td>
-											<input type="text" value="" name="area_west_expense_{{ $j }}" class="expense-input expense">
+											<input type="text" value="" name="area_west_expense_{{ $j }}" ng-model="area_west_expense_{{ $j }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 										<td class="profit">
 											<span></span>
@@ -284,7 +289,9 @@
 											<input type="hidden" class="hidden-profit-rate" name="area_west_profitRate_{{ $j }}">
 										</td>
 										<td>
-											<input type="text" name="area_west_settingRate_{{ $j }}" class="setting-rate-box"> %
+											<input type="text" name="area_west_settingRate_{{ $j }}" ng-model="area_west_settingRate_{{ $j }}" class="setting-rate-box msg-id" ng-required="true" my-maxlength="10" valid-rate> %
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 
 										<!--  -->
@@ -482,13 +489,19 @@
 										<td>{{ $key->location_name }}
 										<input type="hidden" name="area_central_location_{{ ++$l }}" value="{{ $key->location_name }}"></td>
 										<td>
-											<input type="text" value="" name="area_central_revenue_{{ $l }}" class="revenue-profit-input revenue">
+											<input type="text" value="" name="area_central_revenue_{{ $l }}" ng-model="area_central_revenue_{{ $l }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 										<td>
-											<input type="text" value="" name="area_central_cost_{{ $l }}" class="cost-profit-input cost">
+											<input type="text" value="" name="area_central_cost_{{ $l }}" ng-model="area_central_cost_{{ $l }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 										<td>
-											<input type="text" value="" name="area_central_expense_{{ $l }}" class="expense-input expense">
+											<input type="text" value="" name="area_central_expense_{{ $l }}" ng-model="area_central_expense_{{ $l }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 										<td class="profit">
 											<span></span>
@@ -499,7 +512,9 @@
 											<input type="hidden" class="hidden-profit-rate" name="area_central_profitRate_{{ $l }}">
 										</td>
 										<td>
-											<input type="text" name="area_central_settingRate_{{ $l }}" class="setting-rate-box"> %
+											<input type="text" name="area_central_settingRate_{{ $l }}" ng-model="area_central_settingRate_{{ $l }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 
 										<td>
@@ -696,13 +711,19 @@
 										<td>{{ $key->location_name }}
 										<input type="hidden" name="area_east_location_{{ ++$k }}" value="{{ $key->location_name }}"></td>
 										<td>
-											<input type="text" value="" name="area_east_revenue_{{ $k }}" class="revenue-profit-input revenue">
+											<input type="text" value="" name="area_east_revenue_{{ $k }}" ng-model="area_east_revenue_{{ $k }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 										<td>
-											<input type="text" value="" name="area_east_cost_{{ $k }}" class="cost-profit-input cost">
+											<input type="text" value="" name="area_east_cost_{{ $k }}" ng-model="area_east_cost_{{ $k }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 										<td>
-											<input type="text" value="" name="area_east_expense_{{ $k }}" class="expense-input expense">
+											<input type="text" value="" name="area_east_expense_{{ $k }}" ng-model="area_east_expense_{{ $k }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 										<td class="profit">
 											<span></span>
@@ -713,8 +734,11 @@
 											<input type="hidden" class="hidden-profit-rate" name="area_east_profitRate_{{ $k }}">
 										</td>
 										<td>
-											<input type="text" name="area_east_settingRate_{{ $k }}" class="setting-rate-box"> %
+											<input type="text" name="area_east_settingRate_{{ $k }}" ng-model="area_east_settingRate_{{ $k }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
+
 
 										<td>
 											&yen;3,000,000
@@ -905,7 +929,8 @@
 						</div>
 
 						<div class="submit-row">
-	            	<button type="submit" class="btn-sumit">Done</button>
+	            	<button ng-if="budget_form.$valid" type="submit" class="btn-sumit">Done</button>
+	            	<button id="budget-error" ng-if="budget_form.$invalid" type="button" class="btn-sumit">Done</button>
 	          </div>
 
 					</div>
@@ -971,7 +996,7 @@
 				</form>
 				</br>
 				<hr>
-				<form action="budget-admin" method="POST">
+				<form action="budget-admin" name="budget-admin" class="budget_form" method="POST">
 					{{ csrf_field() }}
 					<input type="hidden" name="month_a" id="month_a">
 					<input type="hidden" name="year_a" id="year_a">
@@ -1024,7 +1049,7 @@
 
   								</tr>
   							</thead>
-  							<tbody id="west">
+  							<tbody id="west"> kiki
   								@foreach ($area_west_budget as $key)
   								<tr class="record">
   									<td>{{ $key->location_name }}
@@ -1032,13 +1057,19 @@
   									</td>
 
   									<td>
-  										<input type="text" value="{{ $key->revenue }}" name="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue">
+  										<input type="text" value="{{ $key->revenue }}" name="area_west_revenue_{{ $j }}" ng-model="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
   									<td>
-  										<input type="text" value="{{ $key->cost }}" name="area_west_cost_{{ $j }}" class="cost-profit-input cost">
+  										<input type="text" value="{{ $key->cost }}" name="area_west_cost_{{ $j }}" ng-model="area_west_cost_{{ $j }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
   									<td>
-  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_west_expense_{{ $j }}" class="expense-input expense">
+  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_west_expense_{{ $j }}" ng-model="area_west_expense_{{ $j }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
   									<td class="profit">
   										<span>&yen;{{ $key->profit }}</span>
@@ -1049,7 +1080,9 @@
   										<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_west_profitRate_{{ $j }}">
   									</td>
   									<td>
-  										<input type="text" value="{{ $key->setting_rate }}" name="area_west_settingRate_{{ $j }}" class="setting-rate-box"> %
+  										<input type="text" value="{{ $key->setting_rate }}" name="area_west_settingRate_{{ $j }}" ng-model="area_west_settingRate_{{ $j }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
 
   									<td>
@@ -1193,7 +1226,7 @@
   						</table>
   						<hr>
 
-  						<form action="budget-admin" name="budget-admin" method="POST" novalidate="novalidate">
+  						<form action="budget-admin" class="budget_form" name="budget-admin" method="POST" novalidate="novalidate">
 
   					</div>
 
@@ -1249,13 +1282,19 @@
   									<td>{{ $key->location_name }}
   									<input type="hidden" name="area_central_location_{{ ++$l }}" value="{{ $key->location_name }}"></td>
   									<td>
-  										<input type="text" value="{{ $key->revenue }}" name="area_central_revenue_{{ $l }}" class="revenue-profit-input revenue">
+  										<input type="text" value="{{ $key->revenue }}" name="area_central_revenue_{{ $l }}" ng-model="area_central_revenue_{{ $l }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
   									<td>
-  										<input type="text" value="{{ $key->cost }}" name="area_central_cost_{{ $l }}" class="cost-profit-input cost">
+  										<input type="text" value="{{ $key->cost }}" name="area_central_cost_{{ $l }}" ng-model="area_central_cost_{{ $l }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
   									<td>
-  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_central_expense_{{ $l }}" class="expense-input expense">
+  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_central_expense_{{ $l }}" ng-model="area_central_expense_{{ $l }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
   									<td class="profit">
   										<span>&yen;{{ $key->profit }}</span>
@@ -1266,7 +1305,9 @@
   										<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_central_profitRate_{{ $l }}">
   									</td>
   									<td>
-  										<input type="text" value="{{ $key->setting_rate }}" name="area_central_settingRate_{{ $l }}" class="setting-rate-box"> %
+  										<input type="text" value="{{ $key->setting_rate }}" name="area_central_settingRate_{{ $l }}" ng-model="area_central_settingRate_{{ $l }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
 
   									<td>
@@ -1463,13 +1504,19 @@
   									<td>{{ $key->location_name }}
   									<input type="hidden" name="area_east_location_{{ ++$k }}" value="{{ $key->location_name }}"></td>
   									<td>
-  										<input type="text" value="{{ $key->revenue }}" name="area_east_revenue_{{ $k }}" class="revenue-profit-input revenue">
+  										<input type="text" value="{{ $key->revenue }}" name="area_east_revenue_{{ $k }}" ng-model="area_east_revenue_{{ $k }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
   									<td>
-  										<input type="text" value="{{ $key->cost }}" name="area_east_cost_{{ $k }}" class="cost-profit-input cost">
+  										<input type="text" value="{{ $key->cost }}" name="area_east_cost_{{ $k }}" ng-model="area_east_cost_{{ $k }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
   									<td>
-  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_east_expense_{{ $k }}" class="expense-input expense">
+  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_east_expense_{{ $k }}" ng-model="area_east_expense_{{ $k }}" class="expense-input expense mg-id" ng-required="true" numbers-only my-maxlength="9">
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
   									<td class="profit">
   										<span>&yen;{{ $key->profit }}</span>
@@ -1480,7 +1527,9 @@
   										<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_east_profitRate_{{ $k }}">
   									</td>
   									<td>
-  										<input type="text" value="{{ $key->setting_rate }}" name="area_east_settingRate_{{ $k }}" class="setting-rate-box"> %
+  										<input type="text" value="{{ $key->setting_rate }}" name="area_east_settingRate_{{ $k }}" ng-model="area_east_settingRate_{{ $k }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+  										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
 
   									<td>

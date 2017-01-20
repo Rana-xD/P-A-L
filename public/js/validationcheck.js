@@ -44,6 +44,52 @@ app.directive('numbersOnly', function() {
     };
 });
 
+app.directive('validRate', function() {
+    return {
+        require: '?ngModel',
+        link: function(scope, element, attrs, ngModelCtrl) {
+            if(!ngModelCtrl) {
+                return; 
+            }
+
+            ngModelCtrl.$parsers.push(function(val) {
+                if (angular.isUndefined(val)) {
+                    var val = '';
+                }
+            
+                var clean = val.replace(/[^-0-9\.]/g, '');
+                var negativeCheck = clean.split('-');
+                var decimalCheck = clean.split('.');
+                if(!angular.isUndefined(negativeCheck[1])) {
+                    negativeCheck[1] = negativeCheck[1].slice(0, negativeCheck[1].length);
+                    clean =negativeCheck[0] + '-' + negativeCheck[1];
+                    if(negativeCheck[0].length > 0) {
+                        clean =negativeCheck[0];
+                    }
+                    
+                }
+                  
+                if(!angular.isUndefined(decimalCheck[1])) {
+                    decimalCheck[1] = decimalCheck[1].slice(0,2);
+                    clean =decimalCheck[0] + '.' + decimalCheck[1];
+                }
+
+                if (val !== clean) {
+                  ngModelCtrl.$setViewValue(clean);
+                  ngModelCtrl.$render();
+                }
+                return clean;
+            });
+
+            element.bind('keypress', function(event) {
+                if(event.keyCode === 32) {
+                  event.preventDefault();
+                }
+            });
+        }
+    };
+});
+
 jQuery(document).ready(function($) {
     console.log("jQuery is ready to go");
     $('#error-submit').click(function(event) {
@@ -51,8 +97,23 @@ jQuery(document).ready(function($) {
             scrollTop: $('.input_form').find('.ng-invalid').first().offset().top
         }, 1000);
 
-        $('.input_form').find('.date-err').removeClass('ng-hide').addClass('ng-show');
-        $('.input_form').find('.ng-invalid').addClass('warn');
+        $('.input_form').find('.date-err').parent().find('p').removeClass('ng-hide').addClass('ng-show');
+        $('.input_form').find('.ng-invalid').first().addClass('warn');
+    });
+
+    $('#budget-error').click(function() {
+        $('html, body').animate({
+            scrollTop: $('.budget_form').find('.ng-invalid').first().offset().top
+        }, 1000);
+
+        $('.budget_form').find('.ng-invalid').first().addClass('warn').parent().find('.err-req').show();
+    });
+
+    $('.budget_form').find('.ng-invalid').keyup(function(event) {
+        if ($(this).val()){
+            $('.warn').removeClass('warn');
+            $(this).parent().find('.err-req').hide();
+        }
     });
 
     $('.datepicker').change(function(event) {
@@ -66,6 +127,19 @@ jQuery(document).ready(function($) {
         if ($(this).val().length == 5) {
             console.log("In if");
             $(this).parent().find('p').fadeIn(1000, function() {
+                console.log("fadeIn");
+                $(this).fadeOut(1000, function() {
+                    console.log("fadeOut");
+                });
+            });
+        }
+    });
+
+    $('.budget_form').find('.msg-id').keyup(function(event) {
+        console.log("test ng-valid press" + $(this).val().length);
+        if ($(this).val().length == 9) {
+            console.log("In if");
+            $(this).parent().find('.err-lim').fadeIn(1000, function() {
                 console.log("fadeIn");
                 $(this).fadeOut(1000, function() {
                     console.log("fadeOut");
