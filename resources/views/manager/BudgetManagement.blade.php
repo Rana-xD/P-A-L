@@ -239,8 +239,11 @@
 										<td>
 											&yen;63000
 										</td>
-										<td>&yen;12000</td>
-										<td>&yen;160000</td>
+										<td>{{ $key->headoffice_expense }}</td>
+										<td class="com-budget-profit">
+											<span>&yen;1600</span>
+											<input type="hidden" class="hidden-profit" value="1600" name="budget_west_profit{{ $i }}">
+										</td>
 										<td>20%</td>
 
 										<td>
@@ -251,13 +254,13 @@
 										</td>
 										<td class="expense">
 											<span>&yen;10</span>
-											<input type="hidden" value="10" class="forecast hidden-expense" name="forecast_west_expense_{{ $i }}">
+											<input type="hidden" value="{{ $key->headoffice_expense }}" class="forecast expense" name="forecast_west_expense_{{ $i }}">
 										</td>
-										<td class="profit">
+										<td class="profit forecast">
 											<span>&yen;</span>
 											<input type="hidden" value="" class="forecast hidden-profit" name="forecast_west_profit_{{ $i }}">
 										</td>
-										<td class="profit-rate">
+										<td class="profit-rate forecast">
 											<span>%</span>
 											<input type="hidden" class="forecast hidden-profit-rate" name="forecast_west_profitRate_{{ $i }}">
 										</td>
@@ -288,22 +291,22 @@
 										<td>
 											<input type="text" value="" name="final_west_expense_{{ $i }}" class="expense-input final expense">
 										</td>
-										<td class="profit">
+										<td class="profit final">
 											<span>&yen;</span>
 											<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $i }}">
 										</td>
-										<td class="profit-rate">
+										<td class="profit-rate final">
 											<span>%</span>
 											<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $i }}">
 										</td>
-										<td class="profit-gap">
+										<td class="profit-gap final">
 											<span>&yen;</span>
 											<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $i }}">
 										</td>
 
 									</tr>
 								@endforeach
-									<tr>
+									<tr class="subtotal">
 										<td>Subtotal</td>
 										<td>&yen;</td>
 										<td>&yen;</td>
@@ -353,27 +356,27 @@
 
 										<td class="final sub-sale">
 											<span>&yen;</span>
-											<input type="hidden" class="final sub-sale-hidden" name="final_west_sub_sale">
+											<input type="hidden" value="" class="final sub-sale-hidden" name="final_west_sub_sale">
 										</td>
 										<td class="final sub-cost">
 											<span>&yen;</span>
-											<input type="hidden" class="final sub-cost-hidden" name="final_west_sub_cost">
+											<input type="hidden" value="" class="final sub-cost-hidden" name="final_west_sub_cost">
 										</td>
 										<td class="final sub-expense">
 											<span>&yen;</span>
-											<input type="hidden" class="final sub-expense-hidden" name="final_west_sub_expense">
+											<input type="hidden" value="" class="final sub-expense-hidden" name="final_west_sub_expense">
 										</td>
 										<td class="final sub-profit">
 											<span>&yen;</span>
-											<input type="hidden" class="final sub-profit-hidden" name="final_west_sub_profit">
+											<input type="hidden" value="" class="final sub-profit-hidden" name="final_west_sub_profit">
 										</td>
 										<td class="final sub-profit-rate">
 											<span>%</span>
-											<input type="hidden" class="final sub-rate-hidden" name="final_west_sub_profit_rate">
+											<input type="hidden" value="" class="final sub-rate-hidden" name="final_west_sub_profit_rate">
 										</td>
 										<td class="final sub-profit-gap">
 											<span>%</span>
-											<input type="hidden" class="final sub-profitgap-hidden" name="final_west_sub_profitgap">
+											<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_west_sub_profitgap">
 										</td>
 									</tr>
 								</tbody>
