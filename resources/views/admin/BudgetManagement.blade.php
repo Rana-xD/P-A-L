@@ -1678,46 +1678,46 @@
   					<div class="gross_total">
   						<table>
   							<thead>
-  							<tr>
-  								<th></th>
-  								<th>Sale</th>
-  								<th>Cost</th>
-  								<th>Expense</th>
-  								<th>Profit</th>
-  								<th>Profit Rate</th>
-  								<th>Setting Rate</th>
-  							</tr>
-  						</thead>
-  						<tbody>
-  							<tr>
-  								<td>Gross total</td>
-  								<td class="gross-sale">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-sale" class="gross-sale-hidden">
-  								</td>
-  								<td class="gross-cost">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-cost" class="gross-cost-hidden">
-  								</td>
-  								<td class="gross-expense">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-expense" class="gross-expense-hidden">
-  								</td>
-  								<td class="gross-profit">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-profit" class="gross-profit-hidden">
-  								</td>
-  								<td class="gross-profit-rate">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-profit-rate" class="gross-profit-rate-hidden">
-  								</td>
-  								<td class="gross-setting-rate">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-setting-rate" class="gross-setting-rate-hidden">
-  								</td>
+	  							<tr>
+	  								<th></th>
+	  								<th>Sale</th>
+	  								<th>Cost</th>
+	  								<th>Expense</th>
+	  								<th>Profit</th>
+	  								<th>Profit Rate</th>
+	  								<th>Setting Rate</th>
+	  							</tr>
+  							</thead>
+	  						<tbody>
+	  							<tr>
+	  								<td>Gross total</td>
+	  								<td class="gross-sale">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-sale" class="gross-sale-hidden">
+	  								</td>
+	  								<td class="gross-cost">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-cost" class="gross-cost-hidden">
+	  								</td>
+	  								<td class="gross-expense">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-expense" class="gross-expense-hidden">
+	  								</td>
+	  								<td class="gross-profit">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-profit" class="gross-profit-hidden">
+	  								</td>
+	  								<td class="gross-profit-rate">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-profit-rate" class="gross-profit-rate-hidden">
+	  								</td>
+	  								<td class="gross-setting-rate">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-setting-rate" class="gross-setting-rate-hidden">
+	  								</td>
 
-  							</tr>
-  						</tbody>
+	  							</tr>
+	  						</tbody>
   						</table>
   					</div>
   					<div class="submit-row">

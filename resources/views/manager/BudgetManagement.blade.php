@@ -387,137 +387,94 @@
 						<div class="indi-area">
 							<div class="area-heading">
 								<h2>
-									AREA CENTRAL
+									AREA WEST
 								</h2>
 							</div>
+
 							<table class="scroll">
 								<thead>
 									<tr>
 										<th style="background: transparent; padding-left: 30px;"></th>
 										<th style="background: #e74c3c; padding-left: 30px;" colspan="5">予算</th>
-										<th style="background: #2ecc71; padding-left: 30px;" colspan="4">予測</th>
-										<th style="background: #3498db; padding-left: 30px;" colspan="5">進捗</th>
-										<th style="background: #f1c40f; padding-left: 30px;" colspan="5">確定数値</th>
+										<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+										<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+										<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 									</tr>
 									<tr>
 										<th>Location</th>
 										<th>Sales</th>
 										<th>Cost</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Setting rate</th>
-
-										<th>Sales</th>
-										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 
-
-										<th>Last Update</th>
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
+										<th>Profit</th>
+										<th>Profit rate</th>
+
+										<th>Sales</th>
+										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>Location 1</td>
+								<tbody id="central">
+								@foreach ($area_west as $key)
+									{{ ++$i }}
+									<tr class="record">
 										<td>
-											&yen;10,000,000
+											{{ $key->location_name }}
 										</td>
 										<td>
-											&yen; 14,000,000
+											&yen;2500000
 										</td>
-										<td>&yen;3,000,000</td>
+										<td>
+											&yen;63000
+										</td>
+										<td>&yen;5000</td>
+										<td class="com-budget-profit">
+											<span>&yen;1600</span>
+											<input type="hidden" class="hidden-profit" value="1600" name="budget_west_profit{{ $i }}">
+										</td>
 										<td>20%</td>
-										<td><input type="text" name="" class="setting-rate-box"> %</td>
 
 										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
+											<input type="text" value="" name="forecast_west_revenue_{{ $i }}" class="forecast revenue">
 										</td>
 										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
+											<input type="text" value="" name="forecast_west_cost_{{ $i }}" class="forecast cost">
 										</td>
-										<td>
-											&yen;3,000,000
+										<td class="expense">
+											<span>&yen;10</span>
+											<input type="hidden" value="10" class="forecast expense" name="forecast_west_expense_{{ $i }}">
 										</td>
-										<td>
-											15%
+										<td class="profit forecast">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="forecast hidden-profit" name="forecast_west_profit_{{ $i }}">
+										</td>
+										<td class="profit-rate forecast">
+											<span>%</span>
+											<input type="hidden" class="forecast hidden-profit-rate" name="forecast_west_profitRate_{{ $i }}">
 										</td>
 
-										<td>12/01/2017</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
-										</td>
-
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-										</td>
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
-										</td>
-									</tr>
-									<tr>
-										<td>Location 2</td>
-										<td>
-											&yen;10,000,000
-										</td>
-										<td>
-											&yen; 14,000,000
-										</td>
 										<td>&yen;3,000,000</td>
-										<td>20%</td>
-										<td><input type="text" name="" class="setting-rate-box"> %</td>
-
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-										</td>
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-										</td>
 										<td>
 											&yen;3,000,000
 										</td>
 										<td>
-											15%
-										</td>
-
-										<td>12/01/2017</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
+											&yen;5,000,0
 										</td>
 										<td>
 											&yen;3,000,000
@@ -526,190 +483,202 @@
 											15%
 										</td>
 										<td>
-											&yen;400,000,00
+											13%
 										</td>
 
 										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
+											<input type="text" value="" name="final_west_revenue_{{ $i }}" class="revenue-profit-input final revenue">
 										</td>
 										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
+											<input type="text" value="" name="final_west_cost_{{ $i }}" class="cost-profit-input final cost">
 										</td>
-										<td>
-											&yen;3,000,000
+										<td class="expense">
+											<span>&yen;15</span>
+											<input type="hidden" value="15" name="final_west_expense_{{ $i }}" class="expense-input final expense">
 										</td>
-										<td>
-											15%
+										<td class="profit final">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $i }}">
 										</td>
-										<td>
-											&yen;400,000,00
+										<td class="profit-rate final">
+											<span>%</span>
+											<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $i }}">
+										</td>
+										<td class="profit-gap final">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $i }}">
 										</td>
 
 									</tr>
-									<tr>
-										<td>Location N</td>
-										<td>
-											&yen;10,000,000
-										</td>
-										<td>
-											&yen; 14,000,000
-										</td>
-										<td>&yen;3,000,000</td>
-										<td>20%</td>
-										<td><input type="text" name="" class="setting-rate-box"> %</td>
-
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-										</td>
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-
-										<td>12/01/2017</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
-										</td>
-
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-										</td>
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
-										</td>
-
-									</tr>
-									<tr>
+								@endforeach
+									<tr class="subtotal">
 										<td>Subtotal</td>
-										<td>&yen;26,000,000</td>
-										<td>&yen;21,500,000</td>
-										<td>&yen;4,500,000</td>
-										<td>17.31%</td>
-										<td><input type="text" name="" class="setting-rate-box"> %</td>
+										<td>&yen;</td>
+										<td>&yen;</td>
+										<td>&yen;</td>
+										<td>%</td>
+										<td>%</td>
+
+										<td class="forecast-sub-sale">
+											<span>&yen;</span>
+											<input type="hidden" class="forecast sub-sale-hidden" name="forecast_west_sub_sale">
+										</td>
+										<td class="forecast-sub-cost">
+											<span>&yen;</span>
+											<input type="hidden" class="forecast sub-cost-hidden" name="forecast_west_sub_cost">
+										</td>
+										<td class="forecast-sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" class="forecast sub-expense-hidden" name="forecast_west_sub_expense">
+										</td>
+										<td class="forecast-sub-profit">
+											<span>&yen;</span>
+											<input type="hidden" class="forecast sub-profit-hidden" name="forecast_west_sub_profit">
+										</td>
+										<td class="forecast-sub-profit-rate">
+											<span>%</span>
+											<input type="hidden" class="forecast sub-rate-hidden" name="forecast_west_sub_profit_rate">
+										</td>
+
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+
+										<td class="final-sub-sale">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-sale-hidden" name="final_west_sub_sale">
+										</td>
+										<td class="final-sub-cost">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-cost-hidden" name="final_west_sub_cost">
+										</td>
+										<td class="final-sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-expense-hidden" name="final_west_sub_expense">
+										</td>
+										<td class="final-sub-profit">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profit-hidden" name="final_west_sub_profit">
+										</td>
+										<td class="final-sub-profit-rate">
+											<span>%</span>
+											<input type="hidden" value="" class="final sub-rate-hidden" name="final_west_sub_profit_rate">
+										</td>
+										<td class="final-sub-profit-gap">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_west_sub_profitgap">
+										</td>
 									</tr>
 								</tbody>
 							</table>
-							<hr>
 						</div>
 
 						<div class="indi-area">
 							<div class="area-heading">
 								<h2>
-									AREA EAST
+									AREA WEST
 								</h2>
 							</div>
+
 							<table class="scroll">
 								<thead>
 									<tr>
 										<th style="background: transparent; padding-left: 30px;"></th>
 										<th style="background: #e74c3c; padding-left: 30px;" colspan="5">予算</th>
-										<th style="background: #2ecc71; padding-left: 30px;" colspan="4">予測</th>
-										<th style="background: #3498db; padding-left: 30px;" colspan="5">進捗</th>
-										<th style="background: #f1c40f; padding-left: 30px;" colspan="5">確定数値</th>
+										<th style="background: #2ecc71; padding-left: 30px;" colspan="5">予測</th>
+										<th style="background: #3498db; padding-left: 30px;" colspan="6">進捗</th>
+										<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 									</tr>
 									<tr>
 										<th>Location</th>
 										<th>Sales</th>
 										<th>Cost</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Setting rate</th>
-
-										<th>Sales</th>
-										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 
-
-										<th>Last Update</th>
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
+										<th>Profit</th>
+										<th>Profit rate</th>
+
+										<th>Sales</th>
+										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 										<th>Sales</th>
 										<th>Cost</th>
+										<th>Expense</th>
 										<th>Profit</th>
 										<th>Profit rate</th>
 										<th>Profit gap</th>
 
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>Location 1</td>
+								<tbody id="east">
+								@foreach ($area_west as $key)
+									{{ ++$i }}
+									<tr class="record">
 										<td>
-											&yen;10,000,000
+											{{ $key->location_name }}
 										</td>
 										<td>
-											&yen; 14,000,000
+											&yen;2500000
 										</td>
-										<td>&yen;3,000,000</td>
+										<td>
+											&yen;63000
+										</td>
+										<td>&yen;5000</td>
+										<td class="com-budget-profit">
+											<span>&yen;1600</span>
+											<input type="hidden" class="hidden-profit" value="1600" name="budget_west_profit{{ $i }}">
+										</td>
 										<td>20%</td>
-										<td><input type="text" name="" class="setting-rate-box"> %</td>
 
 										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
+											<input type="text" value="" name="forecast_west_revenue_{{ $i }}" class="forecast revenue">
 										</td>
 										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
+											<input type="text" value="" name="forecast_west_cost_{{ $i }}" class="forecast cost">
 										</td>
-										<td>
-											&yen;3,000,000
+										<td class="expense">
+											<span>&yen;10</span>
+											<input type="hidden" value="10" class="forecast expense" name="forecast_west_expense_{{ $i }}">
 										</td>
-										<td>
-											15%
+										<td class="profit forecast">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="forecast hidden-profit" name="forecast_west_profit_{{ $i }}">
 										</td>
-
-										<td>12/01/2017</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
+										<td class="profit-rate forecast">
+											<span>%</span>
+											<input type="hidden" class="forecast hidden-profit-rate" name="forecast_west_profitRate_{{ $i }}">
 										</td>
 
+										<td>&yen;3,000,000</td>
 										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
+											&yen;3,000,000
 										</td>
 										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
+											&yen;5,000,0
 										</td>
 										<td>
 											&yen;3,000,000
@@ -718,153 +687,145 @@
 											15%
 										</td>
 										<td>
-											&yen;400,000,00
+											13%
+										</td>
+
+										<td>
+											<input type="text" value="" name="final_west_revenue_{{ $i }}" class="revenue-profit-input final revenue">
+										</td>
+										<td>
+											<input type="text" value="" name="final_west_cost_{{ $i }}" class="cost-profit-input final cost">
+										</td>
+										<td class="expense">
+											<span>&yen;15</span>
+											<input type="hidden" value="15" name="final_west_expense_{{ $i }}" class="expense-input final expense">
+										</td>
+										<td class="profit final">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $i }}">
+										</td>
+										<td class="profit-rate final">
+											<span>%</span>
+											<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $i }}">
+										</td>
+										<td class="profit-gap final">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $i }}">
 										</td>
 
 									</tr>
-									<tr>
-										<td>Location 2</td>
-										<td>
-											&yen;10,000,000
-										</td>
-										<td>
-											&yen; 14,000,000
-										</td>
-										<td>&yen;3,000,000</td>
-										<td>20%</td>
-										<td><input type="text" name="" class="setting-rate-box"> %</td>
-
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-										</td>
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-
-										<td>12/01/2017</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
-										</td>
-
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-										</td>
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
-										</td>
-
-									</tr>
-									<tr>
-										<td>Location N</td>
-										<td>
-											&yen;10,000,000
-										</td>
-										<td>
-											&yen; 14,000,000
-										</td>
-										<td>&yen;3,000,000</td>
-										<td>20%</td>
-										<td><input type="text" name="" class="setting-rate-box"> %</td>
-
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-										</td>
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-
-										<td>12/01/2017</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
-										</td>
-
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="10,000,000">
-										</td>
-										<td>
-											<input type="text" name="" class="cost-profit-input" placeholder="7,000,000">
-										</td>
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
-										</td>
-
-									</tr>
-									<tr>
+								@endforeach
+									<tr class="subtotal">
 										<td>Subtotal</td>
-										<td>&yen;26,000,000</td>
-										<td>&yen;21,500,000</td>
-										<td>&yen;4,500,000</td>
-										<td>17.31%</td>
-										<td><input type="text" name="" class="setting-rate-box"> %</td>
+										<td>&yen;</td>
+										<td>&yen;</td>
+										<td>&yen;</td>
+										<td>%</td>
+										<td>%</td>
+
+										<td class="forecast-sub-sale">
+											<span>&yen;</span>
+											<input type="hidden" class="forecast sub-sale-hidden" name="forecast_west_sub_sale">
+										</td>
+										<td class="forecast-sub-cost">
+											<span>&yen;</span>
+											<input type="hidden" class="forecast sub-cost-hidden" name="forecast_west_sub_cost">
+										</td>
+										<td class="forecast-sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" class="forecast sub-expense-hidden" name="forecast_west_sub_expense">
+										</td>
+										<td class="forecast-sub-profit">
+											<span>&yen;</span>
+											<input type="hidden" class="forecast sub-profit-hidden" name="forecast_west_sub_profit">
+										</td>
+										<td class="forecast-sub-profit-rate">
+											<span>%</span>
+											<input type="hidden" class="forecast sub-rate-hidden" name="forecast_west_sub_profit_rate">
+										</td>
+
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+										<td>
+											
+										</td>
+
+										<td class="final-sub-sale">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-sale-hidden" name="final_west_sub_sale">
+										</td>
+										<td class="final-sub-cost">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-cost-hidden" name="final_west_sub_cost">
+										</td>
+										<td class="final-sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-expense-hidden" name="final_west_sub_expense">
+										</td>
+										<td class="final-sub-profit">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profit-hidden" name="final_west_sub_profit">
+										</td>
+										<td class="final-sub-profit-rate">
+											<span>%</span>
+											<input type="hidden" value="" class="final sub-rate-hidden" name="final_west_sub_profit_rate">
+										</td>
+										<td class="final-sub-profit-gap">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_west_sub_profitgap">
+										</td>
 									</tr>
 								</tbody>
 							</table>
-							<hr>
 						</div>
 
 						<div class="gross_total">
 							<table>
-								<tbody>
-									<tr>
-										<td>Gross total</td>
-										<td>&yen;78,000,000</td>
-										<td>&yen;66,800,000</td>
-										<td>&yen;11,200,000</td>
-										<td>14.36%</td>
-										<td></td>
-									</tr>
-								</tbody>
+								<thead>
+		  							<tr>
+		  								<th></th>
+		  								<th>Sale</th>
+		  								<th>Cost</th>
+		  								<th>Expense</th>
+		  								<th>Profit</th>
+		  								<th>Profit Rate</th>
+		  								
+		  							</tr>
+	  							</thead>
+		  						<tbody>
+		  							<tr>
+		  								<td>Gross total</td>
+		  								<td>
+		  									<!-- Gross sale -->
+		  								</td>
+		  								<td>
+		  									<!-- Gross cost -->
+		  								</td>
+		  								<td>
+		  									<!-- Gross expense -->
+		  								</td>
+		  								<td>
+		  									<!-- Gross profit -->
+		  								</td>
+		  								<td>
+		  									<!-- Gross profit rate -->
+		  								</td>
+
+		  							</tr>
+		  						</tbody>
 							</table>
 						</div>
 
