@@ -518,11 +518,11 @@ $(function(){
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
 	      
-	      $(this).parents('tr').find('.forecast.profit span')
+	      $(this).parents('tr').find('.forecast-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
 	      .next().val((profit).toFixed(2));
 
-	      $(this).parents('tr').find('.forecast.profit-rate span')
+	      $(this).parents('tr').find('.forecast-profit-rate span')
 	      .html(parseFloat((profitRate).toFixed(2)) + '%')
 	      .next().val(parseFloat((profitRate).toFixed(2)));
 
@@ -533,36 +533,36 @@ $(function(){
 	      var expense = $.isNumeric($(this).parents('tr').find('.final.expense').val()) ? parseFloat($(this).parents('tr').find('.final.expense').val()) : 0;
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
-	      var profitGap = ($(this).parents('tr').find('.com-budget-profit .hidden-profit').val() - profit);
+	      var profitGap = ($(this).parents('tr').find('.company-profit .hidden-profit').val() - Math.abs(profit));
 	     
 	      // Render value for profit | @final section
-	      $(this).parents('tr').find('.final.profit span')
+	      $(this).parents('tr').find('.final-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
 	      .next().val((profit).toFixed(2));
 
 	      // Render value for profit rate | @final section
-	      $(this).parents('tr').find('.final.profit-rate span')
+	      $(this).parents('tr').find('.final-profit-rate span')
 	      .html(parseFloat((profitRate).toFixed(2)) + '%')
 	      .next().val(parseFloat((profitRate).toFixed(2)));
 
 	      // Render value for profit gap | @final section
-	      $(this).parents('tr').find('.final.profit-gap span')
+	      $(this).parents('tr').find('.final-profit-gap span')
 	      .html('&yen;'+parseFloat((profitGap).toFixed(2)))
 	      .next().val(parseFloat((profitGap).toFixed(2)));
 
 	   }else{
 	   	// For admin page | forecast section
 	   	var revenue = parseFloat($(this).val()) || 0;
-	      var cost = $.isNumeric($(this).parents('tr').find('.cost').val()) ? parseFloat($(this).parents('tr').find('.cost').val()) : 0;
-	      var expense = $.isNumeric($(this).parents('tr').find('.expense').val()) ? parseFloat($(this).parents('tr').find('.expense').val()) : 0;
+	      var cost = $.isNumeric($(this).parents('tr').find('.company.cost').val()) ? parseFloat($(this).parents('tr').find('.company.cost').val()) : 0;
+	      var expense = $.isNumeric($(this).parents('tr').find('.company.expense').val()) ? parseFloat($(this).parents('tr').find('.company.expense').val()) : 0;
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
 
-	      $(this).parents('tr').find('.profit span').html('&yen;' + profit);
-	      $(this).parents('tr').find('.profit .hidden-profit').val(profit);
+	      $(this).parents('tr').find('.company-profit span').html('&yen;' + profit);
+	      $(this).parents('tr').find('.company-profit .hidden-profit').val(profit);
 
-	      $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
-	      $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+	      $(this).parents('tr').find('.company-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
+	      $(this).parents('tr').find('.company-profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
 	   }
 
       // Calulate Sub Revenue
@@ -576,11 +576,11 @@ $(function(){
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
 	      
-	      $(this).parents('tr').find('.forecast.profit span')
+	      $(this).parents('tr').find('.forecast-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
 	      .next().val((profit).toFixed(2));
 
-	      $(this).parents('tr').find('.forecast.profit-rate span')
+	      $(this).parents('tr').find('.forecast-profit-rate span')
 	      .html(parseFloat((profitRate).toFixed(2)) + '%')
 	      .next().val(parseFloat((profitRate).toFixed(2)));
 
@@ -591,35 +591,35 @@ $(function(){
 	      var expense = $.isNumeric($(this).parents('tr').find('.final.expense').val()) ? parseFloat($(this).parents('tr').find('.final.expense').val()) : 0;
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
-	      var profitGap = ($(this).parents('tr').find('.com-budget-profit .hidden-profit').val() - profit);
+	      var profitGap = ($(this).parents('tr').find('.company-profit .hidden-profit').val() - Math.abs(profit));
 	      
 	      // Render value for profit | @final section
-	      $(this).parents('tr').find('.final.profit span')
+	      $(this).parents('tr').find('.final-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
 	      .next().val((profit).toFixed(2));
 
 	      // Render value for profit rate | @final section
-	      $(this).parents('tr').find('.final.profit-rate span')
+	      $(this).parents('tr').find('.final-profit-rate span')
 	      .html(parseFloat((profitRate).toFixed(2)) + '%')
 	      .next().val(parseFloat((profitRate).toFixed(2)));
 
 	      // Render value for profit gap | @final section
-	      $(this).parents('tr').find('.final.profit-gap span')
+	      $(this).parents('tr').find('.final-profit-gap span')
 	      .html('&yen;'+parseFloat((profitGap).toFixed(2)))
 	      .next().val(parseFloat((profitGap).toFixed(2)));
    	}else{
-   		var revenue = $.isNumeric($(this).parents('tr').find('.revenue').val()) ? parseFloat($(this).parents('tr').find('.revenue').val()) : 0;
+   		var revenue = $.isNumeric($(this).parents('tr').find('.company.revenue').val()) ? parseFloat($(this).parents('tr').find('.company.revenue').val()) : 0;
 	      var cost = parseFloat($(this).val()) || 0;
-	      var expense = $.isNumeric($(this).parents('tr').find('.expense').val()) ? parseFloat($(this).parents('tr').find('.expense').val()) : 0;
+	      var expense = $.isNumeric($(this).parents('tr').find('.company.expense').val()) ? parseFloat($(this).parents('tr').find('.company.expense').val()) : 0;
 	      var profit = revenue - cost - expense;
 
 	      var profitRate = (profit * 100) / revenue;
 	      console.log(revenue+":"+cost+":"+profit+":"+profitRate);
-	      $(this).parents('tr').find('.profit span').html('&yen;' + profit);
-	      $(this).parents('tr').find('.profit .hidden-profit').val(profit);
+	      $(this).parents('tr').find('.company-profit span').html('&yen;' + profit);
+	      $(this).parents('tr').find('.company-profit .hidden-profit').val(profit);
 
-	      $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
-	      $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+	      $(this).parents('tr').find('.company-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
+	      $(this).parents('tr').find('.company-profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
    	}
       
 
@@ -634,11 +634,11 @@ $(function(){
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
 	      
-	      $(this).parents('tr').find('.forecast.profit span')
+	      $(this).parents('tr').find('.forecast-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
 	      .next().val((profit).toFixed(2));
 
-	      $(this).parents('tr').find('.forecast.profit-rate span')
+	      $(this).parents('tr').find('.forecast-profit-rate span')
 	      .html(parseFloat((profitRate).toFixed(2)) + '%')
 	      .next().val(parseFloat((profitRate).toFixed(2)));
     	}else if($(this).hasClass('final')){
@@ -648,34 +648,34 @@ $(function(){
 	      var expense = parseFloat($(this).val()) || 0;
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
-	      var profitGap = ($(this).parents('tr').find('.com-budget-profit .hidden-profit').val() - profit);
+	      var profitGap = ($(this).parents('tr').find('.company-profit .hidden-profit').val() - Math.abs(profit));
 	      
 	      // Render value for profit | @final section
-	      $(this).parents('tr').find('.final.profit span')
+	      $(this).parents('tr').find('.final-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
 	      .next().val((profit).toFixed(2));
 
 	      // Render value for profit rate | @final section
-	      $(this).parents('tr').find('.final.profit-rate span')
+	      $(this).parents('tr').find('.final-profit-rate span')
 	      .html(parseFloat((profitRate).toFixed(2)) + '%')
 	      .next().val(parseFloat((profitRate).toFixed(2)));
 
 	      // Render value for profit gap | @final section
-	      $(this).parents('tr').find('.final.profit-gap span')
+	      $(this).parents('tr').find('.final-profit-gap span')
 	      .html('&yen;'+parseFloat((profitGap).toFixed(2)))
 	      .next().val(parseFloat((profitGap).toFixed(2)));
     	}else{
-    	  var revenue = $.isNumeric($(this).parents('tr').find('.revenue').val()) ? parseFloat($(this).parents('tr').find('.revenue').val()) : 0;
-	      var cost = $.isNumeric($(this).parents('tr').find('.cost').val()) ? parseFloat($(this).parents('tr').find('.cost').val()) : 0;
+    	  var revenue = $.isNumeric($(this).parents('tr').find('.company.revenue').val()) ? parseFloat($(this).parents('tr').find('.company.revenue').val()) : 0;
+	      var cost = $.isNumeric($(this).parents('tr').find('.company.cost').val()) ? parseFloat($(this).parents('tr').find('.company.cost').val()) : 0;
 	      var expense = parseFloat($(this).val()) || 0;
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
 	      
-	      $(this).parents('tr').find('.profit span').html('&yen;' + profit);
-	      $(this).parents('tr').find('.profit .hidden-profit').val(profit);
+	      $(this).parents('tr').find('.company-profit span').html('&yen;' + profit);
+	      $(this).parents('tr').find('.company-profit .hidden-profit').val(profit);
 
-	      $(this).parents('tr').find('.profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
-	      $(this).parents('tr').find('.profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+	      $(this).parents('tr').find('.company-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
+	      $(this).parents('tr').find('.company-profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
     	}
 	  	
     	// Calculate Sub Expense
@@ -721,7 +721,7 @@ function calcSubTotal(ele){
 		profit = sum($(ele).parents('tbody').find('.final.hidden-profit'));
 		profitRate = sum($(ele).parents('tbody').find('.final.hidden-profit-rate'));
 		profitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
-		console.log('final subtotal');
+		
 		// Render html value & input hidden
 		$(subDiv).find('.final-sub-sale span').html('&yen;'+sale).next().val(sale);
   		$(subDiv).find('.final-sub-cost span').html('&yen;'+cost).next().val(cost);
@@ -731,12 +731,12 @@ function calcSubTotal(ele){
   		$(subDiv).find('.final-sub-profit-gap span').html('&yen;'+parseFloat((profitGap).toFixed(2))).next().val(parseFloat((profitGap).toFixed(2)));
 
 	}else{
-		sale = sum($(ele).parents('tbody').find('.revenue'));
-		cost = sum($(ele).parents('tbody').find('.cost'));
-		expense = sum($(ele).parents('tbody').find('.expense'));
-		profit = sum($(ele).parents('tbody').find('.hidden-profit'));
-		profitRate = sum($(ele).parents('tbody').find('.hidden-profit-rate'));
-
+		sale = sum($(ele).parents('tbody').find('.company.revenue'));
+		cost = sum($(ele).parents('tbody').find('.company.cost'));
+		expense = sum($(ele).parents('tbody').find('.company.expense'));
+		profit = sum($(ele).parents('tbody').find('.company.hidden-profit'));
+		profitRate = sum($(ele).parents('tbody').find('.company.hidden-profit-rate'));
+		
 		// Render html value & input hidden
 		$(subDiv).find('.sub-sale span').html('&yen;'+sale).next().val(sale);
   		$(subDiv).find('.sub-cost span').html('&yen;'+cost).next().val(cost);
@@ -759,31 +759,31 @@ function CalcGross(){
 		grossSettingRate =0;
 
 	// Gross for sale
-	$('.sub-sale-hidden').each(function(){
+	$('.company.sub-sale-hidden').each(function(){
 		grossSale = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossSale)) : parseFloat(grossSale);
 	});
 
 	// Gross for cost
-	$('.sub-cost-hidden').each(function(){
+	$('.company.sub-cost-hidden').each(function(){
 		grossCost = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossCost)) : parseFloat(grossCost);
 	});
 
 	// Gross for expense
-	$('.sub-expense-hidden').each(function(){
+	$('.company.sub-expense-hidden').each(function(){
 		grossExpense = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossExpense)) : parseFloat(grossExpense);	});
 
 	// Gross for profit
-	$('.sub-profit-hidden').each(function(){
+	$('.company.sub-profit-hidden').each(function(){
 		grossProfit = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossProfit)) : parseFloat(grossProfit);
 	});
 
 	// Gross for profit rate
-	$('.sub-rate-hidden').each(function(){
+	$('.company.sub-rate-hidden').each(function(){
 		grossProfitRate = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossProfitRate)) : parseFloat(grossProfitRate);
 	});
 
 	// Gross for setting rate
-	$('.sub-setting-rate-hidden').each(function(){
+	$('.company.sub-setting-rate-hidden').each(function(){
 		grossSettingRate = $.isNumeric($(this).val()) ? (parseFloat($(this).val()) + parseFloat(grossSettingRate)) : parseFloat(grossSettingRate);
 	});
 
