@@ -62,12 +62,19 @@
  		$('#year_a').val(valueSelected);
  		});
 
- 		var elew = $('#west .revenue')[0];
- 		calcSubTotal(elew);
- 		var elec = $('#central .revenue')[0];
- 		calcSubTotal(elec);
- 		var elee = $('#east .revenue')[0];
- 		calcSubTotal(elee);
+ 		$('#west .expense').each(function(){
+ 			calcSubTotal($(this));
+ 		});
+ 		
+ 		
+ 		$('#central .expense').each(function(){
+ 			calcSubTotal($(this));
+ 		});
+ 		
+ 		$('#east .expense').each(function(){
+ 			calcSubTotal($(this));
+ 		});
+ 		
  	});
  });
 
@@ -266,31 +273,31 @@
 										</td>
 
 										<!-- Red header -->
-										<td>
-											<input type="text" value="" name="area_west_revenue_{{ $j }}" ng-model="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+										<td class="company-sale">
+											<input type="text" value="" name="area_west_revenue_{{ $j }}" ng-model="area_west_revenue_{{ $j }}" class="revenue-profit-input company revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
-										<td>
-											<input type="text" value="" name="area_west_cost_{{ $j }}" ng-model="area_west_cost_{{ $j }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+										<td class="company-cost">
+											<input type="text" value="" name="area_west_cost_{{ $j }}" ng-model="area_west_cost_{{ $j }}" class="cost-profit-input company cost msg-id" ng-required="true" numbers-only my-maxlength="9">
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
-										<td>
-											<input type="text" value="" name="area_west_expense_{{ $j }}" ng-model="area_west_expense_{{ $j }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+										<td class="company-expense">
+											<input type="text" value="" name="area_west_expense_{{ $j }}" ng-model="area_west_expense_{{ $j }}" class="expense-input company expense msg-id" ng-required="true" numbers-only my-maxlength="9">
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
-										<td class="profit">
+										<td class="company-profit">
 											<span></span>
-											<input type="hidden" class="hidden-profit" name="area_west_profit_{{ $j }}">
+											<input type="hidden" class="company hidden-profit" name="area_west_profit_{{ $j }}">
 										</td>
-										<td class="profit-rate">
+										<td class="company-profit-rate">
 											<span></span>
-											<input type="hidden" class="hidden-profit-rate" name="area_west_profitRate_{{ $j }}">
+											<input type="hidden" class="company hidden-profit-rate" name="area_west_profitRate_{{ $j }}">
 										</td>
-										<td>
-											<input type="text" name="area_west_settingRate_{{ $j }}" ng-model="area_west_settingRate_{{ $j }}" class="setting-rate-box msg-id" ng-required="true" my-maxlength="10" valid-rate> %
+										<td class="company-setting-rate">
+											<input type="text" name="area_west_settingRate_{{ $j }}" ng-model="area_west_settingRate_{{ $j }}" class="setting-rate-box company msg-id" ng-required="true" my-maxlength="10" valid-rate> %
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
@@ -331,23 +338,28 @@
 											&yen;400,000,00
 										</td>
 
-										<td>
-											&yen;3,000,000
+										<td class="final-sale">
+											<span>&yen;3000</span>
+											<input type="hidden" value="3000" name="final_west_revenue_{{ $i }}" class="revenue-profit-input final revenue">
 										</td>
-										<td>
-											&yen;3,000,000
+										<td class="final-cost">
+											<span>&yen;200</span>
+											<input type="hidden" value="200" name="final_west_cost_{{ $i }}" class="cost-profit-input final cost">
 										</td>
-										<td>
-											&yen;
+										<td class="final-expense">
+											<input type="text" value="" name="final_west_expense_{{ $i }}" class="expense-input final expense">
 										</td>
-										<td>
-											&yen;3,000,000
+										<td class="final-profit">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $i }}">
 										</td>
-										<td>
-											15%
+										<td class="final-profit-rate">
+											<span>%</span>
+											<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $i }}">
 										</td>
-										<td>
-											&yen;400,000,00
+										<td class="final-profit-gap">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $i }}">
 										</td>
 
 									</tr>
@@ -356,27 +368,27 @@
 										<td>Subtotal</td>
 										<td class="sub-sale">
 											<span></span>
-											<input type="hidden" class="sub-sale-hidden" name="west_sub_sale">
+											<input type="hidden" class="company sub-sale-hidden" name="company_west_sub_sale">
 										</td>
 										<td class="sub-cost">
 											<span></span>
-											<input type="hidden" class="sub-cost-hidden" name="west_sub_cost">
+											<input type="hidden" class="company sub-cost-hidden" name="company_west_sub_cost">
 										</td>
 										<td class="sub-expense">
 											<span>&yen;</span>
-											<input type="hidden" class="sub-expense-hidden" name="west_sub_expense">
+											<input type="hidden" class="company sub-expense-hidden" name="comapny_west_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
-											<input type="hidden" class="sub-profit-hidden" name="west_sub_profit">
+											<input type="hidden" class="company sub-profit-hidden" name="company_west_sub_profit">
 										</td>
 										<td class="sub-profit-rate">
 											<span></span>
-											<input type="hidden" class="sub-rate-hidden" name="west_sub_profit_rate">
+											<input type="hidden" class="company sub-rate-hidden" name="comapny_west_sub_profit_rate">
 										</td>
 										<td class="sub-setting-rate">
 											<span>%</span>
-											<input type="hidden" name="west_sub_setting_rate" class="sub-setting-rate-hidden">
+											<input type="hidden" name="company_west_sub_setting_rate" class="company sub-setting-rate-hidden">
 										</td>
 
 										<td>
@@ -414,23 +426,29 @@
 											&yen;
 										</td>
 
-										<td>
-											&yen;
+										<td class="final-sub-sale">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-sale-hidden" name="final_west_sub_sale">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-cost">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-cost-hidden" name="final_west_sub_cost">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-expense-hidden" name="final_west_sub_expense">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-profit">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profit-hidden" name="final_west_sub_profit">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-profit-rate">
+											<span>%</span>
+											<input type="hidden" value="" class="final sub-rate-hidden" name="final_west_sub_profit_rate">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-profit-gap">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_west_sub_profitgap">
 										</td>
 									</tr>
 								</tbody>
@@ -487,33 +505,35 @@
 								<tbody id="central">
 									@foreach ($area_central as $key)
 									<tr class="record">
-										<td>{{ $key->location_name }}
-										<input type="hidden" name="area_central_location_{{ ++$l }}" value="{{ $key->location_name }}"></td>
 										<td>
-											<input type="text" value="" name="area_central_revenue_{{ $l }}" ng-model="area_central_revenue_{{ $l }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+											{{ $key->location_name }}
+											<input type="hidden" name="area_central_location_{{ ++$l }}" value="{{ $key->location_name }}">
+										</td>
+										<td class="company-sale">
+											<input type="text" value="" name="area_central_revenue_{{ $l }}" ng-model="area_central_revenue_{{ $l }}" class="revenue-profit-input company revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
-										<td>
-											<input type="text" value="" name="area_central_cost_{{ $l }}" ng-model="area_central_cost_{{ $l }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+										<td class="company-cost">
+											<input type="text" value="" name="area_central_cost_{{ $l }}" ng-model="area_central_cost_{{ $l }}" class="cost-profit-input company cost msg-id" ng-required="true" numbers-only my-maxlength="9">
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
-										<td>
-											<input type="text" value="" name="area_central_expense_{{ $l }}" ng-model="area_central_expense_{{ $l }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+										<td class="company-expense">
+											<input type="text" value="" name="area_central_expense_{{ $l }}" ng-model="area_central_expense_{{ $l }}" class="expense-input company expense msg-id" ng-required="true" numbers-only my-maxlength="9">
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
-										<td class="profit">
-											<span></span>
-											<input type="hidden" class="hidden-profit" name="area_central_profit_{{ $l }}">
+										<td class="company-profit">
+											<span>&yen;</span>
+											<input type="hidden" class="company hidden-profit" name="area_central_profit_{{ $l }}">
 										</td>
 										<td class="profit-rate">
-											<span></span>
-											<input type="hidden" class="hidden-profit-rate" name="area_central_profitRate_{{ $l }}">
+											<span>%</span>
+											<input type="hidden" class="company hidden-profit-rate" name="area_central_profitRate_{{ $l }}">
 										</td>
 										<td>
-											<input type="text" name="area_central_settingRate_{{ $l }}" ng-model="area_central_settingRate_{{ $l }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+											<input type="text" name="area_central_settingRate_{{ $l }}" ng-model="area_central_settingRate_{{ $l }}" class="setting-rate-box company msg-id" ng-required="true" numbers-only my-maxlength="9"> %
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
@@ -553,23 +573,28 @@
 											&yen;400,000,00
 										</td>
 
-										<td>
-											&yen;3,000,000
+										<td class="final-sale">
+											<span>&yen;3000</span>
+											<input type="hidden" value="3000" name="final_central_revenue_{{ $i }}" class="revenue-profit-input final revenue">
 										</td>
-										<td>
-											&yen;3,000,000
+										<td class="final-cost">
+											<span>&yen;200</span>
+											<input type="hidden" value="200" name="final_central_cost_{{ $i }}" class="cost-profit-input final cost">
 										</td>
-										<td>
-											&yen;
+										<td class="final-expense">
+											<input type="text" value="" name="final_central_expense_{{ $i }}" class="expense-input final expense">
 										</td>
-										<td>
-											&yen;3,000,000
+										<td class="final-profit">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $i }}">
 										</td>
-										<td>
-											15%
+										<td class="final-profit-rate">
+											<span>%</span>
+											<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $i }}">
 										</td>
-										<td>
-											&yen;400,000,00
+										<td class="final-profit-gap">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit-gap" name="final_central_profitGap_{{ $i }}">
 										</td>
 
 									</tr>
@@ -578,27 +603,27 @@
 										<td>Subtotal</td>
 										<td class="sub-sale">
 											<span></span>
-											<input type="hidden" class="sub-sale-hidden" name="central_sub_sale">
+											<input type="hidden" class="company sub-sale-hidden" name="company_central_sub_sale">
 										</td>
 										<td class="sub-cost">
 											<span></span>
-											<input type="hidden" class="sub-cost-hidden" name="central_sub_cost">
+											<input type="hidden" class="company sub-cost-hidden" name="company_central_sub_cost">
 										</td>
 										<td class="sub-expense">
 											<span>&yen;</span>
-											<input type="hidden" class="sub-expense-hidden" name="central_sub_expense">
+											<input type="hidden" class="comapny sub-expense-hidden" name="company_central_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
-											<input type="hidden" class="sub-profit-hidden" name="central_sub_profit">
+											<input type="hidden" class="company sub-profit-hidden" name="company_central_sub_profit">
 										</td>
 										<td class="sub-profit-rate">
 											<span></span>
-											<input type="hidden" class="sub-rate-hidden" name="central_sub_profit_rate">
+											<input type="hidden" class="company sub-rate-hidden" name="company_central_sub_profit_rate">
 										</td>
 										<td class="sub-setting-rate">
 											<span>%</span>
-											<input type="hidden" name="central_sub_setting_rate" class="sub-setting-rate-hidden">
+											<input type="hidden" name="company_central_sub_setting_rate" class="company sub-setting-rate-hidden">
 										</td>
 
 										<td>
@@ -636,23 +661,29 @@
 											&yen;
 										</td>
 
-										<td>
-											&yen;
+										<td class="final-sub-sale">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-sale-hidden" name="final_central_sub_sale">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-cost">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-cost-hidden" name="final_central_sub_cost">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-expense-hidden" name="final_central_sub_expense">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-profit">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profit-hidden" name="final_central_sub_profit">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-profit-rate">
+											<span>%</span>
+											<input type="hidden" value="" class="final sub-rate-hidden" name="final_central_sub_profit_rate">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-profit-gap">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_central_sub_profitgap">
 										</td>
 									</tr>
 								</tbody>
@@ -709,33 +740,35 @@
 								<tbody id="east">
 									@foreach ($area_east as $key)
 									<tr class="record">
-										<td>{{ $key->location_name }}
-										<input type="hidden" name="area_east_location_{{ ++$k }}" value="{{ $key->location_name }}"></td>
 										<td>
-											<input type="text" value="" name="area_east_revenue_{{ $k }}" ng-model="area_east_revenue_{{ $k }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+											{{ $key->location_name }}
+											<input type="hidden" name="area_east_location_{{ ++$k }}" value="{{ $key->location_name }}">
+										</td>
+										<td class="company-sale">
+											<input type="text" value="" name="area_east_revenue_{{ $k }}" ng-model="area_east_revenue_{{ $k }}" class="revenue-profit-input company revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
-										<td>
-											<input type="text" value="" name="area_east_cost_{{ $k }}" ng-model="area_east_cost_{{ $k }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+										<td class="company-cost">
+											<input type="text" value="" name="area_east_cost_{{ $k }}" ng-model="area_east_cost_{{ $k }}" class="cost-profit-input company cost msg-id" ng-required="true" numbers-only my-maxlength="9">
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
-										<td>
-											<input type="text" value="" name="area_east_expense_{{ $k }}" ng-model="area_east_expense_{{ $k }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+										<td class="company-expense">
+											<input type="text" value="" name="area_east_expense_{{ $k }}" ng-model="area_east_expense_{{ $k }}" class="expense-input company expense msg-id" ng-required="true" numbers-only my-maxlength="9">
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
-										<td class="profit">
-											<span></span>
-											<input type="hidden" class="hidden-profit" name="area_east_profit_{{ $k }}">
+										<td class="company-profit">
+											<span>&yen;</span>
+											<input type="hidden" class="company hidden-profit" name="area_east_profit_{{ $k }}">
 										</td>
-										<td class="profit-rate">
-											<span></span>
-											<input type="hidden" class="hidden-profit-rate" name="area_east_profitRate_{{ $k }}">
+										<td class="company-profit-rate">
+											<span>&yen;</span>
+											<input type="hidden" class="company hidden-profit-rate" name="area_east_profitRate_{{ $k }}">
 										</td>
-										<td>
-											<input type="text" name="area_east_settingRate_{{ $k }}" ng-model="area_east_settingRate_{{ $k }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+										<td class="company-setting-rate">
+											<input type="text" name="area_east_settingRate_{{ $k }}" ng-model="area_east_settingRate_{{ $k }}" class="setting-rate-box company msg-id" ng-required="true" numbers-only my-maxlength="9"> %
 											<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
@@ -776,23 +809,28 @@
 											&yen;400,000,00
 										</td>
 
-										<td>
-											&yen;3,000,000
+										<td class="final-sale">
+											<span>&yen;3000</span>
+											<input type="hidden" value="3000" name="final_east_revenue_{{ $i }}" class="revenue-profit-input final revenue">
 										</td>
-										<td>
-											&yen;3,000,000
+										<td class="final-cost">
+											<span>&yen;200</span>
+											<input type="hidden" value="200" name="final_east_cost_{{ $i }}" class="cost-profit-input final cost">
 										</td>
-										<td>
-											&yen;
+										<td class="final-expense">
+											<input type="text" value="" name="final_east_expense_{{ $i }}" class="expense-input final expense">
 										</td>
-										<td>
-											&yen;3,000,000
+										<td class="final-profit">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $i }}">
 										</td>
-										<td>
-											15%
+										<td class="final-profit-rate">
+											<span>%</span>
+											<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $i }}">
 										</td>
-										<td>
-											&yen;400,000,00
+										<td class="final-profit-gap">
+											<span>&yen;</span>
+											<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $i }}">
 										</td>
 
 									</tr>
@@ -800,28 +838,28 @@
 									<tr class="subtotal">
 										<td>Subtotal</td>
 										<td class="sub-sale">
-											<span></span>
-											<input type="hidden" class="sub-sale-hidden" name="east_sub_sale">
+											<span>&yen;</span>
+											<input type="hidden" class="company sub-sale-hidden" name="company_east_sub_sale">
 										</td>
 										<td class="sub-cost">
 											<span></span>
-											<input type="hidden" class="sub-cost-hidden" name="east_sub_cost">
+											<input type="hidden" class="company sub-cost-hidden" name="company_east_sub_cost">
 										</td>
 										<td class="sub-expense">
 											<span>&yen;</span>
-											<input type="hidden" class="sub-expense-hidden" name="east_sub_expense">
+											<input type="hidden" class="company sub-expense-hidden" name="company_east_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
-											<input type="hidden" class="sub-profit-hidden" name="east_sub_profit">
+											<input type="hidden" class="company sub-profit-hidden" name="company_east_sub_profit">
 										</td>
 										<td class="sub-profit-rate">
 											<span></span>
-											<input type="hidden" class="sub-rate-hidden" name="east_sub_profit_rate">
+											<input type="hidden" class="company sub-rate-hidden" name="company_east_sub_profit_rate">
 										</td>
 										<td class="sub-setting-rate">
 											<span>%</span>
-											<input type="hidden" name="east_sub_setting_rate" class="sub-setting-rate-hidden">
+											<input type="hidden" name="company_east_sub_setting_rate" class="company sub-setting-rate-hidden">
 										</td>
 
 										<td>
@@ -859,23 +897,29 @@
 											&yen;
 										</td>
 
-										<td>
-											&yen;
+										<td class="final-sub-sale">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-sale-hidden" name="final_east_sub_sale">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-cost">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-cost-hidden" name="final_east_sub_cost">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-expense">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-expense-hidden" name="final_east_sub_expense">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-profit">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profit-hidden" name="final_east_sub_profit">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-profit-rate">
+											<span>%</span>
+											<input type="hidden" value="" class="final sub-rate-hidden" name="final_east_sub_profit_rate">
 										</td>
-										<td>
-											&yen;
+										<td class="final-sub-profit-gap">
+											<span>&yen;</span>
+											<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_east_sub_profitgap">
 										</td>
 									</tr>
 								</tbody>
@@ -940,7 +984,7 @@
     </div>
 			@else
 		<div class="header">
-					<div class="container">
+			<div class="container">
 		        <div class="logo">
 		            <h1>
 		                {{-- <img src="http://www.pal-style.co.jp/img/hdr-logo.png" alt=""> --}}
@@ -956,7 +1000,8 @@
 		                    <li><a href="work">Shift Table</a></li>
 		                </ul>
 		            </nav>
-		        </div>
+		        </div>    
+		    </div>
 		</div>
 
 		<div class="page-content">
@@ -1057,31 +1102,31 @@
   										<input type="hidden" name="area_west_location_{{ ++$j }}" value="{{ $key->location_name }}">
   									</td>
 
-  									<td>
-  										<input type="text" value="{{ $key->revenue }}" name="area_west_revenue_{{ $j }}" ng-model="area_west_revenue_{{ $j }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+  									<td class="company-sale">
+  										<input type="text" value="{{ $key->revenue }}" name="area_west_revenue_{{ $j }}" ng-model="area_west_revenue_{{ $j }}" class="revenue-profit-input company revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
-  									<td>
-  										<input type="text" value="{{ $key->cost }}" name="area_west_cost_{{ $j }}" ng-model="area_west_cost_{{ $j }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+  									<td class="company-cost">
+  										<input type="text" value="{{ $key->cost }}" name="area_west_cost_{{ $j }}" ng-model="area_west_cost_{{ $j }}" class="cost-profit-input company cost msg-id" ng-required="true" numbers-only my-maxlength="9">
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
-  									<td>
-  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_west_expense_{{ $j }}" ng-model="area_west_expense_{{ $j }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+  									<td class="company-expense">
+  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_west_expense_{{ $j }}" ng-model="area_west_expense_{{ $j }}" class="expense-input company expense msg-id" ng-required="true" numbers-only my-maxlength="9">
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
-  									<td class="profit">
+  									<td class="company-profit">
   										<span>&yen;{{ $key->profit }}</span>
-  										<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_west_profit_{{ $j }}">
+  										<input type="hidden" value="{{ $key->profit }}" class="company hidden-profit" name="area_west_profit_{{ $j }}">
   									</td>
-  									<td class="profit-rate">
+  									<td class="company-profit-rate">
   										<span>{{ $key->profit_rate }}%</span>
-  										<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_west_profitRate_{{ $j }}">
+  										<input type="hidden" value="{{ $key->profit_rate }}" class="company hidden-profit-rate" name="area_west_profitRate_{{ $j }}">
   									</td>
-  									<td>
-  										<input type="text" value="{{ $key->setting_rate }}" name="area_west_settingRate_{{ $j }}" ng-model="area_west_settingRate_{{ $j }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+  									<td class="company-setting-rate">
+  										<input type="text" value="{{ $key->setting_rate }}" name="area_west_settingRate_{{ $j }}" ng-model="area_west_settingRate_{{ $j }}" class="setting-rate-box company msg-id" ng-required="true" numbers-only my-maxlength="9"> %
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
@@ -1121,24 +1166,29 @@
   										&yen;400,000,00
   									</td>
 
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										15%
-  									</td>
-  									<td>
-  										&yen;400,000,00
-  									</td>
+  									<td class="final-sale">
+										<span>&yen;3000</span>
+										<input type="hidden" value="3000" name="final_west_revenue_{{ $i }}" class="revenue-profit-input final revenue">
+									</td>
+									<td class="final-cost">
+										<span>&yen;200</span>
+										<input type="hidden" value="200" name="final_west_cost_{{ $i }}" class="cost-profit-input final cost">
+									</td>
+									<td class="final-expense">
+										<input type="text" value="" name="final_west_expense_{{ $i }}" class="expense-input final expense">
+									</td>
+									<td class="final-profit">
+										<span>&yen;</span>
+										<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $i }}">
+									</td>
+									<td class="final-profit-rate">
+										<span>%</span>
+										<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $i }}">
+									</td>
+									<td class="final-profit-gap">
+										<span>&yen;</span>
+										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $i }}">
+									</td>
 
   								</tr>
   								@endforeach
@@ -1146,27 +1196,27 @@
   									<td>Subtotal</td>
   									<td class="sub-sale">
   										<span></span>
-  										<input type="hidden" class="sub-sale-hidden" name="west_sub_sale">
+  										<input type="hidden" class="company sub-sale-hidden" name="company_west_sub_sale">
   									</td>
   									<td class="sub-cost">
   										<span></span>
-  										<input type="hidden" class="sub-cost-hidden" name="west_sub_cost">
+  										<input type="hidden" class="company sub-cost-hidden" name="company_west_sub_cost">
   									</td>
   									<td class="sub-expense">
   										<span>&yen;</span>
-  										<input type="hidden" class="sub-expense-hidden" name="west_sub_expense">
+  										<input type="hidden" class="company sub-expense-hidden" name="company_west_sub_expense">
   									</td>
   									<td class="sub-profit">
   										<span></span>
-  										<input type="hidden" class="sub-profit-hidden" name="west_sub_profit">
+  										<input type="hidden" class="company sub-profit-hidden" name="company_west_sub_profit">
   									</td>
   									<td class="sub-profit-rate">
   										<span></span>
-  										<input type="hidden" class="sub-rate-hidden" name="west_sub_profit_rate">
+  										<input type="hidden" class="company sub-rate-hidden" name="company_west_sub_profit_rate">
   									</td>
   									<td class="sub-setting-rate">
   										<span>%</span>
-  										<input type="hidden" name="west_sub_setting_rate" class="sub-setting-rate-hidden">
+  										<input type="hidden" name="company_west_sub_setting_rate" class="company sub-setting-rate-hidden">
   									</td>
 
   									<td>
@@ -1204,24 +1254,30 @@
   										&yen;
   									</td>
 
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
+  									<td class="final-sub-sale">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-sale-hidden" name="final_west_sub_sale">
+									</td>
+									<td class="final-sub-cost">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-cost-hidden" name="final_west_sub_cost">
+									</td>
+									<td class="final-sub-expense">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-expense-hidden" name="final_west_sub_expense">
+									</td>
+									<td class="final-sub-profit">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-profit-hidden" name="final_west_sub_profit">
+									</td>
+									<td class="final-sub-profit-rate">
+										<span>%</span>
+										<input type="hidden" value="" class="final sub-rate-hidden" name="final_west_sub_profit_rate">
+									</td>
+									<td class="final-sub-profit-gap">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_west_sub_profitgap">
+									</td>
   								</tr>
   							</tbody>
   						</table>
@@ -1282,31 +1338,31 @@
   								<tr class="record">
   									<td>{{ $key->location_name }}
   									<input type="hidden" name="area_central_location_{{ ++$l }}" value="{{ $key->location_name }}"></td>
-  									<td>
-  										<input type="text" value="{{ $key->revenue }}" name="area_central_revenue_{{ $l }}" ng-model="area_central_revenue_{{ $l }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+  									<td class="company-sale">
+  										<input type="text" value="{{ $key->revenue }}" name="area_central_revenue_{{ $l }}" ng-model="area_central_revenue_{{ $l }}" class="revenue-profit-input company revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
-  									<td>
-  										<input type="text" value="{{ $key->cost }}" name="area_central_cost_{{ $l }}" ng-model="area_central_cost_{{ $l }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+  									<td class="company-cost">
+  										<input type="text" value="{{ $key->cost }}" name="area_central_cost_{{ $l }}" ng-model="area_central_cost_{{ $l }}" class="cost-profit-input company cost msg-id" ng-required="true" numbers-only my-maxlength="9">
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
-  									<td>
-  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_central_expense_{{ $l }}" ng-model="area_central_expense_{{ $l }}" class="expense-input expense msg-id" ng-required="true" numbers-only my-maxlength="9">
+  									<td class="company-expense">
+  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_central_expense_{{ $l }}" ng-model="area_central_expense_{{ $l }}" class="expense-input company expense msg-id" ng-required="true" numbers-only my-maxlength="9">
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
-  									<td class="profit">
+  									<td class="company-profit">
   										<span>&yen;{{ $key->profit }}</span>
-  										<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_central_profit_{{ $l }}">
+  										<input type="hidden" value="{{ $key->profit }}" class="company hidden-profit" name="area_central_profit_{{ $l }}">
   									</td>
-  									<td class="profit-rate">
+  									<td class="company-profit-rate">
   										<span>{{ $key->profit_rate }}%</span>
-  										<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_central_profitRate_{{ $l }}">
+  										<input type="hidden" value="{{ $key->profit_rate }}" class="company hidden-profit-rate" name="area_central_profitRate_{{ $l }}">
   									</td>
-  									<td>
-  										<input type="text" value="{{ $key->setting_rate }}" name="area_central_settingRate_{{ $l }}" ng-model="area_central_settingRate_{{ $l }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+  									<td class="company-setting-rate">
+  										<input type="text" value="{{ $key->setting_rate }}" name="area_central_settingRate_{{ $l }}" ng-model="area_central_settingRate_{{ $l }}" class="setting-rate-box company msg-id" ng-required="true" numbers-only my-maxlength="9"> %
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
@@ -1346,24 +1402,29 @@
   										&yen;400,000,00
   									</td>
 
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										15%
-  									</td>
-  									<td>
-  										&yen;400,000,00
-  									</td>
+  									<td class="final-sale">
+										<span>&yen;3000</span>
+										<input type="hidden" value="3000" name="final_central_revenue_{{ $i }}" class="revenue-profit-input final revenue">
+									</td>
+									<td class="final-cost">
+										<span>&yen;200</span>
+										<input type="hidden" value="200" name="final_central_cost_{{ $i }}" class="cost-profit-input final cost">
+									</td>
+									<td class="final-expense">
+										<input type="text" value="" name="final_central_expense_{{ $i }}" class="expense-input final expense">
+									</td>
+									<td class="final-profit">
+										<span>&yen;</span>
+										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $i }}">
+									</td>
+									<td class="final-profit-rate">
+										<span>%</span>
+										<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $i }}">
+									</td>
+									<td class="final-profit-gap">
+										<span>&yen;</span>
+										<input type="hidden" class="final hidden-profit-gap" name="final_central_profitGap_{{ $i }}">
+									</td>
 
   								</tr>
   								@endforeach
@@ -1371,27 +1432,27 @@
   									<td>Subtotal</td>
   									<td class="sub-sale">
   										<span></span>
-  										<input type="hidden" class="sub-sale-hidden" name="central_sub_sale">
+  										<input type="hidden" class="company sub-sale-hidden" name="central_sub_sale">
   									</td>
   									<td class="sub-cost">
   										<span></span>
-  										<input type="hidden" class="sub-cost-hidden" name="central_sub_cost">
+  										<input type="hidden" class="company sub-cost-hidden" name="central_sub_cost">
   									</td>
   									<td class="sub-expense">
   										<span>&yen;</span>
-  										<input type="hidden" class="sub-expense-hidden" name="central_sub_expense">
+  										<input type="hidden" class="company sub-expense-hidden" name="central_sub_expense">
   									</td>
   									<td class="sub-profit">
   										<span></span>
-  										<input type="hidden" class="sub-profit-hidden" name="central_sub_profit">
+  										<input type="hidden" class="company sub-profit-hidden" name="central_sub_profit">
   									</td>
   									<td class="sub-profit-rate">
   										<span></span>
-  										<input type="hidden" class="sub-rate-hidden" name="central_sub_profit_rate">
+  										<input type="hidden" class="company sub-rate-hidden" name="central_sub_profit_rate">
   									</td>
   									<td class="sub-setting-rate">
   										<span>%</span>
-  										<input type="hidden" name="central_sub_setting_rate" class="sub-setting-rate-hidden">
+  										<input type="hidden" name="central_sub_setting_rate" class="company sub-setting-rate-hidden">
   									</td>
 
   									<td>
@@ -1429,24 +1490,30 @@
   										&yen;
   									</td>
 
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
+  									<td class="final-sub-sale">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-sale-hidden" name="final_central_sub_sale">
+									</td>
+									<td class="final-sub-cost">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-cost-hidden" name="final_central_sub_cost">
+									</td>
+									<td class="final-sub-expense">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-expense-hidden" name="final_central_sub_expense">
+									</td>
+									<td class="final-sub-profit">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-profit-hidden" name="final_central_sub_profit">
+									</td>
+									<td class="final-sub-profit-rate">
+										<span>%</span>
+										<input type="hidden" value="" class="final sub-rate-hidden" name="final_central_sub_profit_rate">
+									</td>
+									<td class="final-sub-profit-gap">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_central_sub_profitgap">
+									</td>
   								</tr>
   							</tbody>
   						</table>
@@ -1504,31 +1571,31 @@
   								<tr class="record">
   									<td>{{ $key->location_name }}
   									<input type="hidden" name="area_east_location_{{ ++$k }}" value="{{ $key->location_name }}"></td>
-  									<td>
-  										<input type="text" value="{{ $key->revenue }}" name="area_east_revenue_{{ $k }}" ng-model="area_east_revenue_{{ $k }}" class="revenue-profit-input revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+  									<td class="company-sale">
+  										<input type="text" value="{{ $key->revenue }}" name="area_east_revenue_{{ $k }}" ng-model="area_east_revenue_{{ $k }}" class="revenue-profit-input company revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
-  									<td>
-  										<input type="text" value="{{ $key->cost }}" name="area_east_cost_{{ $k }}" ng-model="area_east_cost_{{ $k }}" class="cost-profit-input cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+  									<td class="company-cost">
+  										<input type="text" value="{{ $key->cost }}" name="area_east_cost_{{ $k }}" ng-model="area_east_cost_{{ $k }}" class="cost-profit-input company cost msg-id" ng-required="true" numbers-only my-maxlength="9">
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
-  									<td>
-  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_east_expense_{{ $k }}" ng-model="area_east_expense_{{ $k }}" class="expense-input expense mg-id" ng-required="true" numbers-only my-maxlength="9">
+  									<td class="company-expense">
+  										<input type="text" value="{{ $key->headoffice_expense }}" name="area_east_expense_{{ $k }}" ng-model="area_east_expense_{{ $k }}" class="expense-input company expense mg-id" ng-required="true" numbers-only my-maxlength="9">
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
-  									<td class="profit">
+  									<td class="company-profit">
   										<span>&yen;{{ $key->profit }}</span>
-  										<input type="hidden" value="{{ $key->profit }}" class="hidden-profit" name="area_east_profit_{{ $k }}">
+  										<input type="hidden" value="{{ $key->profit }}" class="company hidden-profit" name="area_east_profit_{{ $k }}">
   									</td>
-  									<td class="profit-rate">
+  									<td class="company-profit-rate">
   										<span>{{ $key->profit_rate }}%</span>
-  										<input type="hidden" value="{{ $key->profit_rate }}" class="hidden-profit-rate" name="area_east_profitRate_{{ $k }}">
+  										<input type="hidden" value="{{ $key->profit_rate }}" class="company hidden-profit-rate" name="area_east_profitRate_{{ $k }}">
   									</td>
-  									<td>
-  										<input type="text" value="{{ $key->setting_rate }}" name="area_east_settingRate_{{ $k }}" ng-model="area_east_settingRate_{{ $k }}" class="setting-rate-box msg-id" ng-required="true" numbers-only my-maxlength="9"> %
+  									<td class="company-setting-rate">
+  										<input type="text" value="{{ $key->setting_rate }}" name="area_east_settingRate_{{ $k }}" ng-model="area_east_settingRate_{{ $k }}" class="setting-rate-box company msg-id" ng-required="true" numbers-only my-maxlength="9"> %
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
@@ -1568,24 +1635,29 @@
   										&yen;400,000,00
   									</td>
 
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										15%
-  									</td>
-  									<td>
-  										&yen;400,000,00
-  									</td>
+  									<td class="final-sale">
+										<span>&yen;3000</span>
+										<input type="hidden" value="3000" name="final_east_revenue_{{ $i }}" class="revenue-profit-input final revenue">
+									</td>
+									<td class="final-cost">
+										<span>&yen;200</span>
+										<input type="hidden" value="200" name="final_east_cost_{{ $i }}" class="cost-profit-input final cost">
+									</td>
+									<td class="final-expense">
+										<input type="text" value="" name="final_east_expense_{{ $i }}" class="expense-input final expense">
+									</td>
+									<td class="final-profit">
+										<span>&yen;</span>
+										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $i }}">
+									</td>
+									<td class="final-profit-rate">
+										<span>%</span>
+										<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $i }}">
+									</td>
+									<td class="final-profit-gap">
+										<span>&yen;</span>
+										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $i }}">
+									</td>
 
   								</tr>
   								@endforeach
@@ -1593,27 +1665,27 @@
   									<td>Subtotal</td>
   									<td class="sub-sale">
   										<span></span>
-  										<input type="hidden" class="sub-sale-hidden" name="east_sub_sale">
+  										<input type="hidden" class="company sub-sale-hidden" name="east_sub_sale">
   									</td>
   									<td class="sub-cost">
   										<span></span>
-  										<input type="hidden" class="sub-cost-hidden" name="east_sub_cost">
+  										<input type="hidden" class="company sub-cost-hidden" name="east_sub_cost">
   									</td>
   									<td class="sub-expense">
   										<span>&yen;</span>
-  										<input type="hidden" class="sub-expense-hidden" name="east_sub_expense">
+  										<input type="hidden" class="company sub-expense-hidden" name="east_sub_expense">
   									</td>
   									<td class="sub-profit">
   										<span></span>
-  										<input type="hidden" class="sub-profit-hidden" name="east_sub_profit">
+  										<input type="hidden" class="company sub-profit-hidden" name="east_sub_profit">
   									</td>
   									<td class="sub-profit-rate">
   										<span></span>
-  										<input type="hidden" class="sub-rate-hidden" name="east_sub_profit_rate">
+  										<input type="hidden" class="company sub-rate-hidden" name="east_sub_profit_rate">
   									</td>
   									<td class="sub-setting-rate">
   										<span>%</span>
-  										<input type="hidden" class="sub-setting-rate-hidden" name="east_sub_setting_rate">
+  										<input type="hidden" class="company sub-setting-rate-hidden" name="east_sub_setting_rate">
   									</td>
 
   									<td>
@@ -1651,24 +1723,30 @@
   										&yen;
   									</td>
 
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
+  									<td class="final-sub-sale">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-sale-hidden" name="final_east_sub_sale">
+									</td>
+									<td class="final-sub-cost">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-cost-hidden" name="final_east_sub_cost">
+									</td>
+									<td class="final-sub-expense">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-expense-hidden" name="final_east_sub_expense">
+									</td>
+									<td class="final-sub-profit">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-profit-hidden" name="final_east_sub_profit">
+									</td>
+									<td class="final-sub-profit-rate">
+										<span>%</span>
+										<input type="hidden" value="" class="final sub-rate-hidden" name="final_east_sub_profit_rate">
+									</td>
+									<td class="final-sub-profit-gap">
+										<span>&yen;</span>
+										<input type="hidden" value="" class="final sub-profitgap-hidden" name="final_east_sub_profitgap">
+									</td>
   								</tr>
   							</tbody>
   						</table>
@@ -1678,46 +1756,46 @@
   					<div class="gross_total">
   						<table>
   							<thead>
-  							<tr>
-  								<th></th>
-  								<th>Sale</th>
-  								<th>Cost</th>
-  								<th>Expense</th>
-  								<th>Profit</th>
-  								<th>Profit Rate</th>
-  								<th>Setting Rate</th>
-  							</tr>
-  						</thead>
-  						<tbody>
-  							<tr>
-  								<td>Gross total</td>
-  								<td class="gross-sale">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-sale" class="gross-sale-hidden">
-  								</td>
-  								<td class="gross-cost">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-cost" class="gross-cost-hidden">
-  								</td>
-  								<td class="gross-expense">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-expense" class="gross-expense-hidden">
-  								</td>
-  								<td class="gross-profit">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-profit" class="gross-profit-hidden">
-  								</td>
-  								<td class="gross-profit-rate">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-profit-rate" class="gross-profit-rate-hidden">
-  								</td>
-  								<td class="gross-setting-rate">
-  									<span>&yen;</span>
-  									<input type="hidden" value="" name="gross-setting-rate" class="gross-setting-rate-hidden">
-  								</td>
+	  							<tr>
+	  								<th></th>
+	  								<th>Sale</th>
+	  								<th>Cost</th>
+	  								<th>Expense</th>
+	  								<th>Profit</th>
+	  								<th>Profit Rate</th>
+	  								<th>Setting Rate</th>
+	  							</tr>
+  							</thead>
+	  						<tbody>
+	  							<tr>
+	  								<td>Gross total</td>
+	  								<td class="gross-sale">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-sale" class="gross-sale-hidden">
+	  								</td>
+	  								<td class="gross-cost">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-cost" class="gross-cost-hidden">
+	  								</td>
+	  								<td class="gross-expense">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-expense" class="gross-expense-hidden">
+	  								</td>
+	  								<td class="gross-profit">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-profit" class="gross-profit-hidden">
+	  								</td>
+	  								<td class="gross-profit-rate">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-profit-rate" class="gross-profit-rate-hidden">
+	  								</td>
+	  								<td class="gross-setting-rate">
+	  									<span>&yen;</span>
+	  									<input type="hidden" value="" name="gross-setting-rate" class="gross-setting-rate-hidden">
+	  								</td>
 
-  							</tr>
-  						</tbody>
+	  							</tr>
+	  						</tbody>
   						</table>
   					</div>
   					<div class="submit-row">
