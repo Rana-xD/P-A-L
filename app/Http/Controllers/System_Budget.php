@@ -10,6 +10,7 @@ class System_Budget extends Controller
 {
   public function budget()
     {
+      
       $month = (int)date("m");
       $year = (int)date("Y");
       $insert = 0;
