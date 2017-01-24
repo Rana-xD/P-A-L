@@ -336,10 +336,18 @@
 											<td>
 												<input type="text" value="" name="final_west_cost_{{ $l }}" class="cost-profit-input final cost">
 											</td>
-											<td class="final-expense">
-												<span>&yen;15</span>
-												<input type="hidden" value="15" name="final_west_expense_{{ $l }}" class="expense-input final expense">
-											</td>
+											@if (empty($location_final_west[0]))
+												<td class="final-expense">
+													<span>&yen;</span>
+													<input type="hidden" value="" name="final_west_expense_{{ $l }}" class="expense-input final expense">
+												</td>
+											@else
+												<td class="final-expense">
+													<span>&yen;{{ $location_final_west[$l-1]->headoffice_expense }}</span>
+													<input type="hidden" value="{{ $location_final_west[$l-1]->headoffice_expense }}" name="final_west_expense_{{ $l }}" class="expense-input final expense">
+												</td>
+											@endif
+
 											<td class="final-profit">
 												<span>&yen;</span>
 												<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $l }}">
@@ -563,10 +571,17 @@
 											<td>
 												<input type="text" value="" name="final_central_cost_{{ $k }}" class="cost-profit-input final cost">
 											</td>
-											<td class="final-expense">
-												<span>&yen;15</span>
-												<input type="hidden" value="15" name="final_central_expense_{{ $k }}" class="expense-input final expense">
-											</td>
+											@if (empty($location_final_central[0]))
+	 										 <td class="final-expense">
+	 											 <span>&yen;</span>
+	 											 <input type="hidden" value="" name="final_central_expense_{{ $k }}" class="expense-input final expense">
+	 										 </td>
+	 									 @else
+	 										 <td class="final-expense">
+	 											 <span>&yen;{{ $location_final_central[$k-1]->headoffice_expense }}</span>
+	 											 <input type="hidden" value="{{ $location_final_central[$k-1]->headoffice_expense }}" name="final_central_expense_{{ $k }}" class="expense-input final expense">
+	 										 </td>
+	 									 @endif
 											<td class="final-profit">
 												<span>&yen;</span>
 												<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $k }}">
@@ -767,15 +782,15 @@
 												<input type="hidden" class="forecast hidden-profit-rate" name="forecast_east_profitRate_{{ $j }}">
 											</td>
 
-											<td>&yen;3,000,000</td>
+											<td>&yen;</td>
 											<td>
-												&yen;3,000,000
+												&yen;
 											</td>
 											<td>
-												&yen;5,000,0
+												&yen;
 											</td>
 											<td>
-												&yen;3,000,000
+												&yen;
 											</td>
 											<td>
 												15%
@@ -790,10 +805,17 @@
 											<td>
 												<input type="text" value="" name="final_east_cost_{{ $j }}" class="cost-profit-input final cost">
 											</td>
-											<td class="final-expense">
-												<span>&yen;15</span>
-												<input type="hidden" value="15" name="final_east_expense_{{ $j }}" class="expense-input final expense">
-											</td>
+											@if (empty($location_final_east[0]))
+	 										 <td class="final-expense">
+	 											 <span>&yen;</span>
+	 											 <input type="hidden" value="" name="final_east_expense_{{ $j }}" class="expense-input final expense">
+	 										 </td>
+	 									 @else
+	 										 <td class="final-expense">
+	 											 <span>&yen;{{ $location_final_east[$j-1]->headoffice_expense }}</span>
+	 											 <input type="hidden" value="{{ $location_final_east[$j-1]->headoffice_expense }}" name="final_east_expense_{{ $j }}" class="expense-input final expense">
+	 										 </td>
+	 									 @endif
 											<td class="final-profit">
 												<span>&yen;</span>
 												<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $j }}">
@@ -1106,21 +1128,21 @@
 										 <input type="hidden" value="{{ $key->profit_rate }}" class="forecast hidden-profit-rate" name="forecast_west_profitRate_{{ $l }}">
 									 </td>
 
-									 <td>&yen;3,000,000</td>
+									 <td>&yen;</td>
 									 <td>
-										 &yen;3,000,000
+										 &yen;
 									 </td>
 									 <td>
-										 &yen;5,000,0
+										 &yen;
 									 </td>
 									 <td>
-										 &yen;3,000,000
+										 &yen;
 									 </td>
 									 <td>
-										 15%
+										 %
 									 </td>
 									 <td>
-										 13%
+										 %
 									 </td>
 
 									 <td>
@@ -1129,10 +1151,18 @@
 									 <td>
 										 <input type="text" value="{{ $location_final_west[$l-1]->cost }}" name="final_west_cost_{{ $l }}" class="cost-profit-input final cost">
 									 </td>
-									 <td class="final-expense">
-										 <span>&yen;15</span>
-										 <input type="hidden" value="15" name="final_west_expense_{{ $l }}" class="expense-input final expense">
-									 </td>
+									 @if (empty($location_final_west[0]))
+										 <td class="final-expense">
+											 <span>&yen;</span>
+											 <input type="hidden" value="" name="final_west_expense_{{ $l }}" class="expense-input final expense">
+										 </td>
+									 @else
+										 <td class="final-expense">
+											 <span>&yen;{{ $location_final_west[$l-1]->headoffice_expense }}</span>
+											 <input type="hidden" value="" name="final_west_expense_{{ $l }}" class="expense-input final expense">
+										 </td>
+									 @endif
+
 									 <td class="final-profit">
 										 <span>&yen;{{ $location_final_west[$l-1]->profit }}</span>
 										 <input type="hidden" value="{{ $location_final_west[$l-1]->profit }}" class="final hidden-profit" name="final_west_profit_{{ $l }}">
@@ -1333,21 +1363,21 @@
 										 <input type="hidden" value="{{ $key->profit_rate }}" class="forecast hidden-profit-rate" name="forecast_central_profitRate_{{ $k }}">
 									 </td>
 
-									 <td>&yen;3,000,000</td>
+									 <td>&yen;</td>
 									 <td>
-										 &yen;3,000,000
+										 &yen;
 									 </td>
 									 <td>
-										 &yen;5,000,0
+										 &yen;
 									 </td>
 									 <td>
-										 &yen;3,000,000
+										 &yen;
 									 </td>
 									 <td>
-										 15%
+										 %
 									 </td>
 									 <td>
-										 13%
+										 %
 									 </td>
 
 									 <td>
@@ -1356,10 +1386,18 @@
 									 <td>
 										 <input type="text" value="{{ $location_final_central[$k-1]->cost }}" name="final_central_cost_{{ $k }}" class="cost-profit-input final cost">
 									 </td>
-									 <td class="final-expense">
-										 <span>&yen;15</span>
-										 <input type="hidden" value="15" name="final_central_expense_{{ $k }}" class="expense-input final expense">
-									 </td>
+									 @if (empty($location_final_central[0]))
+										 <td class="final-expense">
+											 <span>&yen;</span>
+											 <input type="hidden" value="" name="final_central_expense_{{ $k }}" class="expense-input final expense">
+										 </td>
+									 @else
+										 <td class="final-expense">
+											 <span>&yen;{{ $location_final_central[$k-1]->headoffice_expense }}</span>
+											 <input type="hidden" value="{{ $location_final_central[$k-1]->headoffice_expense }}" name="final_central_expense_{{ $k }}" class="expense-input final expense">
+										 </td>
+									 @endif
+
 									 <td class="final-profit">
 										 <span>&yen;{{ $location_final_central[$k-1]->profit }}</span>
 										 <input type="hidden" value="{{ $location_final_central[$k-1]->profit }}" class="final hidden-profit" name="final_central_profit_{{ $k }}">
@@ -1585,10 +1623,18 @@
 									 <td>
 										 <input type="text" value="{{ $location_final_east[$j-1]->cost }}" name="final_east_cost_{{ $j }}" class="cost-profit-input final cost">
 									 </td>
-									 <td class="final-expense">
-										 <span>&yen;15</span>
-										 <input type="hidden" value="15" name="final_east_expense_{{ $j }}" class="expense-input final expense">
-									 </td>
+									 @if (empty($location_final_east[0]))
+										 <td class="final-expense">
+											 <span>&yen;</span>
+											 <input type="hidden" value="" name="final_east_expense_{{ $j }}" class="expense-input final expense">
+										 </td>
+									 @else
+										 <td class="final-expense">
+											 <span>&yen;{{ $location_final_east[$j-1]->headoffice_expense }}</span>
+											 <input type="hidden" value="{{ $location_final_east[$j-1]->headoffice_expense }}" name="final_east_expense_{{ $j }}" class="expense-input final expense">
+										 </td>
+									 @endif
+
 									 <td class="final-profit">
 										 <span>&yen;{{ $location_final_east[$j-1]->profit }}</span>
 										 <input type="hidden" value="{{ $location_final_east[$j-1]->profit }}" class="final hidden-profit" name="final_east_profit_{{ $j }}">
