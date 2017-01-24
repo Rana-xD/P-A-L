@@ -922,25 +922,53 @@
 			  							</tr>
 		  							</thead>
 			  						<tbody>
-			  							<tr>
-			  								<td>Gross total</td>
-			  								<td>
-			  									<!-- Gross sale -->
-			  								</td>
-			  								<td>
-			  									<!-- Gross cost -->
-			  								</td>
-			  								<td>
-			  									<!-- Gross expense -->
-			  								</td>
-			  								<td>
-			  									<!-- Gross profit -->
-			  								</td>
-			  								<td>
-			  									<!-- Gross profit rate -->
-			  								</td>
+											@if (empty($gross[0]))
+												<tr>
+				  								<td>Gross total</td>
+				  								<td>
+				  									<!-- Gross sale -->
+				  								</td>
+				  								<td>
+				  									<!-- Gross cost -->
+				  								</td>
+				  								<td>
+				  									<!-- Gross expense -->
+				  								</td>
+				  								<td>
+				  									<!-- Gross profit -->
+				  								</td>
+				  								<td>
+				  									<!-- Gross profit rate -->
+				  								</td>
 
-			  							</tr>
+				  							</tr>
+											@else
+												<tr>
+				  								<td>Gross total</td>
+				  								<td>
+														&yen;{{ $gross[0]->revenue }}
+				  									<!-- Gross sale -->
+				  								</td>
+				  								<td>
+														&yen;{{ $gross[0]->cost }}
+				  									<!-- Gross cost -->
+				  								</td>
+				  								<td>
+														&yen;{{ $gross[0]->headoffice_expense }}
+				  									<!-- Gross expense -->
+				  								</td>
+				  								<td>
+														&yen;{{ $gross[0]->profit }}
+				  									<!-- Gross profit -->
+				  								</td>
+				  								<td>
+														{{ $gross[0]->profit }}%
+				  									<!-- Gross profit rate -->
+				  								</td>
+
+				  							</tr>
+											@endif
+
 			  						</tbody>
 								</table>
 							</div>
@@ -1741,25 +1769,52 @@
 									 </tr>
 								 </thead>
 								 <tbody>
-									 <tr>
-										 <td>Gross total</td>
-										 <td>
-											 <!-- Gross sale -->
-										 </td>
-										 <td>
-											 <!-- Gross cost -->
-										 </td>
-										 <td>
-											 <!-- Gross expense -->
-										 </td>
-										 <td>
-											 <!-- Gross profit -->
-										 </td>
-										 <td>
-											 <!-- Gross profit rate -->
-										 </td>
+									 @if (empty($gross[0]))
+										 <tr>
+											 <td>Gross total</td>
+											 <td>
+												 <!-- Gross sale -->
+											 </td>
+											 <td>
+												 <!-- Gross cost -->
+											 </td>
+											 <td>
+												 <!-- Gross expense -->
+											 </td>
+											 <td>
+												 <!-- Gross profit -->
+											 </td>
+											 <td>
+												 <!-- Gross profit rate -->
+											 </td>
 
-									 </tr>
+										 </tr>
+									 @else
+										 <tr>
+											 <td>Gross total</td>
+											 <td>
+												 &yen;{{ $gross[0]->revenue }}
+												 <!-- Gross sale -->
+											 </td>
+											 <td>
+												 &yen;{{ $gross[0]->cost }}
+												 <!-- Gross cost -->
+											 </td>
+											 <td>
+												 &yen;{{ $gross[0]->headoffice_expense }}
+												 <!-- Gross expense -->
+											 </td>
+											 <td>
+												 &yen;{{ $gross[0]->profit }}
+												 <!-- Gross profit -->
+											 </td>
+											 <td>
+												 {{ $gross[0]->profit }}%
+												 <!-- Gross profit rate -->
+											 </td>
+
+										 </tr>
+									 @endif
 								 </tbody>
 						 </table>
 					 </div>

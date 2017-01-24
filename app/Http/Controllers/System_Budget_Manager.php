@@ -292,6 +292,13 @@ class System_Budget_Manager extends Controller
                         ->where('area_id','=',3)
                         ->get()
                         ->all();
+     //gross_total
+     $gross = DB::table('gross_total')->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                            ['month',$month],
+                            ['year',$year]
+                          ])
+                        ->get();
                 $l = 0;
                 $j = 0;
                 $k = 0;
@@ -303,7 +310,7 @@ class System_Budget_Manager extends Controller
                      return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
                             }
                     else {
-                      return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                      return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross'));
                           }
                     }
                     elseif (session_status()===PHP_SESSION_ACTIVE)
@@ -313,7 +320,7 @@ class System_Budget_Manager extends Controller
                      }
                      else {
 
-                       return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                       return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross'));
                       }
                   }
     }
@@ -562,6 +569,13 @@ class System_Budget_Manager extends Controller
                           ->where('area_id','=',3)
                           ->get()
                           ->all();
+      //gross_total
+      $gross = DB::table('gross_total')->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                          ->where([
+                              ['month',$month],
+                              ['year',$year]
+                            ])
+                          ->get();
                   $l = 0;
                   $j = 0;
                   $k = 0;
@@ -573,7 +587,7 @@ class System_Budget_Manager extends Controller
                        return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
                               }
                       else {
-                        return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                        return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross'));
                             }
                       }
                       elseif (session_status()===PHP_SESSION_ACTIVE)
@@ -583,7 +597,7 @@ class System_Budget_Manager extends Controller
                        }
                        else {
 
-                         return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                         return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross'));
                         }
                     }
     }
