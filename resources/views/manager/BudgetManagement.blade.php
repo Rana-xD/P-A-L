@@ -984,18 +984,34 @@
 										 {{ $key->location_name }}
 										 <input type="hidden" name="location_west_{{ $l }}" value="{{ $key->location_name }}">
 									 </td>
-									 <td class="company-sale">
-										 &yen;2500000
-									 </td>
-									 <td class="company-cost">
-										 &yen;63000
-									 </td>
-									 <td class="company-expense">&yen;5000</td>
-									 <td class="company-profit">
-										 <span>&yen;1600</span>
-										 <input type="hidden" class="company hidden-profit" value="1600" name="budget_west_profit_{{ $l }}">
-									 </td>
-									 <td class="company-profit-rate">20%</td>
+									 @if (empty($area_west_budget[0]))
+										 <td class="company-sale">
+  										 &yen;
+  									 </td>
+  									 <td class="company-cost">
+  										 &yen;
+  									 </td>
+  									 <td class="company-expense">&yen;5000</td>
+  									 <td class="company-profit">
+  										 <span>&yen;</span>
+  										 <input type="hidden" class="company hidden-profit" value="1600" name="budget_west_profit_{{ $l }}">
+  									 </td>
+  									 <td class="company-profit-rate">%</td>
+										 @else
+											 <td class="company-sale">
+												 &yen;{{ $area_west_budget[$l-1]->revenue }}
+											 </td>
+											 <td class="company-cost">
+												 &yen;{{ $area_west_budget[$l-1]->cost }}
+											 </td>
+											 <td class="company-expense">&yen;{{ $area_west_budget[$l-1]->headoffice_expense }}</td>
+											 <td class="company-profit">
+												 <span>&yen;{{ $area_west_budget[$l-1]->profit }}</span>
+												 <input type="hidden" class="company hidden-profit" value="1600" name="budget_west_profit_{{ $l }}">
+											 </td>
+											 <td class="company-profit-rate">{{ $area_west_budget[$l-1]->profit_rate }}%</td>
+									 @endif
+
 
 									 <td class="forecast-sale">
 										 <input type="text" value="{{ $key->revenue }}" name="forecast_west_revenue_{{ $l }}" class="forecast revenue">
@@ -1003,10 +1019,18 @@
 									 <td class="forecast-cost">
 										 <input type="text" value="{{ $key->cost }}" name="forecast_west_cost_{{ $l }}" class="forecast cost">
 									 </td>
-									 <td class="forecast-expense">
-										 <span>&yen;10</span>
-										 <input type="hidden" value="10" class="forecast expense" name="forecast_west_expense_{{ $l }}">
-									 </td>
+									 @if (empty($area_west_budget[0]))
+										 <td class="forecast-expense">
+  										 <span>&yen;</span>
+  										 <input type="hidden" value="" class="forecast expense" name="forecast_west_expense_{{ $l }}">
+  									 </td>
+									 @else
+										 <td class="forecast-expense">
+											 <span>&yen;{{ $area_west_budget[$l-1]->headoffice_expense }}</span>
+											 <input type="hidden" value="{{ $area_west_budget[$l-1]->headoffice_expense }}" class="forecast expense" name="forecast_west_expense_{{ $l }}">
+										 </td>
+									 @endif
+
 									 <td class="forecast-profit">
 										 <span>&yen;{{ $key->profit }}</span>
 										 <input type="hidden" value="{{ $key->profit }}" class="forecast hidden-profit" name="forecast_west_profit_{{ $l }}">
@@ -1189,29 +1213,51 @@
 										 {{ $key->location_name }}
 										 <input type="hidden" name="location_central_{{ $k }}" value="{{ $key->location_name }}">
 									 </td>
-									 <td>
-										 &yen;2500000
-									 </td>
-									 <td>
-										 &yen;63000
-									 </td>
-									 <td>&yen;5000</td>
-									 <td class="company-profit">
-										 <span>&yen;1600</span>
-										 <input type="hidden" class="hidden-profit" value="1600" name="budget_central_profit{{ $k }}">
-									 </td>
-									 <td>20%</td>
-
+									 @if (empty($area_central_budget))
+										 <td>
+  										 &yen;
+  									 </td>
+  									 <td>
+  										 &yen;
+  									 </td>
+  									 <td>&yen;</td>
+  									 <td class="company-profit">
+  										 <span>&yen;</span>
+  										 <input type="hidden" class="hidden-profit" value="1600" name="budget_central_profit{{ $k }}">
+  									 </td>
+  									 <td>%</td>
+									 @else
+										 <td>
+											 &yen;{{ $area_central_budget[$k-1]->revenue }}
+										 </td>
+										 <td>
+											 &yen;{{ $area_central_budget[$k-1]->cost }}
+										 </td>
+										 <td>&yen;{{ $area_central_budget[$k-1]->headoffice_expense }}</td>
+										 <td class="company-profit">
+											 <span>&yen;{{ $area_central_budget[$k-1]->profit }}</span>
+											 <input type="hidden" class="hidden-profit" value="1600" name="budget_central_profit{{ $k }}">
+										 </td>
+										 <td>{{ $area_central_budget[$k-1]->profit_rate }}%</td>
+									 @endif
 									 <td>
 										 <input type="text" value="{{ $key->revenue }}" name="forecast_central_revenue_{{ $k }}" class="forecast revenue">
 									 </td>
 									 <td>
 										 <input type="text" value="{{ $key->cost }}" name="forecast_central_cost_{{ $k }}" class="forecast cost">
 									 </td>
-									 <td class="forecast-expense">
-										 <span>&yen;10</span>
-										 <input type="hidden" value="10" class="forecast expense" name="forecast_central_expense_{{ $k }}">
+									 @if (empty($area_central_budget[0]))
+										 <td class="forecast-expense">
+  										 <span>&yen;</span>
+  										 <input type="hidden" value="" class="forecast expense" name="forecast_central_expense_{{ $k }}">
+  									 </td>
+									 @else
+										 <td class="forecast-expense">
+										 <span>&yen;{{ $area_central_budget[$k-1]->headoffice_expense }}</span>
+										 <input type="hidden" value="{{ $area_central_budget[$k-1]->headoffice_expense }}" class="forecast expense" name="forecast_central_expense_{{ $k }}">
 									 </td>
+									 @endif
+
 									 <td class="forecast-profit">
 										 <span>&yen;{{ $key->profit }}</span>
 										 <input type="hidden" value="{{ $key->profit }}" class="forecast hidden-profit" name="forecast_central_profit_{{ $k }}">
@@ -1394,18 +1440,34 @@
 										 {{ $key->location_name }}
 										 <input type="hidden" name="location_east_{{ $j }}" value="{{ $key->location_name }}">
 									 </td>
-									 <td>
-										 &yen;2500000
-									 </td>
-									 <td>
-										 &yen;63000
-									 </td>
-									 <td>&yen;5000</td>
-									 <td class="company-profit">
-										 <span>&yen;1600</span>
-										 <input type="hidden" class="hidden-profit" value="1600" name="budget_east_profit{{ $j }}">
-									 </td>
-									 <td>20%</td>
+									 @if (empty($area_east_budget[0]))
+										 <td>
+											 &yen;
+										 </td>
+										 <td>
+											 &yen;
+										 </td>
+										 <td>&yen;</td>
+										 <td class="company-profit">
+											 <span>&yen;</span>
+											 <input type="hidden" class="hidden-profit" value="1600" name="budget_east_profit{{ $j }}">
+										 </td>
+										 <td>%</td>
+									 	@else
+											<td>
+	 										 &yen;{{ $area_east_budget[$j-1]->revenue }}
+	 									 </td>
+	 									 <td>
+	 										 &yen;{{ $area_east_budget[$j-1]->cost }}
+	 									 </td>
+	 									 <td>&yen;{{ $area_east_budget[$j-1]->headoffice_expense }}</td>
+	 									 <td class="company-profit">
+	 										 <span>&yen;{{ $area_east_budget[$j-1]->profit }}</span>
+	 										 <input type="hidden" class="hidden-profit" value="1600" name="budget_east_profit{{ $j }}">
+	 									 </td>
+	 									 <td>{{ $area_east_budget[$j-1]->profit_rate }}%</td>
+									 @endif
+
 
 									 <td>
 										 <input type="text" value="{{ $key->revenue }}" name="forecast_east_revenue_{{ $j }}" class="forecast revenue">
@@ -1413,10 +1475,18 @@
 									 <td>
 										 <input type="text" value="{{ $key->cost }}" name="forecast_east_cost_{{ $j }}" class="forecast cost">
 									 </td>
-									 <td class="forecast-expense">
-										 <span>&yen;10</span>
-										 <input type="hidden" value="10" class="forecast expense" name="forecast_east_expense_{{ $j }}">
-									 </td>
+									 @if (empty($area_east_budget[0]))
+										 <td class="forecast-expense">
+  										 <span>&yen;</span>
+  										 <input type="hidden" value="" class="forecast expense" name="forecast_east_expense_{{ $j }}">
+  									 </td>
+									 @else
+										 <td class="forecast-expense">
+											 <span>&yen;{{ $area_east_budget[$j-1]->headoffice_expense }}</span>
+											 <input type="hidden" value="{{ $area_east_budget[$j-1]->headoffice_expense }}" class="forecast expense" name="forecast_east_expense_{{ $j }}">
+										 </td>
+									 @endif
+
 									 <td class="forecast-profit">
 										 <span>&yen;{{ $key->profit }}</span>
 										 <input type="hidden" value="{{ $key->profit }}" class="forecast hidden-profit" name="forecast_east_profit_{{ $j }}">
@@ -1426,21 +1496,21 @@
 										 <input type="hidden" value="{{ $key->profit_rate }}" class="forecast hidden-profit-rate" name="forecast_east_profitRate_{{ $j }}">
 									 </td>
 
-									 <td>&yen;3,000,000</td>
+									 <td>&yen;</td>
 									 <td>
-										 &yen;3,000,000
+										 &yen;
 									 </td>
 									 <td>
-										 &yen;5,000,0
+										 &yen;
 									 </td>
 									 <td>
-										 &yen;3,000,000
+										 &yen;
 									 </td>
 									 <td>
-										 15%
+										 %
 									 </td>
 									 <td>
-										 13%
+										 %
 									 </td>
 
 									 <td>

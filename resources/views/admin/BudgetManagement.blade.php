@@ -303,66 +303,112 @@
 										</td>
 
 										<!--  -->
+                    @if (empty($location_forecast_west[0]))
+                      <td>
+                        &yen;
+                      </td>
+                      <td>
+                        &yen;
+                      </td>
+                      <td>
+                        &yen;
+                      </td>
+                      <td>
+                        &yen;
+                      </td>
+                      <td>
+                        %
+                      </td>
+                    @else
+                      <td>
+                        &yen;{{ $location_forecast_west[$j-1]->revenue }}
+                      </td>
+                      <td>
+                        &yen;{{ $location_forecast_west[$j-1]->cost }}
+                      </td>
+                      <td>
+                        &yen;
+                      </td>
+                      <td>
+                        &yen;{{ $location_forecast_west[$j-1]->profit }}
+                      </td>
+                      <td>
+                        {{ $location_forecast_west[$j-1]->profit_rate }}%
+                      </td>
+                    @endif
+
 										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
+											&yen;
 										</td>
 										<td>
 											&yen;
 										</td>
 										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
+											&yen;
 										</td>
 										<td>
 											&yen;
 										</td>
 										<td>
-											&yen;3,000,000
+											%
 										</td>
 										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
+											&yen;
 										</td>
 
-										<td class="final-sale">
-											<span>&yen;3000</span>
-											<input type="hidden" value="3000" name="final_west_revenue_{{ $j }}" class="revenue-profit-input final revenue">
-										</td>
-										<td class="final-cost">
-											<span>&yen;200</span>
-											<input type="hidden" value="200" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
-										</td>
-										<td class="final-expense">
-											<input type="text" value="" @ name="final_west_expense_{{ $j }}" ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
+                    @if (empty($location_final_west[0]))
+                      <td class="final-sale">
+  										<span>&yen;</span>
+  										<input type="hidden" value="" name="final_west_revenue_{{ $j }}" class="revenue-profit-input final revenue">
+  									</td>
+  									<td class="final-cost">
+  										<span>&yen;</span>
+  										<input type="hidden" value="" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="" name="final_west_expense_{{ $j }}" ng-model="final_west_expense_{{ $j }}"  ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
                       <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
-											<p class="custom-error err-req" style="display: none;">This field is required</p>
-										</td>
-										<td class="final-profit">
-											<span>&yen;</span>
-											<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $j }}">
-										</td>
-										<td class="final-profit-rate">
-											<span>%</span>
-											<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
-										</td>
-										<td class="final-profit-gap">
-											<span>&yen;</span>
-											<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $j }}">
-										</td>
+                      <p class="custom-error err-req" style="display: none;">This field is required</p>
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $j }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $j }}">
+  									</td>
+                      @else
+                        <td class="final-sale">
+    										<span>&yen;{{ $location_final_west[$j-1]->revenue}}</span>
+    										<input type="hidden" value="{{ $location_final_west[$j-1]->revenue}}" name="final_west_revenue_{{ $j }}" class="revenue-profit-input final revenue">
+    									</td>
+    									<td class="final-cost">
+    										<span>&yen;{{ $location_final_west[$j-1]->cost}}</span>
+    										<input type="hidden" value="{{ $location_final_west[$j-1]->cost}}" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
+    									</td>
+    									<td class="final-expense">
+    										<input type="text" value="" name="final_west_expense_{{ $j }}" ng-model="final_west_expense_{{ $j }}"  ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
+                        <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+                        <p class="custom-error err-req" style="display: none;">This field is required</p>
+    									</td>
+    									<td class="final-profit">
+    										<span>&yen;{{ $location_final_west[$j-1]->profit}}</span>
+    										<input type="hidden" value="{{ $location_final_west[$j-1]->profit}}" class="final hidden-profit" name="final_west_profit_{{ $j }}">
+    									</td>
+    									<td class="final-profit-rate">
+    										<span>%{{ $location_final_west[$j-1]->profit_rate}}</span>
+    										<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
+    									</td>
+    									<td class="final-profit-gap">
+    										<span>&yen;</span>
+    										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $j }}">
+    									</td>
+                    @endif
 
 									</tr>
 									@endforeach
@@ -540,64 +586,108 @@
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 
+                    @if (empty($location_forecast_central[0]))
+                      <td>
+    										&yen;
+    									</td>
+    									<td>
+    										&yen;
+    									</td>
+    									<td>
+    										&yen;
+    									</td>
+    									<td>
+    										&yen;
+    									</td>
+    									<td>
+    										%
+    									</td>
+                    @else
+                      <td>
+    										&yen;{{ $location_forecast_central[$l-1]->revenue }}
+    									</td>
+    									<td>
+    										&yen;{{ $location_forecast_central[$l-1]->cost }}
+    									</td>
+    									<td>
+    										&yen;
+    									</td>
+    									<td>
+    										&yen;{{ $location_forecast_central[$l-1]->profit }}
+    									</td>
+    									<td>
+    										{{ $location_forecast_central[$l-1]->profit_rate }}%
+    									</td>
+                    @endif
+
 										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
+											&yen;
 										</td>
 										<td>
 											&yen;
 										</td>
 										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
+											&yen;
 										</td>
 										<td>
 											&yen;
 										</td>
 										<td>
-											&yen;3,000,000
+											%
 										</td>
 										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
+											&yen;
 										</td>
 
-										<td class="final-sale">
-											<span>&yen;3000</span>
-											<input type="hidden" value="3000" name="final_central_revenue_{{ $l }}" class="revenue-profit-input final revenue">
-										</td>
-										<td class="final-cost">
-											<span>&yen;200</span>
-											<input type="hidden" value="200" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
-										</td>
-										<td class="final-expense">
-											<input type="text" value="" name="final_central_expense_{{ $l }}" class="expense-input final expense">
-										</td>
-										<td class="final-profit">
-											<span>&yen;</span>
-											<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
-										</td>
-										<td class="final-profit-rate">
-											<span>%</span>
-											<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
-										</td>
-										<td class="final-profit-gap">
-											<span>&yen;</span>
-											<input type="hidden" class="final hidden-profit-gap" name="final_central_profitGap_{{ $l }}">
-										</td>
+                    @if (empty($location_final_central[0]))
+                      <td class="final-sale">
+  										<span>&yen;</span>
+  										<input type="hidden" value="3000" name="final_central_revenue_{{ $l }}" class="revenue-profit-input final revenue">
+  									</td>
+  									<td class="final-cost">
+  										<span>&yen;</span>
+  										<input type="hidden" value="200" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="" name="final_central_expense_{{ $l }}" ng-model="final_central_expense_{{ $l }}"  class="expense-input final expense" numbers-only my-maxlength="9">
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_central_profitGap_{{ $l }}">
+  									</td>
+                    @else
+                      <td class="final-sale">
+  										<span>&yen;{{ $location_final_central[$l-1]->revenue }}</span>
+  										<input type="hidden" value="{{ $location_final_central[$l-1]->revenue }}" name="final_central_revenue_{{ $l }}" class="revenue-profit-input final revenue">
+  									</td>
+  									<td class="final-cost">
+  										<span>&yen;{{ $location_final_central[$l-1]->cost }}</span>
+  										<input type="hidden" value="{{ $location_final_central[$l-1]->cost }}" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="" name="final_central_expense_{{ $l }}" ng-model="final_central_expense_{{ $l }}"  class="expense-input final expense" numbers-only my-maxlength="9">
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;{{ $location_final_central[$l-1]->profit }}</span>
+  										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>{{ $location_final_central[$l-1]->profit_rate }}%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_central_profitGap_{{ $l }}">
+  									</td>
+                    @endif
 
 									</tr>
 									@endforeach
@@ -775,65 +865,108 @@
 											<p class="custom-error err-req" style="display: none;">This field is required</p>
 										</td>
 
+                    @if (empty($location_forecast_east[0]))
+                    <td>
+  										&yen;
+  									</td>
+  									<td>
+  										&yen;
+  									</td>
+  									<td>
+  										&yen;
+  									</td>
+  									<td>
+  										&yen;
+  									</td>
+  									<td>
+  										%
+  									</td>
+                    @else
+                      <td>
+  										&yen;{{ $location_forecast_east[$k-1]->revenue }}
+  									</td>
+  									<td>
+  										&yen;{{ $location_forecast_east[$k-1]->cost }}
+  									</td>
+  									<td>
+  										&yen;
+  									</td>
+  									<td>
+  										&yen;{{ $location_forecast_east[$k-1]->profit }}
+  									</td>
+  									<td>
+  										{{ $location_forecast_east[$k-1]->profit_rate }}%
+  									</td>
+                    @endif
 
 										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
+											&yen;
 										</td>
 										<td>
 											&yen;
 										</td>
 										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											15%
-										</td>
-
-										<td>
-											&yen;3,000,000
-										</td>
-										<td>
-											&yen;3,000,000
+											&yen;
 										</td>
 										<td>
 											&yen;
 										</td>
 										<td>
-											&yen;3,000,000
+											%
 										</td>
 										<td>
-											15%
-										</td>
-										<td>
-											&yen;400,000,00
+											&yen;
 										</td>
 
-										<td class="final-sale">
-											<span>&yen;3000</span>
-											<input type="hidden" value="3000" name="final_east_revenue_{{ $k }}" class="revenue-profit-input final revenue">
-										</td>
-										<td class="final-cost">
-											<span>&yen;200</span>
-											<input type="hidden" value="200" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
-										</td>
-										<td class="final-expense">
-											<input type="text" value="" name="final_east_expense_{{ $k }}" class="expense-input final expense">
-										</td>
-										<td class="final-profit">
-											<span>&yen;</span>
-											<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
-										</td>
-										<td class="final-profit-rate">
-											<span>%</span>
-											<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
-										</td>
-										<td class="final-profit-gap">
-											<span>&yen;</span>
-											<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $k }}">
-										</td>
+                    @if (empty($location_final_east[0]))
+                      <td class="final-sale">
+  										<span>&yen;</span>
+  										<input type="hidden" value="" name="final_east_revenue_{{ $k }}" class="revenue-profit-input final revenue">
+  									</td>
+  									<td class="final-cost">
+  										<span>&yen;</span>
+  										<input type="hidden" value="" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="" name="final_east_expense_{{ $k }}" ng-model="final_east_expense_{{ $k }}" class="expense-input final expense" numbers-only my-maxlength="9">
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $k }}">
+  									</td>
+                    @else
+                      <td class="final-sale">
+  										<span>&yen;{{ $location_final_east[$k-1]->revenue }}</span>
+  										<input type="hidden" value="{{ $location_final_east[$k-1]->revenue }}" name="final_east_revenue_{{ $k }}" class="revenue-profit-input final revenue">
+  									</td>
+  									<td class="final-cost">
+  										<span>&yen;{{ $location_final_east[$k-1]->cost }}</span>
+  										<input type="hidden" value="{{ $location_final_east[$k-1]->cost }}" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="" name="final_east_expense_{{ $k }}" ng-model="final_east_expense_{{ $k }}"  class="expense-input final expense" numbers-only my-maxlength="9">
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;{{ $location_final_east[$k-1]->profit }}</span>
+  										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>{{ $location_final_east[$k-1]->profit_rate }}%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $k }}">
+  									</td>
+                    @endif
 
 									</tr>
 									@endforeach
@@ -977,7 +1110,6 @@
 
 						<div class="submit-row">
 	            	<button type="submit" class="btn-sumit">Done</button>
-	            	<button id="budget-error" ng-if="budget_form.$invalid" type="button" class="btn-sumit">Done</button>
 	          </div>
 
 					</div>
@@ -1132,67 +1264,115 @@
   										<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
+                    @if (empty($location_forecast_west[0]))
+                      <td>
+    										&yen;
+    									</td>
+                      <td>
+    										&yen;
+    									</td>
+    									<td>
+    										&yen;
+    									</td>
+    									<td>
+    										&yen;
+    									</td>
+    									<td>
+    										%
+    									</td>
+                    @else
+                      <td>
+    										&yen;{{ $location_forecast_west[$j-1]->revenue }}
+    									</td>
+                      <td>
+    										&yen;{{ $location_forecast_west[$j-1]->cost }}
+    									</td>
+    									<td>
+    										&yen;{{ $area_west_budget[$j-1]->headoffice_expense }}
+    									</td>
+    									<td>
+    										&yen;{{ $location_forecast_west[$j-1]->profit }}
+    									</td>
+    									<td>
+    										{{ $location_forecast_west[$j-1]->profit_rate }}%
+    									</td>
+                    @endif
+
+
 
   									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;3,000,000
+  										&yen;
   									</td>
   									<td>
   										&yen;
   									</td>
   									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										15%
-  									</td>
-
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;3,000,000
+  										&yen;
   									</td>
   									<td>
   										&yen;
   									</td>
   									<td>
-  										&yen;3,000,000
+  										%
   									</td>
   									<td>
-  										15%
-  									</td>
-  									<td>
-  										&yen;400,000,00
+  										&yen;
   									</td>
 
-  									<td class="final-sale">
-										<span>&yen;3000</span>
-										<input type="hidden" value="3000" name="final_west_revenue_{{ $j }}" class="revenue-profit-input final revenue">
-									</td>
-									<td class="final-cost">
-										<span>&yen;200</span>
-										<input type="hidden" value="200" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
-									</td>
-									<td class="final-expense">
-										<input type="text" value="{{ $location_final_west[$j-1]->headoffice_expense }}" name="final_west_expense_{{ $j }}" ng-model="final_west_expense_{{ $j }}" ng-init="final_west_expense_{{ $j }}='{{ $location_final_west[$j-1]->headoffice_expense }}'" ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
-                    <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
-                    <p class="custom-error err-req" style="display: none;">This field is required</p>
-									</td>
-									<td class="final-profit">
-										<span>&yen;</span>
-										<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $j }}">
-									</td>
-									<td class="final-profit-rate">
-										<span>%</span>
-										<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
-									</td>
-									<td class="final-profit-gap">
-										<span>&yen;</span>
-										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $j }}">
-									</td>
+                    @if (empty($location_final_west[0]))
+                      <td class="final-sale">
+  										<span>&yen;</span>
+  										<input type="hidden" value="" name="final_west_revenue_{{ $j }}" class="revenue-profit-input final revenue">
+  									</td>
+  									<td class="final-cost">
+  										<span>&yen;</span>
+  										<input type="hidden" value="" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="{{ $location_final_west[$j-1]->headoffice_expense }}" name="final_west_expense_{{ $j }}" ng-model="final_west_expense_{{ $j }}" ng-init="final_west_expense_{{ $j }}='{{ $location_final_west[$j-1]->headoffice_expense }}'" ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
+                      <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+                      <p class="custom-error err-req" style="display: none;">This field is required</p>
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $j }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $j }}">
+  									</td>
+                      @else
+                        <td class="final-sale">
+    										<span>&yen;{{ $location_final_west[$j-1]->revenue}}</span>
+    										<input type="hidden" value="{{ $location_final_west[$j-1]->revenue}}" name="final_west_revenue_{{ $j }}" class="revenue-profit-input final revenue">
+    									</td>
+    									<td class="final-cost">
+    										<span>&yen;{{ $location_final_west[$j-1]->cost}}</span>
+    										<input type="hidden" value="{{ $location_final_west[$j-1]->cost}}" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
+    									</td>
+    									<td class="final-expense">
+    										<input type="text" value="{{ $location_final_west[$j-1]->headoffice_expense }}" name="final_west_expense_{{ $j }}" ng-model="final_west_expense_{{ $j }}" ng-init="final_west_expense_{{ $j }}='{{ $location_final_west[$j-1]->headoffice_expense }}'" ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
+                        <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
+                        <p class="custom-error err-req" style="display: none;">This field is required</p>
+    									</td>
+    									<td class="final-profit">
+    										<span>&yen;{{ $location_final_west[$j-1]->profit}}</span>
+    										<input type="hidden" value="{{ $location_final_west[$j-1]->profit}}" class="final hidden-profit" name="final_west_profit_{{ $j }}">
+    									</td>
+    									<td class="final-profit-rate">
+    										<span>%{{ $location_final_west[$j-1]->profit_rate}}</span>
+    										<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
+    									</td>
+    									<td class="final-profit-gap">
+    										<span>&yen;</span>
+    										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $j }}">
+    									</td>
+                    @endif
+
 
   								</tr>
   								@endforeach
@@ -1371,64 +1551,109 @@
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
 
+                    @if (empty($location_forecast_central[0]))
+                      <td>
+    										&yen;
+    									</td>
+    									<td>
+    										&yen;
+    									</td>
+    									<td>
+    										&yen;
+    									</td>
+    									<td>
+    										&yen;
+    									</td>
+    									<td>
+    										%
+    									</td>
+                    @else
+                      <td>
+    										&yen;{{ $location_forecast_central[$l-1]->revenue }}
+    									</td>
+    									<td>
+    										&yen;{{ $location_forecast_central[$l-1]->cost }}
+    									</td>
+    									<td>
+    										&yen;{{ $area_central_budget[$l-1]->headoffice_expense }}
+    									</td>
+    									<td>
+    										&yen;{{ $location_forecast_central[$l-1]->profit }}
+    									</td>
+    									<td>
+    										{{ $location_forecast_central[$l-1]->profit_rate }}%
+    									</td>
+                    @endif
+
+                    {{-- daily progress --}}
   									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;3,000,000
+  										&yen;
   									</td>
   									<td>
   										&yen;
   									</td>
   									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										15%
-  									</td>
-
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;3,000,000
+  										&yen;
   									</td>
   									<td>
   										&yen;
   									</td>
   									<td>
-  										&yen;3,000,000
+  										%
   									</td>
   									<td>
-  										15%
+  										&yen;
   									</td>
-  									<td>
-  										&yen;400,000,00
+                    @if (empty($location_final_central[0]))
+                      <td class="final-sale">
+  										<span>&yen;</span>
+  										<input type="hidden" value="3000" name="final_central_revenue_{{ $l }}" class="revenue-profit-input final revenue">
   									</td>
+  									<td class="final-cost">
+  										<span>&yen;</span>
+  										<input type="hidden" value="200" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="{{ $location_final_central[$l-1]->headoffice_expense }}" name="final_central_expense_{{ $l }}" ng-model="final_central_expense_{{ $l }}" ng-init="final_central_expense_{{ $l }}='{{ $location_final_central[$l-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_central_profitGap_{{ $l }}">
+  									</td>
+                    @else
+                      <td class="final-sale">
+  										<span>&yen;{{ $location_final_central[$l-1]->revenue }}</span>
+  										<input type="hidden" value="{{ $location_final_central[$l-1]->revenue }}" name="final_central_revenue_{{ $l }}" class="revenue-profit-input final revenue">
+  									</td>
+  									<td class="final-cost">
+  										<span>&yen;{{ $location_final_central[$l-1]->cost }}</span>
+  										<input type="hidden" value="{{ $location_final_central[$l-1]->cost }}" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="{{ $location_final_central[$l-1]->headoffice_expense }}" name="final_central_expense_{{ $l }}" ng-model="final_central_expense_{{ $l }}" ng-init="final_central_expense_{{ $l }}='{{ $location_final_central[$l-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;{{ $location_final_central[$l-1]->profit }}</span>
+  										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>{{ $location_final_central[$l-1]->profit_rate }}%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_central_profitGap_{{ $l }}">
+  									</td>
+                    @endif
 
-  									<td class="final-sale">
-										<span>&yen;3000</span>
-										<input type="hidden" value="3000" name="final_central_revenue_{{ $l }}" class="revenue-profit-input final revenue">
-									</td>
-									<td class="final-cost">
-										<span>&yen;200</span>
-										<input type="hidden" value="200" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
-									</td>
-									<td class="final-expense">
-										<input type="text" value="{{ $location_final_central[$l-1]->headoffice_expense }}" name="final_central_expense_{{ $l }}" ng-model="final_central_expense_{{ $l }}" ng-init="final_central_expense_{{ $l }}='{{ $location_final_central[$l-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
-									</td>
-									<td class="final-profit">
-										<span>&yen;</span>
-										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
-									</td>
-									<td class="final-profit-rate">
-										<span>%</span>
-										<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
-									</td>
-									<td class="final-profit-gap">
-										<span>&yen;</span>
-										<input type="hidden" class="final hidden-profit-gap" name="final_central_profitGap_{{ $l }}">
-									</td>
 
   								</tr>
   								@endforeach
@@ -1604,64 +1829,109 @@
 										<p class="custom-error err-req" style="display: none;">This field is required</p>
   									</td>
 
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;3,000,000
+                    @if (empty($location_forecast_east[0]))
+                    <td>
+  										&yen;
   									</td>
   									<td>
   										&yen;
   									</td>
   									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										15%
-  									</td>
-
-  									<td>
-  										&yen;3,000,000
-  									</td>
-  									<td>
-  										&yen;3,000,000
+  										&yen;
   									</td>
   									<td>
   										&yen;
   									</td>
   									<td>
-  										&yen;3,000,000
+  										%
+  									</td>
+                    @else
+                      <td>
+  										&yen;{{ $location_forecast_east[$k-1]->revenue }}
   									</td>
   									<td>
-  										15%
+  										&yen;{{ $location_forecast_east[$k-1]->cost }}
   									</td>
   									<td>
-  										&yen;400,000,00
+  										&yen;{{ $area_east_budget[$k-1]->headoffice_expense }}
   									</td>
+  									<td>
+  										&yen;{{ $location_forecast_east[$k-1]->profit }}
+  									</td>
+  									<td>
+  										{{ $location_forecast_east[$k-1]->profit_rate }}%
+  									</td>
+                    @endif
 
-  									<td class="final-sale">
-										<span>&yen;3000</span>
-										<input type="hidden" value="3000" name="final_east_revenue_{{ $k }}" class="revenue-profit-input final revenue">
-									</td>
-									<td class="final-cost">
-										<span>&yen;200</span>
-										<input type="hidden" value="200" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
-									</td>
-									<td class="final-expense">
-										<input type="text" value="{{ $location_final_east[$k-1]->headoffice_expense }}" name="final_east_expense_{{ $k }}" ng-model="final_east_expense_{{ $k }}" ng-init="final_east_expense_{{ $k }}='{{ $location_final_east[$k-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
-									</td>
-									<td class="final-profit">
-										<span>&yen;</span>
-										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
-									</td>
-									<td class="final-profit-rate">
-										<span>%</span>
-										<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
-									</td>
-									<td class="final-profit-gap">
-										<span>&yen;</span>
-										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $k }}">
-									</td>
+
+  									<td>
+  										&yen;
+  									</td>
+  									<td>
+  										&yen;
+  									</td>
+  									<td>
+  										&yen;
+  									</td>
+  									<td>
+  										&yen;
+  									</td>
+  									<td>
+  										%
+  									</td>
+  									<td>
+  										&yen;
+  									</td>
+                    @if (empty($location_final_east[0]))
+                      <td class="final-sale">
+  										<span>&yen;</span>
+  										<input type="hidden" value="" name="final_east_revenue_{{ $k }}" class="revenue-profit-input final revenue">
+  									</td>
+  									<td class="final-cost">
+  										<span>&yen;</span>
+  										<input type="hidden" value="" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="{{ $location_final_east[$k-1]->headoffice_expense }}" name="final_east_expense_{{ $k }}" ng-model="final_east_expense_{{ $k }}" ng-init="final_east_expense_{{ $k }}='{{ $location_final_east[$k-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $k }}">
+  									</td>
+                    @else
+                      <td class="final-sale">
+  										<span>&yen;{{ $location_final_east[$k-1]->revenue }}</span>
+  										<input type="hidden" value="{{ $location_final_east[$k-1]->revenue }}" name="final_east_revenue_{{ $k }}" class="revenue-profit-input final revenue">
+  									</td>
+  									<td class="final-cost">
+  										<span>&yen;{{ $location_final_east[$k-1]->cost }}</span>
+  										<input type="hidden" value="{{ $location_final_east[$k-1]->cost }}" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
+  									</td>
+  									<td class="final-expense">
+  										<input type="text" value="{{ $location_final_east[$k-1]->headoffice_expense }}" name="final_east_expense_{{ $k }}" ng-model="final_east_expense_{{ $k }}" ng-init="final_east_expense_{{ $k }}='{{ $location_final_east[$k-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
+  									</td>
+  									<td class="final-profit">
+  										<span>&yen;{{ $location_final_east[$k-1]->profit }}</span>
+  										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
+  									</td>
+  									<td class="final-profit-rate">
+  										<span>{{ $location_final_east[$k-1]->profit_rate }}%</span>
+  										<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
+  									</td>
+  									<td class="final-profit-gap">
+  										<span>&yen;</span>
+  										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $k }}">
+  									</td>
+                    @endif
+
 
   								</tr>
   								@endforeach
@@ -1810,10 +2080,5 @@
 			</div>
 		</div>
 		@endif
-
-
-
-
-
 	</body>
 </html>
