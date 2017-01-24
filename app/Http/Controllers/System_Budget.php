@@ -11,7 +11,7 @@ class System_Budget extends Controller
   public function budget()
     {
 
-      
+
       $month = (int)date("m");
       $year = (int)date("Y");
       $insert = 0;
@@ -82,6 +82,7 @@ class System_Budget extends Controller
                                       ['area','=', 1]
                                     ])
                             ->get();
+
       $location_final_central = DB::table('final_result')
                             ->join('location_master','final_result.location','=','location_master.location_id')
                             ->select('location_master.location_name','final_result.revenue','final_result.cost','final_result.profit','final_result.profit_rate','final_result.headoffice_expense')
@@ -91,6 +92,7 @@ class System_Budget extends Controller
                                       ['area','=', 2]
                                     ])
                             ->get();
+
       $location_final_east = DB::table('final_result')
                             ->join('location_master','final_result.location','=','location_master.location_id')
                             ->select('location_master.location_name','final_result.revenue','final_result.cost','final_result.profit','final_result.profit_rate','final_result.headoffice_expense')
@@ -205,6 +207,84 @@ class System_Budget extends Controller
           $output['area_east_profitRate_2'] = $request->area_east_profitRate_2;
           $output['area_east_settingRate_2'] = $request->area_east_settingRate_2;
 
+          $output['final_west_1'] = $request->final_west_expense_1;
+          $output['final_west_2'] = $request->final_west_expense_2;
+          $output['final_central_1'] = $request->final_central_expense_1;
+          $output['final_central_2'] = $request->final_central_expense_2;
+          $output['final_east_1'] = $request->final_east_expense_1;
+          $output['final_east_2'] = $request->final_east_expense_2;
+
+
+          $final_result = DB::table('final_result')
+                        ->where([
+                          ['year','=', $year],
+                          ['month','=',$month]
+                        ])
+                        ->get();
+          // insert data into final result
+          if(empty($final_result[0]))
+          {
+            for ($i=1; $i < 3; $i++) {
+              $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_west_location_'.$i])->get();
+              $id = $location[0]->location_id;
+              DB::table('final_result')->insert(
+              ['division' => 1,'area' => 1, 'location' => $id, 'year' => $output['year'], 'month' => $output['month'],'headoffice_expense' => $output['final_west_'.$i], 'created_at' => new DateTime]
+              );
+            }
+            for ($i=1; $i < 3; $i++) {
+              $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_central_location_'.$i])->get();
+              $id = $location[0]->location_id;
+              DB::table('final_result')->insert(
+              ['division' => 1,'area' => 2, 'location' => $id, 'year' => $output['year'], 'month' => $output['month'],'headoffice_expense' => $output['final_central_'.$i], 'created_at' => new DateTime]
+              );
+            }
+            for ($i=1; $i < 3; $i++) {
+              $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_east_location_'.$i])->get();
+              $id = $location[0]->location_id;
+              DB::table('final_result')->insert(
+              ['division' => 1,'area' => 3, 'location' => $id, 'year' => $output['year'], 'month' => $output['month'],'headoffice_expense' => $output['final_east_'.$i], 'created_at' => new DateTime]
+              );
+            }
+          }
+          else {
+            for ($i=1; $i < 3; $i++) {
+              $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_west_location_'.$i])->get();
+              $id = $location[0]->location_id;
+              DB::table('final_result')->where([
+                ['year',$year],
+                ['month',$month],
+                ['location',$id],
+                ['area', 1]
+              ])
+               ->update(['headoffice_expense' => $output['final_west_'.$i]]);
+            }
+
+            for ($i=1; $i < 3; $i++) {
+              $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_central_location_'.$i])->get();
+              $id = $location[0]->location_id;
+              DB::table('final_result')->where([
+                ['year',$year],
+                ['month',$month],
+                ['location',$id],
+                ['area', 2]
+              ])
+               ->update(['headoffice_expense' => $output['final_central_'.$i]]);
+            }
+
+            for ($i=1; $i < 3; $i++) {
+              $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_east_location_'.$i])->get();
+              $id = $location[0]->location_id;
+              DB::table('final_result')->where([
+                ['year',$year],
+                ['month',$month],
+                ['location',$id],
+                ['area', 3]
+              ])
+               ->update(['headoffice_expense' => $output['final_east_'.$i]]);
+            }
+
+          }
+
           for ($i=1; $i < 3; $i++) {
               $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_west_location_'.$i])->get();
               $id = $location[0]->location_id;
@@ -228,6 +308,8 @@ class System_Budget extends Controller
               ['division' => 1,'area' => 3, 'location' => $id, 'year' => $output['year'], 'month' => $output['month'], 'revenue' => $output['area_east_revenue_'.$i], 'cost' => $output['area_east_cost_'.$i], 'profit' => $output['area_east_profit_'.$i], 'profit_rate' => $output['area_east_profitRate_'.$i], 'setting_rate' => $output['area_east_settingRate_'.$i], 'created_at' => new DateTime, 'headoffice_expense' => $output['area_east_expense_'.$i]]
               );
           }
+
+
           DB::commit();
         }
         catch(\Exception $e)
@@ -267,29 +349,101 @@ class System_Budget extends Controller
                                         ])
                                 ->get();
 
+                                //
+                                $location_forecast_west = DB::table('location_forecast')
+                                                     ->join('location_master','location_forecast.location','=','location_master.location_id')
+                                                     ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
+                                                     ->where([
+                                                                ['year','=', $year],
+                                                                ['month','=', $month],
+                                                                ['area','=', 1]
+                                                              ])
+                                                      ->get();
+                                $location_forecast_central = DB::table('location_forecast')
+                                                      ->join('location_master','location_forecast.location','=','location_master.location_id')
+                                                      ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
+                                                      ->where([
+                                                                  ['year','=', $year],
+                                                                  ['month','=', $month],
+                                                                  ['area','=', 2]
+                                                              ])
+                                                        ->get();
+                                $location_forecast_east = DB::table('location_forecast')
+                                                        ->join('location_master','location_forecast.location','=','location_master.location_id')
+                                                        ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
+                                                        ->where([
+                                                                    ['year','=', $year],
+                                                                    ['month','=', $month],
+                                                                    ['area','=', 3]
+                                                                ])
+                                                        ->get();
 
-          $l = 0;
-          $j = 0;
-          $k = 0;
+                                //
+                                $location_final_west = DB::table('final_result')
+                                                     ->join('location_master','final_result.location','=','location_master.location_id')
+                                                     ->select('location_master.location_name','final_result.revenue','final_result.cost','final_result.profit','final_result.profit_rate','final_result.headoffice_expense')
+                                                     ->where([
+                                                                ['year','=', $year],
+                                                                ['month','=', $month],
+                                                                ['area','=', 1]
+                                                              ])
+                                                      ->get();
+                                $location_final_central = DB::table('final_result')
+                                                      ->join('location_master','final_result.location','=','location_master.location_id')
+                                                      ->select('location_master.location_name','final_result.revenue','final_result.cost','final_result.profit','final_result.profit_rate','final_result.headoffice_expense')
+                                                      ->where([
+                                                                ['year','=', $year],
+                                                                ['month','=', $month],
+                                                                ['area','=', 2]
+                                                              ])
+                                                      ->get();
+                                $location_final_east = DB::table('final_result')
+                                                      ->join('location_master','final_result.location','=','location_master.location_id')
+                                                      ->select('location_master.location_name','final_result.revenue','final_result.cost','final_result.profit','final_result.profit_rate','final_result.headoffice_expense')
+                                                      ->where([
+                                                                  ['year','=', $year],
+                                                                  ['month','=', $month],
+                                                                  ['area','=', 3]
+                                                              ])
+                                                      ->get();
+                                //
+                                $area_west = DB::table('location_master')
+                                              ->select('location_name')
+                                              ->where('area_id','=',1)
+                                              ->get()
+                                              ->all();
+                                 $area_central = DB::table('location_master')
+                                              ->select('location_name')
+                                              ->where('area_id','=',2)
+                                              ->get()
+                                              ->all();
+                                 $area_east = DB::table('location_master')
+                                              ->select('location_name')
+                                              ->where('area_id','=',3)
+                                              ->get()
+                                              ->all();
+                                $l = 0;
+                                $j = 0;
+                                $k = 0;
+                                if(session_status()===PHP_SESSION_NONE){
+                                   session_start();
+                                  if($_SESSION['role']=='admin'){
+                                    return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                                  }
+                                  else {
+                                    return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                                  }
+                                   }
+                                elseif (session_status()===PHP_SESSION_ACTIVE)
+                                {
+                                  if($_SESSION['role']=='admin'){
+                                    return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                                  }
+                                  else {
 
-          if(session_status()===PHP_SESSION_NONE){
-             session_start();
-            if($_SESSION['role']=='admin'){
-              return view ('admin.BudgetManagement',compact('l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
-            }
-            else {
-              return view ('manager.BudgetManagement',compact('l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
-            }
-             }
-          elseif (session_status()===PHP_SESSION_ACTIVE)
-          {
-            if($_SESSION['role']=='admin'){
-              return view ('admin.BudgetManagement',compact('l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
-            }
-            else {
-              return view ('manager.BudgetManagement',compact('l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
-            }
-          }
+                                    return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                                  }
+                                }
 
         }
         else {
@@ -346,8 +500,51 @@ class System_Budget extends Controller
           $output['area_east_profitRate_2'] = $request->area_east_profitRate_2;
           $output['area_east_settingRate_2'] = $request->area_east_settingRate_2;
 
+          $output['final_west_1'] = $request->final_west_expense_1;
+          $output['final_west_2'] = $request->final_west_expense_2;
+          $output['final_central_1'] = $request->final_central_expense_1;
+          $output['final_central_2'] = $request->final_central_expense_2;
+          $output['final_east_1'] = $request->final_east_expense_1;
+          $output['final_east_2'] = $request->final_east_expense_2;
 
+          //update final result
+          for ($i=1; $i < 3; $i++) {
+            $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_west_location_'.$i])->get();
+            $id = $location[0]->location_id;
+            DB::table('final_result')->where([
+              ['year',$year],
+              ['month',$month],
+              ['location',$id],
+              ['area', 1]
+            ])
+             ->update(['headoffice_expense' => $output['final_west_'.$i]]);
+          }
 
+          for ($i=1; $i < 3; $i++) {
+            $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_central_location_'.$i])->get();
+            $id = $location[0]->location_id;
+            DB::table('final_result')->where([
+              ['year',$year],
+              ['month',$month],
+              ['location',$id],
+              ['area', 2]
+            ])
+             ->update(['headoffice_expense' => $output['final_central_'.$i]]);
+          }
+
+          for ($i=1; $i < 3; $i++) {
+            $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_east_location_'.$i])->get();
+            $id = $location[0]->location_id;
+            DB::table('final_result')->where([
+              ['year',$year],
+              ['month',$month],
+              ['location',$id],
+              ['area', 3]
+            ])
+             ->update(['headoffice_expense' => $output['final_east_'.$i]]);
+          }
+
+          // update budget management
           for ($i=1; $i < 3; $i++) {
               $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_west_location_'.$i])->get();
               $id = $location[0]->location_id;
@@ -427,27 +624,101 @@ class System_Budget extends Controller
                                 ->get();
 
 
-          $l = 0;
-          $j = 0;
-          $k = 0;
-          if(session_status()===PHP_SESSION_NONE){
-             session_start();
-            if($_SESSION['role']=='admin'){
-              return view ('admin.BudgetManagement',compact('l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
-            }
-            else {
-              return view ('manager.BudgetManagement',compact('l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
-            }
-             }
-          elseif (session_status()===PHP_SESSION_ACTIVE)
-          {
-            if($_SESSION['role']=='admin'){
-              return view ('admin.BudgetManagement',compact('l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
-            }
-            else {
-              return view ('manager.BudgetManagement',compact('l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update'));
-            }
-          }
+                                //
+                                $location_forecast_west = DB::table('location_forecast')
+                                                     ->join('location_master','location_forecast.location','=','location_master.location_id')
+                                                     ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
+                                                     ->where([
+                                                                ['year','=', $year],
+                                                                ['month','=', $month],
+                                                                ['area','=', 1]
+                                                              ])
+                                                      ->get();
+                                $location_forecast_central = DB::table('location_forecast')
+                                                      ->join('location_master','location_forecast.location','=','location_master.location_id')
+                                                      ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
+                                                      ->where([
+                                                                  ['year','=', $year],
+                                                                  ['month','=', $month],
+                                                                  ['area','=', 2]
+                                                              ])
+                                                        ->get();
+                                $location_forecast_east = DB::table('location_forecast')
+                                                        ->join('location_master','location_forecast.location','=','location_master.location_id')
+                                                        ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
+                                                        ->where([
+                                                                    ['year','=', $year],
+                                                                    ['month','=', $month],
+                                                                    ['area','=', 3]
+                                                                ])
+                                                        ->get();
+
+                                //
+                                $location_final_west = DB::table('final_result')
+                                                     ->join('location_master','final_result.location','=','location_master.location_id')
+                                                     ->select('location_master.location_name','final_result.revenue','final_result.cost','final_result.profit','final_result.profit_rate','final_result.headoffice_expense')
+                                                     ->where([
+                                                                ['year','=', $year],
+                                                                ['month','=', $month],
+                                                                ['area','=', 1]
+                                                              ])
+                                                      ->get();
+                                $location_final_central = DB::table('final_result')
+                                                      ->join('location_master','final_result.location','=','location_master.location_id')
+                                                      ->select('location_master.location_name','final_result.revenue','final_result.cost','final_result.profit','final_result.profit_rate','final_result.headoffice_expense')
+                                                      ->where([
+                                                                ['year','=', $year],
+                                                                ['month','=', $month],
+                                                                ['area','=', 2]
+                                                              ])
+                                                      ->get();
+                                $location_final_east = DB::table('final_result')
+                                                      ->join('location_master','final_result.location','=','location_master.location_id')
+                                                      ->select('location_master.location_name','final_result.revenue','final_result.cost','final_result.profit','final_result.profit_rate','final_result.headoffice_expense')
+                                                      ->where([
+                                                                  ['year','=', $year],
+                                                                  ['month','=', $month],
+                                                                  ['area','=', 3]
+                                                              ])
+                                                      ->get();
+                                //
+                                $area_west = DB::table('location_master')
+                                              ->select('location_name')
+                                              ->where('area_id','=',1)
+                                              ->get()
+                                              ->all();
+                                 $area_central = DB::table('location_master')
+                                              ->select('location_name')
+                                              ->where('area_id','=',2)
+                                              ->get()
+                                              ->all();
+                                 $area_east = DB::table('location_master')
+                                              ->select('location_name')
+                                              ->where('area_id','=',3)
+                                              ->get()
+                                              ->all();
+                                $l = 0;
+                                $j = 0;
+                                $k = 0;
+                                if(session_status()===PHP_SESSION_NONE){
+                                   session_start();
+                                  if($_SESSION['role']=='admin'){
+                                    return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                                  }
+                                  else {
+                                    return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                                  }
+                                   }
+                                elseif (session_status()===PHP_SESSION_ACTIVE)
+                                {
+                                  if($_SESSION['role']=='admin'){
+                                    return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                                  }
+                                  else {
+
+                                    return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                                  }
+                                }
         }
 
     }

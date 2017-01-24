@@ -86,6 +86,6 @@ Route::get('budget','System_Budget@budget');
 Route::get('kpi','System_KPI@kpi');
 Route::post('task','login@task');
 Route::post('kpi-data','System_KPI@kpiData');
-Route::post('budget-admin','System_Budget@w');
+Route::post('budget-admin','System_Budget@budgetAdmin');
 Route::post('budget-admin-date','System_Budget@budgetAdminDate');
 Route::post('budget-manager','System_Budget_Manager@budgetManager');

@@ -149,10 +149,42 @@ class System_Budget_Manager extends Controller
         }
       }
       else {
-        return "jol a nis";
+        for ($i=1; $i < 3; $i++) {
+          $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_west_'.$i])->get();
+          $id = $location[0]->location_id;
+          DB::table('final_result')->where([
+            ['year',$year],
+            ['month',$month],
+            ['location',$id],
+            ['area',1]
+          ])
+          ->update([ 'revenue' => $output['final_west_revenue_'.$i], 'cost' => $output['final_west_cost_'.$i], 'profit' => $output['final_west_profit_'.$i], 'profit_rate' => $output['final_west_profitRate_'.$i] ]);
+        }
+        for ($i=1; $i < 3; $i++) {
+          $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_central_'.$i])->get();
+          $id = $location[0]->location_id;
+          DB::table('final_result')->where([
+            ['year',$year],
+            ['month',$month],
+            ['location',$id],
+            ['area',2]
+          ])
+          ->update([ 'revenue' => $output['final_central_revenue_'.$i], 'cost' => $output['final_central_cost_'.$i], 'profit' => $output['final_central_profit_'.$i], 'profit_rate' => $output['final_central_profitRate_'.$i] ]);
+        }
+        for ($i=1; $i < 3; $i++) {
+          $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_east_'.$i])->get();
+          $id = $location[0]->location_id;
+          DB::table('final_result')->where([
+            ['year',$year],
+            ['month',$month],
+            ['location',$id],
+            ['area',3]
+          ])
+          ->update([ 'revenue' => $output['final_east_revenue_'.$i], 'cost' => $output['final_east_cost_'.$i], 'profit' => $output['final_east_profit_'.$i], 'profit_rate' => $output['final_east_profitRate_'.$i] ]);
+        }
       }
       DB::commit();
-    
+
   }
     catch(\Exception $e)
     {
@@ -393,53 +425,41 @@ class System_Budget_Manager extends Controller
       }
 
       // update data into final result
-      $final_result_exist = DB::table('final_result')->select('headoffice_expense')
-      ->where([
-        ['month','=', $output['month']],
-        ['year','=',$output['year']]
+      for ($i=1; $i < 3; $i++) {
+        $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_west_'.$i])->get();
+        $id = $location[0]->location_id;
+        DB::table('final_result')->where([
+          ['year',$year],
+          ['month',$month],
+          ['location',$id],
+          ['area',1]
         ])
-        ->get();
-      if (empty($final_result_exist[0])) {
-        for ($i=1; $i < 3; $i++) {
-            $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_west_'.$i])->get();
-            $id = $location[0]->location_id;
-            DB::table('final_result')
-            ->where([
-              ['area',1],
-              ['location',$id],
-              ['month',$output['month']],
-              ['year',$output['year']]
-            ])->update(
-            ['division' => 1, 'revenue' => $output['final_west_revenue_'.$i], 'cost' => $output['final_west_cost_'.$i], 'profit' => $output['final_west_profit_'.$i], 'profit_rate' => $output['final_west_profitRate_'.$i], 'updated_at' => new DateTime]);
-        }
-        for ($i=1; $i < 3; $i++) {
-            $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_central_'.$i])->get();
-            $id = $location[0]->location_id;
-            DB::table('final_result')
-            ->where([
-              ['area',2],
-              ['location',$id],
-              ['month',$output['month']],
-              ['year',$output['year']]
-            ])->update(
-            ['division' => 1, 'revenue' => $output['final_central_revenue_'.$i], 'cost' => $output['final_central_cost_'.$i], 'profit' => $output['final_central_profit_'.$i], 'profit_rate' => $output['final_central_profitRate_'.$i], 'updated_at' => new DateTime]);
-        }
-        for ($i=1; $i < 3; $i++) {
-            $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_east_'.$i])->get();
-            $id = $location[0]->location_id;
-            DB::table('final_result')
-            ->where([
-              ['area',3],
-              ['location',$id],
-              ['month',$output['month']],
-              ['year',$output['year']]
-            ])->update(
-            ['division' => 1, 'revenue' => $output['final_east_revenue_'.$i], 'cost' => $output['final_east_cost_'.$i], 'profit' => $output['final_east_profit_'.$i], 'profit_rate' => $output['final_east_profitRate_'.$i], 'updated_at' => new DateTime]);
-        }
+        ->update([ 'revenue' => $output['final_west_revenue_'.$i], 'cost' => $output['final_west_cost_'.$i], 'profit' => $output['final_west_profit_'.$i], 'profit_rate' => $output['final_west_profitRate_'.$i] ]);
       }
-      else {
+      for ($i=1; $i < 3; $i++) {
+        $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_central_'.$i])->get();
+        $id = $location[0]->location_id;
+        DB::table('final_result')->where([
+          ['year',$year],
+          ['month',$month],
+          ['location',$id],
+          ['area',2]
+        ])
+        ->update([ 'revenue' => $output['final_central_revenue_'.$i], 'cost' => $output['final_central_cost_'.$i], 'profit' => $output['final_central_profit_'.$i], 'profit_rate' => $output['final_central_profitRate_'.$i] ]);
+      }
+      for ($i=1; $i < 3; $i++) {
+        $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_east_'.$i])->get();
+        $id = $location[0]->location_id;
+        DB::table('final_result')->where([
+          ['year',$year],
+          ['month',$month],
+          ['location',$id],
+          ['area',3]
+        ])
+        ->update([ 'revenue' => $output['final_east_revenue_'.$i], 'cost' => $output['final_east_cost_'.$i], 'profit' => $output['final_east_profit_'.$i], 'profit_rate' => $output['final_east_profitRate_'.$i] ]);
+      }
 
-      }
+
 
       DB::commit();
       //
