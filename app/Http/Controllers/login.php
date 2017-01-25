@@ -76,7 +76,7 @@ class login extends Controller
         $output['start_time'] = $start_time;
         $output['stop_time'] = $stop_time;
         $output['total'] = $total;
-        return $output;
+        // return $output;
         // return data
         return view('admin.TimeManagementLocation',compact('output'));
 
