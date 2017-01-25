@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('main');
 });
+Route::post('/api/workshift', 'System_Work_Shift@ajax_work_shift');
 
 Route::post('login','login@login');
 

@@ -8,6 +8,7 @@ use DateTime;
 use Date;
 use Validator;
 use Input;
+use Response;
 
 class System_Work_Shift extends Controller
 {
@@ -79,6 +80,7 @@ class System_Work_Shift extends Controller
 
     public function ajax_work_shift(Request $request)
     {
+        if($request->ajax()){
         $month = $request->input('month');
         $year = $request->input('year');
         if(session_status()===PHP_SESSION_NONE){
@@ -99,7 +101,7 @@ class System_Work_Shift extends Controller
                         ['staff_master.location','=',1]
                     ])
                     ->get();
-        // return $staff;
+                    // return $staff;
             foreach ($staff as $index) {
                 $index->work_shift = str_split($index->work_shift);
             }
@@ -115,27 +117,24 @@ class System_Work_Shift extends Controller
                         ['staff_master.location','=',$location]
                     ])
                     ->get();
-
+                    foreach ($staff as $index) {
+                        $index->work_shift = str_split($index->work_shift);
+                    }
       }
       $k = 0;
-      if(session_status()===PHP_SESSION_NONE){
-         session_start();
-        if($_SESSION['role']=='admin'){
-          return view ('admin.WorkShift',compact('staff','location','month','year','k'));
-        }
-        else {
-          return view ('manager.WorkShift',compact('staff','location','month','year','k'));
-        }
-         }
-      elseif (session_status()===PHP_SESSION_ACTIVE)
-      {
-        if($_SESSION['role']=='admin'){
-          return view ('admin.WorkShift',compact('staff','location','month','year','k'));
-        }
-        else {
-          return view ('manager.WorkShift',compact('staff','location','month','year','k'));
-        }
+
+
+          return response()->json([
+              'staff' => $staff,
+              'location' => $location,
+              'month'=> $month,
+              'year'=> $year,
+              'k'=> $k
+          ]);
+
+
       }
+
     }
 
 }

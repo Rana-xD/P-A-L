@@ -913,6 +913,7 @@ $(function(){
 	}
 
 	var dateHeader = $('#date_header');
+	var shiftRecord = $('#shift_record');
 
   function determineLeapYear(year){
     if((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)){
@@ -948,31 +949,72 @@ $(function(){
 		getWorkShift();
   });
 
-	changeDateHeader();
-
 	// Ajax request to get workshift
 	function getWorkShift(){
 
-		$.ajaxSetup({
-   		headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
-		});
+		// $.ajaxSetup({
+   // 		headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
+		// });
 
-		$.$.ajax({
+		$.ajax({
 			url: '/api/workshift',
 			type: 'POST',
-			dataType: 'application/json',
-			data: {'location':$("#location").val(),'month':$('#month').val(),'year':$('#year').val() }
-		})
-		.done(function(response) {
-			console.log(json.stringify(response));
-		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function() {
-			console.log("complete");
+			dataType: 'json',
+			data: {location:$("#location").val(),month:$("#month").val(),year:$("#year").val(),_token:$('meta[name=csrf-token]').attr('content') },
+			success: function(response){
+				console.log(JSON.stringify(response));
+				var staffs = response.staff;
+
+				$(shiftRecord).empty();
+
+				for(var i=0; i<staffs.length; i++){
+					var staffHtml = '',
+							selectHtml = '',
+							recordHtml = '';
+
+					staffHtml = '<tr>'+
+						'<td>'+(i+1)+'</td>'+
+						'<td>'+staffs[i].staff_name+'</td>';
+
+					for(var j=0; j<staffs[i].work_shift.length; j++){
+						if(staffs[i].work_shift[j] == 0){
+							selectHtml = selectHtml + '<td>'+
+								'<select class="sel-box">'+
+									'<option selected="selected" value="0">X</option>'+
+									'<option value="1">O</option>'+
+								'</select>'+
+							'</td>';
+						}else{
+							selectHtml = selectHtml +'<td>'+
+								'<select class="sel-box">'+
+									'<option value="0">X</option>'+
+									'<option selected="selected" value="1">O</option>'+
+								'</select>'+
+							'</td>';
+						}
+
+					}
+
+					recordHtml = staffHtml + selectHtml + '</tr>';
+					$(shiftRecord).append(recordHtml);
+					staffHtml = '';
+					selectHtml = '';
+					recordHtml = '';
+				}
+
+			},
+			error: function(error){
+				console.log(JSON.stringify(error));
+			}
 		});
 
 	}
+
+	changeDateHeader();
+	getWorkShift();
+
+	$('#ajaxBtn').on('click', function(){
+		getWorkShift();
+	});
 
 });

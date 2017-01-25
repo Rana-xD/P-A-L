@@ -141,8 +141,8 @@
 
 						</tr>
 					</thead>
-					<tbody>
-						@foreach ($staff as $key)
+					<tbody id="shift_record">
+						{{-- @foreach ($staff as $key)
 							<tr>
 								<td>{{ ++$k }}</td>
 								<td>{{ $key->staff_name }}</td>
@@ -155,9 +155,12 @@
 								</td>
 								@endfor
 							</tr>
-						@endforeach
+						@endforeach --}}
 					</tbody>
 				</table>
+				<div>
+					<button id="ajaxBtn">Get Work Shift</button>
+				</div>
 			</div>
 			<br>
 			<br>
