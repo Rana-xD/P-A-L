@@ -402,7 +402,7 @@
     									</td>
     									<td class="final-profit-rate">
     										<span>%{{ $location_final_west[$j-1]->profit_rate}}</span>
-    										<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
+    										<input type="hidden" value="{{ $location_final_west[$j-1]->profit_rate}}" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
     									</td>
     									<td class="final-profit-gap">
     										<span>&yen;</span>
@@ -677,11 +677,11 @@
   									</td>
   									<td class="final-profit">
   										<span>&yen;{{ $location_final_central[$l-1]->profit }}</span>
-  										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
+  										<input type="hidden" value="{{ $location_final_central[$l-1]->profit }}" class="final hidden-profit" name="final_central_profit_{{ $l }}">
   									</td>
   									<td class="final-profit-rate">
   										<span>{{ $location_final_central[$l-1]->profit_rate }}%</span>
-  										<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
+  										<input type="hidden" value="{{ $location_final_central[$l-1]->profit_rate }}" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
   									</td>
   									<td class="final-profit-gap">
   										<span>&yen;</span>
@@ -956,11 +956,11 @@
   									</td>
   									<td class="final-profit">
   										<span>&yen;{{ $location_final_east[$k-1]->profit }}</span>
-  										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
+  										<input type="hidden" value="{{ $location_final_east[$k-1]->profit }}" class="final hidden-profit" name="final_east_profit_{{ $k }}">
   									</td>
   									<td class="final-profit-rate">
   										<span>{{ $location_final_east[$k-1]->profit_rate }}%</span>
-  										<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
+  										<input type="hidden" value="{ $location_final_east[$k-1]->profit_rate }}" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
   									</td>
   									<td class="final-profit-gap">
   										<span>&yen;</span>
@@ -1365,7 +1365,7 @@
     									</td>
     									<td class="final-profit-rate">
     										<span>%{{ $location_final_west[$j-1]->profit_rate}}</span>
-    										<input type="hidden" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
+    										<input type="hidden" value="{{ $location_final_west[$j-1]->profit_rate}}" class="final hidden-profit-rate" name="final_west_profitRate_{{ $j }}">
     									</td>
     									<td class="final-profit-gap">
     										<span>&yen;</span>
@@ -1642,11 +1642,11 @@
   									</td>
   									<td class="final-profit">
   										<span>&yen;{{ $location_final_central[$l-1]->profit }}</span>
-  										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
+  										<input type="hidden" value="{{ $location_final_central[$l-1]->profit }}" class="final hidden-profit" name="final_central_profit_{{ $l }}">
   									</td>
   									<td class="final-profit-rate">
   										<span>{{ $location_final_central[$l-1]->profit_rate }}%</span>
-  										<input type="hidden" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
+  										<input type="hidden" value="{{ $location_final_central[$l-1]->profit_rate }}" class="final hidden-profit-rate" name="final_central_profitRate_{{ $l }}">
   									</td>
   									<td class="final-profit-gap">
   										<span>&yen;</span>
@@ -1920,11 +1920,11 @@
   									</td>
   									<td class="final-profit">
   										<span>&yen;{{ $location_final_east[$k-1]->profit }}</span>
-  										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
+  										<input type="hidden" value="{{ $location_final_east[$k-1]->profit }}" class="final hidden-profit" name="final_east_profit_{{ $k }}">
   									</td>
   									<td class="final-profit-rate">
   										<span>{{ $location_final_east[$k-1]->profit_rate }}%</span>
-  										<input type="hidden" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
+  										<input type="hidden" value="{{ $location_final_east[$k-1]->profit_rate }}" class="final hidden-profit-rate" name="final_east_profitRate_{{ $k }}">
   									</td>
   									<td class="final-profit-gap">
   										<span>&yen;</span>
