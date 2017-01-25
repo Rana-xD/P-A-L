@@ -17,26 +17,7 @@ Route::get('/', function () {
 
 Route::post('login','login@login');
 
-Route::get('work', function () {
-  if(session_status()===PHP_SESSION_NONE){
-     session_start();
-    if($_SESSION['role']=='admin'){
-      return view ('admin.WorkShift');
-    }
-    else {
-      return view ('manager.WorkShift');
-    }
-     }
-  elseif (session_status()===PHP_SESSION_ACTIVE)
-  {
-    if($_SESSION['role']=='admin'){
-      return view ('admin.WorkShift');
-    }
-    else {
-      return view ('manager.WorkShift');
-    }
-  }
-});
+Route::get('work','System_Work_Shift@work');
 
 Route::get('time_management', function () {
   if(session_status()===PHP_SESSION_NONE){
