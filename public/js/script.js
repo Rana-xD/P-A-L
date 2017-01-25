@@ -544,7 +544,7 @@ $(function(){
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
 	      var profitGap = ($(this).parents('tr').find('.company.hidden-profit').val() - profit);
-	     
+
 	      // Render value for profit | @final section
 	      $(this).parents('tr').find('.final-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
@@ -626,7 +626,7 @@ $(function(){
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
 	      var profitGap = ($(this).parents('tr').find('.company.hidden-profit').val() - profit);
-	      
+
 	      // Render value for profit | @final section
 	      $(this).parents('tr').find('.final-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
@@ -653,7 +653,7 @@ $(function(){
 	      var finalProfitGap = companyProfit - finalProfit;
 
 	      var profitRate = (profit * 100) / revenue;
-	      
+
 	      $(this).parents('tr').find('.company-profit span')
 	      .html('&yen;' + profit)
 	      .next().val(profit);
@@ -670,7 +670,7 @@ $(function(){
    	}else{
    		alert('error');
    	}
-      
+
 
       // Calulate Sub Cost
       calcSubTotal($(this));
@@ -687,7 +687,7 @@ $(function(){
 	      var companyProfit = parseFloat($(this).parents('tr').find('.company.hidden-profit').val()) || 0;
 	      var finalProfit = parseFloat($(this).parents('tr').find('.final.hidden-profit').val()) || 0;
 	      var finalProfitGap = companyProfit - finalProfit;
-	      
+
 	      $(this).parents('tr').find('.forecast-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
 	      .next().val((profit).toFixed(2));
@@ -709,7 +709,7 @@ $(function(){
 	      var profit = revenue - cost - expense;
 	      var profitRate = (profit * 100) / revenue;
 	      var profitGap = ($(this).parents('tr').find('.company.hidden-profit').val() - profit);
-	      
+
 	      // Render value for profit | @final section
 	      $(this).parents('tr').find('.final-profit span')
 	      .html('&yen;' + (profit).toFixed(2))
@@ -735,7 +735,7 @@ $(function(){
 	      var companyProfit = parseFloat($(this).parents('tr').find('.company.hidden-profit').val()) || 0;
 	      var finalProfit = parseFloat($(this).parents('tr').find('.final.hidden-profit').val()) || 0;
 	      var finalProfitGap = companyProfit - finalProfit;
-	      
+
 	      $(this).parents('tr').find('.company-profit span')
 	      .html('&yen;' + profit)
 	      .next().val(profit);
@@ -752,7 +752,7 @@ $(function(){
     	}else{
     		alert('error');
     	}
-	  	
+
     	// Calculate Sub Expense
     	calcSubTotal($(this));
     }else{
@@ -790,7 +790,7 @@ function calcSubTotal(ele){
   		$(subDiv).find('.forecast-sub-profit span').html('&yen;'+profit).next().val(profit);
   		$(subDiv).find('.forecast-sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
   		$(subDiv).find('.final-sub-profit-gap span').html('&yen;'+parseFloat((finalProfitGap).toFixed(2))).next().val(parseFloat((finalProfitGap).toFixed(2)));
-		
+
 	}else if($(ele).hasClass('final')){
 
 		// Sum total of each input
@@ -800,7 +800,7 @@ function calcSubTotal(ele){
 		profit = sum($(ele).parents('tbody').find('.final.hidden-profit'));
 		profitRate = sum($(ele).parents('tbody').find('.final.hidden-profit-rate'));
 		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
-		
+
 		// Render html value & input hidden
 		$(subDiv).find('.final-sub-sale span').html('&yen;'+sale).next().val(sale);
   		$(subDiv).find('.final-sub-cost span').html('&yen;'+cost).next().val(cost);
@@ -816,7 +816,7 @@ function calcSubTotal(ele){
 		profit = sum($(ele).parents('tbody').find('.company.hidden-profit'));
 		profitRate = sum($(ele).parents('tbody').find('.company.hidden-profit-rate'));
 		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
-		
+
 		// Render html value & input hidden
 		$(subDiv).find('.sub-sale span').html('&yen;'+sale).next().val(sale);
   		$(subDiv).find('.sub-cost span').html('&yen;'+cost).next().val(cost);
@@ -824,9 +824,9 @@ function calcSubTotal(ele){
   		$(subDiv).find('.sub-profit span').html('&yen;'+profit).next().val(profit);
   		$(subDiv).find('.sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
   		$(subDiv).find('.final-sub-profit-gap span').html('&yen;'+parseFloat((finalProfitGap).toFixed(2))).next().val(parseFloat((finalProfitGap).toFixed(2)));
-		
+
 	}else{
-		
+
 	}
 
   CalcGross();
@@ -871,14 +871,14 @@ function CalcGross(){
 	});
 
 	// Render Gross Value
-	
+
 	$('.gross-sale').find('span').html('&yen;'+grossSale).next().val(grossSale);
 	$('.gross-cost').find('span').html('&yen;'+grossCost).next().val(grossCost);
 	$('.gross-expense').find('span').html('&yen;'+grossExpense).next().val(grossExpense);
 	$('.gross-profit').find('span').html('&yen;'+grossProfit).next().val(grossProfit);
 	$('.gross-profit-rate').find('span').html(grossProfitRate+'%').next().val(grossProfitRate);
 	$('.gross-setting-rate').find('span').html(grossSettingRate+'%').next().val(grossSettingRate);
-  
+
 }
 
 // Caculate sum data of input element
@@ -887,11 +887,92 @@ function sum(datas){
 	var len = vals.length,
 		sum = 0;
 	for(var i=0; i<len; i++){
-		sum += parseFloat($(vals[i]).val()) || 0; 
+		sum += parseFloat($(vals[i]).val()) || 0;
 	}
 
 	return sum;
 }
 
 
+$(function(){
 
+	var days_in_month = {
+		'1':31,
+		'2':28,
+		'3':31,
+		'4':30,
+		'5':31,
+		'6':30,
+		'7':31,
+		'8':31,
+		'9':30,
+		'10':31,
+		'11':30,
+		'12':31
+
+	}
+
+	var dateHeader = $('#date_header');
+
+  function determineLeapYear(year){
+    if((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)){
+      days_in_month['2'] = 29
+    }else{
+      days_in_month['2'] = 28
+    }
+  }
+
+	function changeDateHeader(){
+
+		var year = $('#year').val();
+		var month = $('#month').val();
+		determineLeapYear(year);
+
+		var dayLen = days_in_month[month];
+
+		$(dateHeader)
+		.empty()
+		.append(
+			'<th>No</th>' +
+			'<th style="width:20%">Worker Name</th>'
+		);
+		for(var i=1; i<=dayLen; i++){
+			$(dateHeader).append(
+				'<th>'+i+'</th>'
+			);
+		}
+	}
+
+  $('#location, #month, #year').on('change', function(){
+    changeDateHeader();
+		getWorkShift();
+  });
+
+	changeDateHeader();
+
+	// Ajax request to get workshift
+	function getWorkShift(){
+
+		$.ajaxSetup({
+   		headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
+		});
+
+		$.$.ajax({
+			url: '/api/workshift',
+			type: 'POST',
+			dataType: 'application/json',
+			data: {'location':$("#location").val(),'month':$('#month').val(),'year':$('#year').val() }
+		})
+		.done(function(response) {
+			console.log(json.stringify(response));
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+
+	}
+
+});
