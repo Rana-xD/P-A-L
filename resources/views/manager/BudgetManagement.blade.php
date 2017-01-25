@@ -1187,7 +1187,7 @@
 									 @else
 										 <td class="final-expense">
 											 <span>&yen;{{ $location_final_west[$l-1]->headoffice_expense }}</span>
-											 <input type="hidden" value="" name="final_west_expense_{{ $l }}" class="expense-input final expense">
+											 <input type="hidden" value="{{ $location_final_west[$l-1]->headoffice_expense }}" name="final_west_expense_{{ $l }}" class="expense-input final expense">
 										 </td>
 									 @endif
 

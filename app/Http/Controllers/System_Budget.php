@@ -11,7 +11,8 @@ class System_Budget extends Controller
   public function budget()
     {
 
-
+      DB::beginTransaction();
+      try{
       $month = (int)date("m");
       $year = (int)date("Y");
       $insert = 0;
@@ -125,6 +126,7 @@ class System_Budget extends Controller
                     ['year',$year]
                   ])
                   ->get();
+      DB::commit();
       $l = 0;
       $j = 0;
       $k = 0;
@@ -147,6 +149,13 @@ class System_Budget extends Controller
           return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross'));
         }
       }
+    }
+    catch(\Exception $e)
+  {
+    DB::rollback();
+    return $error = $e->getMessage();
+
+  }
     }
     public function budgetAdmin(Request $request)
     {
