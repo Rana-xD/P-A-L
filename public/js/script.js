@@ -504,7 +504,7 @@ $(function(){
 
 });
 
-// Budget Management Page v.1
+// Budget Management Page v.2.0
 $(function(){
 
   $('.revenue, .cost, .expense').donetyping(function(){
@@ -730,7 +730,7 @@ function calcSubTotal(ele){
   		$(subDiv).find('.final-sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
   		$(subDiv).find('.final-sub-profit-gap span').html('&yen;'+parseFloat((profitGap).toFixed(2))).next().val(parseFloat((profitGap).toFixed(2)));
 
-	}else{
+	}else if($(ele).hasClass('company')){
 		sale = sum($(ele).parents('tbody').find('.company.revenue'));
 		cost = sum($(ele).parents('tbody').find('.company.cost'));
 		expense = sum($(ele).parents('tbody').find('.company.expense'));
@@ -743,6 +743,8 @@ function calcSubTotal(ele){
   		$(subDiv).find('.sub-expense span').html('&yen;'+expense).next().val(expense);
   		$(subDiv).find('.sub-profit span').html('&yen;'+profit).next().val(profit);
   		$(subDiv).find('.sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
+		
+	}else{
 		
 	}
 
@@ -798,6 +800,7 @@ function CalcGross(){
   
 }
 
+// Caculate sum data of input element
 function sum(datas){
 	var vals = $(datas).toArray();
 	var len = vals.length,
