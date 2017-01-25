@@ -17,28 +17,6 @@ Route::get('/', function () {
 
 Route::post('login','login@login');
 
-Route::get('budget', function () {
-  if(session_status()===PHP_SESSION_NONE){
-     session_start();
-    if($_SESSION['role']=='admin'){
-      return view ('admin.BudgetManagement');
-    }
-    else {
-
-    }
-     }
-  elseif (session_status()===PHP_SESSION_ACTIVE)
-  {
-    if($_SESSION['role']=='admin'){
-      return view ('admin.BudgetManagement');
-    }
-    else {
-
-    }
-  }
-
-});
-
 Route::get('work', function () {
   if(session_status()===PHP_SESSION_NONE){
      session_start();
