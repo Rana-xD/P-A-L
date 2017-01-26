@@ -19,13 +19,11 @@
 	 		var year = @php
 	 			echo $year;
 	 		@endphp;
-			var location = @php
-				echo $location;
-			@endphp;
+
 
 	 		$('#month').val(month);
 	 		$('#year').val(year);
-			$('#location').val(location);
+
 
 		});
 	</script>
@@ -96,12 +94,9 @@
 	<div class="page-content">
 		<div class="container">
 			<div>
-				Select location
-				<select name="location" id="location" style="margin-left: 1em; margin-right: 5em;">
-					<option value="" hidden></option>
-					<option value="1">Tokyo</option>
-					<option value="2">Yamanaka</option>
-				</select>
+
+				<h3>{{ $locs }}</h3>
+				<input type="hidden" id="location" name="location" value="{{ $location }}">
 
 				<label for="month">Select a month</label>
 				<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">

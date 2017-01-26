@@ -37,6 +37,8 @@ class System_Work_Shift extends Controller
                         ['staff_master.location','=',1]
                     ])
                     ->get();
+        $loc = DB::table('location_master')->select('location_name')->where('location_id','=',$location)->get();
+        $locs = $loc[0]->location_name;
         // return $staff;
             foreach ($staff as $index) {
                 $index->work_shift = str_split($index->work_shift);
@@ -53,25 +55,27 @@ class System_Work_Shift extends Controller
                         ['staff_master.location','=',$location]
                     ])
                     ->get();
+          $loc = DB::table('location_master')->select('location_name')->where('location_id','=',$location)->get();
+          $locs = $loc[0]->location_name;
 
       }
       $k = 0;
       if(session_status()===PHP_SESSION_NONE){
          session_start();
         if($_SESSION['role']=='admin'){
-          return view ('admin.WorkShift',compact('staff','location','month','year','k'));
+          return view ('admin.WorkShift',compact('staff','location','month','year','k','locs'));
         }
         else {
-          return view ('manager.WorkShift',compact('staff','location','month','year','k'));
+          return view ('manager.WorkShift',compact('staff','location','month','year','k','locs'));
         }
          }
       elseif (session_status()===PHP_SESSION_ACTIVE)
       {
         if($_SESSION['role']=='admin'){
-          return view ('admin.WorkShift',compact('staff','location','month','year','k'));
+          return view ('admin.WorkShift',compact('staff','location','month','year','k','locs'));
         }
         else {
-          return view ('manager.WorkShift',compact('staff','location','month','year','k'));
+          return view ('manager.WorkShift',compact('staff','location','month','year','k','locs'));
         }
       }
     }
