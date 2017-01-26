@@ -10,11 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome.min.css">
 	<script src="/js/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
-	<script src="/js/script.js"></script>
-	<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var month = @php
@@ -33,6 +29,11 @@
 
 		});
 	</script>
+	<script src="/js/script.js"></script>
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 	<style>
 		.sel-box {
 			-webkit-appearance: none;
@@ -97,14 +98,14 @@
 			<div>
 				Select location
 				<select name="location" id="location" style="margin-left: 1em; margin-right: 5em;">
-					<option value="" selected hidden></option>
+					<option value="" hidden></option>
 					<option value="1">Tokyo</option>
 					<option value="2">Yamanaka</option>
 				</select>
 
 				<label for="month">Select a month</label>
 				<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
-					<option value="" selected hidden></option>
+					<option value="" hidden></option>
 					<option value="1" id="1">JANUARY</option>
 					<option value="2" id="2">FEBRAURY</option>
 					<option value="3" id="3">MARCH</option>
@@ -120,7 +121,7 @@
 				</select>
 				<label for="year">Select Year</label>
 				<select id="year" name="year">
-					<option value="" selected hidden></option>
+					<option value="" hidden></option>
 					@php
 
 						$curYear = Date("Y");
