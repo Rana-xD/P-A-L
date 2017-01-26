@@ -142,25 +142,10 @@
 						</tr>
 					</thead>
 					<tbody id="shift_record">
-						{{-- @foreach ($staff as $key)
-							<tr>
-								<td>{{ ++$k }}</td>
-								<td>{{ $key->staff_name }}</td>
-								@for($i=0;$i<count($key->work_shift);$i++)
-								<td><select class="sel-box">
-										<option hidden></option>
-										<option {{ $key->work_shift[$i] == 0 ? 'selected="selected"' : ''}} value="0">X</option>
-										<option {{ $key->work_shift[$i] == 1 ? 'selected="selected"' : ''}}  value="1">O</option>
-									</select>
-								</td>
-								@endfor
-							</tr>
-						@endforeach --}}
+
 					</tbody>
 				</table>
-				<div>
-					<button id="ajaxBtn">Get Work Shift</button>
-				</div>
+				
 			</div>
 			<br>
 			<br>

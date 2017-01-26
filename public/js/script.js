@@ -962,7 +962,7 @@ $(function(){
 			dataType: 'json',
 			data: {location:$("#location").val(),month:$("#month").val(),year:$("#year").val(),_token:$('meta[name=csrf-token]').attr('content') },
 			success: function(response){
-				console.log(JSON.stringify(response));
+
 				var staffs = response.staff;
 
 				$(shiftRecord).empty();
@@ -1004,7 +1004,7 @@ $(function(){
 
 			},
 			error: function(error){
-				console.log(JSON.stringify(error));
+				
 			}
 		});
 

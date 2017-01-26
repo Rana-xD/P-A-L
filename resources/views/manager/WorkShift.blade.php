@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="csrf-token" content="{!! csrf_token() !!}" />
 	<link rel="stylesheet" type="text/css" href="/css/styles.css">
 	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome.min.css">
 	<script src="/js/jquery.min.js"></script>
@@ -25,10 +26,10 @@
 			var location = @php
 				echo $location;
 			@endphp;
-			console.log(location);
+
 	 		$('#month').val(month);
 	 		$('#year').val(year);
-			$('location').val(location);
+			$('#location').val(location);
 
 		});
 	</script>
@@ -134,234 +135,14 @@
 			</div>
 			<div>
 				<table>
-					<tr>
-						<th>No</th>
-						<th style="width: 15%;">Worker name</th>
-						<th>1</th>
-						<th>2</th>
-						<th>3</th>
-						<th>4</th>
-						<th>5</th>
-						<th>6</th>
-						<th>7</th>
-						<th>8</th>
-						<th>9</th>
-						<th>10</th>
-						<th>11</th>
-						<th>12</th>
-						<th>13</th>
-						<th>14</th>
-						<th>15</th>
-						<th>16</th>
-						<th>17</th>
-						<th>18</th>
-						<th>19</th>
-						<th>20</th>
-						<th>21</th>
-						<th>22</th>
-						<th>23</th>
-						<th>24</th>
-						<th>25</th>
-						<th>26</th>
-						<th>27</th>
-						<th>28</th>
-						<th>29</th>
-						<th>30</th>
-						<th>31</th>
-					</tr>
-					@foreach ($staff as $key)
-						<tr>
-							<td>{{ ++$k }}</td>
-							<td>{{ $key->staff_name }}</td>
-							<td><select class="sel-box">
-									<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-							<td><select class="sel-box">
-							<option selected hidden></option>
-									<option>x</option>
-									<option>o</option>
-								</select>
-							</td>
-						</tr>
-					@endforeach
+					<thead>
+						<tr id="date_header">
 
+						</tr>
+					</thead>
+					<tbody id="shift_record">
+
+					</tbody>
 				</table>
 			</div>
 			<br>
