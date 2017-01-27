@@ -13,6 +13,8 @@ class System_TimeManagementorWorker extends Controller
 {
      public function info()
      {
+       $locations = DB::table('location_master')
+                ->select('location_id','location_name')->get();
        $location = DB::table('location_master')
                ->select('location_id')
                ->where('location_id','=',2)->get();
@@ -20,6 +22,6 @@ class System_TimeManagementorWorker extends Controller
                ->select('staff_id','staff_name')
                ->where('location','=',$location[0]->location_id)
                ->get();
-       return view ('TimemanagementIndividual',compact('location','staff'));
+       return view ('TimemanagementIndividual',compact('location','staff','locations'));
      }
 }
