@@ -24,7 +24,7 @@ class login extends Controller
 
          if(($name=="worker") || ($name=="Worker"))
          {
-             return view ('TimeManagementIndividual');
+             return redirect ('worker');
          }
          else if (($name=="manager_yamanaka") || ($name=="Manager_yamanaka"))
          {
