@@ -19,7 +19,7 @@ Route::post('/api/workshift', 'System_Work_Shift@ajax_work_shift');
 Route::post('login','login@login');
 
 
-
+Route::get('worker','System_TimeManagementorWorker@info');
 Route::get('time_management', function () {
   if(session_status()===PHP_SESSION_NONE){
      session_start();
