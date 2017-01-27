@@ -44,7 +44,10 @@
                     <div class="form-group">
                         <label>Location : </label>
                         <select name="location" id="location" class="custom_select">
-
+                            <option hidden></option>
+                            @foreach($locations as $loc)
+                            <option {{ $default == $loc->location_id ? 'selected="selected"' : '' }} value="{{ $loc->location_id }}">{{ $loc->location_name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
