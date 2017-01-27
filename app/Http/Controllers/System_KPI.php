@@ -153,7 +153,7 @@ class System_KPI extends Controller
              for ($i=1; $i < 13; $i++) {
                  $output['accident-'.$i] = $data['accident_'.$i];
                  $output['quantity-buy-'.$i] = (int)$data['quantity_buy_'.$i];
-                 $output['amount-'.$i] = (int)$data['amount_to_pay_'.$i];
+                 $output['amount-'.$i] = (double)$data['amount_to_pay_'.$i];
                  $output['comment-'.$i] = $data['comment_'.$i];
              }
              // insert data to accident table
@@ -164,9 +164,6 @@ class System_KPI extends Controller
                        ['location' => $location, 'date' => $newdate, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i],'amount' => $output['amount-'.$i],'comment' => $output['comment-'.$i] , 'created_at' => new DateTime]
                      );
                  }
-
-
-
 
             // insert data to daily progress table
             for ($i=1; $i < 6; $i++) {
@@ -476,7 +473,7 @@ class System_KPI extends Controller
              for ($i=1; $i < 13; $i++) {
                  $output['accident-'.$i] = $data['accident_'.$i];
                  $output['quantity-buy-'.$i] = (int)$data['quantity_buy_'.$i];
-                 $output['amount-'.$i] = (int)$data['amount_to_pay_'.$i];
+                 $output['amount-'.$i] = (double)$data['amount_to_pay_'.$i];
                  $output['comment-'.$i] = $data['comment_'.$i];
              }
              // insert data to accident table

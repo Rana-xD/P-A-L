@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AccidentsTable extends Migration
+class AccidentsTables extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,7 @@ class AccidentsTable extends Migration
           $table->date('date');
           $table->integer('accident');
           $table->integer('#of_quantity_tobuy');
-          $table->integer('amount');
+          $table->double('amount',12,2);
           $table->string('comment',500);
           $table->timestamps();
         });
