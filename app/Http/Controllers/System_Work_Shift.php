@@ -85,47 +85,47 @@ class System_Work_Shift extends Controller
     public function ajax_work_shift(Request $request)
     {
         if($request->ajax()){
-        $month = $request->input('month');
-        $year = $request->input('year');
-        if(session_status()===PHP_SESSION_NONE){
-            session_start();
-            $location = $request->input('location');
-        }
-        elseif (session_status()===PHP_SESSION_ACTIVE) {
-            $location = $request->input('location');
-        }
-      if($location==0)
-      {
-          $staff = DB::table('staff_master')
-                    ->join('work_shift_master','staff_master.id','=','work_shift_master.staff_id')
-                    ->select('staff_master.staff_name','work_shift_master.work_shift')
-                    ->where([
-                        ['work_shift_master.month','=',$month],
-                        ['work_shift_master.year','=',$year],
-                        ['staff_master.location','=',1]
-                    ])
-                    ->get();
-                    // return $staff;
-            foreach ($staff as $index) {
-                $index->work_shift = str_split($index->work_shift);
+          $month = $request->input('month');
+          $year = $request->input('year');
+          if(session_status()===PHP_SESSION_NONE){
+              session_start();
+              $location = $request->input('location');
+          }
+          elseif (session_status()===PHP_SESSION_ACTIVE) {
+              $location = $request->input('location');
+          }
+          if($location==0)
+          {
+            $staff = DB::table('staff_master')
+                      ->join('work_shift_master','staff_master.id','=','work_shift_master.staff_id')
+                      ->select('staff_master.staff_name','work_shift_master.work_shift')
+                      ->where([
+                          ['work_shift_master.month','=',$month],
+                          ['work_shift_master.year','=',$year],
+                          ['staff_master.location','=',1]
+                      ])
+                      ->get();
+                      // return $staff;
+              foreach ($staff as $index) {
+                  $index->work_shift = str_split($index->work_shift);
             }
 
-      }
-      else {
-          $staff = DB::table('staff_master')
-                    ->join('work_shift_master','staff_master.id','=','work_shift_master.staff_id')
-                    ->select('staff_master.staff_name','work_shift_master.work_shift')
-                    ->where([
-                        ['work_shift_master.month','=',$month],
-                        ['work_shift_master.year','=',$year],
-                        ['staff_master.location','=',$location]
-                    ])
-                    ->get();
-                    foreach ($staff as $index) {
-                        $index->work_shift = str_split($index->work_shift);
-                    }
-      }
-      $k = 0;
+          }
+          else {
+            $staff = DB::table('staff_master')
+                      ->join('work_shift_master','staff_master.id','=','work_shift_master.staff_id')
+                      ->select('staff_master.staff_name','work_shift_master.work_shift')
+                      ->where([
+                          ['work_shift_master.month','=',$month],
+                          ['work_shift_master.year','=',$year],
+                          ['staff_master.location','=',$location]
+                      ])
+                      ->get();
+                      foreach ($staff as $index) {
+                          $index->work_shift = str_split($index->work_shift);
+                      }
+          }
+          $k = 0;
 
 
           return response()->json([
