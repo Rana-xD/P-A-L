@@ -203,7 +203,7 @@ jQuery(document).ready(function($) {
         });
     });
 
-    $('.input_form').find('.ng-invalid').keyup(function(event) {
+    $(':input').keyup(function(event) {
         console.log("test ng-valid press" + $(this).val().length);
         if ($(this).val().length == 5) {
             console.log("In if");

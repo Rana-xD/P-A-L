@@ -53,25 +53,7 @@ class System_KPI extends Controller
          if ($location == 1)
          {
 
-             $validator = Validator::make($request->all(), [
-             'date' => 'required',
-             ]);
 
-
-         if ($validator->fails()) {
-             $accidents = DB::table('accident_master')->get()->all();
-              $categories = DB::table('category_master')
-              ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
-              ->select('category_master.category_name','unit_price_master.UOP')
-              ->where('unit_price_master.location_id','=', $location)
-              ->get();
-              $i = 0;
-              $j = 0;
-              $flag = 0;
-              $error = 0;
-              $date = 1;
-              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
-         }
              $date = $request->date;
 
              //convert date into mysql format
@@ -168,21 +150,20 @@ class System_KPI extends Controller
                  $output['tag-5'] = 1;
              }
 
-             for ($i=1; $i < 6; $i++) {
+             for ($i=1; $i < 13; $i++) {
                  $output['accident-'.$i] = $data['accident_'.$i];
                  $output['quantity-buy-'.$i] = (int)$data['quantity_buy_'.$i];
+                 $output['amount-'.$i] = (double)$data['amount_to_pay_'.$i];
+                 $output['comment-'.$i] = $data['comment_'.$i];
              }
              // insert data to accident table
-                 for ($i=1; $i < 6; $i++) {
+                 for ($i=1; $i < 13; $i++) {
                      $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
                      $id = $result[0]->id;
                      DB::table('accident')->insert(
-                       ['location' => $location, 'date' => $newdate, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
+                       ['location' => $location, 'date' => $newdate, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i],'amount' => $output['amount-'.$i],'comment' => $output['comment-'.$i] , 'created_at' => new DateTime]
                      );
                  }
-
-
-
 
             // insert data to daily progress table
             for ($i=1; $i < 6; $i++) {
@@ -213,26 +194,6 @@ class System_KPI extends Controller
 
          }
          elseif ($location == 2) {
-
-             $validator = Validator::make($request->all(), [
-             'date' => 'required',
-             ]);
-
-
-         if ($validator->fails()) {
-             $accidents = DB::table('accident_master')->get()->all();
-              $categories = DB::table('category_master')
-              ->join('unit_price_master','category_master.category_id','=','unit_price_master.category')
-              ->select('category_master.category_name','unit_price_master.UOP')
-              ->where('unit_price_master.location_id','=', $location)
-              ->get();
-              $i = 0;
-              $j = 0;
-              $flag = 0;
-              $error = 0;
-              $date = 1;
-              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
-         }
 
              $date = $request->date;
 
@@ -509,12 +470,14 @@ class System_KPI extends Controller
                  $output['total-uop-18'] = (int)$data['total_uop_18'];
                  $output['tag-18'] = 1;
              }
-             for ($i=1; $i < 6; $i++) {
+             for ($i=1; $i < 13; $i++) {
                  $output['accident-'.$i] = $data['accident_'.$i];
                  $output['quantity-buy-'.$i] = (int)$data['quantity_buy_'.$i];
+                 $output['amount-'.$i] = (double)$data['amount_to_pay_'.$i];
+                 $output['comment-'.$i] = $data['comment_'.$i];
              }
              // insert data to accident table
-             for ($i=1; $i < 6; $i++) {
+             for ($i=1; $i < 13; $i++) {
                  $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
                  $id = $result[0]->id;
                  DB::table('accident')->insert(
@@ -522,11 +485,11 @@ class System_KPI extends Controller
                  );
              }
              // insert data to daily progress table
-             for ($i=1; $i < 19; $i++) {
-                 $result = DB::table('category_master')->where('category_name','=', $output['category-'.$i])->select('category_id')->get();
-                 $id = $result[0]->category_id;
-                 DB::table('daily_progress')->insert(
-                     ['location' => $location, 'date' => $newdate, 'category' => $id, 'quantity' => $output['quantity-'.$i], 'price' => $output['total-uop-'.$i], 'tag' => $output['tag-'.$i], 'created_at' => new DateTime]
+             for ($i=1; $i < 6; $i++) {
+                 $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
+                 $id = $result[0]->id;
+                 DB::table('accident')->insert(
+                   ['location' => $location, 'date' => $newdate, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i],'amount' => $output['amount-'.$i],'comment' => $output['comment-'.$i] , 'created_at' => new DateTime]
                  );
              }
              // insert end time to endtime table

@@ -365,11 +365,10 @@
   										<span>&yen;</span>
   										<input type="hidden" value="" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="" name="final_west_expense_{{ $j }}" ng-model="final_west_expense_{{ $j }}"  ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
-                      <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
-                      <p class="custom-error err-req" style="display: none;">This field is required</p>
-  									</td>
+										<td class="final-expense">
+											<span>&yen;</span>
+											<input type="hidden" value="" name="final_west_expense_{{ $j }}" class="expense-input final expense">
+										</td>
   									<td class="final-profit">
   										<span>&yen;</span>
   										<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $j }}">
@@ -391,11 +390,10 @@
     										<span>&yen;{{ $location_final_west[$j-1]->cost}}</span>
     										<input type="hidden" value="{{ $location_final_west[$j-1]->cost}}" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
     									</td>
-    									<td class="final-expense">
-    										<input type="text" value="" name="final_west_expense_{{ $j }}" ng-model="final_west_expense_{{ $j }}"  ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
-                        <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
-                        <p class="custom-error err-req" style="display: none;">This field is required</p>
-    									</td>
+                      <td class="final-expense">
+                        <span>&yen;</span>
+                        <input type="hidden" value="" name="final_west_expense_{{ $j }}" class="expense-input final expense">
+                      </td>
     									<td class="final-profit">
     										<span>&yen;{{ $location_final_west[$j-1]->profit}}</span>
     										<input type="hidden" value="{{ $location_final_west[$j-1]->profit}}" class="final hidden-profit" name="final_west_profit_{{ $j }}">
@@ -648,9 +646,10 @@
   										<span>&yen;</span>
   										<input type="hidden" value="200" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="" name="final_central_expense_{{ $l }}" ng-model="final_central_expense_{{ $l }}"  class="expense-input final expense" numbers-only my-maxlength="9">
-  									</td>
+                    <td class="final-expense">
+                      <span>&yen;</span>
+                      <input type="hidden" value="" name="final_central_expense_{{ $l }}" class="expense-input final expense">
+                    </td>
   									<td class="final-profit">
   										<span>&yen;</span>
   										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
@@ -672,9 +671,10 @@
   										<span>&yen;{{ $location_final_central[$l-1]->cost }}</span>
   										<input type="hidden" value="{{ $location_final_central[$l-1]->cost }}" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="" name="final_central_expense_{{ $l }}" ng-model="final_central_expense_{{ $l }}"  class="expense-input final expense" numbers-only my-maxlength="9">
-  									</td>
+                    <td class="final-expense">
+                      <span>&yen;</span>
+                      <input type="hidden" value="" name="final_central_expense_{{ $l }}" class="expense-input final expense">
+                    </td>
   									<td class="final-profit">
   										<span>&yen;{{ $location_final_central[$l-1]->profit }}</span>
   										<input type="hidden" value="{{ $location_final_central[$l-1]->profit }}" class="final hidden-profit" name="final_central_profit_{{ $l }}">
@@ -927,9 +927,10 @@
   										<span>&yen;</span>
   										<input type="hidden" value="" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="" name="final_east_expense_{{ $k }}" ng-model="final_east_expense_{{ $k }}" class="expense-input final expense" numbers-only my-maxlength="9">
-  									</td>
+                    <td class="final-expense">
+                      <span>&yen;</span>
+                      <input type="hidden" value="" name="final_east_expense_{{ $k }}" class="expense-input final expense">
+                    </td>
   									<td class="final-profit">
   										<span>&yen;</span>
   										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
@@ -951,9 +952,10 @@
   										<span>&yen;{{ $location_final_east[$k-1]->cost }}</span>
   										<input type="hidden" value="{{ $location_final_east[$k-1]->cost }}" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="" name="final_east_expense_{{ $k }}" ng-model="final_east_expense_{{ $k }}"  class="expense-input final expense" numbers-only my-maxlength="9">
-  									</td>
+                    <td class="final-expense">
+                      <span>&yen;</span>
+                      <input type="hidden" value="" name="final_east_expense_{{ $k }}" class="expense-input final expense">
+                    </td>
   									<td class="final-profit">
   										<span>&yen;{{ $location_final_east[$k-1]->profit }}</span>
   										<input type="hidden" value="{{ $location_final_east[$k-1]->profit }}" class="final hidden-profit" name="final_east_profit_{{ $k }}">
@@ -1328,11 +1330,10 @@
   										<span>&yen;</span>
   										<input type="hidden" value="" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="{{ $location_final_west[$j-1]->headoffice_expense }}" name="final_west_expense_{{ $j }}" ng-model="final_west_expense_{{ $j }}" ng-init="final_west_expense_{{ $j }}='{{ $location_final_west[$j-1]->headoffice_expense }}'" ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
-                      <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
-                      <p class="custom-error err-req" style="display: none;">This field is required</p>
-  									</td>
+                    <td class="final-expense">
+                      <span>&yen;{{ $key->headoffice_expense }}</span>
+                      <input type="hidden" value="{{ $key->headoffice_expense }}" name="final_west_expense_{{ $j }}" class="expense-input final expense">
+                    </td>
   									<td class="final-profit">
   										<span>&yen;</span>
   										<input type="hidden" class="final hidden-profit" name="final_west_profit_{{ $j }}">
@@ -1354,11 +1355,10 @@
     										<span>&yen;{{ $location_final_west[$j-1]->cost}}</span>
     										<input type="hidden" value="{{ $location_final_west[$j-1]->cost}}" name="final_west_cost_{{ $j }}" class="cost-profit-input final cost">
     									</td>
-    									<td class="final-expense">
-    										<input type="text" value="{{ $location_final_west[$j-1]->headoffice_expense }}" name="final_west_expense_{{ $j }}" ng-model="final_west_expense_{{ $j }}" ng-init="final_west_expense_{{ $j }}='{{ $location_final_west[$j-1]->headoffice_expense }}'" ng-required="true" class="expense-input final expense msg-id" numbers-only my-maxlength="9">
-                        <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
-                        <p class="custom-error err-req" style="display: none;">This field is required</p>
-    									</td>
+                      <td class="final-expense">
+                        <span>&yen;{{ $key->headoffice_expense }}</span>
+                        <input type="hidden" value="{{ $key->headoffice_expense }}" name="final_west_expense_{{ $j }}" class="expense-input final expense">
+                      </td>
     									<td class="final-profit">
     										<span>&yen;{{ $location_final_west[$j-1]->profit}}</span>
     										<input type="hidden" value="{{ $location_final_west[$j-1]->profit}}" class="final hidden-profit" name="final_west_profit_{{ $j }}">
@@ -1613,9 +1613,10 @@
   										<span>&yen;</span>
   										<input type="hidden" value="200" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="{{ $location_final_central[$l-1]->headoffice_expense }}" name="final_central_expense_{{ $l }}" ng-model="final_central_expense_{{ $l }}" ng-init="final_central_expense_{{ $l }}='{{ $location_final_central[$l-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
-  									</td>
+                    <td class="final-expense">
+                      <span>&yen;{{ $key->headoffice_expense }}</span>
+                      <input type="hidden" value="{{ $key->headoffice_expense }}" name="final_central_expense_{{ $l }}" class="expense-input final expense">
+                    </td>
   									<td class="final-profit">
   										<span>&yen;</span>
   										<input type="hidden" class="final hidden-profit" name="final_central_profit_{{ $l }}">
@@ -1637,9 +1638,10 @@
   										<span>&yen;{{ $location_final_central[$l-1]->cost }}</span>
   										<input type="hidden" value="{{ $location_final_central[$l-1]->cost }}" name="final_central_cost_{{ $l }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="{{ $location_final_central[$l-1]->headoffice_expense }}" name="final_central_expense_{{ $l }}" ng-model="final_central_expense_{{ $l }}" ng-init="final_central_expense_{{ $l }}='{{ $location_final_central[$l-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
-  									</td>
+                    <td class="final-expense">
+                      <span>&yen;{{ $key->headoffice_expense }}</span>
+                      <input type="hidden" value="{{ $key->headoffice_expense }}" name="final_central_expense_{{ $l }}" class="expense-input final expense">
+                    </td>
   									<td class="final-profit">
   										<span>&yen;{{ $location_final_central[$l-1]->profit }}</span>
   										<input type="hidden" value="{{ $location_final_central[$l-1]->profit }}" class="final hidden-profit" name="final_central_profit_{{ $l }}">
@@ -1891,9 +1893,10 @@
   										<span>&yen;</span>
   										<input type="hidden" value="" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="{{ $location_final_east[$k-1]->headoffice_expense }}" name="final_east_expense_{{ $k }}" ng-model="final_east_expense_{{ $k }}" ng-init="final_east_expense_{{ $k }}='{{ $location_final_east[$k-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
-  									</td>
+                    <td class="final-expense">
+                      <span>&yen;{{ $key->headoffice_expense }}</span>
+                      <input type="hidden" value="{{ $key->headoffice_expense }}" name="final_east_expense_{{ $k }}" class="expense-input final expense">
+                    </td>
   									<td class="final-profit">
   										<span>&yen;</span>
   										<input type="hidden" class="final hidden-profit" name="final_east_profit_{{ $k }}">
@@ -1915,9 +1918,10 @@
   										<span>&yen;{{ $location_final_east[$k-1]->cost }}</span>
   										<input type="hidden" value="{{ $location_final_east[$k-1]->cost }}" name="final_east_cost_{{ $k }}" class="cost-profit-input final cost">
   									</td>
-  									<td class="final-expense">
-  										<input type="text" value="{{ $location_final_east[$k-1]->headoffice_expense }}" name="final_east_expense_{{ $k }}" ng-model="final_east_expense_{{ $k }}" ng-init="final_east_expense_{{ $k }}='{{ $location_final_east[$k-1]->headoffice_expense }}'" class="expense-input final expense" numbers-only my-maxlength="9">
-  									</td>
+                    <td class="final-expense">
+                      <span>&yen;{{ $key->headoffice_expense }}</span>
+                      <input type="hidden" value="{{ $key->headoffice_expense }}" name="final_east_expense_{{ $k }}" class="expense-input final expense">
+                    </td>
   									<td class="final-profit">
   										<span>&yen;{{ $location_final_east[$k-1]->profit }}</span>
   										<input type="hidden" value="{{ $location_final_east[$k-1]->profit }}" class="final hidden-profit" name="final_east_profit_{{ $k }}">
@@ -1931,8 +1935,6 @@
   										<input type="hidden" class="final hidden-profit-gap" name="final_west_profitGap_{{ $k }}">
   									</td>
                     @endif
-
-
   								</tr>
   								@endforeach
   								<tr class="subtotal">
