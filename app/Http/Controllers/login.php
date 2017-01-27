@@ -43,6 +43,7 @@ class login extends Controller
          else if (($name=="admin") || ($name=="Admin")) {
              session_start();
              $_SESSION['role'] = 'admin';
+             $_SESSION['location'] = 0;
              return view ('admin.TimeManagementLocation');
          }
          else {
@@ -76,7 +77,7 @@ class login extends Controller
         $output['start_time'] = $start_time;
         $output['stop_time'] = $stop_time;
         $output['total'] = $total;
-        return $output;
+        // return $output;
         // return data
         return view('admin.TimeManagementLocation',compact('output'));
 
