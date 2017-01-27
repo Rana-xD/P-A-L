@@ -118,10 +118,14 @@
       .custom-error {
         color: red; 
         font-size: small; 
-        margin: 0;
+        margin: 2px 0 0 0;
       }
       .comment {
         width: 90%;
+      }
+
+      .require-any {
+        background: gold;
       }
 
   	</style>
@@ -377,18 +381,18 @@
                 <td class="text-center">
                   <input type="text" name="quantity_buy_{{ $accident->id }}" ng-model="quantity_buy_{{ $accident->id }}" data-ng-required="(input_form.amount_to_pay_{{ $accident->id }}.$touched && !(!amount_to_pay_{{ $accident->id }})) || input_form.comment_{{ $accident->id }}.$touched && !(!comment_{{ $accident->id }})" required-any="value" numbers-only my-maxlength="5">
                   <p class="custom-error five-dig" style="display: none;">Allow only five digits</p>
-                  <p class="custom-error err-req" style="display: none;">At least one row has to be filled</p>
+                  <!-- <p class="custom-error err-req" style="display: none;">At least one row has to be filled</p> -->
                   <p ng-show="(!quantity_buy_{{ $accident->id }} && amount_to_pay_{{ $accident->id }}) ||  (!quantity_buy_{{ $accident->id }} && comment_{{ $accident->id }})" class="custom-error ng-hide">This field is required</p>
                 </td>
                 <td class="text-center">
                   <input type="text" name="amount_to_pay_{{ $accident->id }}" ng-model="amount_to_pay_{{ $accident->id }}" required-any="value" numbers-only my-maxlength="10">
                   <p class="custom-error ten-dig" style="display: none;">Allow only ten digits</p>
-                  <p class="custom-error err-req" style="display: none;">At least one row has to be filled</p>
+                  <p class="custom-error err-req require-any" style="display: none;">At least one row has to be filled</p>
                   <p ng-show="(!amount_to_pay_{{ $accident->id }} && quantity_buy_{{ $accident->id }}) || (!amount_to_pay_{{ $accident->id }} && comment_{{ $accident->id }})" class="custom-error ng-hide">This field is required</p>
                 </td>
                 <td class="text-center">
                   <input type="text" class="comment" name="comment_{{ $accident->id }}" ng-model="comment_{{ $accident->id }}" required-any="value">
-                  <p class="custom-error err-req" style="display: none;">At least one row has to be filled</p>
+                  <!-- <p class="custom-error err-req" style="display: none;">At least one row has to be filled</p> -->
                   <p ng-show="(!comment_{{ $accident->id }} && quantity_buy_{{ $accident->id }}) || (!comment_{{ $accident->id }} && amount_to_pay_{{ $accident->id }})" class="custom-error ng-hide">This field is required</p>
                 </td>
               </tr>
