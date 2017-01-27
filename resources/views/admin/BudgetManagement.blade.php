@@ -19,66 +19,66 @@
       	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     	<![endif]-->
 
-			<script type="text/javascript">
- $(document).ready(function() {
-	 var insert = @php
- 		echo $insert;
- 	@endphp;
- 	var update = @php
- 		echo $update;
- 	@endphp;
- 	if(insert==1)
- 	{
- 		swal("Done!", "Data have been inserted!", "success")
- 	}
+		<script type="text/javascript">
+		 	$(document).ready(function() {
+			 	var insert = @php
+		 		echo $insert;
+			 	@endphp;
+			 	var update = @php
+			 		echo $update;
+			 	@endphp;
 
- 	if(update==1)
- 	{
- 		swal("Done!", "Data have been updated!", "success")
- 	}
+			 	var month = @php
+		 			echo $month;
+		 		@endphp;
+		 		var year = @php
+		 			echo $year;
+		 		@endphp;
 
- 	$(document).ready(function() {
- 		var month = @php
- 			echo $month;
- 		@endphp;
- 		var year = @php
- 			echo $year;
- 		@endphp;
- 		$('#month').val(month);
- 		$('#month_a').val(month);
- 		$('#year').val(year);
- 		$('#year_a').val(year);
+			 	if(insert==1){
+			 		swal("Done!", "Data have been inserted!", "success")
+			 	}
 
- 		$('#month').on('change', function (e) {
+				if(update==1){
+			 		swal("Done!", "Data have been updated!", "success")
+			 	}
 
- 		var optionSelected = $("option:selected", this);
- 		var valueSelected = this.value;
- 		$('#month_a').val(valueSelected);
- 		});
- 		$('#year').on('change', function (e) {
+		 		$('#month').val(month);
+		 		$('#month_a').val(month);
+		 		$('#year').val(year);
+		 		$('#year_a').val(year);
 
- 		var optionSelected = $("option:selected", this);
- 		var valueSelected = this.value;
- 		$('#year_a').val(valueSelected);
- 		});
+		 		$('#month').on('change', function (e) {
 
- 		$('#west .expense').each(function(){
- 			calcSubTotal($(this));
- 		});
+		 			var optionSelected = $("option:selected", this);
+		 			var valueSelected = this.value;
+		 			$('#month_a').val(valueSelected);
+		 		});
 
+		 		$('#year').on('change', function (e) {
 
- 		$('#central .expense').each(function(){
- 			calcSubTotal($(this));
- 		});
+		 			var optionSelected = $("option:selected", this);
+		 			var valueSelected = this.value;
+		 			$('#year_a').val(valueSelected);
+		 		});
 
- 		$('#east .expense').each(function(){
- 			calcSubTotal($(this));
- 		});
+		 		setTimeout(function(){
+		 			$('#west .expense').each(function(){
+			 			calcSubTotal($(this));
+			 		});
 
- 	});
- });
+			 		$('#central .expense').each(function(){
+			 			calcSubTotal($(this));
+			 		});
 
-			</script>
+			 		$('#east .expense').each(function(){
+			 			calcSubTotal($(this));
+			 		});
+		 		}, 300);
+
+			});
+
+		</script>
 		<style>
 			table.scroll {
 				border-collapse: collapse;
