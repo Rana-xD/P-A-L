@@ -958,7 +958,7 @@ $(function(){
 	}
 
   $('#location, #month, #year').on('change', function(){
-    changeDateHeader();
+    	changeDateHeader();
 		getWorkShift();
   });
 

@@ -2,10 +2,16 @@
 <html>
 <head>
 	<title>PAL</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{!! csrf_token() !!}" />
 	<link rel="stylesheet" type="text/css" href="/css/styles.css">
 	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script
 	<script src="/js/script.js"></script>
+    <script src="js/time_management_individaul.js"></script>
 </head>
 <body>
 <div class="header">
@@ -32,7 +38,26 @@
 	<form class="tasks-form" action="task" method="POST">
         {{ csrf_field() }}
             <div class="content">
+                <!-- Chosse Location and Staff -->
+                <div class="row location_staffs">
 
+                    <div class="form-group">
+                        <label>Location : </label>
+                        <select name="location" id="location" class="custom_select">
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Staff : </label>
+                        <select name="staff" id="staff_list" class="custom_select">
+
+                        </select>
+                    </div>
+                    
+                    </select>
+                </div>
+                <!-- /Chosse Location and Staff -->
                 <div class="row">
                     <div class="time-range">
 
