@@ -15,11 +15,12 @@ Route::get('/', function () {
     return view('main');
 });
 Route::post('/api/workshift', 'System_Work_Shift@ajax_work_shift');
-
 Route::post('login','login@login');
 
-
 Route::get('worker','System_TimeManagementorWorker@info');
+Route::get('/api/location/{location}/users', 'System_TimeManagementorWorker@get_users_by_location');
+Route::get('/api/user/{userid}', 'System_TimeManagementorWorker@get_user_info');
+
 Route::get('time_management', function () {
   if(session_status()===PHP_SESSION_NONE){
      session_start();

@@ -907,127 +907,127 @@ function sum(datas){
 }
 
 
-$(function(){
+// $(function(){
 
-	var days_in_month = {
-		'1':31,
-		'2':28,
-		'3':31,
-		'4':30,
-		'5':31,
-		'6':30,
-		'7':31,
-		'8':31,
-		'9':30,
-		'10':31,
-		'11':30,
-		'12':31
+// 	var days_in_month = {
+// 		'1':31,
+// 		'2':28,
+// 		'3':31,
+// 		'4':30,
+// 		'5':31,
+// 		'6':30,
+// 		'7':31,
+// 		'8':31,
+// 		'9':30,
+// 		'10':31,
+// 		'11':30,
+// 		'12':31
 
-	}
+// 	}
 
-	var dateHeader = $('#date_header');
-	var shiftRecord = $('#shift_record');
+// 	var dateHeader = $('#date_header');
+// 	var shiftRecord = $('#shift_record');
 
-  function determineLeapYear(year){
-    if((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)){
-      days_in_month['2'] = 29
-    }else{
-      days_in_month['2'] = 28
-    }
-  }
+//   function determineLeapYear(year){
+//     if((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)){
+//       days_in_month['2'] = 29
+//     }else{
+//       days_in_month['2'] = 28
+//     }
+//   }
 
-	function changeDateHeader(){
+// 	function changeDateHeader(){
 
-		var year = $('#year').val();
-		var month = $('#month').val();
-		determineLeapYear(year);
+// 		var year = $('#year').val();
+// 		var month = $('#month').val();
+// 		determineLeapYear(year);
 
-		var dayLen = days_in_month[month];
+// 		var dayLen = days_in_month[month];
 
-		$(dateHeader)
-		.empty()
-		.append(
-			'<th>No</th>' +
-			'<th style="width:20%">Worker Name</th>'
-		);
-		for(var i=1; i<=dayLen; i++){
-			$(dateHeader).append(
-				'<th>'+i+'</th>'
-			);
-		}
-	}
+// 		$(dateHeader)
+// 		.empty()
+// 		.append(
+// 			'<th>No</th>' +
+// 			'<th style="width:20%">Worker Name</th>'
+// 		);
+// 		for(var i=1; i<=dayLen; i++){
+// 			$(dateHeader).append(
+// 				'<th>'+i+'</th>'
+// 			);
+// 		}
+// 	}
 
-  $('#location, #month, #year').on('change', function(){
-    	changeDateHeader();
-		getWorkShift();
-  });
+//   $('#location, #month, #year').on('change', function(){
+//     	changeDateHeader();
+// 		getWorkShift();
+//   });
 
-	// Ajax request to get workshift
-	function getWorkShift(){
+// 	// Ajax request to get workshift
+// 	function getWorkShift(){
 
-		// $.ajaxSetup({
-   // 		headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
-		// });
+// 		// $.ajaxSetup({
+//    // 		headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
+// 		// });
 
-		$.ajax({
-			url: '/api/workshift',
-			type: 'POST',
-			dataType: 'json',
-			data: {location:$("#location").val(),month:$("#month").val(),year:$("#year").val(),_token:$('meta[name=csrf-token]').attr('content') },
-			success: function(response){
-        console.log(JSON.stringify(response));
-				var staffs = response.staff;
+// 		$.ajax({
+// 			url: '/api/workshift',
+// 			type: 'POST',
+// 			dataType: 'json',
+// 			data: {location:$("#location").val(),month:$("#month").val(),year:$("#year").val(),_token:$('meta[name=csrf-token]').attr('content') },
+// 			success: function(response){
+//         console.log(JSON.stringify(response));
+// 				var staffs = response.staff;
 
-				$(shiftRecord).empty();
+// 				$(shiftRecord).empty();
 
-				for(var i=0; i<staffs.length; i++){
-					var staffHtml = '',
-							selectHtml = '',
-							recordHtml = '';
+// 				for(var i=0; i<staffs.length; i++){
+// 					var staffHtml = '',
+// 							selectHtml = '',
+// 							recordHtml = '';
 
-					staffHtml = '<tr>'+
-						'<td>'+(i+1)+'</td>'+
-						'<td>'+staffs[i].staff_name+'</td>';
+// 					staffHtml = '<tr>'+
+// 						'<td>'+(i+1)+'</td>'+
+// 						'<td>'+staffs[i].staff_name+'</td>';
 
-					for(var j=0; j<staffs[i].work_shift.length; j++){
-						if(staffs[i].work_shift[j] == 0){
-							selectHtml = selectHtml + '<td>'+
-								'<select class="sel-box">'+
-									'<option selected="selected" value="0">X</option>'+
-									'<option value="1">O</option>'+
-								'</select>'+
-							'</td>';
-						}else{
-							selectHtml = selectHtml +'<td>'+
-								'<select class="sel-box">'+
-									'<option value="0">X</option>'+
-									'<option selected="selected" value="1">O</option>'+
-								'</select>'+
-							'</td>';
-						}
+// 					for(var j=0; j<staffs[i].work_shift.length; j++){
+// 						if(staffs[i].work_shift[j] == 0){
+// 							selectHtml = selectHtml + '<td>'+
+// 								'<select class="sel-box">'+
+// 									'<option selected="selected" value="0">X</option>'+
+// 									'<option value="1">O</option>'+
+// 								'</select>'+
+// 							'</td>';
+// 						}else{
+// 							selectHtml = selectHtml +'<td>'+
+// 								'<select class="sel-box">'+
+// 									'<option value="0">X</option>'+
+// 									'<option selected="selected" value="1">O</option>'+
+// 								'</select>'+
+// 							'</td>';
+// 						}
 
-					}
+// 					}
 
-					recordHtml = staffHtml + selectHtml + '</tr>';
-					$(shiftRecord).append(recordHtml);
-					staffHtml = '';
-					selectHtml = '';
-					recordHtml = '';
-				}
+// 					recordHtml = staffHtml + selectHtml + '</tr>';
+// 					$(shiftRecord).append(recordHtml);
+// 					staffHtml = '';
+// 					selectHtml = '';
+// 					recordHtml = '';
+// 				}
 
-			},
-			error: function(error){
+// 			},
+// 			error: function(error){
 
-			}
-		});
+// 			}
+// 		});
 
-	}
+// 	}
 
-	changeDateHeader();
-	getWorkShift();
+// 	changeDateHeader();
+// 	getWorkShift();
 
-	$('#ajaxBtn').on('click', function(){
-		getWorkShift();
-	});
+// 	$('#ajaxBtn').on('click', function(){
+// 		getWorkShift();
+// 	});
 
-});
+// });
