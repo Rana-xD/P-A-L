@@ -4,6 +4,8 @@
  *AJAX request
 **/
 $(function(){
+
+	// Query list of user by location
 	function getUsersByLocation(){
 		var loc = $('#location').val() || 0,
 			staff_ele = $('#staff_list'),
@@ -32,4 +34,10 @@ $(function(){
 			}
 		});
 	}
+
+	// Query for specific user info
+	function getUserInfo(){
+		$('#staff_list').on('change', function());
+	}
+
 });
