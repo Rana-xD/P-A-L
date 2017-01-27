@@ -21,7 +21,7 @@ class System_TimeManagementorWorker extends Controller
      //           ->where('location_id','=',2)->get();
 
        $staff = DB::table('staff_master')
-               ->select('staff_name')
+               ->select('staff_name','id')
                ->where('location','=',$locations[0]->location_id)
                ->get();
        $default = $locations[0]->location_id;
