@@ -16,15 +16,16 @@ class System_TimeManagementorWorker extends Controller
        $locations = DB::table('location_master')
                 ->select('location_id','location_name')->get();
 
-       $location = DB::table('location_master')
-               ->select('location_id')
-               ->where('location_id','=',2)->get();
+     //   $location = DB::table('location_master')
+     //           ->select('location_id')
+     //           ->where('location_id','=',2)->get();
 
        $staff = DB::table('staff_master')
                ->select('staff_name')
-               ->where('location','=',$location[0]->location_id)
+               ->where('location','=',$locations[0]->location_id)
                ->get();
+       $default = $locations[0]->location_id;
 
-       return view ('TimemanagementIndividual',compact('location','staff','locations'));
+       return view ('TimemanagementIndividual',compact('default','staff','locations'));
      }
 }
