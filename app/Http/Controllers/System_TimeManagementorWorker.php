@@ -15,17 +15,18 @@ class System_TimeManagementorWorker extends Controller
 
    public function info()
    {
-     $locations = DB::table('location_master')
+      $locations = DB::table('location_master')
               ->select('location_id','location_name')->get();
 
-     $staff = DB::table('staff_master')
+      $staff = DB::table('staff_master')
              ->select('staff_name','id')
              ->where('location','=',$locations[0]->location_id)
              ->get();
-     $default = $locations[0]->location_id;
+      $process = DB::table('process_master')->get();
+      $default = $locations[0]->location_id;
 
 
-     return view ('TimemanagementIndividual',compact('default','staff','locations'));
+     return view ('TimemanagementIndividual',compact('default','staff','locations','process'));
    }
 
    // Accepted Ajax Request
@@ -46,7 +47,7 @@ class System_TimeManagementorWorker extends Controller
       $user = DB::table('staff_master')
              ->join('time_shift_master','staff_master.work_shift','=','time_shift_master.id')
              ->select('time_shift_master.time_in','time_shift_master.time_out','time_shift_master.rest')
-             ->where('id','=',$userid)
+             ->where('staff_master.id','=',$userid)
              ->get();
       return response()->json(['user'=>$user]);
     }

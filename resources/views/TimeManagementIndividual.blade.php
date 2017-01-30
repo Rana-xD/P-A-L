@@ -12,6 +12,69 @@
     <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
 	<script src="/js/script.js"></script>
     <script src="/js/time_management_individaul.js"></script>
+    <style>
+        .row{
+            position: relative;
+            width: 100%;
+        }
+
+        .location_staffs{
+            margin-top: 20px;
+        }
+
+        .location_staffs select{
+            padding: 7px 10px;
+            min-width: 150px;
+            outline: none;
+            border: 1px solid #f5f5f5;
+            background: #fff;
+            box-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .row::before,
+        .row::after{
+            display: table;
+            content: "";
+            position: relative;
+            height: 1px;
+        }
+        .row::after{
+            clear: both;
+            zoom: 1;
+        }
+        .form-group{
+            position: relative;
+            width: 100%;
+            float: left;
+            padding: 5px 0;
+            margin-bottom: 10px;
+        }
+
+        .form-group .inline{
+            float: left;
+            width: 250px;
+        }
+
+        table.schedule_tb{
+            width: 300px;
+            border-collapse: collapse;
+            background: #fff;
+        }
+
+        table.schedule_tb th,
+        table.schedule_tb td{
+            padding: 6px 4px;
+            text-align: center;
+        }
+
+        table.schedule_tb th.dark{
+            background-color: #f5f5f5;
+        }
+
+        .content .tasks-range{
+            width: 2160px;
+        }
+    </style>
 </head>
 <body>
 <div class="header">
@@ -42,22 +105,28 @@
                 <div class="row location_staffs">
 
                     <div class="form-group">
-                        <label>Location : </label>
-                        <select name="location" id="location" class="custom_select">
-                            <option hidden></option>
-                            @foreach($locations as $loc)
-                            <option {{ $default == $loc->location_id ? 'selected="selected"' : '' }} value="{{ $loc->location_id }}">{{ $loc->location_name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="inline">
+                            <label>Location : </label>
+                            <select name="location" id="location" class="custom_select">
+                                <option hidden></option>
+                                @foreach($locations as $loc)
+                                <option {{ $default == $loc->location_id ? 'selected="selected"' : '' }} value="{{ $loc->location_id }}">{{ $loc->location_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="inline">
+                            <label>Staff : </label>
+                            <select name="staff" id="staff_list" class="custom_select">
+                                <option hidden></option>
+                                @foreach($staff as $worker)
+                                <option value="{{ $worker->id }}">{{ $worker->staff_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Staff : </label>
-                        <select name="staff" id="staff_list" class="custom_select">
-                            @foreach($staff as $worker)
-                            <option value="{{ $worker->id }}">{{ $worker->staff_name }}</option>
-                            @endforeach
-                        </select>
+                    <div id="shift_schedule" class="form-group">
+                        
                     </div>
                     
                     </select>
@@ -210,8 +279,45 @@
                     	</div>
 
 
-                            <ul class="hours-range">
-
+                            <ul id="hours-range" class="hours-range">
+                            @for($i=6;$i<36;$i++)
+                                <li class="task-hour">
+                                    <div class="tasks">
+                                        <div class="task">
+                                            <select name="hour_{{$i}}_1" class="tasks-select">
+                                                <option hidden></option>
+                                                @foreach($process as $task)
+                                                <option value="{{$task->id}}">{{$task->process_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="task">
+                                            <select name="hour_{{$i}}_2" class="tasks-select">
+                                                <option hidden></option>
+                                                @foreach($process as $task)
+                                                <option value="{{$task->id}}">{{$task->process_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="task">
+                                            <select name="hour_{{$i}}_3" class="tasks-select">
+                                                <option hidden></option>
+                                                @foreach($process as $task)
+                                                <option value="{{$task->id}}">{{$task->process_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="task">
+                                            <select name="hour_{{$i}}_4" class="tasks-select">
+                                                <option hidden></option>
+                                                @foreach($process as $task)
+                                                <option value="{{$task->id}}">{{$task->process_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endfor
                             </ul>
                             <div class="submit-div">
                                 <input type="submit" class="submit" value="Submit">

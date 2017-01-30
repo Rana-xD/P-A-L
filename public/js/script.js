@@ -162,7 +162,6 @@ $(function(){
 		}else{
 			instance.val(parseInt('36'));
 		}
-		appendTask();
 
 	}
 
@@ -215,8 +214,6 @@ $(function(){
 			instance.val(parseInt(value - 1));
 		}
 
-		appendTask();
-		offsetHour();
 	}
 
 	// Decrease minute input
@@ -241,74 +238,68 @@ $(function(){
 
 	}
 
-	// Set offset hour range
-	function offsetHour(){
-		var startHour = parseInt(fromHour.val()),
-			hoursRange = $('.hours-range');
-			offset = startHour - 6;
-
-			$(hoursRange).find('.task-hour').slice(0,offest).css({'visibility':'hidden'});
-	}
-
 	// Append task-hour to list
-	function appendTask(){
-		var startHour = parseInt(fromHour.val()),
-			stopHour = parseInt(toHour.val()),
-			tasksHour = stopHour - startHour,f
-			hoursRange = $('.hours-range'),
-			task_value = "my task";
-			hoursRange.empty();
-		for(i=0;i<tasksHour;i++){
+	// function appendTask(){
+	// 	var startHour = parseInt(fromHour.val()),
+	// 		stopHour = parseInt(toHour.val()),
+	// 		tasksHour = stopHour - startHour,
+	// 		hoursRange = $('.hours-range'),
+	// 		task_value = "my task",
+	// 		offset = startHour - 6;
+	// 		hoursRange.empty();
+	// 	for(i=0;i<tasksHour;i++){
 
-			$(hoursRange).append(
-				'<li class="task-hour">'+
-					'<div class="tasks">'+
-						'<div class="task">'+
-							'<select name="hour_'+(i+6)+'_1" class="tasks-select">'+
-								'<option></option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-							'</select>'+
-						'</div>'+
-						'<div class="task">'+
-							'<select name="hour_'+(i+6)+'_2" class="tasks-select">'+
-								'<option></option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-							'</select>'+
-						'</div>'+
-						'<div class="task">'+
-							'<select name="hour_'+(i+6)+'_3" class="tasks-select">'+
-								'<option></option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-							'</select>'+
-						'</div>'+
-						'<div class="task">'+
-							'<select name="hour_'+(i+6)+'_4" class="tasks-select">'+
-								'<option></option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-							'</select>'+
-						'</div>'+
-					'</div>'+
-				'</li>'
-			);
-		}
+	// 		$(hoursRange).append(
+	// 			'<li class="task-hour">'+
+	// 				'<div class="tasks">'+
+	// 					'<div class="task">'+
+	// 						'<select name="hour_'+(i+6)+'_1" class="tasks-select">'+
+	// 							'<option></option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+	// 						'</select>'+
+	// 					'</div>'+
+	// 					'<div class="task">'+
+	// 						'<select name="hour_'+(i+6)+'_2" class="tasks-select">'+
+	// 							'<option></option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+	// 						'</select>'+
+	// 					'</div>'+
+	// 					'<div class="task">'+
+	// 						'<select name="hour_'+(i+6)+'_3" class="tasks-select">'+
+	// 							'<option></option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+	// 						'</select>'+
+	// 					'</div>'+
+	// 					'<div class="task">'+
+	// 						'<select name="hour_'+(i+6)+'_4" class="tasks-select">'+
+	// 							'<option></option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+ //                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
+	// 						'</select>'+
+	// 					'</div>'+
+	// 				'</div>'+
+	// 			'</li>'
+	// 		);
+	// 	}
 
-	}
+	// 	$(hoursRange).find('.task-hour').slice(offset,0).css({'visibility':'hidden'});
+
+	// }
 
 });
 
