@@ -15,6 +15,7 @@ class System_TimeManagementorWorker extends Controller
 
    public function info()
    {
+      try{
       $locations = DB::table('location_master')
               ->select('location_id','location_name')->get();
 
@@ -27,6 +28,12 @@ class System_TimeManagementorWorker extends Controller
 
 
      return view ('TimemanagementIndividual',compact('default','staff','locations','process'));
+  }
+  catch(\Exception $e)
+      {
+         DB::rollback();
+         return $error = $e->getMessage();
+      }
    }
 
    // Accepted Ajax Request
@@ -70,7 +77,7 @@ class System_TimeManagementorWorker extends Controller
                ->get();
       if (empty($exist[0])) {
          DB::beginTransaction();
-      try{
+         try{
          // filter time input
          $start_hour = $request->input('start_hour');
          $start_minute = $request->input('start_minute');
