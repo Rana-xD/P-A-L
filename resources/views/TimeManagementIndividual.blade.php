@@ -103,7 +103,6 @@
             <div class="content">
                 <!-- Chosse Location and Staff -->
                 <div class="row location_staffs">
-
                     <div class="form-group">
                         <div class="inline">
                             <label>Location : </label>
@@ -126,9 +125,9 @@
                     </div>
 
                     <div id="shift_schedule" class="form-group">
-                        
+
                     </div>
-                    
+
                     </select>
                 </div>
                 <!-- /Chosse Location and Staff -->

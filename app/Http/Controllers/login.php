@@ -21,7 +21,6 @@ class login extends Controller
         ]);
          $name = $request->name;
          $password = $request->password;
-
          if(($name=="worker") || ($name=="Worker"))
          {
              return redirect ('worker');
@@ -51,35 +50,5 @@ class login extends Controller
          }
 
     }
-    public function task(Request $request)
-    {
-        // filter time input
-        $start_hour = $request->input('start_hour');
-        $start_minute = $request->input('start_minute');
-        $stop_hour = $request->input('stop_hour');
-        $stop_minute = $request->input('stop_minute');
-        $total = $stop_hour - $start_hour;
-
-
-        // cocatenate hour with minute
-        $start_time = $start_hour.':'.$start_minute;
-        $stop_time = $stop_hour.':'.$stop_minute;
-
-        // filter only tasks data input
-        $data = $request->except(['_token','stop_minute','stop_hour','start_minute','start_hour']);
-
-        // loop through tasks data
-        foreach ($data as $key => $value) {
-            $output[$key] = $value;
-        }
-
-        // assign new time
-        $output['start_time'] = $start_time;
-        $output['stop_time'] = $stop_time;
-        $output['total'] = $total;
-        // return $output;
-        // return data
-        return view('admin.TimeManagementLocation',compact('output'));
-
-    }
+    
 }
