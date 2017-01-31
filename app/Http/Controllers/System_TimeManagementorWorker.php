@@ -27,7 +27,7 @@ class System_TimeManagementorWorker extends Controller
       $default = $locations[0]->location_id;
 
 
-     return view ('TimemanagementIndividual',compact('default','staff','locations','process'));
+     return view ('TimeManagementIndividual',compact('default','staff','locations','process'));
   }
   catch(\Exception $e)
       {
