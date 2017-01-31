@@ -177,7 +177,6 @@ class System_KPI extends Controller
             DB::table('endtime')->insert(
                     ['location' => $location, 'date' => $newdate, 'end_time_1' => $stop_time_1, 'end_time_2' => $stop_time_2,'end_time_3' => $stop_time_3, 'end_time_4' => $stop_time_4, 'created_at' => new DateTime]
             );
-
             // return to L-KPI page and notify that it is done
             $accidents = DB::table('accident_master')->get()->all();
             $categories = DB::table('category_master')
@@ -191,7 +190,6 @@ class System_KPI extends Controller
             $error = 0;
             $date = 0;
             return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
-
          }
          elseif ($location == 2) {
 
@@ -477,13 +475,13 @@ class System_KPI extends Controller
                  $output['comment-'.$i] = $data['comment_'.$i];
              }
              // insert data to accident table
-             for ($i=1; $i < 13; $i++) {
-                 $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
-                 $id = $result[0]->id;
-                 DB::table('accident')->insert(
-                   ['location' => $location, 'date' => $newdate, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i], 'created_at' => new DateTime]
-                 );
-             }
+                 for ($i=1; $i < 13; $i++) {
+                     $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
+                     $id = $result[0]->id;
+                     DB::table('accident')->insert(
+                       ['location' => $location, 'date' => $newdate, 'accident' => $id, '#of_quantity_tobuy' => $output['quantity-buy-'.$i],'amount' => $output['amount-'.$i],'comment' => $output['comment-'.$i] , 'created_at' => new DateTime]
+                     );
+                 }
              // insert data to daily progress table
              for ($i=1; $i < 6; $i++) {
                  $result = DB::table('accident_master')->where('accident_type','=', $output['accident-'.$i])->select('id')->get();
@@ -511,8 +509,5 @@ class System_KPI extends Controller
              $date = 0;
              return view ('manager.L-KPI',compact('accidents','categories','i','j','flag','error','date'));
          }
-
     }
-
-
 }
