@@ -65,7 +65,7 @@ class System_TimeManagementorWorker extends Controller
                ->where([
                   ['location',$location],
                   ['staff',$staff],
-                  ['date'],$newdate
+                  ['date',$newdate]
                ])
                ->get();
       if (empty($exist[0])) {
@@ -124,7 +124,7 @@ class System_TimeManagementorWorker extends Controller
                  }
               }
            }
-            return $output;
+            // return $output;
             DB::table('time_management')->insert(
                ['date' => $newdate,'staff' => $staff,'location' => $location, 'work_shift' => $output['work_shift'], 'start_time' => $output['start_time'], 'end_time' => $output['stop_time'], 'working_hour' => $output['working_hour'],'actual_working_hour' => $output['actual_work'],'overtime_working_hour' => $output['over_time'],'process' => $output['process'],'created_at' => new DateTime]
             );
