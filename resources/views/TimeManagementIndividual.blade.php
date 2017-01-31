@@ -74,6 +74,14 @@
         .content .tasks-range{
             width: 2160px;
         }
+
+        .bulk-reset-action{
+            display: none;
+        }
+
+        .bulk-task-shortcut{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -133,7 +141,7 @@
                 </div>
                 <!-- /Chosse Location and Staff -->
                 <div class="row">
-                    <div class="time-range">
+                    <div class="time-range validate-hour-range">
 
                         <div class="from">
                         	<div class="heading">
@@ -142,14 +150,14 @@
                         		</h4>
                         	</div>
                             <div class="hour" id="from-hour">
-                                <span class="increase increaseHour">
+                                <span class="increase hour increaseHour">
                                     <i class="fa fa-plus"></i>
                                 </span>
                                 <input name="start_hour"
                                        type="text"
                                        class="time-input"
                                        value="06">
-                                <span class="decrease decreaseHour">
+                                <span class="decrease hour decreaseHour">
                                     <i class="fa fa-minus"></i>
                                 </span>
                             </div>
@@ -159,14 +167,14 @@
                             </div>
 
                             <div class="minute" id="from-minute">
-                                <span class="increase increaseMinute">
+                                <span class="increase minute increaseMinute">
                                     <i class="fa fa-plus"></i>
                                 </span>
                                 <input name="start_minute"
                                        type="text"
                                        class="time-input"
                                        value="00">
-                                <span class="decrease decreaseMinute">
+                                <span class="decrease minute decreaseMinute">
                                     <i class="fa fa-minus"></i>
                                 </span>
                             </div>
@@ -185,14 +193,14 @@
                         		</h4>
                         	</div>
                             <div class="hour" id="to-hour">
-                                <span class="increase increaseHour">
+                                <span class="increase hour increaseHour">
                                     <i class="fa fa-plus"></i>
                                 </span>
                                 <input name="stop_hour"
                                        type="text"
                                        class="time-input"
                                        value="06">
-                                <span class="decrease decreaseHour">
+                                <span class="decrease hour decreaseHour">
                                     <i class="fa fa-minus"></i>
                                 </span>
                             </div>
@@ -200,14 +208,14 @@
                             	<h4>:</h4>
                             </div>
                             <div class="minute" id="to-minute">
-                                <span class="increase increaseMinute">
+                                <span class="increase minute increaseMinute">
                                     <i class="fa fa-plus"></i>
                                 </span>
                                 <input name="stop_minute"
                                        type="text"
                                        class="time-input"
                                        value="00">
-                                <span class="decrease decreaseMinute">
+                                <span class="decrease minute decreaseMinute">
                                     <i class="fa fa-minus"></i>
                                 </span>
                             </div>
@@ -218,7 +226,7 @@
                         	<div class="heading">
                         		<h4>Rest</h4>
                         	</div>
-                        	<div class="minute">
+                        	<div class="minute" id="rest_minute">
                         		<span class="increase increaseMinute">
                         			<i class="fa fa-plus"></i>
                         		</span>
@@ -240,6 +248,42 @@
                         </div>
 
                     </div>
+                </div>
+
+                <div class="row bulk-action">
+                    <div class="form-group">
+                        <label for="bulk-action-select">Shortcut action : </label>
+                        <select id="bulk-action-select" class="bulk-action-select custom-select">
+                            <option disabled="disabled" selected></option>
+                            <option value="0">Multiple tasks with one click</option>
+                            <option value="1">Reset</option>
+                        </select>
+                        <div class="action-form">
+                            <div class="bulk-reset-action">
+                                <button class="preventSubmit" onclick="triggerShortcutTask('1')">Reset tasks</button>
+                            </div>
+
+                            <div id="bulk-task-shortcut" class="bulk-task-shortcut">
+                                <select id="bulk_action_time_in" class="bulk_action_time_in">
+                                    <option disabled="disabled" selected>From time</option>
+                                   
+                                </select>
+                                <select id="bulk_action_time_out" class="bulk_action_time_out">
+                                    <option disabled="disabled" selected>To time</option>
+                                    
+                                </select>
+                                <select class="bulk_action_tasks" id="bulk_action_tasks">
+                                    <option disabled="disabled" selected>Select task</option>
+                                    @foreach($process as $task)
+                                    <option value="{{$task->id}}">{{$task->process_name}}</option>
+                                    @endforeach
+                                    <option value="R">Rest</option>
+                                </select>
+                                <button class="preventSubmit" onclick="triggerShortcutTask('0')">Select Now</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="row task-container">
@@ -285,34 +329,38 @@
                                     <div class="tasks">
                                         <div class="task">
                                             <select name="hour_{{$i}}_1" class="tasks-select">
-                                                <option hidden></option>
+                                                <option></option>
                                                 @foreach($process as $task)
                                                 <option value="{{$task->id}}">{{$task->process_name}}</option>
                                                 @endforeach
+                                                <option value="R">Rest</option>
                                             </select>
                                         </div>
                                         <div class="task">
                                             <select name="hour_{{$i}}_2" class="tasks-select">
-                                                <option hidden></option>
+                                                <option></option>
                                                 @foreach($process as $task)
                                                 <option value="{{$task->id}}">{{$task->process_name}}</option>
                                                 @endforeach
+                                                <option value="R">Rest</option>
                                             </select>
                                         </div>
                                         <div class="task">
                                             <select name="hour_{{$i}}_3" class="tasks-select">
-                                                <option hidden></option>
+                                                <option></option>
                                                 @foreach($process as $task)
                                                 <option value="{{$task->id}}">{{$task->process_name}}</option>
                                                 @endforeach
+                                                <option value="R">Rest</option>
                                             </select>
                                         </div>
                                         <div class="task">
                                             <select name="hour_{{$i}}_4" class="tasks-select">
-                                                <option hidden></option>
+                                                <option></option>
                                                 @foreach($process as $task)
                                                 <option value="{{$task->id}}">{{$task->process_name}}</option>
                                                 @endforeach
+                                                <option value="R">Rest</option>
                                             </select>
                                         </div>
                                     </div>
