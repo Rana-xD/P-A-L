@@ -156,7 +156,7 @@ class System_TimeManagementorWorker extends Controller
                ['date' => $newdate,'staff' => $staff,'location' => $location, 'work_shift' => $output['work_shift'], 'start_time' => $output['start_time'], 'end_time' => $output['stop_time'], 'working_hour' => $output['working_hour'],'actual_working_hour' => $output['actual_work'],'overtime_working_hour' => $output['over_time'],'process' => $output['process'],'rest' => $output['rest_minute'],'created_at' => new DateTime]
             );
             DB::commit();
-            return "insert";
+            return view('TimeManagementForWorkerInserted');
         }
         catch(\Exception $e)
             {
@@ -228,7 +228,7 @@ class System_TimeManagementorWorker extends Controller
               ])
               ->update(['work_shift' => $output['work_shift'], 'start_time' => $output['start_time'], 'end_time' => $output['stop_time'], 'working_hour' => $output['working_hour'],'actual_working_hour' => $output['actual_work'],'overtime_working_hour' => $output['over_time'],'rest' => $output['rest_minute'],'process' => $output['process'],'updated_at' => new DateTime]);
               DB::commit();
-              return "update";
+              return view('TimeManagementForWorkerUpdate');
         }
         catch(\Exception $e)
             {
