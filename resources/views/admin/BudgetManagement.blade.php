@@ -436,22 +436,40 @@
 											<span>%</span>
 											<input type="hidden" name="company_west_sub_setting_rate" class="company sub-setting-rate-hidden">
 										</td>
+										@if (empty($sub_forecast_west[0]))
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												%
+											</td>
+											@else
+												<td>
+													&yen;{{ $sub_forecast_west[0]->revenue }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_west[0]->cost }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_west[0]->headoffice_expense }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_west[0]->profit }}
+												</td>
+												<td>
+													{{ $sub_forecast_west[0]->profit_rate }}%
+												</td>
+										@endif
 
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
 
 										<td>
 											&yen;
@@ -718,21 +736,39 @@
 											<input type="hidden" name="company_central_sub_setting_rate" class="company sub-setting-rate-hidden">
 										</td>
 
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
+										@if (empty($sub_forecast_central[0]))
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												%
+											</td>
+											@else
+												<td>
+													&yen;{{ $sub_forecast_central[0]->revenue }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_central[0]->cost }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_central[0]->headoffice_expense }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_central[0]->profit }}
+												</td>
+												<td>
+													{{ $sub_forecast_central[0]->profit_rate }}%
+												</td>
+										@endif
 
 										<td>
 											&yen;
@@ -999,21 +1035,39 @@
 											<input type="hidden" name="company_east_sub_setting_rate" class="company sub-setting-rate-hidden">
 										</td>
 
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
-										<td>
-											&yen;
-										</td>
+										@if (empty($sub_forecast_east[0]))
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												%
+											</td>
+											@else
+												<td>
+													&yen;{{ $sub_forecast_east[0]->revenue }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_east[0]->cost }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_east[0]->headoffice_expense }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_east[0]->profit }}
+												</td>
+												<td>
+													{{ $sub_forecast_east[0]->profit_rate }}%
+												</td>
+										@endif
 
 										<td>
 											&yen;
@@ -1403,21 +1457,39 @@
   										<input type="hidden" name="company_west_sub_setting_rate" class="company sub-setting-rate-hidden">
   									</td>
 
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
+										@if (empty($sub_forecast_west[0]))
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												%
+											</td>
+											@else
+												<td>
+													&yen;{{ $sub_forecast_west[0]->revenue }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_west[0]->cost }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_west[0]->headoffice_expense }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_west[0]->profit }}
+												</td>
+												<td>
+													{{ $sub_forecast_west[0]->profit_rate }}%
+												</td>
+										@endif
 
   									<td>
   										&yen;
@@ -1686,21 +1758,39 @@
   										<input type="hidden" name="central_sub_setting_rate" class="company sub-setting-rate-hidden">
   									</td>
 
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
+										@if (empty($sub_forecast_central[0]))
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												%
+											</td>
+											@else
+												<td>
+													&yen;{{ $sub_forecast_central[0]->revenue }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_central[0]->cost }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_central[0]->headoffice_expense }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_central[0]->profit }}
+												</td>
+												<td>
+													{{ $sub_forecast_central[0]->profit_rate }}%
+												</td>
+										@endif
 
   									<td>
   										&yen;
@@ -1964,21 +2054,39 @@
   										<input type="hidden" class="company sub-setting-rate-hidden" name="east_sub_setting_rate">
   									</td>
 
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
-  									<td>
-  										&yen;
-  									</td>
+										@if (empty($sub_forecast_east[0]))
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												&yen;
+											</td>
+											<td>
+												%
+											</td>
+											@else
+												<td>
+													&yen;{{ $sub_forecast_east[0]->revenue }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_east[0]->cost }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_east[0]->headoffice_expense }}
+												</td>
+												<td>
+													&yen;{{ $sub_forecast_east[0]->profit }}
+												</td>
+												<td>
+													{{ $sub_forecast_east[0]->profit_rate }}%
+												</td>
+										@endif
 
   									<td>
   										&yen;

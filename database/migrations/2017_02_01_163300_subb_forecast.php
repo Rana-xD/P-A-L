@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SubForecasts extends Migration
+class SubbForecast extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,17 @@ class SubForecasts extends Migration
     public function up()
     {
         Schema::create('sub_forecast', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('division')->nullable();
-            $table->integer('area');
-            $table->integer('year');
-            $table->integer('month');
-            $table->integer('revenue');
-            $table->integer('cost');
-            $table->integer('profit');
-            $table->float('profit_rate',5,2);
-            $table->timestamps();
+          $table->increments('id');
+          $table->integer('division')->nullable();
+          $table->integer('area');
+          $table->integer('year');
+          $table->integer('month');
+          $table->integer('revenue');
+          $table->integer('cost');
+          $table->integer('profit');
+          $table->float('profit_rate',5,2);
+          $table->integer('headoffice_expense');
+          $table->timestamps();
         });
     }
 

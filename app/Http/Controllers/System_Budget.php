@@ -129,6 +129,31 @@ class System_Budget extends Controller
                          ])
                          ->get();
       //
+      $sub_forecast_west = DB::table('sub_forecast')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                           ['month','=',$month],
+                           ['year','=',$year],
+                           ['area','=',1]
+                         ])
+                         ->get();
+       $sub_forecast_central = DB::table('sub_forecast')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                              ['month','=',$month],
+                              ['year','=',$year],
+                              ['area','=',2]
+                            ])
+                            ->get();
+       $sub_forecast_east = DB::table('sub_forecast')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                              ['month','=',$month],
+                              ['year','=',$year],
+                              ['area','=',3]
+                            ])
+                            ->get();
+      //
       $area_west = DB::table('location_master')
                     ->select('location_name')
                     ->where('area_id','=',1)
@@ -158,7 +183,7 @@ class System_Budget extends Controller
       if(session_status()===PHP_SESSION_NONE){
          session_start();
         if($_SESSION['role']=='admin'){
-          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','sub_forecast_west','sub_forecast_central','sub_forecast_east'));
         }
         else {
           return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross','sub_budget_west','sub_budget_central','sub_budget_east'));
@@ -167,7 +192,7 @@ class System_Budget extends Controller
       elseif (session_status()===PHP_SESSION_ACTIVE)
       {
         if($_SESSION['role']=='admin'){
-          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','sub_forecast_west','sub_forecast_central','sub_forecast_east'));
         }
         else {
 
@@ -971,7 +996,32 @@ class System_Budget extends Controller
                                                 ['area','=',3]
                                               ])
                                               ->get();
-        //
+                                              //
+      $sub_forecast_west = DB::table('sub_forecast')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                                                                ->where([
+                                                                   ['month','=',$month],
+                                                                   ['year','=',$year],
+                                                                   ['area','=',1]
+                                                                 ])
+                                                                 ->get();
+      $sub_forecast_central = DB::table('sub_forecast')
+                                                                ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                                                                ->where([
+                                                                      ['month','=',$month],
+                                                                      ['year','=',$year],
+                                                                      ['area','=',2]
+                                                                    ])
+                                                                    ->get();
+      $sub_forecast_east = DB::table('sub_forecast')
+                                                                ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                                                                ->where([
+                                                                      ['month','=',$month],
+                                                                      ['year','=',$year],
+                                                                      ['area','=',3]
+                                                                    ])
+                                                                    ->get();
+      //
       $area_west = DB::table('location_master')
                           ->select('location_name')
                           ->where('area_id','=',1)
@@ -1002,7 +1052,7 @@ class System_Budget extends Controller
                   if(session_status()===PHP_SESSION_NONE){
                      session_start();
                      if($_SESSION['role']=='admin'){
-                       return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                       return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','sub_forecast_west','sub_forecast_central','sub_forecast_east'));
                               }
                       else {
                         return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross','sub_budget_west','sub_budget_central','sub_budget_east'));
@@ -1011,7 +1061,7 @@ class System_Budget extends Controller
                       elseif (session_status()===PHP_SESSION_ACTIVE)
                       {
                         if($_SESSION['role']=='admin'){
-                          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','sub_forecast_west','sub_forecast_central','sub_forecast_east'));
                        }
                        else {
 

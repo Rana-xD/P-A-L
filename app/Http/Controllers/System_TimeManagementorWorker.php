@@ -220,14 +220,13 @@ class System_TimeManagementorWorker extends Controller
                  }
               }
            }
-           return $output;
            DB::table('time_management')
               ->where([
                  ['staff',$staff],
                  ['location',$location],
                  ['date',$newdate]
               ])
-              ->update(['work_shift' => $output['work_shift'], 'start_time' => $output['start_time'], 'end_time' => $output['stop_time'], 'working_hour' => $output['working_hour'],'actual_working_hour' => $output['actual_work'],'overtime_working_hour' => $output['over_time'],'process' => $output['process'],'updated_at' => new DateTime]);
+              ->update(['work_shift' => $output['work_shift'], 'start_time' => $output['start_time'], 'end_time' => $output['stop_time'], 'working_hour' => $output['working_hour'],'actual_working_hour' => $output['actual_work'],'overtime_working_hour' => $output['over_time'],'rest' => $output['rest_minute'],'process' => $output['process'],'updated_at' => new DateTime]);
               DB::commit();
               return "update";
         }

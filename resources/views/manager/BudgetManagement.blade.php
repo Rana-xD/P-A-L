@@ -624,12 +624,21 @@
 										</tr>
 									@endforeach
 										<tr class="subtotal">
-											<td>Subtotal</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>%</td>
-											<td>%</td>
+											@if (empty($sub_budget_central[0]))
+												<td>Subtotal</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>%</td>
+												<td>%</td>
+												@else
+													<td>Subtotal</td>
+													<td>&yen;{{ $sub_budget_central[0]->revenue }}</td>
+													<td>&yen;{{ $sub_budget_central[0]->cost }}</td>
+													<td>&yen;{{ $sub_budget_central[0]->headoffice_expense }}</td>
+													<td>&yen;{{ $sub_budget_central[0]->profit }}</td>
+													<td>{{ $sub_budget_central[0]->profit_rate }}%</td>
+											@endif
 
 											<td class="forecast-sub-sale">
 												<span>&yen;</span>
@@ -862,12 +871,21 @@
 										</tr>
 									@endforeach
 										<tr class="subtotal">
-											<td>Subtotal</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>%</td>
-											<td>%</td>
+											@if (empty($sub_budget_east[0]))
+												<td>Subtotal</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>%</td>
+												<td>%</td>
+												@else
+													<td>Subtotal</td>
+													<td>&yen;{{ $sub_budget_east[0]->revenue }}</td>
+													<td>&yen;{{ $sub_budget_east[0]->cost }}</td>
+													<td>&yen;{{ $sub_budget_east[0]->headoffice_expense }}</td>
+													<td>&yen;{{ $sub_budget_east[0]->profit }}</td>
+													<td>{{ $sub_budget_east[0]->profit_rate }}%</td>
+											@endif
 
 											<td class="forecast-sub-sale">
 												<span>&yen;</span>
@@ -1490,12 +1508,21 @@
 								 </tr>
 							 @endforeach
 								 <tr class="subtotal">
-									 <td>Subtotal</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>%</td>
-									 <td>%</td>
+									 @if (empty($sub_budget_central[0]))
+										 <td>Subtotal</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>%</td>
+										 <td>%</td>
+										 @else
+											 <td>Subtotal</td>
+											 <td>&yen;{{ $sub_budget_central[0]->revenue }}</td>
+											 <td>&yen;{{ $sub_budget_central[0]->cost }}</td>
+											 <td>&yen;{{ $sub_budget_central[0]->headoffice_expense }}</td>
+											 <td>&yen;{{ $sub_budget_central[0]->profit }}</td>
+											 <td>{{ $sub_budget_central[0]->profit_rate }}%</td>
+									 @endif
 
 									 <td class="forecast-sub-sale">
 										 <span>&yen;</span>
@@ -1647,8 +1674,6 @@
 	 									 </td>
 	 									 <td>{{ $area_east_budget[$j-1]->profit_rate }}%</td>
 									 @endif
-
-
 									 <td>
 										 <input type="text" value="{{ $key->revenue }}" name="forecast_east_revenue_{{ $j }}" ng-model="forecast_east_revenue_{{ $j }}" ng-init="forecast_east_revenue_{{ $j }}='{{ $key->revenue }}'" class="forecast revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
 										 <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
@@ -1731,12 +1756,21 @@
 								 </tr>
 							 @endforeach
 								 <tr class="subtotal">
-									 <td>Subtotal</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>%</td>
-									 <td>%</td>
+									 @if (empty($sub_budget_east[0]))
+										 <td>Subtotal</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>%</td>
+										 <td>%</td>
+										 @else
+											 <td>Subtotal</td>
+											 <td>&yen;{{ $sub_budget_east[0]->revenue }}</td>
+											 <td>&yen;{{ $sub_budget_east[0]->cost }}</td>
+											 <td>&yen;{{ $sub_budget_east[0]->headoffice_expense }}</td>
+											 <td>&yen;{{ $sub_budget_east[0]->profit }}</td>
+											 <td>{{ $sub_budget_east[0]->profit_rate }}%</td>
+									 @endif
 
 									 <td class="forecast-sub-sale">
 										 <span>&yen;</span>

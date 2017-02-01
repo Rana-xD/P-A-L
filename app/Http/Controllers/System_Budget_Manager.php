@@ -91,6 +91,27 @@ class System_Budget_Manager extends Controller
       $output['final_east_profit_2'] = (int)$request->final_east_profit_2;
       $output['final_east_profitRate_2'] = $request->final_east_profitRate_2;
 
+      //
+      $output['forecast_west_sub_sale'] = $request->forecast_west_sub_sale;
+      $output['forecast_west_sub_cost'] = $request->forecast_west_sub_cost;
+      $output['forecast_west_sub_expense'] = $request->forecast_west_sub_expense;
+      $output['forecast_west_sub_profit'] = $request->forecast_west_sub_profit;
+      $output['forecast_west_sub_profit_rate'] = $request->forecast_west_sub_profit_rate;
+
+      //
+      $output['forecast_central_sub_sale'] = $request->forecast_central_sub_sale;
+      $output['forecast_central_sub_cost'] = $request->forecast_central_sub_cost;
+      $output['forecast_central_sub_expense'] = $request->forecast_central_sub_expense;
+      $output['forecast_central_sub_profit'] = $request->forecast_central_sub_profit;
+      $output['forecast_central_sub_profit_rate'] = $request->forecast_central_sub_profit_rate;
+
+      //
+      $output['forecast_east_sub_sale'] = $request->forecast_east_sub_sale;
+      $output['forecast_east_sub_cost'] = $request->forecast_east_sub_cost;
+      $output['forecast_east_sub_expense'] = $request->forecast_east_sub_expense;
+      $output['forecast_east_sub_profit'] = $request->forecast_east_sub_profit;
+      $output['forecast_east_sub_profit_rate'] = $request->forecast_east_sub_profit_rate;
+
       //insert into location_forecast table
       for ($i=1; $i < 3; $i++) {
         $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['location_west_'.$i])->get();
@@ -183,6 +204,18 @@ class System_Budget_Manager extends Controller
           ->update([ 'revenue' => $output['final_east_revenue_'.$i], 'cost' => $output['final_east_cost_'.$i], 'profit' => $output['final_east_profit_'.$i], 'profit_rate' => $output['final_east_profitRate_'.$i] ]);
         }
       }
+      DB::table('sub_forecast')
+        ->insert(
+          ['division' => 1,'area' => 1,'year' => $output['year'], 'month' => $output['month'], 'revenue' => $output['forecast_west_sub_sale'], 'cost' => $output['forecast_west_sub_cost'], 'headoffice_expense' => $output['forecast_west_sub_expense'],'profit' => $output['forecast_west_sub_profit'], 'profit_rate' => $output['forecast_west_sub_profit_rate'], 'created_at' => new DateTime]
+        );
+      DB::table('sub_forecast')
+        ->insert(
+            ['division' => 1,'area' => 2,'year' => $output['year'], 'month' => $output['month'], 'revenue' => $output['forecast_central_sub_sale'], 'cost' => $output['forecast_central_sub_cost'], 'headoffice_expense' => $output['forecast_central_sub_expense'],'profit' => $output['forecast_central_sub_profit'], 'profit_rate' => $output['forecast_central_sub_profit_rate'], 'created_at' => new DateTime]
+        );
+      DB::table('sub_forecast')
+        ->insert(
+            ['division' => 1,'area' => 3,'year' => $output['year'], 'month' => $output['month'], 'revenue' => $output['forecast_central_sub_sale'], 'cost' => $output['forecast_central_sub_cost'], 'headoffice_expense' => $output['forecast_central_sub_expense'],'profit' => $output['forecast_central_sub_profit'], 'profit_rate' => $output['forecast_central_sub_profit_rate'], 'created_at' => new DateTime]
+        );
       DB::commit();
 
   }
@@ -383,6 +416,27 @@ class System_Budget_Manager extends Controller
       $output['final_east_profitRate_1'] = $request->final_east_profitRate_1;
 
       //
+      $output['forecast_west_sub_sale'] = $request->forecast_west_sub_sale;
+      $output['forecast_west_sub_cost'] = $request->forecast_west_sub_cost;
+      $output['forecast_west_sub_expense'] = $request->forecast_west_sub_expense;
+      $output['forecast_west_sub_profit'] = $request->forecast_west_sub_profit;
+      $output['forecast_west_sub_profit_rate'] = $request->forecast_west_sub_profit_rate;
+
+      //
+      $output['forecast_central_sub_sale'] = $request->forecast_central_sub_sale;
+      $output['forecast_central_sub_cost'] = $request->forecast_central_sub_cost;
+      $output['forecast_central_sub_expense'] = $request->forecast_central_sub_expense;
+      $output['forecast_central_sub_profit'] = $request->forecast_central_sub_profit;
+      $output['forecast_central_sub_profit_rate'] = $request->forecast_central_sub_profit_rate;
+
+      //
+      $output['forecast_east_sub_sale'] = $request->forecast_east_sub_sale;
+      $output['forecast_east_sub_cost'] = $request->forecast_east_sub_cost;
+      $output['forecast_east_sub_expense'] = $request->forecast_east_sub_expense;
+      $output['forecast_east_sub_profit'] = $request->forecast_east_sub_profit;
+      $output['forecast_east_sub_profit_rate'] = $request->forecast_east_sub_profit_rate;
+
+      //
       $output['location_east_2'] = $request->location_east_2;
       $output['forecast_east_revenue_2'] = $request->forecast_east_revenue_2;
       $output['forecast_east_cost_2'] = $request->forecast_east_cost_2;
@@ -465,7 +519,33 @@ class System_Budget_Manager extends Controller
         ])
         ->update([ 'revenue' => $output['final_east_revenue_'.$i], 'cost' => $output['final_east_cost_'.$i], 'profit' => $output['final_east_profit_'.$i], 'profit_rate' => $output['final_east_profitRate_'.$i] ]);
       }
-
+      DB::table('sub_forecast')
+        ->where([
+          ['month',$month],
+          ['year',$year],
+          ['area',1]
+        ])
+        ->update(
+          ['division' => 1, 'revenue' => $output['forecast_west_sub_sale'], 'cost' => $output['forecast_west_sub_cost'], 'headoffice_expense' => $output['forecast_west_sub_expense'],'profit' => $output['forecast_west_sub_profit'], 'profit_rate' => $output['forecast_west_sub_profit_rate'], 'updated_at' => new DateTime]
+        );
+        DB::table('sub_forecast')
+          ->where([
+            ['month',$month],
+            ['year',$year],
+            ['area',2]
+          ])
+          ->update(
+            ['division' => 1, 'revenue' => $output['forecast_central_sub_sale'], 'cost' => $output['forecast_central_sub_cost'], 'headoffice_expense' => $output['forecast_central_sub_expense'],'profit' => $output['forecast_central_sub_profit'], 'profit_rate' => $output['forecast_central_sub_profit_rate'], 'updated_at' => new DateTime]
+          );
+          DB::table('sub_forecast')
+            ->where([
+              ['month',$month],
+              ['year',$year],
+              ['area',3]
+            ])
+            ->update(
+              ['division' => 1, 'revenue' => $output['forecast_east_sub_sale'], 'cost' => $output['forecast_east_sub_cost'], 'headoffice_expense' => $output['forecast_east_sub_expense'],'profit' => $output['forecast_east_sub_profit'], 'profit_rate' => $output['forecast_east_sub_profit_rate'], 'updated_at' => new DateTime]
+            );
 
 
       DB::commit();
