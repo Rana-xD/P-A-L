@@ -153,6 +153,7 @@ $(function(){
 					$('#rest_minute .time-input').val(response.user[0].rest);
 
 					taskVisibility();
+					triggerBulkTimeInOut();
 				},
 				error: function(error){
 					console.log(JSON.stringify(error));
@@ -230,6 +231,31 @@ $(function(){
 			}
 		}
 
+		// Validate minute
+		function isValidMinute(eleObj){
+			var validMinute = [0,15,30,45],
+				val = $(eleObj).val();
+			if($.isNumeric(val) && val.length == 2){
+				if($.inArray(parseInt(val),validMinute) > (-1)){
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				return false;
+			}
+			
+		}
+
+		function isMaxHour(eleObj){
+			var hour = $(this).parents('.time-group').find('.hour .time-input').val();
+				if(hour>=36){
+					return true;
+				}else{
+					return false;
+				}
+		}
+
 		// Increase hour input
 		function increaseHour(){
 
@@ -258,23 +284,29 @@ $(function(){
 		function increaseMinute(){
 
 			var instance = $(this).parents('.minute').find('.time-input');
-			var value = instance.val();
+			var value = $(instance).val();
 
 			// Validate input time
-			var goodToGo = isNumisLength(value, value.length);
-			if(!goodToGo === true){
-				notify(goodToGo);
+			if(isMaxHour($(this))){
+				notify('008');
+				return;
+			}
+
+			var goodToGo = isValidMinute(instance);
+			if(!goodToGo){
+				var val = parseInt(value) || 0;
+				var floorVal = Math.floor((val+15) / 15) * 15;
+				$(instance).val(floorVal>=60 ? '00' : floorVal).change();
+				notify('007');
 				return;
 			}
 
 			
 			value = parseInt(value);
-			if(value < 59 && value >=9 ){
-				instance.val(parseInt(value + 1)).change();
-			}else if(value<9){
-				instance.val('0'+ parseInt(value + 1)).change();
+			if(value != 45){
+				$(instance).val(parseInt(value)+15).change();
 			}else{
-				instance.val('00').change();
+				$(instance).val('00').change();
 			}
 
 		}
@@ -308,23 +340,26 @@ $(function(){
 		function decreaseMinute(){
 
 			var instance = $(this).parents('.minute').find('.time-input');
-			var value = instance.val();
+			var value = $(instance).val();
 
 			// validate time input
-			var goodToGo = isNumisLength(value, value.length);
-			if(!goodToGo === true){
-				notify(goodToGo);
+			var goodToGo = isValidMinute(instance);
+			if(!goodToGo){
+				var val = parseInt(value) || 0;
+				var floorVal = Math.floor((val+15) / 15) * 15;
+				$(instance).val(floorVal>=60 ? '00' : floorVal).change();
+				notify('007');
 				return;
 			}
 
 			
 			value = parseInt(value);
-			if(value <= 10 && value >= 1){
-				instance.val('0' + parseInt(value - 1)).change();
-			}else if(value == 0){
-				instance.val('59').change();
-			}else if(value > 10){
-				instance.val(parseInt(value - 1)).change();
+			if(value !== 0 && value != 15){
+				$(instance).val(value-15).change();
+			}else if(value == 15){
+				$(instance).val('00').change();
+			}else{
+				$(instance).val('45').change();
 			}
 
 		}
@@ -332,7 +367,7 @@ $(function(){
 		// Listen on input time change event
 		$(timeInput).donetyping(function(){
 
-			var val = $(this).val();
+			var val = $(this).val() || 0;
 			var mama = $(this).parent();
 			// If parent of input is hour
 			if($(mama).hasClass('hour')){
@@ -360,21 +395,13 @@ $(function(){
 			if($(mama).hasClass('minute')){
 
 				// Check if time is numeric & exact length
-				if(!isNumisLength(val, 2)){
-					$(this).val('00');
-					notify('001');
+				if(!isValidMinute($(this))){
+					var value = parseInt(val) || 0;
+					var floorVal = Math.floor((value+15) / 15) * 15;
+					$(this).val(floorVal>=60 ? '00' : floorVal);
+					notify('007');
 					taskVisibility();
 					triggerBulkTimeInOut();
-					return;
-				}
-
-				// Check it's a minute range
-				if(!isMinMax(val, 0, 59)){
-					$(this).val('00');
-					notify('005');
-					taskVisibility();
-					triggerBulkTimeInOut();
-					return;
 				}
 			}
 
@@ -382,7 +409,7 @@ $(function(){
 			if(!isValidTimeRange()){
 				var toVal = parseInt($(fromHour).val()) + 1;
 				toVal < 10 ? toVal = '0'+toVal : toVal = toVal;
-				$(toHour).val(toVal);
+				$(toHour).val(toVal>36 ? '36' : toVal);
 				notify('006');
 				taskVisibility();
 				triggerBulkTimeInOut();
@@ -437,17 +464,23 @@ $(function(){
 
 // Shortcut tasks trigger
 function triggerShortcutTask(action){
-	var start = $('#bulk_action_time_in').val() - 6,
-		stop = $('#bulk_action_time_out').val() - 6,
-		task = $('#bulk_action_tasks').val();
+
 	switch(action){
+
+		// Same task select shortcut @arg 0 string
 		case '0' :
-			$('#hours-range .task-hour')
+			var tin = ($('#bulk_action_time_in').val() || '6:00').split(':'),
+				tout = ($('#bulk_action_time_out').val() || '6:00').split(':'),
+				task = $('#bulk_action_tasks').val(),
+				start = rangeHourToMinute(tin[0],tin[1]),
+				stop = rangeHourToMinute(tout[0],tout[1]);
+			
+			$('#hours-range .task-hour .tasks-select')
 			.slice(start,stop)
-			.find('.tasks-select')
 			.val(task);
 			break;
 
+		// Reset task shortcut @arg 1 string
 		case '1' : 
 			$('#hours-range .task-hour')
 			.find('.tasks-select option')
@@ -461,28 +494,52 @@ function triggerShortcutTask(action){
 	}
 }
 
-// Trigger append task process
+// Trigger visibility task process
 function taskVisibility(){
 	var fromHour = $('.validate-hour-range #from-hour').find('.time-input').val() -6,
-		toHour = $('.validate-hour-range #to-hour').find('.time-input').val() - 6;
-		$('#hours-range .task-hour')
-		.css({'visibility':'hidden'})
-		.slice(fromHour,toHour)
-		.css({
-			'visibility':'visible',
-		});
+		fromMinute = $('.validate-hour-range #from-minute').find('.time-input').val(),
+		toHour = $('.validate-hour-range #to-hour').find('.time-input').val() - 6,
+		toMinute = $('.validate-hour-range #to-minute').find('.time-input').val();
+
+	var start = ((((parseInt(fromHour) || 0) * 60) + (parseInt(fromMinute) || 0) + 15) / 15) -1;
+	var stop = ((((parseInt(toHour) || 0) * 60) + (parseInt(toMinute) || 0) + 15) / 15) -1;
+		$('#hours-range .task-hour .tasks-select')
+		.removeClass('visible')
+		.addClass('hide')
+		.slice(start,stop)
+		.removeClass('hide')
+		.addClass('visible');
+
+		$('#hours-range .task-hour .hide > option').prop("selected",false);
 }
 
-// Trigger time in & out in bulk action
+function rangeHourToMinute(hour,minute){
+	var num = ((((parseInt(hour) -6 || 0) * 60) + (parseInt(minute) || 0) + 15) / 15) -1;
+	return num;
+}
+
+// Initialize time in & out in bulk action
 function triggerBulkTimeInOut(){
-	var timeIn = parseInt($('#from-hour .time-input').val()),
-		timeOut = parseInt($('#to-hour .time-input').val()),
-		timeSet = "";
-		console.log(timeIn+":"+timeOut);
-	for(var i=timeIn; i<=timeOut; i++){
-		timeSet += '<option value="'+i+'">'+i+':00</option>';
+	var fromHour = $('.validate-hour-range #from-hour').find('.time-input').val(),
+		fromMinute = $('.validate-hour-range #from-minute').find('.time-input').val(),
+		toHour = $('.validate-hour-range #to-hour').find('.time-input').val(),
+		toMinute = $('.validate-hour-range #to-minute').find('.time-input').val(),
+		timeSet = "",
+		strO = "00",
+		start = ((parseInt(fromHour) - 6 || 0) * 60) + parseInt(fromMinute) || 0,
+		stop = ((parseInt(toHour) - 6 || 0) * 60) + parseInt(toMinute) || 0,
+		minu = 0,
+		maxm = 45,
+		jumpMinute = parseInt(fromMinute) || 0;
+	for(var i=fromHour; i<=toHour; i++){
+		if(i==7){jumpMinute=0}
+		if(i==toHour){maxm=toMinute}
+		for(var j=jumpMinute; j<=maxm; j+=15){
+			minu = j!==0 ? j : "00";
+			timeSet += '<option value="'+i+':'+minu+'">'+i+':'+minu+'</option>';
+		}
 	}
-	console.log(timeSet);
+	
 	$('#bulk_action_time_in')
 	.empty()
 	.append(

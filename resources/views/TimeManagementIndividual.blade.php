@@ -82,6 +82,12 @@
         .bulk-task-shortcut{
             display: none;
         }
+        #hours-range .task-hour .tasks-select.visible{
+            visibility: visible;
+        }
+        #hours-range .task-hour .tasks-select.hide{
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
@@ -142,7 +148,7 @@
                 <div class="row">
                     <div class="time-range validate-hour-range">
 
-                        <div class="from">
+                        <div class="from time-group">
                         	<div class="heading">
                         		<h4>
                         			Time in
@@ -185,7 +191,7 @@
                         	</h1>
                         </div>
 
-                        <div class="to">
+                        <div class="to time-group">
                         	<div class="heading">
                         		<h4>
                         			Time out

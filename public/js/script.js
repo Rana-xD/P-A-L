@@ -143,6 +143,38 @@ function notify(code, delay=3000){
 			});
 			break;
 
+		case '007':
+			text = "Not a valid minute! <br/> Minute must 00, 15, 30, 45";
+			ele.html(text);
+			ele.addClass('error');
+			$('body').append(ele);
+			$(ele).animate({'top':'+=30px','opacity':'+=0.2'},350, function(){
+
+				$(this).animate({'opacity':'1'},delay,function(){
+					$(this).animate({'opacity':'-=0.2','top':'-=40px'},500,function(){
+						$(this).remove();
+					});
+				});
+
+			});
+			break;
+
+		case '008':
+			text = "Maximum hour must not exceed 36!";
+			ele.html(text);
+			ele.addClass('error');
+			$('body').append(ele);
+			$(ele).animate({'top':'+=30px','opacity':'+=0.2'},350, function(){
+
+				$(this).animate({'opacity':'1'},delay,function(){
+					$(this).animate({'opacity':'-=0.2','top':'-=40px'},500,function(){
+						$(this).remove();
+					});
+				});
+
+			});
+			break;
+
 		default:
 			return;
 	}
