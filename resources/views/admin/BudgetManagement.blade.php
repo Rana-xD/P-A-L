@@ -222,7 +222,7 @@
 						<div class="indi-area">
 							<div class="area-heading">
 								<h2>
-									AREA WEST
+									Kanto
 								</h2>
 							</div>
 							<table class="scroll">
@@ -505,7 +505,7 @@
 						<div class="indi-area">
 							<div class="area-heading">
 								<h2>
-									AREA CENTRAL
+									Chubu
 								</h2>
 							</div>
 							<table class="scroll">
@@ -786,7 +786,7 @@
 						<div class="indi-area">
 							<div class="area-heading">
 								<h2>
-									AREA EAST
+									Kansai
 								</h2>
 							</div>
 							<table class="scroll">
@@ -1187,7 +1187,7 @@
   					<div class="indi-area">
   						<div class="area-heading">
   							<h2>
-  								AREA WEST
+  								Kanto
   							</h2>
   						</div>
   						<table class="scroll">
@@ -1474,7 +1474,7 @@
   					<div class="indi-area">
   						<div class="area-heading">
   							<h2>
-  								AREA CENTRAL
+  								Chubu
   							</h2>
   						</div>
   						<table class="scroll">
@@ -1754,7 +1754,7 @@
   					<div class="indi-area">
   						<div class="area-heading">
   							<h2>
-  								AREA EAST
+  								Kansai
   							</h2>
   						</div>
   						<table class="scroll">
