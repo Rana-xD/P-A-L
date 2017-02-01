@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CategoryMasterTable extends Migration
+class ProcessMaster extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CategoryMasterTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_master', function (Blueprint $table) {
-            $table->increments('category_id');
-            $table->string('category_name',150);
+        Schema::create('process_master', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('process_name',50);
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ class CategoryMasterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_master');
+        Schema::dropIfExists('process_master');
     }
 }

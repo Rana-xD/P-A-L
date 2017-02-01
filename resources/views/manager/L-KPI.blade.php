@@ -118,7 +118,14 @@
       .custom-error {
         color: red; 
         font-size: small; 
-        margin: 0;
+        margin: 2px 0 0 0;
+      }
+      .comment {
+        width: 90%;
+      }
+
+      .require-any {
+        background: gold;
       }
 
   	</style>
@@ -346,7 +353,7 @@
                 <td>{{ $category->category_name }}
                 <input type="hidden" name="category_{{ $i }}" value="{{ $category->category_name }}"/></td>
                 <td class="text-center">
-                  <input name="quantity_{{$i}}" ng-model="quantity_{{$i}}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc" numbers-only required-any="value" my-maxlength="5">
+                  <input name="quantity_{{$i}}" ng-model="quantity_{{$i}}" data-pair-id="manaul_{{$i}}" data-id="auto_{{$i}}" data-multiply-by="{{ $category->UOP }}" type="text" class="categ_input auto_calc" numbers-only my-maxlength="5">
                   <p class="custom-error five-dig" style="display: none;">Allow only five digits</p>
                   <p class="custom-error err-req" style="display: none;">At least one of them has to be filled</p>
                 </td>
@@ -363,7 +370,8 @@
               <th>No</th>
               <th>Accident</th>
               <th>Quantity</th>
-              <th style="visibility: hidden"></th>
+              <th>Amount to pay</th>
+              <th>Comment</th>
             </tr>
             @foreach ($accidents as $accident)
               <tr>
@@ -371,11 +379,22 @@
                 <td>{{ $accident->accident_type }}
                 <input type="hidden" name="accident_{{ $accident->id }}" value="{{ $accident->accident_type }}"></td>
                 <td class="text-center">
-                  <input type="text" name="quantity_buy_{{ $accident->id }}" ng-model="quantity_buy_{{ $accident->id }}" numbers-only required-any="value" my-maxlength="5">
+                  <input type="text" name="quantity_buy_{{ $accident->id }}" ng-model="quantity_buy_{{ $accident->id }}" data-ng-required="(input_form.amount_to_pay_{{ $accident->id }}.$touched && !(!amount_to_pay_{{ $accident->id }})) || input_form.comment_{{ $accident->id }}.$touched && !(!comment_{{ $accident->id }})" required-any="value" numbers-only my-maxlength="5">
                   <p class="custom-error five-dig" style="display: none;">Allow only five digits</p>
-                  <p class="custom-error err-req" style="display: none;">At least one of them has to be filled</p>
+                  <!-- <p class="custom-error err-req" style="display: none;">At least one row has to be filled</p> -->
+                  <p ng-show="(!quantity_buy_{{ $accident->id }} && amount_to_pay_{{ $accident->id }}) ||  (!quantity_buy_{{ $accident->id }} && comment_{{ $accident->id }})" class="custom-error ng-hide">This field is required</p>
                 </td>
-                <td style="border-left: none;"></td>
+                <td class="text-center">
+                  <input type="text" name="amount_to_pay_{{ $accident->id }}" ng-model="amount_to_pay_{{ $accident->id }}" required-any="value" numbers-only my-maxlength="10" valid-rate>
+                  <p class="custom-error ten-dig" style="display: none;">Allow only ten digits</p>
+                  <p class="custom-error err-req require-any" style="display: none;">At least one row has to be filled</p>
+                  <p ng-show="(!amount_to_pay_{{ $accident->id }} && quantity_buy_{{ $accident->id }}) || (!amount_to_pay_{{ $accident->id }} && comment_{{ $accident->id }})" class="custom-error ng-hide">This field is required</p>
+                </td>
+                <td class="text-center">
+                  <input type="text" class="comment" name="comment_{{ $accident->id }}" ng-model="comment_{{ $accident->id }}" required-any="value">
+                  <!-- <p class="custom-error err-req" style="display: none;">At least one row has to be filled</p> -->
+                  <p ng-show="(!comment_{{ $accident->id }} && quantity_buy_{{ $accident->id }}) || (!comment_{{ $accident->id }} && amount_to_pay_{{ $accident->id }})" class="custom-error ng-hide">This field is required</p>
+                </td>
               </tr>
             @endforeach
 
@@ -389,20 +408,16 @@
               <th>Sales</th>
             </tr>
             @foreach ($categories as $category)
-              <tr>
-                <td>{{ ++$j }}</td>
+              <tr ng-show="!quantity_{{++$j}}">
+                <td>{{ $j }}</td>
                 <td>{{ $category->category_name }}</td>
                 <td class="text-center">
-                  <input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity_a_{{$j}}" ng-model="quantity_a_{{$j}}" data-ng-required="input_form.total_uop_a_{{$j}}.$touched && !(!total_uop_a_{{$j}})" required-any="value" numbers-only my-maxlength="5">
+                  <input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="quantity_a_{{$j}}" ng-model="quantity_a_{{$j}}" numbers-only my-maxlength="5">
                   <p class="custom-error five-dig" style="display: none;">Allow only five digits</p>
-                  <p ng-show="!quantity_a_{{$j}} && total_uop_a_{{$j}}" class="custom-error ng-hide">This field is required</p>
-                  <p class="custom-error err-req" style="display: none;">At least one of them has to be filled</p>
                 </td>
                 <td>
-                  <input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total_uop_a_{{$j}}" ng-model="total_uop_a_{{$j}}" data-ng-required="input_form.quantity_a_{{$j}}.$touched && !(!quantity_a_{{$j}})" required-any="value" numbers-only my-maxlength="10">&yen;
+                  <input type="text" data-id="manaul_{{$j}}" data-pair-id="auto_{{$j}}" class="categ_input" name="total_uop_a_{{$j}}" ng-model="total_uop_a_{{$j}}" numbers-only my-maxlength="10">&yen;
                   <p class="custom-error ten-dig" style="display: none;">Allow only ten digits</p>
-                  <p ng-show="quantity_a_{{$j}} && !total_uop_a_{{$j}}" class="custom-error ng-hide">This field is required</p>
-                  <p class="custom-error err-req" style="display: none;">At least one of them has to be filled</p>
                 </td>
               </tr>
             @endforeach

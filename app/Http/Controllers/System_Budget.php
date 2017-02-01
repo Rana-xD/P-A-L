@@ -223,12 +223,12 @@ class System_Budget extends Controller
           $output['area_east_profitRate_2'] = $request->area_east_profitRate_2;
           $output['area_east_settingRate_2'] = $request->area_east_settingRate_2;
 
-          $output['final_west_1'] = $request->final_west_expense_1;
-          $output['final_west_2'] = $request->final_west_expense_2;
-          $output['final_central_1'] = $request->final_central_expense_1;
-          $output['final_central_2'] = $request->final_central_expense_2;
-          $output['final_east_1'] = $request->final_east_expense_1;
-          $output['final_east_2'] = $request->final_east_expense_2;
+          $output['final_west_1'] = $request->area_west_expense_1;
+          $output['final_west_2'] = $request->area_west_expense_2;
+          $output['final_central_1'] = $request->area_central_expense_1;
+          $output['final_central_2'] = $request->area_central_expense_2;
+          $output['final_east_1'] = $request->area_east_expense_1;
+          $output['final_east_2'] = $request->area_east_expense_2;
 
           $output['gross_revenue'] = $request->gross_sale;
           $output['gross_cost'] = $request->gross_cost;
@@ -526,12 +526,12 @@ class System_Budget extends Controller
           $output['area_east_profitRate_2'] = $request->area_east_profitRate_2;
           $output['area_east_settingRate_2'] = $request->area_east_settingRate_2;
 
-          $output['final_west_1'] = $request->final_west_expense_1;
-          $output['final_west_2'] = $request->final_west_expense_2;
-          $output['final_central_1'] = $request->final_central_expense_1;
-          $output['final_central_2'] = $request->final_central_expense_2;
-          $output['final_east_1'] = $request->final_east_expense_1;
-          $output['final_east_2'] = $request->final_east_expense_2;
+          $output['final_west_1'] = $request->area_west_expense_1;
+          $output['final_west_2'] = $request->area_west_expense_2;
+          $output['final_central_1'] = $request->area_central_expense_1;
+          $output['final_central_2'] = $request->area_central_expense_2;
+          $output['final_east_1'] = $request->area_east_expense_1;
+          $output['final_east_2'] = $request->area_east_expense_2;
 
           $output['gross_revenue'] = $request->gross_sale;
           $output['gross_cost'] = $request->gross_cost;

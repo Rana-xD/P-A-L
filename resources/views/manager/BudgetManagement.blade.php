@@ -219,7 +219,7 @@
 							<div class="indi-area">
 								<div class="area-heading">
 									<h2>
-										AREA WEST
+										Kanto
 									</h2>
 								</div>
 
@@ -280,7 +280,7 @@
 	   									 <td class="company-expense">&yen;</td>
 	   									 <td class="company-profit">
 	   										 <span>&yen;</span>
-	   										 <input type="hidden" class="company hidden-profit" value="1600" name="budget_west_profit_{{ $l }}">
+	   										 <input type="hidden" class="company hidden-profit" value="" name="budget_west_profit_{{ $l }}">
 	   									 </td>
 	   									 <td class="company-profit-rate">%</td>
 	 										 @else
@@ -293,7 +293,7 @@
 	 											 <td class="company-expense">&yen;{{ $area_west_budget[$l-1]->headoffice_expense }}</td>
 	 											 <td class="company-profit">
 	 												 <span>&yen;{{ $area_west_budget[$l-1]->profit }}</span>
-	 												 <input type="hidden" class="company hidden-profit" value="1600" name="budget_west_profit_{{ $l }}">
+	 												 <input type="hidden" class="company hidden-profit" value="{{ $area_west_budget[$l-1]->profit }}" name="budget_west_profit_{{ $l }}">
 	 											 </td>
 	 											 <td class="company-profit-rate">{{ $area_west_budget[$l-1]->profit_rate }}%</td>
 	 									 @endif
@@ -458,7 +458,7 @@
 							<div class="indi-area">
 								<div class="area-heading">
 									<h2>
-										AREA CENTRAL
+										Chubu
 									</h2>
 								</div>
 
@@ -519,7 +519,7 @@
 	   									 <td>&yen;</td>
 	   									 <td class="company-profit">
 	   										 <span>&yen;</span>
-	   										 <input type="hidden" class="hidden-profit" value="1600" name="budget_central_profit{{ $k }}">
+	   										 <input type="hidden" class="hidden-profit" value="" name="budget_central_profit{{ $k }}">
 	   									 </td>
 	   									 <td>%</td>
 	 									 @else
@@ -532,7 +532,7 @@
 	 										 <td>&yen;{{ $area_central_budget[$k-1]->headoffice_expense }}</td>
 	 										 <td class="company-profit">
 	 											 <span>&yen;{{ $area_central_budget[$k-1]->profit }}</span>
-	 											 <input type="hidden" class="hidden-profit" value="1600" name="budget_central_profit{{ $k }}">
+	 											 <input type="hidden" class="hidden-profit" value="{{ $area_central_budget[$k-1]->profit }}" name="budget_central_profit{{ $k }}">
 	 										 </td>
 	 										 <td>{{ $area_central_budget[$k-1]->profit_rate }}%</td>
 	 									 @endif
@@ -696,7 +696,7 @@
 							<div class="indi-area">
 								<div class="area-heading">
 									<h2>
-										AREA EAST
+										Kansai
 									</h2>
 								</div>
 
@@ -757,7 +757,7 @@
 	 										 <td>&yen;</td>
 	 										 <td class="company-profit">
 	 											 <span>&yen;</span>
-	 											 <input type="hidden" class="hidden-profit" value="1600" name="budget_east_profit{{ $j }}">
+	 											 <input type="hidden" class="hidden-profit" value="" name="budget_east_profit{{ $j }}">
 	 										 </td>
 	 										 <td>%</td>
 	 									 	@else
@@ -770,7 +770,7 @@
 	 	 									 <td>&yen;{{ $area_east_budget[$j-1]->headoffice_expense }}</td>
 	 	 									 <td class="company-profit">
 	 	 										 <span>&yen;{{ $area_east_budget[$j-1]->profit }}</span>
-	 	 										 <input type="hidden" class="hidden-profit" value="1600" name="budget_east_profit{{ $j }}">
+	 	 										 <input type="hidden" class="hidden-profit" value="{{ $area_east_budget[$j-1]->profit }}" name="budget_east_profit{{ $j }}">
 	 	 									 </td>
 	 	 									 <td>{{ $area_east_budget[$j-1]->profit_rate }}%</td>
 	 									 @endif
@@ -814,10 +814,10 @@
 												&yen;
 											</td>
 											<td>
-												15%
+												%
 											</td>
 											<td>
-												13%
+												%
 											</td>
 
 											<td>
@@ -1072,7 +1072,7 @@
 					 <div class="indi-area">
 						 <div class="area-heading">
 							 <h2>
-								 AREA WEST
+								 Kanto
 							 </h2>
 						 </div>
 
@@ -1133,7 +1133,7 @@
   									 <td class="company-expense">&yen;</td>
   									 <td class="company-profit">
   										 <span>&yen;</span>
-  										 <input type="hidden" class="company hidden-profit" value="1600" name="budget_west_profit_{{ $l }}">
+  										 <input type="hidden" class="company hidden-profit" value="" name="budget_west_profit_{{ $l }}">
   									 </td>
   									 <td class="company-profit-rate">%</td>
 										 @else
@@ -1146,7 +1146,7 @@
 											 <td class="company-expense">&yen;{{ $area_west_budget[$l-1]->headoffice_expense }}</td>
 											 <td class="company-profit">
 												 <span>&yen;{{ $area_west_budget[$l-1]->profit }}</span>
-												 <input type="hidden" class="company hidden-profit" value="1600" name="budget_west_profit_{{ $l }}">
+												 <input type="hidden" class="company hidden-profit" value="{{ $area_west_budget[$l-1]->profit }}" name="budget_west_profit_{{ $l }}">
 											 </td>
 											 <td class="company-profit-rate">{{ $area_west_budget[$l-1]->profit_rate }}%</td>
 									 @endif
@@ -1314,7 +1314,7 @@
 					 <div class="indi-area">
 						 <div class="area-heading">
 							 <h2>
-								 AREA CENTRAL
+								 Chubu
 							 </h2>
 						 </div>
 
@@ -1375,7 +1375,7 @@
   									 <td>&yen;</td>
   									 <td class="company-profit">
   										 <span>&yen;</span>
-  										 <input type="hidden" class="hidden-profit" value="1600" name="budget_central_profit{{ $k }}">
+  										 <input type="hidden" class="hidden-profit" value="" name="budget_central_profit{{ $k }}">
   									 </td>
   									 <td>%</td>
 									 @else
@@ -1388,7 +1388,7 @@
 										 <td>&yen;{{ $area_central_budget[$k-1]->headoffice_expense }}</td>
 										 <td class="company-profit">
 											 <span>&yen;{{ $area_central_budget[$k-1]->profit }}</span>
-											 <input type="hidden" class="hidden-profit" value="1600" name="budget_central_profit{{ $k }}">
+											 <input type="hidden" class="hidden-profit" value="{{ $area_central_budget[$k-1]->profit }}" name="budget_central_profit{{ $k }}">
 										 </td>
 										 <td>{{ $area_central_budget[$k-1]->profit_rate }}%</td>
 									 @endif
@@ -1553,7 +1553,7 @@
 					 <div class="indi-area">
 						 <div class="area-heading">
 							 <h2>
-								 AREA EAST
+								 Kansai
 							 </h2>
 						 </div>
 
@@ -1614,7 +1614,7 @@
 										 <td>&yen;</td>
 										 <td class="company-profit">
 											 <span>&yen;</span>
-											 <input type="hidden" class="hidden-profit" value="1600" name="budget_east_profit{{ $j }}">
+											 <input type="hidden" class="hidden-profit" value="" name="budget_east_profit{{ $j }}">
 										 </td>
 										 <td>%</td>
 									 	@else
@@ -1627,7 +1627,7 @@
 	 									 <td>&yen;{{ $area_east_budget[$j-1]->headoffice_expense }}</td>
 	 									 <td class="company-profit">
 	 										 <span>&yen;{{ $area_east_budget[$j-1]->profit }}</span>
-	 										 <input type="hidden" class="hidden-profit" value="1600" name="budget_east_profit{{ $j }}">
+	 										 <input type="hidden" class="hidden-profit" value="{{ $area_east_budget[$j-1]->profit }}" name="budget_east_profit{{ $j }}">
 	 									 </td>
 	 									 <td>{{ $area_east_budget[$j-1]->profit_rate }}%</td>
 									 @endif

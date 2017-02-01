@@ -14,7 +14,7 @@
                 var $el = $(el);
                 // Chrome Fix (Use keyup over keypress to detect backspace)
                 // thank you @palerdot
-                $el.is(':input') && $el.on('keyup keypress paste',function(e){
+                $el.is(':input') && $el.on('change keyup keypress paste',function(e){
                     // This catches the backspace button in chrome, but also prevents
                     // the event from triggering too preemptively. Without this line,
                     // using tab/shift+tab will make the focused element fire the callback.
@@ -37,280 +37,6 @@
     });
 })(jQuery);
 
-$(function(){
-
-	// DOM query
-	var addHourBtn = $('.increaseHour'),
-		addMinuteBtn = $('.increaseMinute'),
-		minusHourBtn = $('.decreaseHour'),
-		minusMinuteBtn = $('.decreaseMinute'),
-		timeInput = $('.time-input'),
-		fromHour = $('#from-hour').find('.time-input'),
-		toHour = $('#to-hour').find('.time-input');
-
-
-	// Bind onclick for add and minus button
-	$(addHourBtn).on('click', increaseHour);
-	$(addMinuteBtn).on('click', increaseMinute);
-	$(minusHourBtn).on('click', decreaseHour);
-	$(minusMinuteBtn).on('click', decreaseMinute);
-
-	// Listen on input time change event
-	if($(timeInput).parents().hasClass('validate-hour-range')){
-		$(timeInput).donetyping(function(){
-
-			if(!isValidTimeRange()){
-				notify('006');
-				return;
-			}
-
-			var val = $(this).val();
-			if(!isNumisLength(val, val.length)){
-				notify('001');
-				return;
-			}
-			var mama = $(this).parent();
-
-			// If parent of input is hour
-			if($(mama).hasClass('hour')){
-				if(!isMinMax(parseInt(val), 6, 36)){
-					$(this).val('06');
-					notify('004');
-					return;
-				}else{
-					appendTask();
-					return;
-				}
-			}
-
-			// If parent is minute input
-			if($(mama).hasClass('minute')){
-				if(!isMinMax(val, 0, 59)){
-					$(this).val('00');
-					notify('005');
-					return;
-				}
-				else{
-					return;
-				}
-			}
-
-		}, 700);
-	}
-	// Check whether value between min and max
-	function isMinMax(val, min, max){
-		if(!(val >= min && val <= max)){
-			return false;
-		}
-
-		return true;
-	}
-
-	// Check whether value is number and exactly length
-	function isNumisLength(num,len){
-		var code = "";
-		if(!($.isNumeric(num)) || num.length != len){
-			if(!($.isNumeric(num)) && num.length != len){
-				code = '001';
-				return code;
-			}else if(num.length != len){
-				code = '002';
-				return code;
-			}else{
-				code = '003';
-				return code;
-			}
-		}else{
-			return true;
-		}
-	}
-
-	// Validate start and stop time
-	function isValidTimeRange(){
-		var to = parseInt(toHour.val()),
-			from = parseInt(fromHour.val());
-
-		if(from > to){
-			return false;
-		}else{
-			return true;
-		}
-	}
-
-	// Increase hour input
-	function increaseHour(){
-
-		var instance = $(this).parents('.hour').find('.time-input');
-		var value = instance.val();
-
-		if(!isValidTimeRange()){
-			notify('006');
-			return;
-		}
-
-		var goodToGo = isNumisLength(value, value.length);
-		if(!goodToGo === 'true'){
-			notify(goodToGo);
-			return;
-		}
-
-		value = parseInt(value);
-		if(value < 36 && value >=9 ){
-			instance.val(parseInt(value + 1));
-		}else if(value<9){
-			instance.val('0'+ parseInt(value + 1));
-		}else{
-			instance.val(parseInt('36'));
-		}
-		appendTask();
-
-	}
-
-	// Increase minute input
-	function increaseMinute(){
-
-		var instance = $(this).parents('.minute').find('.time-input');
-		var value = instance.val();
-
-		// Validate input time
-		var goodToGo = isNumisLength(value, value.length);
-		if(!goodToGo === true){
-			notify(goodToGo);
-			return;
-		}
-
-		value = parseInt(value);
-		if(value < 59 && value >=9 ){
-			instance.val(parseInt(value + 1));
-		}else if(value<9){
-			instance.val('0'+ parseInt(value + 1));
-		}else{
-			instance.val(parseInt('59'));
-		}
-
-	}
-
-	// Decrease hour input
-	function decreaseHour(){
-
-		var instance = $(this).parents('.hour').find('.time-input');
-		var value = instance.val();
-
-		if(!isValidTimeRange()){
-			notify('006');
-			return;
-		}
-
-		// Validate time input
-		var goodToGo = isNumisLength(value, value.length);
-		if(!goodToGo === true){
-			notify(goodToGo);
-			return;
-		}
-
-		value = parseInt(value);
-		if(value <= 10 && value >= 7){
-			instance.val('0' + parseInt(value - 1));
-		}else if(value > 10){
-			instance.val(parseInt(value - 1));
-		}
-
-		appendTask();
-		offsetHour();
-	}
-
-	// Decrease minute input
-	function decreaseMinute(){
-
-		var instance = $(this).parents('.minute').find('.time-input');
-		var value = instance.val();
-
-		// validate time input
-		var goodToGo = isNumisLength(value, value.length);
-		if(!goodToGo === true){
-			notify(goodToGo);
-			return;
-		}
-
-		value = parseInt(value);
-		if(value <= 10 && value >= 1){
-			instance.val('0' + parseInt(value - 1));
-		}else if(value > 10){
-			instance.val(parseInt(value - 1));
-		}
-
-	}
-
-	// Set offset hour range
-	function offsetHour(){
-		var startHour = parseInt(fromHour.val()),
-			hoursRange = $('.hours-range');
-			offset = startHour - 6;
-
-			$(hoursRange).find('.task-hour').slice(0,offest).css({'visibility':'hidden'});
-	}
-
-	// Append task-hour to list
-	function appendTask(){
-		var startHour = parseInt(fromHour.val()),
-			stopHour = parseInt(toHour.val()),
-			tasksHour = stopHour - startHour,f
-			hoursRange = $('.hours-range'),
-			task_value = "my task";
-			hoursRange.empty();
-		for(i=0;i<tasksHour;i++){
-
-			$(hoursRange).append(
-				'<li class="task-hour">'+
-					'<div class="tasks">'+
-						'<div class="task">'+
-							'<select name="hour_'+(i+6)+'_1" class="tasks-select">'+
-								'<option></option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-							'</select>'+
-						'</div>'+
-						'<div class="task">'+
-							'<select name="hour_'+(i+6)+'_2" class="tasks-select">'+
-								'<option></option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-							'</select>'+
-						'</div>'+
-						'<div class="task">'+
-							'<select name="hour_'+(i+6)+'_3" class="tasks-select">'+
-								'<option></option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-							'</select>'+
-						'</div>'+
-						'<div class="task">'+
-							'<select name="hour_'+(i+6)+'_4" class="tasks-select">'+
-								'<option></option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-                                '<option value="'+task_value+'">Task hour'+ (i+6)+'</option>'+
-							'</select>'+
-						'</div>'+
-					'</div>'+
-				'</li>'
-			);
-		}
-
-	}
-
-});
 
 // Notify
 function notify(code, delay=3000){
@@ -402,7 +128,7 @@ function notify(code, delay=3000){
 			break;
 
 		case '006':
-			text = "Stop hour must greater than start hour!";
+			text = "Time in must before time out!";
 			ele.html(text);
 			ele.addClass('error');
 			$('body').append(ele);
@@ -426,23 +152,25 @@ function notify(code, delay=3000){
 // File upload
 $(function(){
 	var inputs = document.querySelectorAll( '.uploadfile' );
-	Array.prototype.forEach.call( inputs, function( input )
-	{
+	Array.prototype.forEach.call( inputs, function( input ){
 	  var label  = $(input).next(),
 	    labelVal = $(label).html();
 
-	  $(input).on( 'change', function( e )
-	  {
+	  $(input).on( 'change', function( e ){
 	    var fileName = '';
-	    if( this.files && this.files.length > 1 )
+	    if( this.files && this.files.length > 1 ){
 	      fileName = ( $(this).attr('data-multiple-caption') || '' ).replace( '{count}', this.files.length );
-	    else
+	    }
+	    else{
 	      fileName = e.target.value.split( '\\' ).pop();
+	    }
 
-	    if(fileName)
+	    if(fileName){
 	      $(label).html(fileName);
-	    else
+	    }
+	    else{
 	      $(label).html(labelVal);
+	    }
 	  });
 	});
 });
@@ -511,177 +239,265 @@ $(function(){
     var sub;
     if($(this).hasClass('revenue')){
     	if($(this).hasClass('forecast')){
-	      // For manager page | forecast section
-	      var revenue = parseFloat($(this).val()) || 0;
-	      var cost = $.isNumeric($(this).parents('tr').find('.forecast.cost').val()) ? parseFloat($(this).parents('tr').find('.forecast.cost').val()) : 0;
-	      var expense = $.isNumeric($(this).parents('tr').find('.forecast.expense').val()) ? parseFloat($(this).parents('tr').find('.forecast.expense').val()) : 0;
-	      var profit = revenue - cost - expense;
-	      var profitRate = (profit * 100) / revenue;
+	      	// For manager page | forecast section
+	      	var revenue = parseFloat($(this).val()) || 0;
+	      	var cost = $.isNumeric($(this).parents('tr').find('.forecast.cost').val()) ? parseFloat($(this).parents('tr').find('.forecast.cost').val()) : 0;
+	      	var expense = $.isNumeric($(this).parents('tr').find('.forecast.expense').val()) ? parseFloat($(this).parents('tr').find('.forecast.expense').val()) : 0;
+	      	var profit = revenue - cost - expense;
+	      	var profitRate = (profit * 100) / revenue;
+
+	      	$(this).parents('tr').find('.forecast-profit span')
+	      	.html('&yen;' + (profit).toFixed(2))
+	      	.next().val((profit).toFixed(2));
+
+	      	$(this).parents('tr').find('.forecast-profit-rate span')
+	      	.html(parseFloat((profitRate).toFixed(2)) + '%')
+	      	.next().val(parseFloat((profitRate).toFixed(2)));
+
+	      	// Calculate profit gap in final
+	      	var companyProfit = parseFloat($(this).parents('tr').find('.company.hidden-profit').val()) || 0;
+	      	var finalProfit = parseFloat($(this).parents('tr').find('.final.hidden-profit').val()) || 0;
+	      	var finalProfitGap = finalProfit - companyProfit;
+
+	      	// Render value for profit gap | @final section
+	      	$(this).parents('tr').find('.final-profit-gap span')
+	      	.html('&yen;'+parseFloat((finalProfitGap).toFixed(2)))
+	      	.next().val(parseFloat((finalProfitGap).toFixed(2)));
+
+	    }else if($(this).hasClass('final')){
+	   		// For Manager page | final section
+	   	  	var revenue = parseFloat($(this).val()) || 0;
+	      	var cost = $.isNumeric($(this).parents('tr').find('.final.cost').val()) ? parseFloat($(this).parents('tr').find('.final.cost').val()) : 0;
+	      	var expense = $.isNumeric($(this).parents('tr').find('.final.expense').val()) ? parseFloat($(this).parents('tr').find('.final.expense').val()) : 0;
+	      	var profit = revenue - cost - expense;
+	      	var profitRate = (profit * 100) / revenue;
 	      
-	      $(this).parents('tr').find('.forecast-profit span')
-	      .html('&yen;' + (profit).toFixed(2))
-	      .next().val((profit).toFixed(2));
 
-	      $(this).parents('tr').find('.forecast-profit-rate span')
-	      .html(parseFloat((profitRate).toFixed(2)) + '%')
-	      .next().val(parseFloat((profitRate).toFixed(2)));
+	      	// Render value for profit | @final section
+	      	$(this).parents('tr').find('.final-profit span')
+	      	.html('&yen;' + (profit).toFixed(2))
+	      	.next().val((profit).toFixed(2));
 
-	   }else if($(this).hasClass('final')){
-	   	// For Manager page | final section
-	   	  var revenue = parseFloat($(this).val()) || 0;
-	      var cost = $.isNumeric($(this).parents('tr').find('.final.cost').val()) ? parseFloat($(this).parents('tr').find('.final.cost').val()) : 0;
-	      var expense = $.isNumeric($(this).parents('tr').find('.final.expense').val()) ? parseFloat($(this).parents('tr').find('.final.expense').val()) : 0;
-	      var profit = revenue - cost - expense;
-	      var profitRate = (profit * 100) / revenue;
-	      var profitGap = ($(this).parents('tr').find('.company-profit .hidden-profit').val() - Math.abs(profit));
-	     
-	      // Render value for profit | @final section
-	      $(this).parents('tr').find('.final-profit span')
-	      .html('&yen;' + (profit).toFixed(2))
-	      .next().val((profit).toFixed(2));
+	      	// Render value for profit rate | @final section
+	      	$(this).parents('tr').find('.final-profit-rate span')
+	      	.html(parseFloat((profitRate).toFixed(2)) + '%')
+	      	.next().val(parseFloat((profitRate).toFixed(2)));
 
-	      // Render value for profit rate | @final section
-	      $(this).parents('tr').find('.final-profit-rate span')
-	      .html(parseFloat((profitRate).toFixed(2)) + '%')
-	      .next().val(parseFloat((profitRate).toFixed(2)));
+	      	// Calculate profit gap
+	      	var profitGap = (profit - $(this).parents('tr').find('.company.hidden-profit').val());
 
-	      // Render value for profit gap | @final section
-	      $(this).parents('tr').find('.final-profit-gap span')
-	      .html('&yen;'+parseFloat((profitGap).toFixed(2)))
-	      .next().val(parseFloat((profitGap).toFixed(2)));
+	      	// Render value for profit gap | @final section
+	      	$(this).parents('tr').find('.final-profit-gap span')
+	      	.html('&yen;'+parseFloat((profitGap).toFixed(2)))
+	      	.next().val(parseFloat((profitGap).toFixed(2)));
 
-	   }else{
-	   	// For admin page | forecast section
-	   	var revenue = parseFloat($(this).val()) || 0;
-	      var cost = $.isNumeric($(this).parents('tr').find('.company.cost').val()) ? parseFloat($(this).parents('tr').find('.company.cost').val()) : 0;
-	      var expense = $.isNumeric($(this).parents('tr').find('.company.expense').val()) ? parseFloat($(this).parents('tr').find('.company.expense').val()) : 0;
-	      var profit = revenue - cost - expense;
-	      var profitRate = (profit * 100) / revenue;
+	    }else if($(this).hasClass('company')){
+	   		// For admin page | forecast section
+	   	  	var revenue = parseFloat($(this).val()) || 0;
+	      	var cost = $.isNumeric($(this).parents('tr').find('.company.cost').val()) ? parseFloat($(this).parents('tr').find('.company.cost').val()) : 0;
+	      	var expense = $.isNumeric($(this).parents('tr').find('.company.expense').val()) ? parseFloat($(this).parents('tr').find('.company.expense').val()) : 0;
+	      	var profit = revenue - cost - expense;
+	      	var profitRate = (profit * 100) / revenue;
 
-	      $(this).parents('tr').find('.company-profit span').html('&yen;' + profit);
-	      $(this).parents('tr').find('.company-profit .hidden-profit').val(profit);
+	      	$(this).parents('tr').find('.company-profit span')
+	      	.html('&yen;' + profit)
+	      	.next().val(profit);
 
-	      $(this).parents('tr').find('.company-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
-	      $(this).parents('tr').find('.company-profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
-	   }
+	      	$(this).parents('tr').find('.company-profit-rate span')
+	      	.html(parseFloat((profitRate).toFixed(2)) + '%')
+	      	.next().val(parseFloat((profitRate).toFixed(2)));
+
+	      	// Calculate profit gap in final
+	      	var companyProfit = parseFloat($(this).parents('tr').find('.company.hidden-profit').val()) || 0;
+	      	var finalProfit = parseFloat($(this).parents('tr').find('.final.hidden-profit').val()) || 0;
+	      	var finalProfitGap = finalProfit - companyProfit;
+
+	      	// Render value for profit gap | @final section
+	      	$(this).parents('tr').find('.final-profit-gap span')
+	      	.html('&yen;'+parseFloat((finalProfitGap).toFixed(2)))
+	      	.next().val(parseFloat((finalProfitGap).toFixed(2)));
+
+	    }else{
+	   		alert('error');
+	    }
 
       // Calulate Sub Revenue
       calcSubTotal($(this));
-   } else if($(this).hasClass('cost')){
-   	if($(this).hasClass('forecast')){
-   		// For manager page | forecast section
-	      var revenue = $.isNumeric($(this).parents('tr').find('.forecast.revenue').val()) ? parseFloat($(this).parents('tr').find('.forecast.revenue').val()) : 0;
-	      var cost = parseFloat($(this).val()) || 0;
-	      var expense = $.isNumeric($(this).parents('tr').find('.forecast.expense').val()) ? parseFloat($(this).parents('tr').find('.forecast.expense').val()) : 0;
-	      var profit = revenue - cost - expense;
-	      var profitRate = (profit * 100) / revenue;
-	      
-	      $(this).parents('tr').find('.forecast-profit span')
-	      .html('&yen;' + (profit).toFixed(2))
-	      .next().val((profit).toFixed(2));
 
-	      $(this).parents('tr').find('.forecast-profit-rate span')
-	      .html(parseFloat((profitRate).toFixed(2)) + '%')
-	      .next().val(parseFloat((profitRate).toFixed(2)));
+    }else if($(this).hasClass('cost')){
+   		if($(this).hasClass('forecast')){
+   			// For manager page | forecast section
+	        var revenue = $.isNumeric($(this).parents('tr').find('.forecast.revenue').val()) ? parseFloat($(this).parents('tr').find('.forecast.revenue').val()) : 0;
+	    	var cost = parseFloat($(this).val()) || 0;
+	    	var expense = $.isNumeric($(this).parents('tr').find('.forecast.expense').val()) ? parseFloat($(this).parents('tr').find('.forecast.expense').val()) : 0;
+	    	var profit = revenue - cost - expense;
+	    	var profitRate = (profit * 100) / revenue;
 
-   	}else if($(this).hasClass('final')){
-   		// For Manager page | final section
-	   	var revenue = $.isNumeric($(this).parents('tr').find('.final.revenue').val()) ? parseFloat($(this).parents('tr').find('.final.revenue').val()) : 0;
-	      var cost = parseFloat($(this).val()) || 0;
-	      var expense = $.isNumeric($(this).parents('tr').find('.final.expense').val()) ? parseFloat($(this).parents('tr').find('.final.expense').val()) : 0;
-	      var profit = revenue - cost - expense;
-	      var profitRate = (profit * 100) / revenue;
-	      var profitGap = ($(this).parents('tr').find('.company-profit .hidden-profit').val() - Math.abs(profit));
-	      
-	      // Render value for profit | @final section
-	      $(this).parents('tr').find('.final-profit span')
-	      .html('&yen;' + (profit).toFixed(2))
-	      .next().val((profit).toFixed(2));
+	      	$(this).parents('tr').find('.forecast-profit span')
+	      	.html('&yen;' + (profit).toFixed(2))
+	      	.next().val((profit).toFixed(2));
 
-	      // Render value for profit rate | @final section
-	      $(this).parents('tr').find('.final-profit-rate span')
-	      .html(parseFloat((profitRate).toFixed(2)) + '%')
-	      .next().val(parseFloat((profitRate).toFixed(2)));
+	      	$(this).parents('tr').find('.forecast-profit-rate span')
+	      	.html(parseFloat((profitRate).toFixed(2)) + '%')
+	      	.next().val(parseFloat((profitRate).toFixed(2)));
 
-	      // Render value for profit gap | @final section
-	      $(this).parents('tr').find('.final-profit-gap span')
-	      .html('&yen;'+parseFloat((profitGap).toFixed(2)))
-	      .next().val(parseFloat((profitGap).toFixed(2)));
-   	}else{
-   		var revenue = $.isNumeric($(this).parents('tr').find('.company.revenue').val()) ? parseFloat($(this).parents('tr').find('.company.revenue').val()) : 0;
-	      var cost = parseFloat($(this).val()) || 0;
-	      var expense = $.isNumeric($(this).parents('tr').find('.company.expense').val()) ? parseFloat($(this).parents('tr').find('.company.expense').val()) : 0;
-	      var profit = revenue - cost - expense;
+	      	// Calculate profit gap in final
+	      	var companyProfit = parseFloat($(this).parents('tr').find('.company.hidden-profit').val()) || 0;
+	      	var finalProfit = parseFloat($(this).parents('tr').find('.final.hidden-profit').val()) || 0;
+	      	var finalProfitGap = finalProfit - companyProfit;
 
-	      var profitRate = (profit * 100) / revenue;
-	      console.log(revenue+":"+cost+":"+profit+":"+profitRate);
-	      $(this).parents('tr').find('.company-profit span').html('&yen;' + profit);
-	      $(this).parents('tr').find('.company-profit .hidden-profit').val(profit);
+	      	// Render value for profit gap | @final section
+	      	$(this).parents('tr').find('.final-profit-gap span')
+	      	.html('&yen;'+parseFloat((finalProfitGap).toFixed(2)))
+	      	.next().val(parseFloat((finalProfitGap).toFixed(2)));
 
-	      $(this).parents('tr').find('.company-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
-	      $(this).parents('tr').find('.company-profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
-   	}
-      
+   		}else if($(this).hasClass('final')){
+   			// For Manager page | final section
+	   		var revenue = $.isNumeric($(this).parents('tr').find('.final.revenue').val()) ? parseFloat($(this).parents('tr').find('.final.revenue').val()) : 0;
+	      	var cost = parseFloat($(this).val()) || 0;
+	      	var expense = $.isNumeric($(this).parents('tr').find('.final.expense').val()) ? parseFloat($(this).parents('tr').find('.final.expense').val()) : 0;
+	      	var profit = revenue - cost - expense;
+	      	var profitRate = (profit * 100) / revenue;
+
+	      	// Render value for profit | @final section
+	      	$(this).parents('tr').find('.final-profit span')
+	      	.html('&yen;' + (profit).toFixed(2))
+	      	.next().val((profit).toFixed(2));
+
+	      	// Render value for profit rate | @final section
+	      	$(this).parents('tr').find('.final-profit-rate span')
+	      	.html(parseFloat((profitRate).toFixed(2)) + '%')
+	      	.next().val(parseFloat((profitRate).toFixed(2)));
+
+	      	// Calculate profit gap
+	      	var profitGap = (profit - $(this).parents('tr').find('.company.hidden-profit').val());
+
+	      	// Render value for profit gap | @final section
+	      	$(this).parents('tr').find('.final-profit-gap span')
+	      	.html('&yen;'+parseFloat((profitGap).toFixed(2)))
+	      	.next().val(parseFloat((profitGap).toFixed(2)));
+
+   		}else if($(this).hasClass('company')){
+   			var revenue = $.isNumeric($(this).parents('tr').find('.company.revenue').val()) ? parseFloat($(this).parents('tr').find('.company.revenue').val()) : 0;
+	      	var cost = parseFloat($(this).val()) || 0;
+	      	var expense = $.isNumeric($(this).parents('tr').find('.company.expense').val()) ? parseFloat($(this).parents('tr').find('.company.expense').val()) : 0;
+	      	var profit = revenue - cost - expense;
+	      	var profitRate = (profit * 100) / revenue;
+
+	      	$(this).parents('tr').find('.company-profit span')
+	      	.html('&yen;' + profit)
+	      	.next().val(profit);
+
+	      	$(this).parents('tr').find('.company-profit-rate span')
+	      	.html(parseFloat((profitRate).toFixed(2)) + '%')
+	      	.next().val(parseFloat((profitRate).toFixed(2)));
+
+	      	// Calculate profit gap in final
+	      	var companyProfit = parseFloat($(this).parents('tr').find('.company.hidden-profit').val()) || 0;
+	      	var finalProfit = parseFloat($(this).parents('tr').find('.final.hidden-profit').val()) || 0;
+	      	var finalProfitGap = finalProfit - companyProfit;
+
+	      	// Render value for profit gap | @final section
+	      	$(this).parents('tr').find('.final-profit-gap span')
+	      	.html('&yen;'+parseFloat((finalProfitGap).toFixed(2)))
+	      	.next().val(parseFloat((finalProfitGap).toFixed(2)));
+
+   		}else{
+   			alert('error');
+   		}
 
       // Calulate Sub Cost
       calcSubTotal($(this));
-    }else{
+
+    }else if($(this).hasClass('expense')){
     	if($(this).hasClass('forecast')){
     		// For manager page | forecast section
-	      var revenue = $.isNumeric($(this).parents('tr').find('.forecast.revenue').val()) ? parseFloat($(this).parents('tr').find('.forecast.revenue').val()) : 0;
-	      var cost = $.isNumeric($(this).parents('tr').find('.final.cost').val()) ? parseFloat($(this).parents('tr').find('.final.cost').val()) : 0;
-	      var expense = parseFloat($(this).val()) || 0;
-	      var profit = revenue - cost - expense;
-	      var profitRate = (profit * 100) / revenue;
-	      
-	      $(this).parents('tr').find('.forecast-profit span')
-	      .html('&yen;' + (profit).toFixed(2))
-	      .next().val((profit).toFixed(2));
+	      	var revenue = $.isNumeric($(this).parents('tr').find('.forecast.revenue').val()) ? parseFloat($(this).parents('tr').find('.forecast.revenue').val()) : 0;
+	      	var cost = $.isNumeric($(this).parents('tr').find('.forecast.cost').val()) ? parseFloat($(this).parents('tr').find('.forecast.cost').val()) : 0;
+	      	var expense = parseFloat($(this).val()) || 0;
+	      	var profit = revenue - cost - expense;
+	      	var profitRate = (profit * 100) / revenue;
 
-	      $(this).parents('tr').find('.forecast-profit-rate span')
-	      .html(parseFloat((profitRate).toFixed(2)) + '%')
-	      .next().val(parseFloat((profitRate).toFixed(2)));
+	      	$(this).parents('tr').find('.forecast-profit span')
+	      	.html('&yen;' + (profit).toFixed(2))
+	      	.next().val((profit).toFixed(2));
+
+	      	$(this).parents('tr').find('.forecast-profit-rate span')
+	      	.html(parseFloat((profitRate).toFixed(2)) + '%')
+	      	.next().val(parseFloat((profitRate).toFixed(2)));
+
+	      	// Calculate profit gap in final
+	      	var companyProfit = parseFloat($(this).parents('tr').find('.company.hidden-profit').val()) || 0;
+	      	var finalProfit = parseFloat($(this).parents('tr').find('.final.hidden-profit').val()) || 0;
+	      	var finalProfitGap = finalProfit - companyProfit;
+
+	      	// Render value for profit gap | @final section
+	      	$(this).parents('tr').find('.final-profit-gap span')
+	      	.html('&yen;'+parseFloat((finalProfitGap).toFixed(2)))
+	      	.next().val(parseFloat((finalProfitGap).toFixed(2)));
+
     	}else if($(this).hasClass('final')){
     		// For Manager page | final section
-	   	var revenue = $.isNumeric($(this).parents('tr').find('.final.revenue').val()) ? parseFloat($(this).parents('tr').find('.final.revenue').val()) : 0;
-	      var cost = $.isNumeric($(this).parents('tr').find('.final.cost').val()) ? parseFloat($(this).parents('tr').find('.final.cost').val()) : 0;
-	      var expense = parseFloat($(this).val()) || 0;
-	      var profit = revenue - cost - expense;
-	      var profitRate = (profit * 100) / revenue;
-	      var profitGap = ($(this).parents('tr').find('.company-profit .hidden-profit').val() - Math.abs(profit));
-	      
-	      // Render value for profit | @final section
-	      $(this).parents('tr').find('.final-profit span')
-	      .html('&yen;' + (profit).toFixed(2))
-	      .next().val((profit).toFixed(2));
+	   		var revenue = $.isNumeric($(this).parents('tr').find('.final.revenue').val()) ? parseFloat($(this).parents('tr').find('.final.revenue').val()) : 0;
+	      	var cost = $.isNumeric($(this).parents('tr').find('.final.cost').val()) ? parseFloat($(this).parents('tr').find('.final.cost').val()) : 0;
+	      	var expense = parseFloat($(this).val()) || 0;
+	      	var profit = revenue - cost - expense;
+	      	var profitRate = (profit * 100) / revenue;
+	      	
 
-	      // Render value for profit rate | @final section
-	      $(this).parents('tr').find('.final-profit-rate span')
-	      .html(parseFloat((profitRate).toFixed(2)) + '%')
-	      .next().val(parseFloat((profitRate).toFixed(2)));
+	      	// Render value for profit | @final section
+	      	$(this).parents('tr').find('.final-profit span')
+	      	.html('&yen;' + (profit).toFixed(2))
+	      	.next().val((profit).toFixed(2));
 
-	      // Render value for profit gap | @final section
-	      $(this).parents('tr').find('.final-profit-gap span')
-	      .html('&yen;'+parseFloat((profitGap).toFixed(2)))
-	      .next().val(parseFloat((profitGap).toFixed(2)));
+	      	// Render value for profit rate | @final section
+	      	$(this).parents('tr').find('.final-profit-rate span')
+	      	.html(parseFloat((profitRate).toFixed(2)) + '%')
+	      	.next().val(parseFloat((profitRate).toFixed(2)));
+
+	      	// Caculate profit gap
+	      	var profitGap = (profit - $(this).parents('tr').find('.company.hidden-profit').val());
+
+	      	// Render value for profit gap | @final section
+	      	$(this).parents('tr').find('.final-profit-gap span')
+	      	.html('&yen;'+parseFloat((profitGap).toFixed(2)))
+	      	.next().val(parseFloat((profitGap).toFixed(2)));
+
+    	}else if($(this).hasClass('company')){
+    	  	var revenue = $.isNumeric($(this).parents('tr').find('.company.revenue').val()) ? parseFloat($(this).parents('tr').find('.company.revenue').val()) : 0;
+	      	var cost = $.isNumeric($(this).parents('tr').find('.company.cost').val()) ? parseFloat($(this).parents('tr').find('.company.cost').val()) : 0;
+	      	var expense = parseFloat($(this).val()) || 0;
+	      	var profit = revenue - cost - expense;
+	      	var profitRate = (profit * 100) / revenue;
+
+	      	$(this).parents('tr').find('.company-profit span')
+	      	.html('&yen;' + profit)
+	      	.next().val(profit);
+
+	      	$(this).parents('tr').find('.company-profit-rate span')
+	      	.html(parseFloat((profitRate).toFixed(2)) + '%')
+	      	.next().val(parseFloat((profitRate).toFixed(2)));
+
+	      	// Calculate profit gap in final
+	      	var companyProfit = parseFloat($(this).parents('tr').find('.company.hidden-profit').val()) || 0;
+	      	var finalProfit = parseFloat($(this).parents('tr').find('.final.hidden-profit').val()) || 0;
+	      	var finalProfitGap = finalProfit - companyProfit;
+
+	      	// Render value for profit gap | @final section
+	      	$(this).parents('tr').find('.final-profit-gap span')
+	      	.html('&yen;'+parseFloat((finalProfitGap).toFixed(2)))
+	      	.next().val(parseFloat((finalProfitGap).toFixed(2)));
+
     	}else{
-    	  var revenue = $.isNumeric($(this).parents('tr').find('.company.revenue').val()) ? parseFloat($(this).parents('tr').find('.company.revenue').val()) : 0;
-	      var cost = $.isNumeric($(this).parents('tr').find('.company.cost').val()) ? parseFloat($(this).parents('tr').find('.company.cost').val()) : 0;
-	      var expense = parseFloat($(this).val()) || 0;
-	      var profit = revenue - cost - expense;
-	      var profitRate = (profit * 100) / revenue;
-	      
-	      $(this).parents('tr').find('.company-profit span').html('&yen;' + profit);
-	      $(this).parents('tr').find('.company-profit .hidden-profit').val(profit);
-
-	      $(this).parents('tr').find('.company-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%');
-	      $(this).parents('tr').find('.company-profit-rate .hidden-profit-rate').val(parseFloat((profitRate).toFixed(2)));
+    		alert('error');
     	}
-	  	
+
     	// Calculate Sub Expense
     	calcSubTotal($(this));
-    }
 
+    }else{
+    	alert('error');
+    }
 
   }, 500);
 });
@@ -695,7 +511,7 @@ function calcSubTotal(ele){
 	    expense=0,
 	    profit=0,
 	    profitRate=0,
-	    profitGap=0;
+	    finalProfitGap=0;
 	if($(ele).hasClass('forecast')){
 
 		// Sum total of each input
@@ -704,6 +520,7 @@ function calcSubTotal(ele){
 		expense = sum($(ele).parents('tbody').find('.forecast.expense'));
 		profit = sum($(ele).parents('tbody').find('.forecast.hidden-profit'));
 		profitRate = sum($(ele).parents('tbody').find('.forecast.hidden-profit-rate'));
+		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
 
 		// Render html value & input hidden
 		$(subDiv).find('.forecast-sub-sale span').html('&yen;'+sale).next().val(sale);
@@ -711,7 +528,8 @@ function calcSubTotal(ele){
   		$(subDiv).find('.forecast-sub-expense span').html('&yen;'+expense).next().val(expense);
   		$(subDiv).find('.forecast-sub-profit span').html('&yen;'+profit).next().val(profit);
   		$(subDiv).find('.forecast-sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
-		
+  		$(subDiv).find('.final-sub-profit-gap span').html('&yen;'+parseFloat((finalProfitGap).toFixed(2))).next().val(parseFloat((finalProfitGap).toFixed(2)));
+
 	}else if($(ele).hasClass('final')){
 
 		// Sum total of each input
@@ -720,15 +538,15 @@ function calcSubTotal(ele){
 		expense = sum($(ele).parents('tbody').find('.final.expense'));
 		profit = sum($(ele).parents('tbody').find('.final.hidden-profit'));
 		profitRate = sum($(ele).parents('tbody').find('.final.hidden-profit-rate'));
-		profitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
-		
+		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
+
 		// Render html value & input hidden
 		$(subDiv).find('.final-sub-sale span').html('&yen;'+sale).next().val(sale);
   		$(subDiv).find('.final-sub-cost span').html('&yen;'+cost).next().val(cost);
   		$(subDiv).find('.final-sub-expense span').html('&yen;'+expense).next().val(expense);
   		$(subDiv).find('.final-sub-profit span').html('&yen;'+profit).next().val(profit);
   		$(subDiv).find('.final-sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
-  		$(subDiv).find('.final-sub-profit-gap span').html('&yen;'+parseFloat((profitGap).toFixed(2))).next().val(parseFloat((profitGap).toFixed(2)));
+  		$(subDiv).find('.final-sub-profit-gap span').html('&yen;'+parseFloat((finalProfitGap).toFixed(2))).next().val(parseFloat((finalProfitGap).toFixed(2)));
 
 	}else if($(ele).hasClass('company')){
 		sale = sum($(ele).parents('tbody').find('.company.revenue'));
@@ -736,16 +554,18 @@ function calcSubTotal(ele){
 		expense = sum($(ele).parents('tbody').find('.company.expense'));
 		profit = sum($(ele).parents('tbody').find('.company.hidden-profit'));
 		profitRate = sum($(ele).parents('tbody').find('.company.hidden-profit-rate'));
-		
+		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
+
 		// Render html value & input hidden
 		$(subDiv).find('.sub-sale span').html('&yen;'+sale).next().val(sale);
   		$(subDiv).find('.sub-cost span').html('&yen;'+cost).next().val(cost);
   		$(subDiv).find('.sub-expense span').html('&yen;'+expense).next().val(expense);
   		$(subDiv).find('.sub-profit span').html('&yen;'+profit).next().val(profit);
   		$(subDiv).find('.sub-profit-rate span').html(parseFloat((profitRate).toFixed(2)) + '%').next().val(parseFloat((profitRate).toFixed(2)));
-		
+  		$(subDiv).find('.final-sub-profit-gap span').html('&yen;'+parseFloat((finalProfitGap).toFixed(2))).next().val(parseFloat((finalProfitGap).toFixed(2)));
+
 	}else{
-		
+
 	}
 
   CalcGross();
@@ -790,14 +610,14 @@ function CalcGross(){
 	});
 
 	// Render Gross Value
-	
+
 	$('.gross-sale').find('span').html('&yen;'+grossSale).next().val(grossSale);
 	$('.gross-cost').find('span').html('&yen;'+grossCost).next().val(grossCost);
 	$('.gross-expense').find('span').html('&yen;'+grossExpense).next().val(grossExpense);
 	$('.gross-profit').find('span').html('&yen;'+grossProfit).next().val(grossProfit);
 	$('.gross-profit-rate').find('span').html(grossProfitRate+'%').next().val(grossProfitRate);
 	$('.gross-setting-rate').find('span').html(grossSettingRate+'%').next().val(grossSettingRate);
-  
+
 }
 
 // Caculate sum data of input element
@@ -806,11 +626,134 @@ function sum(datas){
 	var len = vals.length,
 		sum = 0;
 	for(var i=0; i<len; i++){
-		sum += parseFloat($(vals[i]).val()) || 0; 
+		sum += parseFloat($(vals[i]).val()) || 0;
 	}
 
 	return sum;
 }
 
 
+// $(function(){
 
+// 	var days_in_month = {
+// 		'1':31,
+// 		'2':28,
+// 		'3':31,
+// 		'4':30,
+// 		'5':31,
+// 		'6':30,
+// 		'7':31,
+// 		'8':31,
+// 		'9':30,
+// 		'10':31,
+// 		'11':30,
+// 		'12':31
+
+// 	}
+
+// 	var dateHeader = $('#date_header');
+// 	var shiftRecord = $('#shift_record');
+
+//   function determineLeapYear(year){
+//     if((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)){
+//       days_in_month['2'] = 29
+//     }else{
+//       days_in_month['2'] = 28
+//     }
+//   }
+
+// 	function changeDateHeader(){
+
+// 		var year = $('#year').val();
+// 		var month = $('#month').val();
+// 		determineLeapYear(year);
+
+// 		var dayLen = days_in_month[month];
+
+// 		$(dateHeader)
+// 		.empty()
+// 		.append(
+// 			'<th>No</th>' +
+// 			'<th style="width:20%">Worker Name</th>'
+// 		);
+// 		for(var i=1; i<=dayLen; i++){
+// 			$(dateHeader).append(
+// 				'<th>'+i+'</th>'
+// 			);
+// 		}
+// 	}
+
+//   $('#location, #month, #year').on('change', function(){
+//     	changeDateHeader();
+// 		getWorkShift();
+//   });
+
+// 	// Ajax request to get workshift
+// 	function getWorkShift(){
+
+// 		// $.ajaxSetup({
+//    // 		headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
+// 		// });
+
+// 		$.ajax({
+// 			url: '/api/workshift',
+// 			type: 'POST',
+// 			dataType: 'json',
+// 			data: {location:$("#location").val(),month:$("#month").val(),year:$("#year").val(),_token:$('meta[name=csrf-token]').attr('content') },
+// 			success: function(response){
+//         console.log(JSON.stringify(response));
+// 				var staffs = response.staff;
+
+// 				$(shiftRecord).empty();
+
+// 				for(var i=0; i<staffs.length; i++){
+// 					var staffHtml = '',
+// 							selectHtml = '',
+// 							recordHtml = '';
+
+// 					staffHtml = '<tr>'+
+// 						'<td>'+(i+1)+'</td>'+
+// 						'<td>'+staffs[i].staff_name+'</td>';
+
+// 					for(var j=0; j<staffs[i].work_shift.length; j++){
+// 						if(staffs[i].work_shift[j] == 0){
+// 							selectHtml = selectHtml + '<td>'+
+// 								'<select class="sel-box">'+
+// 									'<option selected="selected" value="0">X</option>'+
+// 									'<option value="1">O</option>'+
+// 								'</select>'+
+// 							'</td>';
+// 						}else{
+// 							selectHtml = selectHtml +'<td>'+
+// 								'<select class="sel-box">'+
+// 									'<option value="0">X</option>'+
+// 									'<option selected="selected" value="1">O</option>'+
+// 								'</select>'+
+// 							'</td>';
+// 						}
+
+// 					}
+
+// 					recordHtml = staffHtml + selectHtml + '</tr>';
+// 					$(shiftRecord).append(recordHtml);
+// 					staffHtml = '';
+// 					selectHtml = '';
+// 					recordHtml = '';
+// 				}
+
+// 			},
+// 			error: function(error){
+
+// 			}
+// 		});
+
+// 	}
+
+// 	changeDateHeader();
+// 	getWorkShift();
+
+// 	$('#ajaxBtn').on('click', function(){
+// 		getWorkShift();
+// 	});
+
+// });
