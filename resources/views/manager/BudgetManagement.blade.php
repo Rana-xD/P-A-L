@@ -204,14 +204,12 @@
 						<input type="hidden" name="month_a" id="month_a">
 						<input type="hidden" name="year_a" id="year_a">
 						<div class="tables-content">
-
 							<div class="indi-area">
 								<div class="area-heading">
 									<h2>
 										Kanto
 									</h2>
 								</div>
-
 								<table class="scroll">
 									<thead>
 										<tr>
@@ -364,12 +362,21 @@
 										</tr>
 									@endforeach
 										<tr class="subtotal">
-											<td>Subtotal</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>%</td>
-											<td>%</td>
+											@if (empty($sub_budget_west[0]))
+												<td>Subtotal</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>%</td>
+												<td>%</td>
+												@else
+													<td>Subtotal</td>
+													<td>&yen;{{ $sub_budget_west[0]->revenue }}</td>
+													<td>&yen;{{ $sub_budget_west[0]->cost }}</td>
+													<td>&yen;{{ $sub_budget_west[0]->headoffice_expense }}</td>
+													<td>&yen;{{ $sub_budget_west[0]->profit }}</td>
+													<td>{{ $sub_budget_west[0]->profit_rate }}%</td>
+											@endif
 
 											<td class="forecast-sub-sale">
 												<span>&yen;</span>
@@ -1207,12 +1214,21 @@
 								 </tr>
 							 @endforeach
 								 <tr class="subtotal">
-									 <td>Subtotal</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>%</td>
-									 <td>%</td>
+									 @if (empty($sub_budget_west[0]))
+										 <td>Subtotal</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>%</td>
+										 <td>%</td>
+										 @else
+											 <td>Subtotal</td>
+											 <td>&yen;{{ $sub_budget_west[0]->revenue }}</td>
+											 <td>&yen;{{ $sub_budget_west[0]->cost }}</td>
+											 <td>&yen;{{ $sub_budget_west[0]->headoffice_expense }}</td>
+											 <td>&yen;{{ $sub_budget_west[0]->profit }}</td>
+											 <td>{{ $sub_budget_west[0]->profit_rate }}%</td>
+									 @endif
 
 									 <td class="forecast-sub-sale">
 										 <span>&yen;</span>
