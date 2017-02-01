@@ -12,6 +12,11 @@
     <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
 	<script src="/js/script.js"></script>
     <script src="/js/time_management_individaul.js"></script>
+    {{-- <script src="/js/validationcheck.js"></script> --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="sweetalert.css">
     <style>
         .row{
             position: relative;
@@ -118,6 +123,14 @@
                 <!-- Chosse Location and Staff -->
                 <div class="row location_staffs">
                     <div class="form-group">
+					   <div class="date-schedule">
+						  <h4>
+							Select date :
+						  </h4>
+						<input type="text" name="date" ng-model="date" class="datepicker alert" ng-readonly="true" ng-required="true">
+						<p class="custom-error date-err ng-hide" ng-show="input_form.date.$touched && input_form.date.$error.required">This field is required</p>
+						<input type="hidden" name="current_date" id="current_date">
+						</div>
                         <div class="inline">
                             <label>Location : </label>
                             <select name="location" id="location" class="custom_select">
@@ -204,7 +217,7 @@
                                 <input name="stop_hour"
                                        type="text"
                                        class="time-input"
-                                       value="06">
+                                       value="17">
                                 <span class="decrease hour decreaseHour">
                                     <i class="fa fa-minus"></i>
                                 </span>
@@ -271,11 +284,11 @@
                             <div id="bulk-task-shortcut" class="bulk-task-shortcut">
                                 <select id="bulk_action_time_in" class="bulk_action_time_in">
                                     <option disabled="disabled" selected>From time</option>
-                                   
+
                                 </select>
                                 <select id="bulk_action_time_out" class="bulk_action_time_out">
                                     <option disabled="disabled" selected>To time</option>
-                                    
+
                                 </select>
                                 <select class="bulk_action_tasks" id="bulk_action_tasks">
                                     <option disabled="disabled" selected>Select task</option>
@@ -381,7 +394,13 @@
                 </div>
             </form>
         </div>
-
+        <script>
+        $(function(){
+          $('.datepicker').datepicker({
+            maxDate: new Date()
+          });
+        });
+        </script>
   </body>
 </body>
 </html>

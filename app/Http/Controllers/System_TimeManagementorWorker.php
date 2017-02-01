@@ -15,18 +15,25 @@ class System_TimeManagementorWorker extends Controller
 
    public function info()
    {
+      try{
       $locations = DB::table('location_master')
               ->select('location_id','location_name')->get();
 
       $staff = DB::table('staff_master')
              ->select('staff_name','id')
-             ->where('location','=',$locations[0]->location_id)
+             ->where('location','=',$locations[1]->location_id)
              ->get();
       $process = DB::table('process_master')->get();
-      $default = $locations[0]->location_id;
+      $default = $locations[1]->location_id;
 
 
-     return view ('TimemanagementIndividual',compact('default','staff','locations','process'));
+     return view ('TimeManagementIndividual',compact('default','staff','locations','process'));
+  }
+  catch(\Exception $e)
+      {
+         DB::rollback();
+         return $error = $e->getMessage();
+      }
    }
 
    // Accepted Ajax Request
@@ -65,12 +72,12 @@ class System_TimeManagementorWorker extends Controller
                ->where([
                   ['location',$location],
                   ['staff',$staff],
-                  ['date'],$newdate
+                  ['date',$newdate]
                ])
                ->get();
       if (empty($exist[0])) {
          DB::beginTransaction();
-      try{
+         try{
          // filter time input
          $start_hour = $request->input('start_hour');
          $start_minute = $request->input('start_minute');
@@ -124,7 +131,7 @@ class System_TimeManagementorWorker extends Controller
                  }
               }
            }
-            return $output;
+            // return $output;
             DB::table('time_management')->insert(
                ['date' => $newdate,'staff' => $staff,'location' => $location, 'work_shift' => $output['work_shift'], 'start_time' => $output['start_time'], 'end_time' => $output['stop_time'], 'working_hour' => $output['working_hour'],'actual_working_hour' => $output['actual_work'],'overtime_working_hour' => $output['over_time'],'process' => $output['process'],'created_at' => new DateTime]
             );

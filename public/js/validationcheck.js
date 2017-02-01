@@ -2,6 +2,7 @@ var app = angular.module('app', []);
 
 app.controller('MainCtrl', function($scope) {
     $scope.validLength = 4;
+    console.log("Main controllers");
 });
 
 app.directive('myMaxlength', ['$compile', '$log', function($compile, $log) {
@@ -44,19 +45,19 @@ app.directive('numbersOnly', function() {
     };
 });
 
-app.directive('validRate', function() {
+app.directive('validFlaot', function() {
     return {
         require: '?ngModel',
         link: function(scope, element, attrs, ngModelCtrl) {
             if(!ngModelCtrl) {
-                return; 
+                return;
             }
 
             ngModelCtrl.$parsers.push(function(val) {
                 if (angular.isUndefined(val)) {
                     var val = '';
                 }
-            
+
                 var clean = val.replace(/[^-0-9\.]/g, '');
                 var negativeCheck = clean.split('-');
                 var decimalCheck = clean.split('.');
@@ -66,9 +67,91 @@ app.directive('validRate', function() {
                     if(negativeCheck[0].length > 0) {
                         clean =negativeCheck[0];
                     }
-                    
+
                 }
-                  
+
+                if (val !== clean) {
+                  ngModelCtrl.$setViewValue(clean);
+                  ngModelCtrl.$render();
+                }
+                return clean;
+            });
+
+            element.bind('keypress', function(event) {
+                if(event.keyCode === 32) {
+                  event.preventDefault();
+                }
+            });
+        }
+    };
+});
+
+app.directive('validRate', function() {
+    return {
+        require: '?ngModel',
+        link: function(scope, element, attrs, ngModelCtrl) {
+            if(!ngModelCtrl) {
+                return;
+            }
+
+            ngModelCtrl.$parsers.push(function(val) {
+                if (angular.isUndefined(val)) {
+                    var val = '';
+                }
+
+                var clean = val.replace(/[^-0-9\.]/g, '');
+                var negativeCheck = clean.split('-');
+                var decimalCheck = clean.split('.');
+                if(!angular.isUndefined(negativeCheck[1])) {
+                    negativeCheck[1] = negativeCheck[1].slice(0, negativeCheck[1].length);
+                    clean =negativeCheck[0] + '-' + negativeCheck[1];
+                    if(negativeCheck[0].length > 0) {
+                        clean =negativeCheck[0];
+                    }
+
+                }
+
+                if (val !== clean) {
+                  ngModelCtrl.$setViewValue(clean);
+                  ngModelCtrl.$render();
+                }
+                return clean;
+            });
+
+            element.bind('keypress', function(event) {
+                if(event.keyCode === 32) {
+                  event.preventDefault();
+                }
+            });
+        }
+    };
+});
+
+app.directive('validRate', function() {
+    return {
+        require: '?ngModel',
+        link: function(scope, element, attrs, ngModelCtrl) {
+            if(!ngModelCtrl) {
+                return;
+            }
+
+            ngModelCtrl.$parsers.push(function(val) {
+                if (angular.isUndefined(val)) {
+                    var val = '';
+                }
+
+                var clean = val.replace(/[^-0-9\.]/g, '');
+                var negativeCheck = clean.split('-');
+                var decimalCheck = clean.split('.');
+                if(!angular.isUndefined(negativeCheck[1])) {
+                    negativeCheck[1] = negativeCheck[1].slice(0, negativeCheck[1].length);
+                    clean =negativeCheck[0] + '-' + negativeCheck[1];
+                    if(negativeCheck[0].length > 0) {
+                        clean =negativeCheck[0];
+                    }
+
+                }
+
                 if(!angular.isUndefined(decimalCheck[1])) {
                     decimalCheck[1] = decimalCheck[1].slice(0,2);
                     clean =decimalCheck[0] + '.' + decimalCheck[1];
@@ -93,19 +176,19 @@ app.directive('validRate', function() {
 app.directive('requiredAny', function () {
     // Hash for holding the state of each group
     var groups = {};
-    
+
     // Helper function: Determines if at least one control
     //                  in the group is non-empty
     function determineIfRequired(groupName) {
         var group = groups[groupName];
         if (!group) return false;
-        
+
         var keys = Object.keys(group);
         return keys.every(function (key) {
             return (key === 'isRequired') || !group[key];
         });
     }
-    
+
     return {
         restrict: 'A',
         require: '?ngModel',
@@ -115,7 +198,7 @@ app.directive('requiredAny', function () {
             // If there is no `ngModel` or no groupName has been specified,
             // then there is nothing we can do
             if (!modelCtrl || !attrs.requiredAny) return;
-            
+
             // Get a hold on the group's state object
             // (if it doesn't exist, initialize it first)
             var groupName = attrs.requiredAny;
@@ -123,7 +206,7 @@ app.directive('requiredAny', function () {
                 groups[groupName] = {isRequired: true};
             }
             var group = scope.group = groups[groupName];
-            
+
             // Clean up when the element is removed
             scope.$on('$destroy', function () {
                 delete(group[scope.$id]);
@@ -131,7 +214,7 @@ app.directive('requiredAny', function () {
                     delete(groups[groupName]);
                 }
             });
-            
+
             // Updates the validity state for the 'required' error-key
             // based on the group's status
             function updateValidity() {
@@ -141,7 +224,7 @@ app.directive('requiredAny', function () {
                     modelCtrl.$setValidity('required', true);
                 }
             }
-            
+
             // Updates the group's state and this control's validity
             function validate(value) {
                 group[scope.$id] = !modelCtrl.$isEmpty(value);
@@ -149,7 +232,7 @@ app.directive('requiredAny', function () {
                 updateValidity();
                 return group.isRequired ? undefined : value;
             };
-            
+
             // Make sure re-validation takes place whenever:
             //   either the control's value changes
             //   or the group's `isRequired` property changes
