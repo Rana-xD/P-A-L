@@ -385,7 +385,7 @@
                   <p ng-show="(!quantity_buy_{{ $accident->id }} && amount_to_pay_{{ $accident->id }}) ||  (!quantity_buy_{{ $accident->id }} && comment_{{ $accident->id }})" class="custom-error ng-hide">This field is required</p>
                 </td>
                 <td class="text-center">
-                  <input type="text" name="amount_to_pay_{{ $accident->id }}" ng-model="amount_to_pay_{{ $accident->id }}" required-any="value" numbers-only my-maxlength="10">
+                  <input type="text" name="amount_to_pay_{{ $accident->id }}" ng-model="amount_to_pay_{{ $accident->id }}" required-any="value" numbers-only my-maxlength="10" valid-rate>
                   <p class="custom-error ten-dig" style="display: none;">Allow only ten digits</p>
                   <p class="custom-error err-req require-any" style="display: none;">At least one row has to be filled</p>
                   <p ng-show="(!amount_to_pay_{{ $accident->id }} && quantity_buy_{{ $accident->id }}) || (!amount_to_pay_{{ $accident->id }} && comment_{{ $accident->id }})" class="custom-error ng-hide">This field is required</p>
