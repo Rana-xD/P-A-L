@@ -51,12 +51,32 @@ class System_TimeManagementorWorker extends Controller
    // Get specific user info
    public function get_user_info(Request $request, $userid){
     if($request->ajax()){
-      $user = DB::table('staff_master')
-             ->join('time_shift_master','staff_master.work_shift','=','time_shift_master.id')
-             ->select('time_shift_master.time_in','time_shift_master.time_out','time_shift_master.rest')
-             ->where('staff_master.id','=',$userid)
-             ->get();
-      return response()->json(['user'=>$user]);
+      $date = $request->date;
+      $date_1  = DateTime::createFromFormat('m/d/Y', $date);
+      $newdate = $date_1->format('Y-m-d');
+      $exist = DB::table('time_management')->select('start_time','end_time','rest','process')->where([
+        ['date','=',$newdate],
+        ['staff','=',$userid]
+      ])
+      ->get();
+      if(empty($exist[0]))
+      {
+        $user = DB::table('staff_master')
+               ->join('time_shift_master','staff_master.work_shift','=','time_shift_master.id')
+               ->select('time_shift_master.time_in','time_shift_master.time_out','time_shift_master.rest')
+               ->where('staff_master.id','=',$userid)
+               ->get();
+        return response()->json(['user'=>$user]);
+      }
+      else {
+        $user = DB::table('staff_master')
+               ->join('time_shift_master','staff_master.work_shift','=','time_shift_master.id')
+               ->select('time_shift_master.time_in','time_shift_master.time_out','time_shift_master.rest')
+               ->where('staff_master.id','=',$userid)
+               ->get();
+        return response()->json(['user_exist'=>$exist,'user'=>$user]);
+      }
+
     }
    }
 
@@ -121,7 +141,7 @@ class System_TimeManagementorWorker extends Controller
          }
             $output['process'] = '';
            //add process data
-           for ($i=6; $i <= 36 ; $i++) {
+           for ($i=6; $i < 36 ; $i++) {
               for ($j=1; $j <= 4 ; $j++) {
                  if (empty($output['hour_'.$i.'_'.$j])) {
                     $output['process'] = $output['process'].'0,';
@@ -133,7 +153,7 @@ class System_TimeManagementorWorker extends Controller
            }
             // return $output;
             DB::table('time_management')->insert(
-               ['date' => $newdate,'staff' => $staff,'location' => $location, 'work_shift' => $output['work_shift'], 'start_time' => $output['start_time'], 'end_time' => $output['stop_time'], 'working_hour' => $output['working_hour'],'actual_working_hour' => $output['actual_work'],'overtime_working_hour' => $output['over_time'],'process' => $output['process'],'created_at' => new DateTime]
+               ['date' => $newdate,'staff' => $staff,'location' => $location, 'work_shift' => $output['work_shift'], 'start_time' => $output['start_time'], 'end_time' => $output['stop_time'], 'working_hour' => $output['working_hour'],'actual_working_hour' => $output['actual_work'],'overtime_working_hour' => $output['over_time'],'process' => $output['process'],'rest' => $output['rest_minute'],'created_at' => new DateTime]
             );
             DB::commit();
             return "insert";

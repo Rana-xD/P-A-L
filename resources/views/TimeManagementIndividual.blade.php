@@ -87,6 +87,12 @@
         .bulk-task-shortcut{
             display: none;
         }
+        #hours-range .task-hour .tasks-select.visible{
+            visibility: visible;
+        }
+        #hours-range .task-hour .tasks-select.hide{
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
@@ -121,7 +127,7 @@
 						  <h4>
 							Select date :
 						  </h4>
-						<input type="text" name="date" ng-model="date" class="datepicker alert" ng-readonly="true" ng-required="true">
+						<input type="text" id="date" name="date" ng-model="date" class="datepicker alert" ng-readonly="true" ng-required="true">
 						<p class="custom-error date-err ng-hide" ng-show="input_form.date.$touched && input_form.date.$error.required">This field is required</p>
 						<input type="hidden" name="current_date" id="current_date">
 						</div>
@@ -155,7 +161,7 @@
                 <div class="row">
                     <div class="time-range validate-hour-range">
 
-                        <div class="from">
+                        <div class="from time-group">
                         	<div class="heading">
                         		<h4>
                         			Time in
@@ -198,7 +204,7 @@
                         	</h1>
                         </div>
 
-                        <div class="to">
+                        <div class="to time-group">
                         	<div class="heading">
                         		<h4>
                         			Time out
@@ -341,7 +347,7 @@
                                     <div class="tasks">
                                         <div class="task">
                                             <select name="hour_{{$i}}_1" class="tasks-select">
-                                                <option></option>
+                                                <option value="A"></option>
                                                 @foreach($process as $task)
                                                 <option value="{{$task->id}}">{{$task->process_name}}</option>
                                                 @endforeach
@@ -350,7 +356,7 @@
                                         </div>
                                         <div class="task">
                                             <select name="hour_{{$i}}_2" class="tasks-select">
-                                                <option></option>
+                                                <option value="A"></option>
                                                 @foreach($process as $task)
                                                 <option value="{{$task->id}}">{{$task->process_name}}</option>
                                                 @endforeach
@@ -359,7 +365,7 @@
                                         </div>
                                         <div class="task">
                                             <select name="hour_{{$i}}_3" class="tasks-select">
-                                                <option></option>
+                                                <option value="A"></option>
                                                 @foreach($process as $task)
                                                 <option value="{{$task->id}}">{{$task->process_name}}</option>
                                                 @endforeach
@@ -368,7 +374,7 @@
                                         </div>
                                         <div class="task">
                                             <select name="hour_{{$i}}_4" class="tasks-select">
-                                                <option></option>
+                                                <option value="A"></option>
                                                 @foreach($process as $task)
                                                 <option value="{{$task->id}}">{{$task->process_name}}</option>
                                                 @endforeach
