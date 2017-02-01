@@ -30,25 +30,25 @@ class login extends Controller
              session_start();
              $_SESSION['role'] = 'manager';
              $_SESSION['location'] = 2;
-             return view ('manager.TimeManagementLocation');
+             return redirect ('budget');
          }
          else if (($name=="manager_tokyo") || ($name=="Manager_tokyo"))
          {
              session_start();
              $_SESSION['role'] = 'manager';
              $_SESSION['location'] = 1;
-             return view ('manager.TimeManagementLocation');
+             return redirect ('budget');
          }
          else if (($name=="admin") || ($name=="Admin")) {
              session_start();
              $_SESSION['role'] = 'admin';
              $_SESSION['location'] = 0;
-             return view ('admin.TimeManagementLocation');
+             return redirect ('budget');
          }
          else {
              return redirect('/');
          }
 
     }
-    
+
 }
