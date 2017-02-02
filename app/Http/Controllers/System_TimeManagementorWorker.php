@@ -51,7 +51,11 @@ class System_TimeManagementorWorker extends Controller
    // Get specific user info
    public function get_user_info(Request $request, $userid){
     if($request->ajax()){
-      $date = $request->date;
+      $date = $request->input('_date');
+      if(empty($date))
+      {
+        return response()->json(['user'=>'']);
+      }
       $date_1  = DateTime::createFromFormat('m/d/Y', $date);
       $newdate = $date_1->format('Y-m-d');
       $exist = DB::table('time_management')->select('start_time','end_time','rest','process')->where([

@@ -127,7 +127,7 @@
 						  <h4>
 							Select date :
 						  </h4>
-						<input type="text" id="date" name="date" ng-model="date" class="datepicker alert" ng-readonly="true" ng-required="true">
+						<input type="text" id="date_record" name="date" ng-model="date" class="datepicker alert" ng-readonly="true" ng-required="true">
 						<p class="custom-error date-err ng-hide" ng-show="input_form.date.$touched && input_form.date.$error.required">This field is required</p>
 						<input type="hidden" name="current_date" id="current_date">
 						</div>
