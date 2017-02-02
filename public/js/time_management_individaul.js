@@ -221,11 +221,11 @@ $(function(){
 		// Check whether value is number and exactly length
 		function isNumisLength(num,len){
 			var code = "";
-			if(!($.isNumeric(num)) || num.length != len){
-				if(!($.isNumeric(num)) && num.length != len){
+			if(!$.isNumeric(num) || num.length !== len){
+				if(!$.isNumeric(num) && num.length !== len){
 					code = '001';
 					return code;
-				}else if(num.length != len){
+				}else if(num.length !== len){
 					code = '002';
 					return code;
 				}else{
@@ -443,14 +443,15 @@ $(function(){
 		// Listen on input time change event
 		$(timeInput).donetyping(function(){
 
-			var val = $(this).val() || 0;
+			var val = $(this).val();
 			var mama = $(this).parent();
 			// If parent of input is hour
 			if($(mama).hasClass('hour')){
 				// Check if time is numeric & exact length
-				var code = isNumisLength(val, 2);
-				if(!code == true){
-					$(this).val('06');
+				var code = isNumisLength(val, 2),
+					finalVal = 0;
+				if(!code === true){
+					$(this).val('06').change();
 					notify(code);
 					taskVisibility();
 					triggerBulkTimeInOut();
@@ -459,12 +460,14 @@ $(function(){
 
 				// Check it's a minute range
 				if(!isMinMax(parseInt(val), 6, 36)){
-					$(this).val('06');
+					$(this).val('06').change();
 					notify('004');
 					taskVisibility();
 					triggerBulkTimeInOut();
 					return;
 				}
+				finalVal = parseInt(val);
+				$(this).val(finalVal<10 ? '0'+finalVal : finalVal);
 			}
 
 			// If parent is minute input
@@ -496,7 +499,7 @@ $(function(){
 			if(!isValidTimeRange()){
 				var toVal = parseInt($(fromHour).val()) + 1;
 				toVal < 10 ? toVal = '0'+toVal : toVal = toVal;
-				$(toHour).val(toVal>36 ? '36' : toVal);
+				$(toHour).val(toVal>36 ? '36' : toVal).change();
 				notify('006');
 				taskVisibility();
 				triggerBulkTimeInOut();
