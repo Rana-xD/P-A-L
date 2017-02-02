@@ -278,31 +278,31 @@ class System_Budget extends Controller
           $output['final_east_1'] = (int)$request->area_east_expense_1;
           $output['final_east_2'] = (int)$request->area_east_expense_2;
 
-          $output['company_west_sub_sale'] = $request->company_west_sub_sale;
-          $output['company_west_sub_cost'] = $request->company_west_sub_cost;
-          $output['comapny_west_sub_expense'] = $request->comapny_west_sub_expense;
-          $output['company_west_sub_profit'] = $request->company_west_sub_profit;
-          $output['comapny_west_sub_profit_rate'] = $request->comapny_west_sub_profit_rate;
+          $output['company_west_sub_sale'] = (int)$request->company_west_sub_sale;
+          $output['company_west_sub_cost'] = (int)$request->company_west_sub_cost;
+          $output['comapny_west_sub_expense'] = (int)$request->comapny_west_sub_expense;
+          $output['company_west_sub_profit'] = (int)$request->company_west_sub_profit;
+          $output['comapny_west_sub_profit_rate'] = (double)$request->comapny_west_sub_profit_rate;
 
-          $output['company_central_sub_sale'] = $request->company_central_sub_sale;
-          $output['company_central_sub_cost'] = $request->company_central_sub_cost;
-          $output['company_central_sub_expense'] = $request->company_central_sub_expense;
-          $output['company_central_sub_profit'] = $request->company_central_sub_profit;
-          $output['company_central_sub_profit_rate'] = $request->company_central_sub_profit_rate;
+          $output['company_central_sub_sale'] = (int)$request->company_central_sub_sale;
+          $output['company_central_sub_cost'] = (int)$request->company_central_sub_cost;
+          $output['company_central_sub_expense'] = (int)$request->company_central_sub_expense;
+          $output['company_central_sub_profit'] = (int)$request->company_central_sub_profit;
+          $output['company_central_sub_profit_rate'] = (double)$request->company_central_sub_profit_rate;
 
-          $output['company_east_sub_sale'] = $request->company_east_sub_sale;
-          $output['company_east_sub_cost'] = $request->company_east_sub_cost;
-          $output['company_east_sub_expense'] = $request->company_east_sub_expense;
-          $output['company_east_sub_profit'] = $request->company_east_sub_profit;
-          $output['company_east_sub_profit_rate'] = $request->company_east_sub_profit_rate;
+          $output['company_east_sub_sale'] = (int)$request->company_east_sub_sale;
+          $output['company_east_sub_cost'] = (int)$request->company_east_sub_cost;
+          $output['company_east_sub_expense'] = (int)$request->company_east_sub_expense;
+          $output['company_east_sub_profit'] = (int)$request->company_east_sub_profit;
+          $output['company_east_sub_profit_rate'] = (double)$request->company_east_sub_profit_rate;
 
-          $output['gross_revenue'] = $request->gross_sale;
-          $output['gross_cost'] = $request->gross_cost;
-          $output['gross_expense'] = $request->gross_expense;
+          $output['gross_revenue'] = (int)$request->gross_sale;
+          $output['gross_cost'] = (int)$request->gross_cost;
+          $output['gross_expense'] = (int)$request->gross_expense;
           $output['gross_profit'] = (int)$request->gross_profit;
-          $output['gross_profit_rate'] = $request->gross_profit_rate;
+          $output['gross_profit_rate'] = (double)$request->gross_profit_rate;
 
-         return $output;
+
 
 
           DB::table('gross_total')
@@ -642,7 +642,7 @@ class System_Budget extends Controller
             $output['gross_profit'] = (int)$request->gross_profit;
             $output['gross_profit_rate'] = $request->gross_profit_rate;
 
-            return $output;
+
 
           DB::table('gross_total')->where([
             ['year',$year],
