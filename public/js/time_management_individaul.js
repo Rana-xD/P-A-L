@@ -111,6 +111,10 @@ $(function(){
 			var user = $(this).val(),
 				url = "/api/user/"+user,
 				dates = $('#date_record').val();
+				if($.trim(dates) == "" || dates == null){
+					swal("Field Required","Date field required!", "error");
+					return;
+				}
 			// Start ajax request
 			$.ajax({
 				url: url,
