@@ -158,6 +158,13 @@ $(function(){
 					$('#rest_minute .time-input').val(response.user[0].rest);
 
 					taskVisibility();
+					if(response.user_exist){
+						var user = response.user_exist;
+						var selectsEle = $('#hours-range .task-hour .tasks-select');
+						for(var i=0;i<selectsEle.length;i++){
+							$(selectsEle[i]).val(user[0].process[i]);
+						}
+					}
 					triggerBulkTimeInOut();
 				},
 				error: function(error){
