@@ -28,7 +28,7 @@ $(function(){
 					$('#shift_schedule').empty();
 					var staffs = response.staff,
 						process = response.process,
-						tasksProcess;
+						tasksProcess = "";
 					// Empty previous data
 					$(staff_ele).empty()
 					.append(
