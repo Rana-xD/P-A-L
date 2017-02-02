@@ -149,7 +149,7 @@ $(function(){
 						'</table>'
 					);
 
-					
+					$('#hours-range .task-hour .tasks-select').val('A');
 					if(response.user_exist){
 						var user = response.user_exist;
 						var selectsEle = $('#hours-range .task-hour .tasks-select');
