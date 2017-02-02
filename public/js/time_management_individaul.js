@@ -235,15 +235,29 @@ $(function(){
 		// Validate minute
 		function isValidMinute(eleObj){
 			var validMinute = [0,15,30,45],
+				validRestMinute = [0,15,30,45,60,75,90,105,120],
 				val = $(eleObj).val();
-			if($.isNumeric(val) && val.length == 2){
-				if($.inArray(parseInt(val),validMinute) > (-1)){
-					return true;
+
+			if($(eleObj).parent().is('.rest_minute')){
+				if($.isNumeric(val) && (val.length ==2 || val.length ==3)){
+					if($.inArray(parseInt(val),validRestMinute) > (-1)){
+						return true;
+					}else{
+						return false;
+					}
 				}else{
 					return false;
 				}
 			}else{
-				return false;
+				if($.isNumeric(val) && val.length == 2){
+					if($.inArray(parseInt(val),validMinute) > (-1)){
+						return true;
+					}else{
+						return false;
+					}
+				}else{
+					return false;
+				}
 			}
 
 		}
@@ -294,20 +308,36 @@ $(function(){
 			}
 
 			var goodToGo = isValidMinute(instance);
-			if(!goodToGo){
-				var val = parseInt(value) || 0;
-				var floorVal = Math.floor((val+15) / 15) * 15;
-				$(instance).val(floorVal>=60 ? '00' : floorVal).change();
-				notify('007');
-				return;
-			}
+			if($(instance).parent().is('.rest_minute')){
+				if(!goodToGo){
+					var val = parseInt(value) || 0;
+					var floorVal = Math.floor((val+15) / 15) * 15;
+					$(instance).val(floorVal>120 ? '00' : floorVal).change();
+					notify('009');
+					return;
+				}
 
-
-			value = parseInt(value);
-			if(value != 45){
-				$(instance).val(parseInt(value)+15).change();
+				value = parseInt(value);
+				if(value <= 105){
+					$(instance).val(parseInt(value)+15).change();
+				}else{
+					$(instance).val('00').change();
+				}
 			}else{
-				$(instance).val('00').change();
+				if(!goodToGo){
+					var val = parseInt(value) || 0;
+					var floorVal = Math.floor((val+15) / 15) * 15;
+					$(instance).val(floorVal>=60 ? '00' : floorVal).change();
+					notify('007');
+					return;
+				}
+
+				value = parseInt(value);
+				if(value != 45){
+					$(instance).val(parseInt(value)+15).change();
+				}else{
+					$(instance).val('00').change();
+				}
 			}
 
 		}
@@ -345,22 +375,42 @@ $(function(){
 
 			// validate time input
 			var goodToGo = isValidMinute(instance);
-			if(!goodToGo){
-				var val = parseInt(value) || 0;
-				var floorVal = Math.floor((val+15) / 15) * 15;
-				$(instance).val(floorVal>=60 ? '00' : floorVal).change();
-				notify('007');
-				return;
-			}
+			if($(instance).parent().is('.rest_minute')){
+				if(!goodToGo){
+					var val = parseInt(value) || 0;
+					var floorVal = Math.floor((val+15) / 15) * 15;
+					$(instance).val(floorVal>120 ? '00' : floorVal).change();
+					notify('009');
+					return;
+				}
 
 
-			value = parseInt(value);
-			if(value !== 0 && value != 15){
-				$(instance).val(value-15).change();
-			}else if(value == 15){
-				$(instance).val('00').change();
+				value = parseInt(value);
+				if(value !== 0 && value != 15){
+					$(instance).val(value-15).change();
+				}else if(value == 15){
+					$(instance).val('00').change();
+				}else{
+					$(instance).val('120').change();
+				}
 			}else{
-				$(instance).val('45').change();
+				if(!goodToGo){
+					var val = parseInt(value) || 0;
+					var floorVal = Math.floor((val+15) / 15) * 15;
+					$(instance).val(floorVal>=60 ? '00' : floorVal).change();
+					notify('007');
+					return;
+				}
+
+
+				value = parseInt(value);
+				if(value !== 0 && value != 15){
+					$(instance).val(value-15).change();
+				}else if(value == 15){
+					$(instance).val('00').change();
+				}else{
+					$(instance).val('45').change();
+				}
 			}
 
 		}
@@ -396,13 +446,24 @@ $(function(){
 			if($(mama).hasClass('minute')){
 
 				// Check if time is numeric & exact length
-				if(!isValidMinute($(this))){
-					var value = parseInt(val) || 0;
-					var floorVal = Math.floor((value+15) / 15) * 15;
-					$(this).val(floorVal>=60 ? '00' : floorVal);
-					notify('007');
-					taskVisibility();
-					triggerBulkTimeInOut();
+				if($(this).parent().is('.rest_minute')){
+					if(!isValidMinute($(this))){
+						var value = parseInt(val) || 0;
+						var floorVal = Math.floor((value+15) / 15) * 15;
+						$(this).val(floorVal>120 ? '00' : floorVal);
+						notify('009');
+						taskVisibility();
+						triggerBulkTimeInOut();
+					}
+				}else{
+					if(!isValidMinute($(this))){
+						var value = parseInt(val) || 0;
+						var floorVal = Math.floor((value+15) / 15) * 15;
+						$(this).val(floorVal>=60 ? '00' : floorVal);
+						notify('007');
+						taskVisibility();
+						triggerBulkTimeInOut();
+					}
 				}
 			}
 

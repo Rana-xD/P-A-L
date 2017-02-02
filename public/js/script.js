@@ -175,6 +175,22 @@ function notify(code, delay=3000){
 			});
 			break;
 
+		case '009':
+			text = "Valid rest minute is 0,15,30,45,60,75,90,105,120 ";
+			ele.html(text);
+			ele.addClass('error');
+			$('body').append(ele);
+			$(ele).animate({'top':'+=30px','opacity':'+=0.2'},350, function(){
+
+				$(this).animate({'opacity':'1'},delay,function(){
+					$(this).animate({'opacity':'-=0.2','top':'-=40px'},500,function(){
+						$(this).remove();
+					});
+				});
+
+			});
+			break;
+
 		default:
 			return;
 	}

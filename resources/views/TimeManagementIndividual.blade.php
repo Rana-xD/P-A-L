@@ -244,8 +244,8 @@
                         	<div class="heading">
                         		<h4>Rest</h4>
                         	</div>
-                        	<div class="minute" id="rest_minute">
-                        		<span class="increase increaseMinute">
+                        	<div class="minute rest_minute" id="rest_minute">
+                        		<span class="increase minute increaseMinute">
                         			<i class="fa fa-plus"></i>
                         		</span>
 
@@ -254,7 +254,7 @@
                         		       value="00"
                         		       class="time-input">
 
-                        		<span class="decrease decreaseMinute">
+                        		<span class="decrease minute decreaseMinute">
                         			<i class="fa fa-minus"></i>
                         		</span>
                         	</div>
