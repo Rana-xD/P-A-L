@@ -607,6 +607,7 @@ function calcSubTotal(ele){
 		// profitRate = (profit * 100) / sale;
 		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
 
+
 		// Render html value & input hidden
 		$(subDiv).find('.sub-sale span').html('&yen;'+sale).next().val(sale);
   		$(subDiv).find('.sub-cost span').html('&yen;'+cost).next().val(cost);
