@@ -302,7 +302,7 @@ class System_Budget extends Controller
           $output['gross_profit'] = (int)$request->gross_profit;
           $output['gross_profit_rate'] = $request->gross_profit_rate;
 
-          
+
 
           DB::table('gross_total')
               ->insert(
@@ -562,86 +562,84 @@ class System_Budget extends Controller
           DB::beginTransaction();
           try{
 
-          $output['area_west_location_1'] = $request->area_west_location_1;
-          $output['area_west_revenue_1'] = $request->area_west_revenue_1;
-          $output['area_west_expense_1'] = $request->area_west_expense_1;
-          $output['area_west_cost_1'] = $request->area_west_cost_1;
-          $output['area_west_profit_1'] = $request->area_west_profit_1;
-          $output['area_west_profitRate_1'] = $request->area_west_profitRate_1;
-          $output['area_west_settingRate_1'] = $request->area_west_settingRate_1;
+            $output['area_west_location_1'] = $request->area_west_location_1;
+            $output['area_west_revenue_1'] = (int)$request->area_west_revenue_1;
+            $output['area_west_expense_1'] = (int)$request->area_west_expense_1;
+            $output['area_west_cost_1'] = (int)$request->area_west_cost_1;
+            $output['area_west_profit_1'] = (int)$request->area_west_profit_1;
+            $output['area_west_profitRate_1'] = (double)$request->area_west_profitRate_1;
+            $output['area_west_settingRate_1'] = (double)$request->area_west_settingRate_1;
 
-          $output['area_west_location_2'] = $request->area_west_location_2;
-          $output['area_west_revenue_2'] = $request->area_west_revenue_2;
-          $output['area_west_expense_2'] = $request->area_west_expense_2;
-          $output['area_west_cost_2'] = $request->area_west_cost_2;
-          $output['area_west_profit_2'] = $request->area_west_profit_2;
-          $output['area_west_profitRate_2'] = $request->area_west_profitRate_2;
-          $output['area_west_settingRate_2'] = $request->area_west_settingRate_2;
+            $output['area_west_location_2'] = $request->area_west_location_2;
+            $output['area_west_revenue_2'] = (int)$request->area_west_revenue_2;
+            $output['area_west_expense_2'] = (int)$request->area_west_expense_2;
+            $output['area_west_cost_2'] = (int)$request->area_west_cost_2;
+            $output['area_west_profit_2'] = (int)$request->area_west_profit_2;
+            $output['area_west_profitRate_2'] = (double)$request->area_west_profitRate_2;
+            $output['area_west_settingRate_2'] = (double)$request->area_west_settingRate_2;
 
+            $output['area_central_location_1'] = $request->area_central_location_1;
+            $output['area_central_revenue_1'] = (int)$request->area_central_revenue_1;
+            $output['area_central_expense_1'] = (int)(int)$request->area_central_expense_1;
+            $output['area_central_cost_1'] = (int)$request->area_central_cost_1;
+            $output['area_central_profit_1'] = (int)$request->area_central_profit_1;
+            $output['area_central_profitRate_1'] = (double)$request->area_central_profitRate_1;
+            $output['area_central_settingRate_1'] = (double)$request->area_central_settingRate_1;
 
-          $output['area_central_location_1'] = $request->area_central_location_1;
-          $output['area_central_revenue_1'] = $request->area_central_revenue_1;
-          $output['area_central_expense_1'] = $request->area_central_expense_1;
-          $output['area_central_cost_1'] = $request->area_central_cost_1;
-          $output['area_central_profit_1'] = $request->area_central_profit_1;
-          $output['area_central_profitRate_1'] = $request->area_central_profitRate_1;
-          $output['area_central_settingRate_1'] = $request->area_central_settingRate_1;
+            $output['area_central_location_2'] = $request->area_central_location_2;
+            $output['area_central_revenue_2'] = (int)$request->area_central_revenue_2;
+            $output['area_central_expense_2'] = (int)$request->area_central_expense_1;
+            $output['area_central_cost_2'] = $request->area_central_cost_2;
+            $output['area_central_profit_2'] = (int)$request->area_central_profit_2;
+            $output['area_central_profitRate_2'] = (double)$request->area_central_profitRate_2;
+            $output['area_central_settingRate_2'] = (double)$request->area_central_settingRate_2;
 
+            $output['area_east_location_1'] = $request->area_east_location_1;
+            $output['area_east_revenue_1'] = (int)$request->area_east_revenue_1;
+            $output['area_east_expense_1'] = (int)$request->area_east_expense_1;
+            $output['area_east_cost_1'] = (int)$request->area_east_cost_1;
+            $output['area_east_profit_1'] = (int)$request->area_east_profit_1;
+            $output['area_east_profitRate_1'] = (double)$request->area_east_profitRate_1;
+            $output['area_east_settingRate_1'] = (double)$request->area_east_settingRate_1;
 
-          $output['area_central_location_2'] = $request->area_central_location_2;
-          $output['area_central_revenue_2'] = $request->area_central_revenue_2;
-          $output['area_central_expense_2'] = $request->area_central_expense_1;
-          $output['area_central_cost_2'] = $request->area_central_cost_2;
-          $output['area_central_profit_2'] = $request->area_central_profit_2;
-          $output['area_central_profitRate_2'] = $request->area_central_profitRate_2;
-          $output['area_central_settingRate_2'] = $request->area_central_settingRate_2;
+            $output['area_east_location_2'] = $request->area_east_location_2;
+            $output['area_east_revenue_2'] = (int)$request->area_east_revenue_2;
+            $output['area_east_expense_2'] =(int) $request->area_east_expense_2;
+            $output['area_east_cost_2'] = (int)$request->area_east_cost_2;
+            $output['area_east_profit_2'] = (int)$request->area_east_profit_2;
+            $output['area_east_profitRate_2'] = (double)$request->area_east_profitRate_2;
+            $output['area_east_settingRate_2'] = (double)$request->area_east_settingRate_2;
 
-          $output['area_east_location_1'] = $request->area_east_location_1;
-          $output['area_east_revenue_1'] = $request->area_east_revenue_1;
-          $output['area_east_expense_1'] = $request->area_east_expense_1;
-          $output['area_east_cost_1'] = $request->area_east_cost_1;
-          $output['area_east_profit_1'] = $request->area_east_profit_1;
-          $output['area_east_profitRate_1'] = $request->area_east_profitRate_1;
-          $output['area_east_settingRate_1'] = $request->area_east_settingRate_1;
+            $output['final_west_1'] = (int)$request->area_west_expense_1;
+            $output['final_west_2'] = (int)$request->area_west_expense_2;
+            $output['final_central_1'] = (int)$request->area_central_expense_1;
+            $output['final_central_2'] = (int)$request->area_central_expense_2;
+            $output['final_east_1'] = (int)$request->area_east_expense_1;
+            $output['final_east_2'] = (int)$request->area_east_expense_2;
 
-          $output['area_east_location_2'] = $request->area_east_location_2;
-          $output['area_east_revenue_2'] = $request->area_east_revenue_2;
-          $output['area_east_expense_2'] = $request->area_east_expense_2;
-          $output['area_east_cost_2'] = $request->area_east_cost_2;
-          $output['area_east_profit_2'] = $request->area_east_profit_2;
-          $output['area_east_profitRate_2'] = $request->area_east_profitRate_2;
-          $output['area_east_settingRate_2'] = $request->area_east_settingRate_2;
+            $output['company_west_sub_sale'] = $request->company_west_sub_sale;
+            $output['company_west_sub_cost'] = $request->company_west_sub_cost;
+            $output['comapny_west_sub_expense'] = $request->comapny_west_sub_expense;
+            $output['company_west_sub_profit'] = $request->company_west_sub_profit;
+            $output['comapny_west_sub_profit_rate'] = $request->comapny_west_sub_profit_rate;
 
-          $output['final_west_1'] = $request->area_west_expense_1;
-          $output['final_west_2'] = $request->area_west_expense_2;
-          $output['final_central_1'] = $request->area_central_expense_1;
-          $output['final_central_2'] = $request->area_central_expense_2;
-          $output['final_east_1'] = $request->area_east_expense_1;
-          $output['final_east_2'] = $request->area_east_expense_2;
+            $output['company_central_sub_sale'] = $request->company_central_sub_sale;
+            $output['company_central_sub_cost'] = $request->company_central_sub_cost;
+            $output['company_central_sub_expense'] = $request->company_central_sub_expense;
+            $output['company_central_sub_profit'] = $request->company_central_sub_profit;
+            $output['company_central_sub_profit_rate'] = $request->company_central_sub_profit_rate;
 
-          $output['company_west_sub_sale'] = $request->company_west_sub_sale;
-          $output['company_west_sub_cost'] = $request->company_west_sub_cost;
-          $output['comapny_west_sub_expense'] = $request->comapny_west_sub_expense;
-          $output['company_west_sub_profit'] = $request->company_west_sub_profit;
-          $output['comapny_west_sub_profit_rate'] = $request->comapny_west_sub_profit_rate;
+            $output['company_east_sub_sale'] = $request->company_east_sub_sale;
+            $output['company_east_sub_cost'] = $request->company_east_sub_cost;
+            $output['company_east_sub_expense'] = $request->company_east_sub_expense;
+            $output['company_east_sub_profit'] = $request->company_east_sub_profit;
+            $output['company_east_sub_profit_rate'] = $request->company_east_sub_profit_rate;
 
-          $output['company_central_sub_sale'] = $request->company_central_sub_sale;
-          $output['company_central_sub_cost'] = $request->company_central_sub_cost;
-          $output['company_central_sub_expense'] = $request->company_central_sub_expense;
-          $output['company_central_sub_profit'] = $request->company_central_sub_profit;
-          $output['company_central_sub_profit_rate'] = $request->company_central_sub_profit_rate;
-
-          $output['company_east_sub_sale'] = $request->company_east_sub_sale;
-          $output['company_east_sub_cost'] = $request->company_east_sub_cost;
-          $output['company_east_sub_expense'] = $request->company_east_sub_expense;
-          $output['company_east_sub_profit'] = $request->company_east_sub_profit;
-          $output['company_east_sub_profit_rate'] = $request->company_east_sub_profit_rate;
-
-          $output['gross_revenue'] = $request->gross_sale;
-          $output['gross_cost'] = $request->gross_cost;
-          $output['gross_expense'] = $request->gross_expense;
-          $output['gross_profit'] = (int)$request->gross_profit;
-          $output['gross_profit_rate'] = $request->gross_profit_rate;
+            $output['gross_revenue'] = $request->gross_sale;
+            $output['gross_cost'] = $request->gross_cost;
+            $output['gross_expense'] = $request->gross_expense;
+            $output['gross_profit'] = (int)$request->gross_profit;
+            $output['gross_profit_rate'] = $request->gross_profit_rate;
 
           DB::table('gross_total')->where([
             ['year',$year],

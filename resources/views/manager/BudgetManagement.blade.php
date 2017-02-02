@@ -297,17 +297,17 @@
 	 									 @endif
 
 											<td class="forecast-sale">
-												<input type="text" value="" name="forecast_west_revenue_{{ $l }}" ng-model="forecast_west_revenue_{{ $l }}" ng-init="forecast_west_revenue_{{ $l }}=''" class="forecast revenue msg-id"  numbers-only my-maxlength="9" >
+												<input type="text" value="0" name="forecast_west_revenue_{{ $l }}"  ng-init="forecast_west_revenue_{{ $l }}=''" class="forecast revenue msg-id"  numbers-only my-maxlength="9" >
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td class="forecast-cost">
-												<input type="text" value="" name="forecast_west_cost_{{ $l }}" ng-model="forecast_west_cost_{{ $l }}" class="forecast cost msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_west_cost_{{ $l }}"  class="forecast cost msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											@if (empty($area_west_budget[0]))
 	 										 <td class="forecast-expense">
 	   										 <span>&yen;</span>
-	   										 <input type="hidden" value="" class="forecast expense" name="forecast_west_expense_{{ $l }}">
+	   										 <input type="hidden" value="0" class="forecast expense" name="forecast_west_expense_{{ $l }}">
 	   									 </td>
 	 									 @else
 	 										 <td class="forecast-expense">
@@ -342,11 +342,11 @@
 											</td>
 
 											<td>
-												<input type="text" value="" name="final_west_revenue_{{ $l }}" ng-model="final_west_revenue_{{ $l }}" class="revenue-profit-input final revenue msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_west_revenue_{{ $l }}" ng-model="final_west_revenue_{{ $l }}" class="revenue-profit-input final revenue msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="final_west_cost_{{ $l }}" ng-model="final_west_cost_{{ $l }}" class="cost-profit-input final cost msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_west_cost_{{ $l }}" ng-model="final_west_cost_{{ $l }}" class="cost-profit-input final cost msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											@if (empty($location_final_west[0]))
@@ -545,11 +545,11 @@
 	 									 @endif
 
 											<td>
-												<input type="text" value="" name="forecast_central_revenue_{{ $k }}" ng-model="forecast_central_revenue_{{ $k }}" class="forecast revenue msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_central_revenue_{{ $k }}"  class="forecast revenue msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="forecast_central_cost_{{ $k }}" ng-model="forecast_central_cost_{{ $k }}" class="forecast cost msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_central_cost_{{ $k }}"  class="forecast cost msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											@if (empty($area_central_budget[0]))
@@ -590,17 +590,17 @@
 											</td>
 
 											<td>
-												<input type="text" value="" name="final_central_revenue_{{ $k }}" ng-model="final_central_revenue_{{ $k }}" class="revenue-profit-input final revenue msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_central_revenue_{{ $k }}" ng-model="final_central_revenue_{{ $k }}" class="revenue-profit-input final revenue msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="final_central_cost_{{ $k }}" ng-model="final_central_cost_{{ $k }}" class="cost-profit-input final cost msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_central_cost_{{ $k }}" ng-model="final_central_cost_{{ $k }}" class="cost-profit-input final cost msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											@if (empty($location_final_central[0]))
 	 										 <td class="final-expense">
 	 											 <span>&yen;</span>
-	 											 <input type="hidden" value="" name="final_central_expense_{{ $k }}" class="expense-input final expense">
+	 											 <input type="hidden" value="0" name="final_central_expense_{{ $k }}" class="expense-input final expense">
 	 										 </td>
 	 									 @else
 	 										 <td class="final-expense">
@@ -792,16 +792,16 @@
 	 									 @endif
 
 											<td>
-												<input type="text" value="" name="forecast_east_revenue_{{ $j }}" ng-model="forecast_east_revenue_{{ $j }}" class="forecast revenue msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_east_revenue_{{ $j }}"  class="forecast revenue msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="forecast_east_cost_{{ $j }}" ng-model="forecast_east_cost_{{ $j }}" class="forecast cost msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_east_cost_{{ $j }}"  class="forecast cost msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											@if (empty($area_east_budget[0]))
 	 										 <td class="forecast-expense">
-	   										 <span>&yen;</span>
+	   										 <span>&yen;</span
 	   										 <input type="hidden" value="" class="forecast expense" name="forecast_east_expense_{{ $j }}">
 	   									 </td>
 	 									 @else
@@ -837,11 +837,11 @@
 											</td>
 
 											<td>
-												<input type="text" value="" name="final_east_revenue_{{ $j }}" ng-model="final_east_revenue_{{ $j }}" class="revenue-profit-input final revenue msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_east_revenue_{{ $j }}" ng-model="final_east_revenue_{{ $j }}" class="revenue-profit-input final revenue msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="final_east_cost_{{ $j }}" ng-model="final_east_cost_{{ $j }}" class="cost-profit-input final cost msg-id"  numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_east_cost_{{ $j }}" ng-model="final_east_cost_{{ $j }}" class="cost-profit-input final cost msg-id"  numbers-only my-maxlength="9">
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											@if (empty($location_final_east[0]))
