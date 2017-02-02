@@ -1022,7 +1022,7 @@
 				  									<!-- Gross profit -->
 				  								</td>
 				  								<td>
-														{{ $gross[0]->profit }}%
+														{{ $gross[0]->profit_rate }}%
 				  									<!-- Gross profit rate -->
 				  								</td>
 
@@ -1914,7 +1914,7 @@
 												 <!-- Gross profit -->
 											 </td>
 											 <td>
-												 {{ $gross[0]->profit }}%
+												 {{ $gross[0]->profit_rate }}%
 												 <!-- Gross profit rate -->
 											 </td>
 
