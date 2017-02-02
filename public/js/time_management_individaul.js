@@ -56,28 +56,28 @@ $(function(){
 									'<select name="hour_'+(i)+'_1" class="tasks-select">'+
 										'<option value="A"></option>'+
 										tasksProcess +
-										'<option vslue="R">Rest</option>'+
+										'<option value="R">Rest</option>'+
 									'</select>'+
 								'</div>'+
 								'<div class="task">'+
 									'<select name="hour_'+(i)+'_2" class="tasks-select">'+
 										'<option value="A"></option>'+
 										tasksProcess +
-										'<option vslue="R">Rest</option>'+
+										'<option value="R">Rest</option>'+
 									'</select>'+
 								'</div>'+
 								'<div class="task">'+
 									'<select name="hour_'+(i)+'_3" class="tasks-select">'+
 										'<option value="A"></option>'+
 		                                tasksProcess+
-		                                '<option vslue="R">Rest</option>'+
+		                                '<option value="R">Rest</option>'+
 									'</select>'+
 								'</div>'+
 								'<div class="task">'+
 									'<select name="hour_'+(i)+'_4" class="tasks-select">'+
 										'<option value="A"></option>'+
 		                                tasksProcess+
-		                                '<option vslue="R">Rest</option>'+
+		                                '<option value="R">Rest</option>'+
 									'</select>'+
 								'</div>'+
 							'</div>'+
@@ -90,7 +90,7 @@ $(function(){
 					.append(
 						'<option disabled="disabled" selected>Select task</option>'+
 						tasksProcess+
-						'<option vslue="R">Rest</option>'
+						'<option value="R">Rest</option>'
 					);
 
 					taskVisibility();

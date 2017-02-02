@@ -603,8 +603,8 @@ function calcSubTotal(ele){
 		cost = sum($(ele).parents('tbody').find('.company.cost'));
 		expense = sum($(ele).parents('tbody').find('.company.expense'));
 		profit = sum($(ele).parents('tbody').find('.company.hidden-profit'));
-		profitRate = sum($(ele).parents('tbody').find('.company.hidden-profit-rate'));
-		// profitRate = (profit * 100) / sale;
+		// profitRate = sum($(ele).parents('tbody').find('.company.hidden-profit-rate'));
+		profitRate = ((profit * 100) / sale) / 1;
 		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
 
 
