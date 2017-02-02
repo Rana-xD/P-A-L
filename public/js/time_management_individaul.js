@@ -150,15 +150,17 @@ $(function(){
 					);
 
 					$('#hours-range .task-hour .tasks-select').val('A');
+
 					if(response.user_exist){
 						var user = response.user_exist;
 						var selectsEle = $('#hours-range .task-hour .tasks-select');
 						var tasks = (user[0].process).split(',');
+						console.log(tasks.length);
 						for(var i=0;i<selectsEle.length;i++){
 							$(selectsEle[i]).val(tasks[i]);
 						}
-						var startTime = (user[0].time_in).split(':'),
-						endTime = (user[0].time_out).split(':');
+						var startTime = (user[0].start_time).split(':'),
+						endTime = (user[0].end_time).split(':');
 
 						$('#from-hour .time-input').val(startTime[0]);
 						$('#from-minute .time-input').val(startTime[1]);
@@ -166,8 +168,8 @@ $(function(){
 						$('#to-minute .time-input').val(endTime[1]);
 						$('#rest_minute .time-input').val(user[0].rest);
 					}else{
-						var startTime = (user[0].time_in).split(':'),
-						endTime = (user[0].time_out).split(':');
+						var startTime = (response.user[0].time_in).split(':'),
+								endTime = (response.user[0].time_out).split(':');
 
 						$('#from-hour .time-input').val(startTime[0]);
 						$('#from-minute .time-input').val(startTime[1]);
