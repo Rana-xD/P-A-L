@@ -25,6 +25,7 @@ class SubBudgets extends Migration
             $table->float('profit_rate',5,2);
             $table->integer('headoffice_expense');
             $table->timestamps();
+            
         });
     }
 
