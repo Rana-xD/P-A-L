@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="/fonts/font-awesome.min.css">
 		<script src="/js/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="/js/angular.min.js"></script>
 		<script src="/js/validationcheck.js"></script>
 		<script src="/js/script.js"></script>
 		<script src="sweetalert.min.js"></script>
