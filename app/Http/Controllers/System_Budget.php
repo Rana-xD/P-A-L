@@ -302,6 +302,7 @@ class System_Budget extends Controller
           $output['gross_profit'] = (int)$request->gross_profit;
           $output['gross_profit_rate'] = $request->gross_profit_rate;
 
+         return $output;
 
 
           DB::table('gross_total')
@@ -640,6 +641,8 @@ class System_Budget extends Controller
             $output['gross_expense'] = $request->gross_expense;
             $output['gross_profit'] = (int)$request->gross_profit;
             $output['gross_profit_rate'] = $request->gross_profit_rate;
+
+            return $output;
 
           DB::table('gross_total')->where([
             ['year',$year],
