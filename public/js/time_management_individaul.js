@@ -554,6 +554,11 @@ $(function(){
 				}
 			});
 
+	});
+
+	// Listen on rest time change
+	// to unselect task with rest value
+	$('#rest_minute .time-input').on('change', function(){
 
 	});
 
