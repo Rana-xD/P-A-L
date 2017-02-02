@@ -303,7 +303,7 @@ $(function(){
 	      	var expense = $.isNumeric($(this).parents('tr').find('.final.expense').val()) ? parseFloat($(this).parents('tr').find('.final.expense').val()) : 0;
 	      	var profit = revenue - cost - expense;
 	      	var profitRate = (profit * 100) / revenue;
-	      
+
 
 	      	// Render value for profit | @final section
 	      	$(this).parents('tr').find('.final-profit span')
@@ -475,7 +475,7 @@ $(function(){
 	      	var expense = parseFloat($(this).val()) || 0;
 	      	var profit = revenue - cost - expense;
 	      	var profitRate = (profit * 100) / revenue;
-	      	
+
 
 	      	// Render value for profit | @final section
 	      	$(this).parents('tr').find('.final-profit span')
@@ -551,7 +551,8 @@ function calcSubTotal(ele){
 		cost = sum($(ele).parents('tbody').find('.forecast.cost'));
 		expense = sum($(ele).parents('tbody').find('.forecast.expense'));
 		profit = sum($(ele).parents('tbody').find('.forecast.hidden-profit'));
-		profitRate = sum($(ele).parents('tbody').find('.forecast.hidden-profit-rate'));
+		// profitRate = sum($(ele).parents('tbody').find('.forecast.hidden-profit-rate'));
+		profitRate = (profit * 100) / sale;
 		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
 
 		// Render html value & input hidden
@@ -569,7 +570,8 @@ function calcSubTotal(ele){
 		cost = sum($(ele).parents('tbody').find('.final.cost'));
 		expense = sum($(ele).parents('tbody').find('.final.expense'));
 		profit = sum($(ele).parents('tbody').find('.final.hidden-profit'));
-		profitRate = sum($(ele).parents('tbody').find('.final.hidden-profit-rate'));
+		profitRate = (profit * 100) / sale;
+		// profitRate = sum($(ele).parents('tbody').find('.final.hidden-profit-rate'));
 		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
 
 		// Render html value & input hidden
@@ -585,7 +587,8 @@ function calcSubTotal(ele){
 		cost = sum($(ele).parents('tbody').find('.company.cost'));
 		expense = sum($(ele).parents('tbody').find('.company.expense'));
 		profit = sum($(ele).parents('tbody').find('.company.hidden-profit'));
-		profitRate = sum($(ele).parents('tbody').find('.company.hidden-profit-rate'));
+		// profitRate = sum($(ele).parents('tbody').find('.company.hidden-profit-rate'));
+		profitRate = (profit * 100) / sale;
 		finalProfitGap = sum($(ele).parents('tbody').find('.final.hidden-profit-gap'));
 
 		// Render html value & input hidden
