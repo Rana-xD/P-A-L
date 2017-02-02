@@ -1,4 +1,4 @@
-var app = angular.module('app', ['fcsa-number']);
+var app = angular.module('app', []);
 
 app.controller('MainCtrl', function($scope) {
     $scope.validLength = 4;
@@ -34,7 +34,7 @@ app.directive('numbersOnly', function() {
         link: function(scope, element, attrs, modelCtrl) {
             modelCtrl.$parsers.push(function(inputValue) {
                 if (inputValue == undefined) return ''
-                var onlyNumeric = inputValue.replace(/[^0-9]/g, '');
+                var onlyNumeric = inputValue.replace(/[^0-9\,]/g, '');
                 if (onlyNumeric != inputValue) {
                     modelCtrl.$setViewValue(onlyNumeric);
                     modelCtrl.$render();
