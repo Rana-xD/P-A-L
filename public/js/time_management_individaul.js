@@ -105,18 +105,18 @@ $(function(){
 	// Ajax request specific user information
 	(function getUserInfo(){
 		var shiftSched_ele = $('#shift_schedule');
-		var dates = $('#date').val();
+
 		// Bind onchange event on staff list
 		$('#staff_list').on('change', function(){
 			var user = $(this).val(),
-				url = "/api/user/"+user;
-
+				url = "/api/user/"+user,
+				dates = $('#date_record').val();
 			// Start ajax request
 			$.ajax({
 				url: url,
 				type: 'GET',
 				dataType: 'json',
-				data:{_token:$('meta[name=csrf-token]').attr('content'),date:dates},
+				data:{_token:$('meta[name=csrf-token]').attr('content'),_date:dates},
 				success: function(response){
 					console.log(JSON.stringify(response));
 					// Empthy previous data

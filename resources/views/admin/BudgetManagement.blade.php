@@ -721,7 +721,7 @@
 										</td>
 										<td class="sub-expense">
 											<span>&yen;</span>
-											<input type="hidden" class="comapny sub-expense-hidden" name="company_central_sub_expense">
+											<input type="hidden" class="company sub-expense-hidden" name="company_central_sub_expense">
 										</td>
 										<td class="sub-profit">
 											<span></span>
