@@ -532,6 +532,28 @@ $(function(){
 		}
 	});
 
+	// Listen on task select change
+	// to validate rest time
+	$('#hours-range .task-hour .tasks-select').on('change',function(){
+		// Default 15 to prevent error number divide with 0
+		var restMin = parseInt($('#rest_minute .time-input').val() || 0),
+			validRest = ((restMin + 15) / 15) -1,
+			foundRest = 0,
+			obj = $(this);
+			$('#hours-range .task-hour .tasks-select').each(function(){
+				if($(this).val() == "R"){
+					foundRest +=1;
+				}
+				if(foundRest>validRest){
+					$(obj).val('A');
+					swal("Invalid rest time","Rest time exceed "+(validRest * 15)+" minute","warning");
+					return;
+				}
+			});
+
+
+	});
+
 	// Prevent action button from submit
 	$('.preventSubmit').on('click', function(event){
 		event.preventDefault();
