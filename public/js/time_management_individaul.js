@@ -161,8 +161,9 @@ $(function(){
 					if(response.user_exist){
 						var user = response.user_exist;
 						var selectsEle = $('#hours-range .task-hour .tasks-select');
+						var tasks = (user[0].process).split(',');
 						for(var i=0;i<selectsEle.length;i++){
-							$(selectsEle[i]).val(user[0].process[i]);
+							$(selectsEle[i]).val(tasks[i]);
 						}
 					}
 					triggerBulkTimeInOut();
