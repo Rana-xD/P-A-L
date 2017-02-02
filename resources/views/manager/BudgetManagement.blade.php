@@ -216,14 +216,12 @@
 						<input type="hidden" name="month_a" id="month_a">
 						<input type="hidden" name="year_a" id="year_a">
 						<div class="tables-content">
-
 							<div class="indi-area">
 								<div class="area-heading">
 									<h2>
 										Kanto
 									</h2>
 								</div>
-
 								<table class="scroll">
 									<thead>
 										<tr>
@@ -300,19 +298,19 @@
 	 									 @endif
 
 											<td class="forecast-sale">
-												<input type="text" value="" name="forecast_west_revenue_{{ $l }}" ng-model="forecast_west_revenue_{{ $l }}" ng-init="forecast_west_revenue_{{ $l }}=''" class="forecast revenue msg-id" data-ng-required="(budget_manager.forecast_west_cost_{{ $l }}.$touched && !(!forecast_west_cost_{{ $l }})) || (budget_manager.final_west_revenue_{{ $l }}.$touched && !(!final_west_revenue_{{ $l }})) || (budget_manager.final_west_cost_{{ $l }}.$touched && !(!final_west_cost_{{ $l }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_west_revenue_{{ $l }}" ng-model="forecast_west_revenue_{{ $l }}" ng-init="forecast_west_revenue_{{ $l }}='0'" class="forecast revenue msg-id" data-ng-required="(budget_manager.forecast_west_cost_{{ $l }}.$touched && !(!forecast_west_cost_{{ $l }})) || (budget_manager.final_west_revenue_{{ $l }}.$touched && !(!final_west_revenue_{{ $l }})) || (budget_manager.final_west_cost_{{ $l }}.$touched && !(!final_west_cost_{{ $l }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!forecast_west_revenue_{{ $l }} && forecast_west_cost_{{ $l }}) ||  (!forecast_west_revenue_{{ $l }} && final_west_revenue_{{ $l }}) || (!forecast_west_revenue_{{ $l }} && final_west_cost_{{ $l }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td class="forecast-cost">
-												<input type="text" value="" name="forecast_west_cost_{{ $l }}" ng-model="forecast_west_cost_{{ $l }}" class="forecast cost msg-id" data-ng-required="(budget_manager.forecast_west_revenue_{{ $l }}.$touched && !(!forecast_west_revenue_{{ $l }})) || (budget_manager.final_west_revenue_{{ $l }}.$touched && !(!final_west_revenue_{{ $l }})) || (budget_manager.final_west_cost_{{ $l }}.$touched && !(!final_west_cost_{{ $l }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_west_cost_{{ $l }}" ng-model="forecast_west_cost_{{ $l }}" ng-init="forecast_west_cost_{{ $l }}='0'" class="forecast cost msg-id" data-ng-required="(budget_manager.forecast_west_revenue_{{ $l }}.$touched && !(!forecast_west_revenue_{{ $l }})) || (budget_manager.final_west_revenue_{{ $l }}.$touched && !(!final_west_revenue_{{ $l }})) || (budget_manager.final_west_cost_{{ $l }}.$touched && !(!final_west_cost_{{ $l }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!forecast_west_cost_{{ $l }} && forecast_west_revenue_{{ $l }}) ||  (!forecast_west_cost_{{ $l }} && final_west_revenue_{{ $l }}) || (!forecast_west_cost_{{ $l }} && final_west_cost_{{ $l }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											@if (empty($area_west_budget[0]))
 	 										 <td class="forecast-expense">
 	   										 <span>&yen;</span>
-	   										 <input type="hidden" value="" class="forecast expense" name="forecast_west_expense_{{ $l }}">
+	   										 <input type="hidden" value="0" class="forecast expense" name="forecast_west_expense_{{ $l }}">
 	   									 </td>
 	 									 @else
 	 										 <td class="forecast-expense">
@@ -347,12 +345,12 @@
 											</td>
 
 											<td>
-												<input type="text" value="" name="final_west_revenue_{{ $l }}" ng-model="final_west_revenue_{{ $l }}" class="revenue-profit-input final revenue msg-id" data-ng-required="(budget_manager.forecast_west_revenue_{{ $l }}.$touched && !(!forecast_west_revenue_{{ $l }})) || (budget_manager.forecast_west_cost_{{ $l }}.$touched && !(!forecast_west_cost_{{ $l }})) || (budget_manager.final_west_cost_{{ $l }}.$touched && !(!final_west_cost_{{ $l }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_west_revenue_{{ $l }}" ng-model="final_west_revenue_{{ $l }}" ng-init="final_west_revenue_{{ $l }}='0'" class="revenue-profit-input final revenue msg-id" data-ng-required="(budget_manager.forecast_west_revenue_{{ $l }}.$touched && !(!forecast_west_revenue_{{ $l }})) || (budget_manager.forecast_west_cost_{{ $l }}.$touched && !(!forecast_west_cost_{{ $l }})) || (budget_manager.final_west_cost_{{ $l }}.$touched && !(!final_west_cost_{{ $l }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!final_west_revenue_{{ $l }} && forecast_west_revenue_{{ $l }}) ||  (!final_west_revenue_{{ $l }} && forecast_west_cost_{{ $l }}) || (!final_west_revenue_{{ $l }} && final_west_cost_{{ $l }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="final_west_cost_{{ $l }}" ng-model="final_west_cost_{{ $l }}" class="cost-profit-input final cost msg-id" data-ng-required="(budget_manager.forecast_west_revenue_{{ $l }}.$touched && !(!forecast_west_revenue_{{ $l }})) || (budget_manager.forecast_west_cost_{{ $l }}.$touched && !(!forecast_west_cost_{{ $l }})) || (budget_manager.final_west_revenue_{{ $l }}.$touched && !(!final_west_revenue_{{ $l }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_west_cost_{{ $l }}" ng-model="final_west_cost_{{ $l }}" ng-init="final_west_cost_{{ $l }}='0'" class="cost-profit-input final cost msg-id" data-ng-required="(budget_manager.forecast_west_revenue_{{ $l }}.$touched && !(!forecast_west_revenue_{{ $l }})) || (budget_manager.forecast_west_cost_{{ $l }}.$touched && !(!forecast_west_cost_{{ $l }})) || (budget_manager.final_west_revenue_{{ $l }}.$touched && !(!final_west_revenue_{{ $l }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!final_west_cost_{{ $l }} && forecast_west_revenue_{{ $l }}) ||  (!final_west_cost_{{ $l }} && forecast_west_cost_{{ $l }}) || (!final_west_cost_{{ $l }} && final_west_revenue_{{ $l }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
@@ -384,12 +382,21 @@
 										</tr>
 									@endforeach
 										<tr class="subtotal">
-											<td>Subtotal</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>%</td>
-											<td>%</td>
+											@if (empty($sub_budget_west[0]))
+												<td>Subtotal</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>%</td>
+												<td>%</td>
+												@else
+													<td>Subtotal</td>
+													<td>&yen;{{ $sub_budget_west[0]->revenue }}</td>
+													<td>&yen;{{ $sub_budget_west[0]->cost }}</td>
+													<td>&yen;{{ $sub_budget_west[0]->headoffice_expense }}</td>
+													<td>&yen;{{ $sub_budget_west[0]->profit }}</td>
+													<td>{{ $sub_budget_west[0]->profit_rate }}%</td>
+											@endif
 
 											<td class="forecast-sub-sale">
 												<span>&yen;</span>
@@ -543,12 +550,12 @@
 	 									 @endif
 
 											<td>
-												<input type="text" value="" name="forecast_central_revenue_{{ $k }}" ng-model="forecast_central_revenue_{{ $k }}" class="forecast revenue msg-id" data-ng-required="(budget_manager.forecast_central_cost_{{ $k }}.$touched && !(!forecast_central_cost_{{ $k }})) || (budget_manager.final_central_revenue_{{ $k }}.$touched && !(!final_central_revenue_{{ $k }})) || (budget_manager.final_central_cost_{{ $k }}.$touched && !(!final_central_cost_{{ $k }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_central_revenue_{{ $k }}" ng-model="forecast_central_revenue_{{ $k }}" ng-init="forecast_central_revenue_{{ $k }}='0'" class="forecast revenue msg-id" data-ng-required="(budget_manager.forecast_central_cost_{{ $k }}.$touched && !(!forecast_central_cost_{{ $k }})) || (budget_manager.final_central_revenue_{{ $k }}.$touched && !(!final_central_revenue_{{ $k }})) || (budget_manager.final_central_cost_{{ $k }}.$touched && !(!final_central_cost_{{ $k }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!forecast_central_revenue_{{ $k }} && forecast_central_cost_{{ $k }}) ||  (!forecast_central_revenue_{{ $k }} && final_central_revenue_{{ $k }}) || (!forecast_central_revenue_{{ $k }} && final_central_cost_{{ $k }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="forecast_central_cost_{{ $k }}" ng-model="forecast_central_cost_{{ $k }}" class="forecast cost msg-id" data-ng-required="(budget_manager.forecast_central_revenue_{{ $k }}.$touched && !(!forecast_central_revenue_{{ $k }})) || (budget_manager.final_central_revenue_{{ $k }}.$touched && !(!final_central_revenue_{{ $k }})) || (budget_manager.final_central_cost_{{ $k }}.$touched && !(!final_central_cost_{{ $k }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_central_cost_{{ $k }}" ng-model="forecast_central_cost_{{ $k }}" ng-init="forecast_central_cost_{{ $k }}='0'" class="forecast cost msg-id" data-ng-required="(budget_manager.forecast_central_revenue_{{ $k }}.$touched && !(!forecast_central_revenue_{{ $k }})) || (budget_manager.final_central_revenue_{{ $k }}.$touched && !(!final_central_revenue_{{ $k }})) || (budget_manager.final_central_cost_{{ $k }}.$touched && !(!final_central_cost_{{ $k }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!forecast_central_cost_{{ $k }} && forecast_central_revenue_{{ $k }}) ||  (!forecast_central_cost_{{ $k }} && final_central_revenue_{{ $k }}) || (!forecast_central_cost_{{ $k }} && final_central_cost_{{ $k }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
@@ -590,19 +597,19 @@
 											</td>
 
 											<td>
-												<input type="text" value="" name="final_central_revenue_{{ $k }}" ng-model="final_central_revenue_{{ $k }}" class="revenue-profit-input final revenue msg-id" data-ng-required="(budget_manager.forecast_central_revenue_{{ $k }}.$touched && !(!forecast_central_revenue_{{ $k }})) || (budget_manager.forecast_central_cost_{{ $k }}.$touched && !(!forecast_central_cost_{{ $k }})) || (budget_manager.final_central_cost_{{ $k }}.$touched && !(!final_central_cost_{{ $k }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_central_revenue_{{ $k }}" ng-model="final_central_revenue_{{ $k }}" ng-init="final_central_revenue_{{ $k }}='0'" class="revenue-profit-input final revenue msg-id" data-ng-required="(budget_manager.forecast_central_revenue_{{ $k }}.$touched && !(!forecast_central_revenue_{{ $k }})) || (budget_manager.forecast_central_cost_{{ $k }}.$touched && !(!forecast_central_cost_{{ $k }})) || (budget_manager.final_central_cost_{{ $k }}.$touched && !(!final_central_cost_{{ $k }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!final_central_revenue_{{ $k }} && forecast_central_revenue_{{ $k }}) ||  (!final_central_revenue_{{ $k }} && forecast_central_cost_{{ $k }}) || (!final_central_revenue_{{ $k }} && final_central_cost_{{ $k }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="final_central_cost_{{ $k }}" ng-model="final_central_cost_{{ $k }}" class="cost-profit-input final cost msg-id" data-ng-required="(budget_manager.forecast_central_revenue_{{ $k }}.$touched && !(!forecast_central_revenue_{{ $k }})) || (budget_manager.forecast_central_cost_{{ $k }}.$touched && !(!forecast_central_cost_{{ $k }})) || (budget_manager.final_central_revenue_{{ $k }}.$touched && !(!final_central_revenue_{{ $k }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_central_cost_{{ $k }}" ng-model="final_central_cost_{{ $k }}" ng-init="final_central_cost_{{ $k }}='0'" class="cost-profit-input final cost msg-id" data-ng-required="(budget_manager.forecast_central_revenue_{{ $k }}.$touched && !(!forecast_central_revenue_{{ $k }})) || (budget_manager.forecast_central_cost_{{ $k }}.$touched && !(!forecast_central_cost_{{ $k }})) || (budget_manager.final_central_revenue_{{ $k }}.$touched && !(!final_central_revenue_{{ $k }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!final_central_cost_{{ $k }} && forecast_central_revenue_{{ $k }}) ||  (!final_central_cost_{{ $k }} && forecast_central_cost_{{ $k }}) || (!final_central_cost_{{ $k }} && final_central_revenue_{{ $k }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											@if (empty($location_final_central[0]))
 	 										 <td class="final-expense">
 	 											 <span>&yen;</span>
-	 											 <input type="hidden" value="" name="final_central_expense_{{ $k }}" class="expense-input final expense">
+	 											 <input type="hidden" value="0" name="final_central_expense_{{ $k }}" class="expense-input final expense">
 	 										 </td>
 	 									 @else
 	 										 <td class="final-expense">
@@ -626,12 +633,21 @@
 										</tr>
 									@endforeach
 										<tr class="subtotal">
-											<td>Subtotal</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>%</td>
-											<td>%</td>
+											@if (empty($sub_budget_central[0]))
+												<td>Subtotal</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>%</td>
+												<td>%</td>
+												@else
+													<td>Subtotal</td>
+													<td>&yen;{{ $sub_budget_central[0]->revenue }}</td>
+													<td>&yen;{{ $sub_budget_central[0]->cost }}</td>
+													<td>&yen;{{ $sub_budget_central[0]->headoffice_expense }}</td>
+													<td>&yen;{{ $sub_budget_central[0]->profit }}</td>
+													<td>{{ $sub_budget_central[0]->profit_rate }}%</td>
+											@endif
 
 											<td class="forecast-sub-sale">
 												<span>&yen;</span>
@@ -785,18 +801,18 @@
 	 									 @endif
 
 											<td>
-												<input type="text" value="" name="forecast_east_revenue_{{ $j }}" ng-model="forecast_east_revenue_{{ $j }}" class="forecast revenue msg-id" data-ng-required="(budget_manager.forecast_east_cost_{{ $j }}.$touched && !(!forecast_east_cost_{{ $j }})) || (budget_manager.final_east_revenue_{{ $j }}.$touched && !(!final_east_revenue_{{ $j }})) || (budget_manager.final_east_cost_{{ $j }}.$touched && !(!final_east_cost_{{ $j }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_east_revenue_{{ $j }}" ng-model="forecast_east_revenue_{{ $j }}" ng-init="forecast_east_revenue_{{ $j }}='0'" class="forecast revenue msg-id" data-ng-required="(budget_manager.forecast_east_cost_{{ $j }}.$touched && !(!forecast_east_cost_{{ $j }})) || (budget_manager.final_east_revenue_{{ $j }}.$touched && !(!final_east_revenue_{{ $j }})) || (budget_manager.final_east_cost_{{ $j }}.$touched && !(!final_east_cost_{{ $j }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!forecast_east_revenue_{{ $j }} && forecast_east_cost_{{ $j }}) ||  (!forecast_east_revenue_{{ $j }} && final_east_revenue_{{ $j }}) || (!forecast_east_revenue_{{ $j }} && final_east_cost_{{ $j }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="forecast_east_cost_{{ $j }}" ng-model="forecast_east_cost_{{ $j }}" class="forecast cost msg-id" data-ng-required="(budget_manager.forecast_east_revenue_{{ $j }}.$touched && !(!forecast_east_revenue_{{ $j }})) || (budget_manager.final_east_revenue_{{ $j }}.$touched && !(!final_east_revenue_{{ $j }})) || (budget_manager.final_east_cost_{{ $j }}.$touched && !(!final_east_cost_{{ $j }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="forecast_east_cost_{{ $j }}" ng-model="forecast_east_cost_{{ $j }}" ng-init="forecast_east_cost_{{ $j }}='0'" class="forecast cost msg-id" data-ng-required="(budget_manager.forecast_east_revenue_{{ $j }}.$touched && !(!forecast_east_revenue_{{ $j }})) || (budget_manager.final_east_revenue_{{ $j }}.$touched && !(!final_east_revenue_{{ $j }})) || (budget_manager.final_east_cost_{{ $j }}.$touched && !(!final_east_cost_{{ $j }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!forecast_east_cost_{{ $j }} && forecast_east_revenue_{{ $j }}) ||  (!forecast_east_cost_{{ $j }} && final_east_revenue_{{ $j }}) || (!forecast_east_cost_{{ $j }} && final_east_cost_{{ $j }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											@if (empty($area_east_budget[0]))
 	 										 <td class="forecast-expense">
-	   										 <span>&yen;</span>
+	   										 <span>&yen;</span
 	   										 <input type="hidden" value="" class="forecast expense" name="forecast_east_expense_{{ $j }}">
 	   									 </td>
 	 									 @else
@@ -832,12 +848,12 @@
 											</td>
 
 											<td>
-												<input type="text" value="" name="final_east_revenue_{{ $j }}" ng-model="final_east_revenue_{{ $j }}" class="revenue-profit-input final revenue msg-id" data-ng-required="(budget_manager.forecast_east_revenue_{{ $j }}.$touched && !(!forecast_east_revenue_{{ $j }})) || (budget_manager.forecast_east_cost_{{ $j }}.$touched && !(!forecast_east_cost_{{ $j }})) || (budget_manager.final_east_cost_{{ $j }}.$touched && !(!final_east_cost_{{ $j }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_east_revenue_{{ $j }}" ng-model="final_east_revenue_{{ $j }}" ng-init="final_east_revenue_{{ $j }}='0'" class="revenue-profit-input final revenue msg-id" data-ng-required="(budget_manager.forecast_east_revenue_{{ $j }}.$touched && !(!forecast_east_revenue_{{ $j }})) || (budget_manager.forecast_east_cost_{{ $j }}.$touched && !(!forecast_east_cost_{{ $j }})) || (budget_manager.final_east_cost_{{ $j }}.$touched && !(!final_east_cost_{{ $j }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!final_east_revenue_{{ $j }} && forecast_east_revenue_{{ $j }}) ||  (!final_east_revenue_{{ $j }} && forecast_east_cost_{{ $j }}) || (!final_east_revenue_{{ $j }} && final_east_cost_{{ $j }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
 											<td>
-												<input type="text" value="" name="final_east_cost_{{ $j }}" ng-model="final_east_cost_{{ $j }}" class="cost-profit-input final cost msg-id" data-ng-required="(budget_manager.forecast_east_revenue_{{ $j }}.$touched && !(!forecast_east_revenue_{{ $j }})) || (budget_manager.forecast_east_cost_{{ $j }}.$touched && !(!forecast_east_cost_{{ $j }})) || (budget_manager.final_east_revenue_{{ $j }}.$touched && !(!final_east_revenue_{{ $j }}))" numbers-only my-maxlength="9">
+												<input type="text" value="0" name="final_east_cost_{{ $j }}" ng-model="final_east_cost_{{ $j }}" ng-init="final_east_cost_{{ $j }}='0'" class="cost-profit-input final cost msg-id" data-ng-required="(budget_manager.forecast_east_revenue_{{ $j }}.$touched && !(!forecast_east_revenue_{{ $j }})) || (budget_manager.forecast_east_cost_{{ $j }}.$touched && !(!forecast_east_cost_{{ $j }})) || (budget_manager.final_east_revenue_{{ $j }}.$touched && !(!final_east_revenue_{{ $j }}))" numbers-only my-maxlength="9">
 												<p ng-show="(!final_east_cost_{{ $j }} && forecast_east_revenue_{{ $j }}) ||  (!final_east_cost_{{ $j }} && forecast_east_cost_{{ $j }}) || (!final_east_cost_{{ $j }} && final_east_revenue_{{ $j }})" class="custom-error ng-hide">This field is required</p>
 												<p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 											</td>
@@ -868,12 +884,21 @@
 										</tr>
 									@endforeach
 										<tr class="subtotal">
-											<td>Subtotal</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>&yen;</td>
-											<td>%</td>
-											<td>%</td>
+											@if (empty($sub_budget_east[0]))
+												<td>Subtotal</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>&yen;</td>
+												<td>%</td>
+												<td>%</td>
+												@else
+													<td>Subtotal</td>
+													<td>&yen;{{ $sub_budget_east[0]->revenue }}</td>
+													<td>&yen;{{ $sub_budget_east[0]->cost }}</td>
+													<td>&yen;{{ $sub_budget_east[0]->headoffice_expense }}</td>
+													<td>&yen;{{ $sub_budget_east[0]->profit }}</td>
+													<td>{{ $sub_budget_east[0]->profit_rate }}%</td>
+											@endif
 
 											<td class="forecast-sub-sale">
 												<span>&yen;</span>
@@ -1251,12 +1276,21 @@
 								 </tr>
 							 @endforeach
 								 <tr class="subtotal">
-									 <td>Subtotal</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>%</td>
-									 <td>%</td>
+									 @if (empty($sub_budget_west[0]))
+										 <td>Subtotal</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>%</td>
+										 <td>%</td>
+										 @else
+											 <td>Subtotal</td>
+											 <td>&yen;{{ $sub_budget_west[0]->revenue }}</td>
+											 <td>&yen;{{ $sub_budget_west[0]->cost }}</td>
+											 <td>&yen;{{ $sub_budget_west[0]->headoffice_expense }}</td>
+											 <td>&yen;{{ $sub_budget_west[0]->profit }}</td>
+											 <td>{{ $sub_budget_west[0]->profit_rate }}%</td>
+									 @endif
 
 									 <td class="forecast-sub-sale">
 										 <span>&yen;</span>
@@ -1494,12 +1528,21 @@
 								 </tr>
 							 @endforeach
 								 <tr class="subtotal">
-									 <td>Subtotal</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>%</td>
-									 <td>%</td>
+									 @if (empty($sub_budget_central[0]))
+										 <td>Subtotal</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>%</td>
+										 <td>%</td>
+										 @else
+											 <td>Subtotal</td>
+											 <td>&yen;{{ $sub_budget_central[0]->revenue }}</td>
+											 <td>&yen;{{ $sub_budget_central[0]->cost }}</td>
+											 <td>&yen;{{ $sub_budget_central[0]->headoffice_expense }}</td>
+											 <td>&yen;{{ $sub_budget_central[0]->profit }}</td>
+											 <td>{{ $sub_budget_central[0]->profit_rate }}%</td>
+									 @endif
 
 									 <td class="forecast-sub-sale">
 										 <span>&yen;</span>
@@ -1651,14 +1694,12 @@
 	 									 </td>
 	 									 <td>{{ $area_east_budget[$j-1]->profit_rate }}%</td>
 									 @endif
-
-
 									 <td>
-										 <input type="text" value="{{ $key->revenue }}" name="forecast_east_revenue_{{ $j }}" ng-model="forecast_east_revenue_{{ $j }}" ng-init="forecast_east_revenue_{{ $j }}='{{ $key->revenue }}'" class="forecast revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+										 <input type="text" value="{{ $key->revenue }}" name="forecast_east_revenue_{{ $j }}" ng-model="forecast_east_revenue_{{ $j }}" ng-init="forecast_east_revenue_{{ $j }}='{{ $key->revenue }}'" class="forecast revenue msg-id" numbers-only my-maxlength="9">
 										 <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 									 </td>
 									 <td>
-										 <input type="text" value="{{ $key->cost }}" name="forecast_east_cost_{{ $j }}" ng-model="forecast_east_cost_{{ $j }}" ng-init="forecast_east_cost_{{ $j }}='{{ $key->cost }}'" class="forecast cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+										 <input type="text" value="{{ $key->cost }}" name="forecast_east_cost_{{ $j }}" ng-model="forecast_east_cost_{{ $j }}" ng-init="forecast_east_cost_{{ $j }}='{{ $key->cost }}'" class="forecast cost msg-id" numbers-only my-maxlength="9">
 										 <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 									 </td>
 									 @if (empty($area_east_budget[0]))
@@ -1700,11 +1741,11 @@
 									 </td>
 
 									 <td>
-										 <input type="text" value="{{ $location_final_east[$j-1]->revenue }}" name="final_east_revenue_{{ $j }}" ng-model="final_east_revenue_{{ $j }}" ng-init="final_east_revenue_{{ $j }}='{{ $location_final_east[$j-1]->revenue }}'" class="revenue-profit-input final revenue msg-id" ng-required="true" numbers-only my-maxlength="9">
+										 <input type="text" value="{{ $location_final_east[$j-1]->revenue }}" name="final_east_revenue_{{ $j }}" ng-model="final_east_revenue_{{ $j }}" ng-init="final_east_revenue_{{ $j }}='{{ $location_final_east[$j-1]->revenue }}'" class="revenue-profit-input final revenue msg-id" numbers-only my-maxlength="9">
 										 <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 									 </td>
 									 <td>
-										 <input type="text" value="{{ $location_final_east[$j-1]->cost }}" name="final_east_cost_{{ $j }}" ng-model="final_east_cost_{{ $j }}" ng-init="final_east_cost_{{ $j }}='{{ $location_final_east[$j-1]->cost }}'" class="cost-profit-input final cost msg-id" ng-required="true" numbers-only my-maxlength="9">
+										 <input type="text" value="{{ $location_final_east[$j-1]->cost }}" name="final_east_cost_{{ $j }}" ng-model="final_east_cost_{{ $j }}" ng-init="final_east_cost_{{ $j }}='{{ $location_final_east[$j-1]->cost }}'" class="cost-profit-input final cost msg-id" numbers-only my-maxlength="9">
 										 <p class="custom-error err-lim" style="display: none;">Allow only nine digits</p>
 									 </td>
 									 @if (empty($location_final_east[0]))
@@ -1735,12 +1776,21 @@
 								 </tr>
 							 @endforeach
 								 <tr class="subtotal">
-									 <td>Subtotal</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>&yen;</td>
-									 <td>%</td>
-									 <td>%</td>
+									 @if (empty($sub_budget_east[0]))
+										 <td>Subtotal</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>&yen;</td>
+										 <td>%</td>
+										 <td>%</td>
+										 @else
+											 <td>Subtotal</td>
+											 <td>&yen;{{ $sub_budget_east[0]->revenue }}</td>
+											 <td>&yen;{{ $sub_budget_east[0]->cost }}</td>
+											 <td>&yen;{{ $sub_budget_east[0]->headoffice_expense }}</td>
+											 <td>&yen;{{ $sub_budget_east[0]->profit }}</td>
+											 <td>{{ $sub_budget_east[0]->profit_rate }}%</td>
+									 @endif
 
 									 <td class="forecast-sub-sale">
 										 <span>&yen;</span>

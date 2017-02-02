@@ -104,6 +104,56 @@ class System_Budget extends Controller
                                     ])
                             ->get();
       //
+      $sub_budget_west = DB::table('sub_budget')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                          ['month','=',$month],
+                          ['year','=',$year],
+                          ['area','=',1]
+                        ])
+                        ->get();
+      $sub_budget_central = DB::table('sub_budget')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                          ['month','=',$month],
+                          ['year','=',$year],
+                          ['area','=',2]
+                        ])
+                        ->get();
+      $sub_budget_east = DB::table('sub_budget')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                           ['month','=',$month],
+                           ['year','=',$year],
+                           ['area','=',3]
+                         ])
+                         ->get();
+      //
+      $sub_forecast_west = DB::table('sub_forecast')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                           ['month','=',$month],
+                           ['year','=',$year],
+                           ['area','=',1]
+                         ])
+                         ->get();
+       $sub_forecast_central = DB::table('sub_forecast')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                              ['month','=',$month],
+                              ['year','=',$year],
+                              ['area','=',2]
+                            ])
+                            ->get();
+       $sub_forecast_east = DB::table('sub_forecast')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                        ->where([
+                              ['month','=',$month],
+                              ['year','=',$year],
+                              ['area','=',3]
+                            ])
+                            ->get();
+      //
       $area_west = DB::table('location_master')
                     ->select('location_name')
                     ->where('area_id','=',1)
@@ -133,20 +183,20 @@ class System_Budget extends Controller
       if(session_status()===PHP_SESSION_NONE){
          session_start();
         if($_SESSION['role']=='admin'){
-          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','sub_forecast_west','sub_forecast_central','sub_forecast_east'));
         }
         else {
-          return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross'));
+          return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross','sub_budget_west','sub_budget_central','sub_budget_east'));
         }
          }
       elseif (session_status()===PHP_SESSION_ACTIVE)
       {
         if($_SESSION['role']=='admin'){
-          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','sub_forecast_west','sub_forecast_central','sub_forecast_east'));
         }
         else {
 
-          return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross'));
+          return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross','sub_budget_west','sub_budget_central','sub_budget_east'));
         }
       }
     }
@@ -159,8 +209,6 @@ class System_Budget extends Controller
     }
     public function budgetAdmin(Request $request)
     {
-
-
         // get month and year input
         $output['month'] = (int)$request->month_a;
         $output['year'] = (int)$request->year_a;
@@ -176,65 +224,85 @@ class System_Budget extends Controller
           DB::beginTransaction();
           try{
           $output['area_west_location_1'] = $request->area_west_location_1;
-          $output['area_west_revenue_1'] = $request->area_west_revenue_1;
-          $output['area_west_expense_1'] = $request->area_west_expense_1;
-          $output['area_west_cost_1'] = $request->area_west_cost_1;
-          $output['area_west_profit_1'] = $request->area_west_profit_1;
-          $output['area_west_profitRate_1'] = $request->area_west_profitRate_1;
-          $output['area_west_settingRate_1'] = $request->area_west_settingRate_1;
+          $output['area_west_revenue_1'] = (int)$request->area_west_revenue_1;
+          $output['area_west_expense_1'] = (int)$request->area_west_expense_1;
+          $output['area_west_cost_1'] = (int)$request->area_west_cost_1;
+          $output['area_west_profit_1'] = (int)$request->area_west_profit_1;
+          $output['area_west_profitRate_1'] = (double)$request->area_west_profitRate_1;
+          $output['area_west_settingRate_1'] = (double)$request->area_west_settingRate_1;
 
           $output['area_west_location_2'] = $request->area_west_location_2;
-          $output['area_west_revenue_2'] = $request->area_west_revenue_2;
-          $output['area_west_expense_2'] = $request->area_west_expense_2;
-          $output['area_west_cost_2'] = $request->area_west_cost_2;
-          $output['area_west_profit_2'] = $request->area_west_profit_2;
-          $output['area_west_profitRate_2'] = $request->area_west_profitRate_2;
-          $output['area_west_settingRate_2'] = $request->area_west_settingRate_2;
+          $output['area_west_revenue_2'] = (int)$request->area_west_revenue_2;
+          $output['area_west_expense_2'] = (int)$request->area_west_expense_2;
+          $output['area_west_cost_2'] = (int)$request->area_west_cost_2;
+          $output['area_west_profit_2'] = (int)$request->area_west_profit_2;
+          $output['area_west_profitRate_2'] = (double)$request->area_west_profitRate_2;
+          $output['area_west_settingRate_2'] = (double)$request->area_west_settingRate_2;
 
           $output['area_central_location_1'] = $request->area_central_location_1;
-          $output['area_central_revenue_1'] = $request->area_central_revenue_1;
-          $output['area_central_expense_1'] = $request->area_central_expense_1;
-          $output['area_central_cost_1'] = $request->area_central_cost_1;
-          $output['area_central_profit_1'] = $request->area_central_profit_1;
-          $output['area_central_profitRate_1'] = $request->area_central_profitRate_1;
-          $output['area_central_settingRate_1'] = $request->area_central_settingRate_1;
+          $output['area_central_revenue_1'] = (int)$request->area_central_revenue_1;
+          $output['area_central_expense_1'] = (int)(int)$request->area_central_expense_1;
+          $output['area_central_cost_1'] = (int)$request->area_central_cost_1;
+          $output['area_central_profit_1'] = (int)$request->area_central_profit_1;
+          $output['area_central_profitRate_1'] = (double)$request->area_central_profitRate_1;
+          $output['area_central_settingRate_1'] = (double)$request->area_central_settingRate_1;
 
           $output['area_central_location_2'] = $request->area_central_location_2;
-          $output['area_central_revenue_2'] = $request->area_central_revenue_2;
-          $output['area_central_expense_2'] = $request->area_central_expense_1;
+          $output['area_central_revenue_2'] = (int)$request->area_central_revenue_2;
+          $output['area_central_expense_2'] = (int)$request->area_central_expense_1;
           $output['area_central_cost_2'] = $request->area_central_cost_2;
-          $output['area_central_profit_2'] = $request->area_central_profit_2;
-          $output['area_central_profitRate_2'] = $request->area_central_profitRate_2;
-          $output['area_central_settingRate_2'] = $request->area_central_settingRate_2;
+          $output['area_central_profit_2'] = (int)$request->area_central_profit_2;
+          $output['area_central_profitRate_2'] = (double)$request->area_central_profitRate_2;
+          $output['area_central_settingRate_2'] = (double)$request->area_central_settingRate_2;
 
           $output['area_east_location_1'] = $request->area_east_location_1;
-          $output['area_east_revenue_1'] = $request->area_east_revenue_1;
-          $output['area_east_expense_1'] = $request->area_east_expense_1;
-          $output['area_east_cost_1'] = $request->area_east_cost_1;
-          $output['area_east_profit_1'] = $request->area_east_profit_1;
-          $output['area_east_profitRate_1'] = $request->area_east_profitRate_1;
-          $output['area_east_settingRate_1'] = $request->area_east_settingRate_1;
+          $output['area_east_revenue_1'] = (int)$request->area_east_revenue_1;
+          $output['area_east_expense_1'] = (int)$request->area_east_expense_1;
+          $output['area_east_cost_1'] = (int)$request->area_east_cost_1;
+          $output['area_east_profit_1'] = (int)$request->area_east_profit_1;
+          $output['area_east_profitRate_1'] = (double)$request->area_east_profitRate_1;
+          $output['area_east_settingRate_1'] = (double)$request->area_east_settingRate_1;
 
           $output['area_east_location_2'] = $request->area_east_location_2;
-          $output['area_east_revenue_2'] = $request->area_east_revenue_2;
-          $output['area_east_expense_2'] = $request->area_east_expense_2;
-          $output['area_east_cost_2'] = $request->area_east_cost_2;
-          $output['area_east_profit_2'] = $request->area_east_profit_2;
-          $output['area_east_profitRate_2'] = $request->area_east_profitRate_2;
-          $output['area_east_settingRate_2'] = $request->area_east_settingRate_2;
+          $output['area_east_revenue_2'] = (int)$request->area_east_revenue_2;
+          $output['area_east_expense_2'] =(int) $request->area_east_expense_2;
+          $output['area_east_cost_2'] = (int)$request->area_east_cost_2;
+          $output['area_east_profit_2'] = (int)$request->area_east_profit_2;
+          $output['area_east_profitRate_2'] = (double)$request->area_east_profitRate_2;
+          $output['area_east_settingRate_2'] = (double)$request->area_east_settingRate_2;
 
-          $output['final_west_1'] = $request->area_west_expense_1;
-          $output['final_west_2'] = $request->area_west_expense_2;
-          $output['final_central_1'] = $request->area_central_expense_1;
-          $output['final_central_2'] = $request->area_central_expense_2;
-          $output['final_east_1'] = $request->area_east_expense_1;
-          $output['final_east_2'] = $request->area_east_expense_2;
+          $output['final_west_1'] = (int)$request->area_west_expense_1;
+          $output['final_west_2'] = (int)$request->area_west_expense_2;
+          $output['final_central_1'] = (int)$request->area_central_expense_1;
+          $output['final_central_2'] = (int)$request->area_central_expense_2;
+          $output['final_east_1'] = (int)$request->area_east_expense_1;
+          $output['final_east_2'] = (int)$request->area_east_expense_2;
+
+          $output['company_west_sub_sale'] = $request->company_west_sub_sale;
+          $output['company_west_sub_cost'] = $request->company_west_sub_cost;
+          $output['comapny_west_sub_expense'] = $request->comapny_west_sub_expense;
+          $output['company_west_sub_profit'] = $request->company_west_sub_profit;
+          $output['comapny_west_sub_profit_rate'] = $request->comapny_west_sub_profit_rate;
+
+          $output['company_central_sub_sale'] = $request->company_central_sub_sale;
+          $output['company_central_sub_cost'] = $request->company_central_sub_cost;
+          $output['company_central_sub_expense'] = $request->company_central_sub_expense;
+          $output['company_central_sub_profit'] = $request->company_central_sub_profit;
+          $output['company_central_sub_profit_rate'] = $request->company_central_sub_profit_rate;
+
+          $output['company_east_sub_sale'] = $request->company_east_sub_sale;
+          $output['company_east_sub_cost'] = $request->company_east_sub_cost;
+          $output['company_east_sub_expense'] = $request->company_east_sub_expense;
+          $output['company_east_sub_profit'] = $request->company_east_sub_profit;
+          $output['company_east_sub_profit_rate'] = $request->company_east_sub_profit_rate;
 
           $output['gross_revenue'] = $request->gross_sale;
           $output['gross_cost'] = $request->gross_cost;
           $output['gross_expense'] = $request->gross_expense;
           $output['gross_profit'] = (int)$request->gross_profit;
           $output['gross_profit_rate'] = $request->gross_profit_rate;
+
+
 
           DB::table('gross_total')
               ->insert(
@@ -247,22 +315,29 @@ class System_Budget extends Controller
                           ['month','=',$month]
                         ])
                         ->get();
+
           // insert data into final result
           if(empty($final_result[0]))
           {
+
             for ($i=1; $i < 3; $i++) {
               $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_west_location_'.$i])->get();
               $id = $location[0]->location_id;
+
               DB::table('final_result')->insert(
               ['division' => 1,'area' => 1, 'location' => $id, 'year' => $output['year'], 'month' => $output['month'],'headoffice_expense' => $output['final_west_'.$i], 'created_at' => new DateTime]
               );
+
             }
+
             for ($i=1; $i < 3; $i++) {
+
               $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_central_location_'.$i])->get();
               $id = $location[0]->location_id;
               DB::table('final_result')->insert(
               ['division' => 1,'area' => 2, 'location' => $id, 'year' => $output['year'], 'month' => $output['month'],'headoffice_expense' => $output['final_central_'.$i], 'created_at' => new DateTime]
               );
+
             }
             for ($i=1; $i < 3; $i++) {
               $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_east_location_'.$i])->get();
@@ -308,8 +383,8 @@ class System_Budget extends Controller
               ])
                ->update(['headoffice_expense' => $output['final_east_'.$i]]);
             }
-
           }
+
 
           for ($i=1; $i < 3; $i++) {
               $location = DB::table('location_master')->select('location_id')->where('location_name','=',$output['area_west_location_'.$i])->get();
@@ -335,7 +410,18 @@ class System_Budget extends Controller
               );
           }
 
-
+          DB::table('sub_budget')
+            ->insert(
+              ['division' => 1,'area' => 1, 'year' => $output['year'], 'month' => $output['month'], 'revenue' => $output['company_west_sub_sale'], 'cost' => $output['company_west_sub_cost'], 'profit' => $output['company_west_sub_profit'], 'profit_rate' => $output['comapny_west_sub_profit_rate'], 'created_at' => new DateTime, 'headoffice_expense' => $output['comapny_west_sub_expense']]
+            );
+          DB::table('sub_budget')
+            ->insert(
+              ['division' => 1,'area' => 2, 'year' => $output['year'], 'month' => $output['month'], 'revenue' => $output['company_central_sub_sale'], 'cost' => $output['company_central_sub_cost'], 'profit' => $output['company_central_sub_profit'], 'profit_rate' => $output['company_central_sub_profit_rate'], 'created_at' => new DateTime, 'headoffice_expense' => $output['company_central_sub_expense']]
+            );
+          DB::table('sub_budget')
+            ->insert(
+              ['division' => 1,'area' => 3, 'year' => $output['year'], 'month' => $output['month'], 'revenue' => $output['company_east_sub_sale'], 'cost' => $output['company_east_sub_cost'], 'profit' => $output['company_east_sub_profit'], 'profit_rate' => $output['company_east_sub_profit_rate'], 'created_at' => new DateTime, 'headoffice_expense' => $output['company_east_sub_expense']]
+            );
           DB::commit();
         }
         catch(\Exception $e)
@@ -375,25 +461,25 @@ class System_Budget extends Controller
                                         ])
                                 ->get();
 
-                                //
-                                $location_forecast_west = DB::table('location_forecast')
-                                                     ->join('location_master','location_forecast.location','=','location_master.location_id')
-                                                     ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
-                                                     ->where([
-                                                                ['year','=', $year],
-                                                                ['month','=', $month],
-                                                                ['area','=', 1]
-                                                              ])
-                                                      ->get();
-                                $location_forecast_central = DB::table('location_forecast')
-                                                      ->join('location_master','location_forecast.location','=','location_master.location_id')
-                                                      ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
-                                                      ->where([
-                                                                  ['year','=', $year],
-                                                                  ['month','=', $month],
-                                                                  ['area','=', 2]
-                                                              ])
-                                                        ->get();
+          //
+          $location_forecast_west = DB::table('location_forecast')
+                                    ->join('location_master','location_forecast.location','=','location_master.location_id')
+                                    ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
+                                    ->where([
+                                               ['year','=', $year],
+                                               ['month','=', $month],
+                                               ['area','=', 1]
+                                            ])
+                                    ->get();
+          $location_forecast_central = DB::table('location_forecast')
+                                    ->join('location_master','location_forecast.location','=','location_master.location_id')
+                                    ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
+                                    ->where([
+                                                ['year','=', $year],
+                                                ['month','=', $month],
+                                                ['area','=', 2]
+                                            ])
+                                    ->get();
                                 $location_forecast_east = DB::table('location_forecast')
                                                         ->join('location_master','location_forecast.location','=','location_master.location_id')
                                                         ->select('location_master.location_name','location_forecast.revenue','location_forecast.cost','location_forecast.profit','location_forecast.profit_rate')
@@ -476,68 +562,84 @@ class System_Budget extends Controller
           DB::beginTransaction();
           try{
 
-          $output['area_west_location_1'] = $request->area_west_location_1;
-          $output['area_west_revenue_1'] = $request->area_west_revenue_1;
-          $output['area_west_expense_1'] = $request->area_west_expense_1;
-          $output['area_west_cost_1'] = $request->area_west_cost_1;
-          $output['area_west_profit_1'] = $request->area_west_profit_1;
-          $output['area_west_profitRate_1'] = $request->area_west_profitRate_1;
-          $output['area_west_settingRate_1'] = $request->area_west_settingRate_1;
+            $output['area_west_location_1'] = $request->area_west_location_1;
+            $output['area_west_revenue_1'] = (int)$request->area_west_revenue_1;
+            $output['area_west_expense_1'] = (int)$request->area_west_expense_1;
+            $output['area_west_cost_1'] = (int)$request->area_west_cost_1;
+            $output['area_west_profit_1'] = (int)$request->area_west_profit_1;
+            $output['area_west_profitRate_1'] = (double)$request->area_west_profitRate_1;
+            $output['area_west_settingRate_1'] = (double)$request->area_west_settingRate_1;
 
-          $output['area_west_location_2'] = $request->area_west_location_2;
-          $output['area_west_revenue_2'] = $request->area_west_revenue_2;
-          $output['area_west_expense_2'] = $request->area_west_expense_2;
-          $output['area_west_cost_2'] = $request->area_west_cost_2;
-          $output['area_west_profit_2'] = $request->area_west_profit_2;
-          $output['area_west_profitRate_2'] = $request->area_west_profitRate_2;
-          $output['area_west_settingRate_2'] = $request->area_west_settingRate_2;
+            $output['area_west_location_2'] = $request->area_west_location_2;
+            $output['area_west_revenue_2'] = (int)$request->area_west_revenue_2;
+            $output['area_west_expense_2'] = (int)$request->area_west_expense_2;
+            $output['area_west_cost_2'] = (int)$request->area_west_cost_2;
+            $output['area_west_profit_2'] = (int)$request->area_west_profit_2;
+            $output['area_west_profitRate_2'] = (double)$request->area_west_profitRate_2;
+            $output['area_west_settingRate_2'] = (double)$request->area_west_settingRate_2;
 
+            $output['area_central_location_1'] = $request->area_central_location_1;
+            $output['area_central_revenue_1'] = (int)$request->area_central_revenue_1;
+            $output['area_central_expense_1'] = (int)(int)$request->area_central_expense_1;
+            $output['area_central_cost_1'] = (int)$request->area_central_cost_1;
+            $output['area_central_profit_1'] = (int)$request->area_central_profit_1;
+            $output['area_central_profitRate_1'] = (double)$request->area_central_profitRate_1;
+            $output['area_central_settingRate_1'] = (double)$request->area_central_settingRate_1;
 
-          $output['area_central_location_1'] = $request->area_central_location_1;
-          $output['area_central_revenue_1'] = $request->area_central_revenue_1;
-          $output['area_central_expense_1'] = $request->area_central_expense_1;
-          $output['area_central_cost_1'] = $request->area_central_cost_1;
-          $output['area_central_profit_1'] = $request->area_central_profit_1;
-          $output['area_central_profitRate_1'] = $request->area_central_profitRate_1;
-          $output['area_central_settingRate_1'] = $request->area_central_settingRate_1;
+            $output['area_central_location_2'] = $request->area_central_location_2;
+            $output['area_central_revenue_2'] = (int)$request->area_central_revenue_2;
+            $output['area_central_expense_2'] = (int)$request->area_central_expense_1;
+            $output['area_central_cost_2'] = $request->area_central_cost_2;
+            $output['area_central_profit_2'] = (int)$request->area_central_profit_2;
+            $output['area_central_profitRate_2'] = (double)$request->area_central_profitRate_2;
+            $output['area_central_settingRate_2'] = (double)$request->area_central_settingRate_2;
 
+            $output['area_east_location_1'] = $request->area_east_location_1;
+            $output['area_east_revenue_1'] = (int)$request->area_east_revenue_1;
+            $output['area_east_expense_1'] = (int)$request->area_east_expense_1;
+            $output['area_east_cost_1'] = (int)$request->area_east_cost_1;
+            $output['area_east_profit_1'] = (int)$request->area_east_profit_1;
+            $output['area_east_profitRate_1'] = (double)$request->area_east_profitRate_1;
+            $output['area_east_settingRate_1'] = (double)$request->area_east_settingRate_1;
 
-          $output['area_central_location_2'] = $request->area_central_location_2;
-          $output['area_central_revenue_2'] = $request->area_central_revenue_2;
-          $output['area_central_expense_2'] = $request->area_central_expense_1;
-          $output['area_central_cost_2'] = $request->area_central_cost_2;
-          $output['area_central_profit_2'] = $request->area_central_profit_2;
-          $output['area_central_profitRate_2'] = $request->area_central_profitRate_2;
-          $output['area_central_settingRate_2'] = $request->area_central_settingRate_2;
+            $output['area_east_location_2'] = $request->area_east_location_2;
+            $output['area_east_revenue_2'] = (int)$request->area_east_revenue_2;
+            $output['area_east_expense_2'] =(int) $request->area_east_expense_2;
+            $output['area_east_cost_2'] = (int)$request->area_east_cost_2;
+            $output['area_east_profit_2'] = (int)$request->area_east_profit_2;
+            $output['area_east_profitRate_2'] = (double)$request->area_east_profitRate_2;
+            $output['area_east_settingRate_2'] = (double)$request->area_east_settingRate_2;
 
-          $output['area_east_location_1'] = $request->area_east_location_1;
-          $output['area_east_revenue_1'] = $request->area_east_revenue_1;
-          $output['area_east_expense_1'] = $request->area_east_expense_1;
-          $output['area_east_cost_1'] = $request->area_east_cost_1;
-          $output['area_east_profit_1'] = $request->area_east_profit_1;
-          $output['area_east_profitRate_1'] = $request->area_east_profitRate_1;
-          $output['area_east_settingRate_1'] = $request->area_east_settingRate_1;
+            $output['final_west_1'] = (int)$request->area_west_expense_1;
+            $output['final_west_2'] = (int)$request->area_west_expense_2;
+            $output['final_central_1'] = (int)$request->area_central_expense_1;
+            $output['final_central_2'] = (int)$request->area_central_expense_2;
+            $output['final_east_1'] = (int)$request->area_east_expense_1;
+            $output['final_east_2'] = (int)$request->area_east_expense_2;
 
-          $output['area_east_location_2'] = $request->area_east_location_2;
-          $output['area_east_revenue_2'] = $request->area_east_revenue_2;
-          $output['area_east_expense_2'] = $request->area_east_expense_2;
-          $output['area_east_cost_2'] = $request->area_east_cost_2;
-          $output['area_east_profit_2'] = $request->area_east_profit_2;
-          $output['area_east_profitRate_2'] = $request->area_east_profitRate_2;
-          $output['area_east_settingRate_2'] = $request->area_east_settingRate_2;
+            $output['company_west_sub_sale'] = $request->company_west_sub_sale;
+            $output['company_west_sub_cost'] = $request->company_west_sub_cost;
+            $output['comapny_west_sub_expense'] = $request->comapny_west_sub_expense;
+            $output['company_west_sub_profit'] = $request->company_west_sub_profit;
+            $output['comapny_west_sub_profit_rate'] = $request->comapny_west_sub_profit_rate;
 
-          $output['final_west_1'] = $request->area_west_expense_1;
-          $output['final_west_2'] = $request->area_west_expense_2;
-          $output['final_central_1'] = $request->area_central_expense_1;
-          $output['final_central_2'] = $request->area_central_expense_2;
-          $output['final_east_1'] = $request->area_east_expense_1;
-          $output['final_east_2'] = $request->area_east_expense_2;
+            $output['company_central_sub_sale'] = $request->company_central_sub_sale;
+            $output['company_central_sub_cost'] = $request->company_central_sub_cost;
+            $output['company_central_sub_expense'] = $request->company_central_sub_expense;
+            $output['company_central_sub_profit'] = $request->company_central_sub_profit;
+            $output['company_central_sub_profit_rate'] = $request->company_central_sub_profit_rate;
 
-          $output['gross_revenue'] = $request->gross_sale;
-          $output['gross_cost'] = $request->gross_cost;
-          $output['gross_expense'] = $request->gross_expense;
-          $output['gross_profit'] = (int)$request->gross_profit;
-          $output['gross_profit_rate'] = $request->gross_profit_rate;
+            $output['company_east_sub_sale'] = $request->company_east_sub_sale;
+            $output['company_east_sub_cost'] = $request->company_east_sub_cost;
+            $output['company_east_sub_expense'] = $request->company_east_sub_expense;
+            $output['company_east_sub_profit'] = $request->company_east_sub_profit;
+            $output['company_east_sub_profit_rate'] = $request->company_east_sub_profit_rate;
+
+            $output['gross_revenue'] = $request->gross_sale;
+            $output['gross_cost'] = $request->gross_cost;
+            $output['gross_expense'] = $request->gross_expense;
+            $output['gross_profit'] = (int)$request->gross_profit;
+            $output['gross_profit_rate'] = $request->gross_profit_rate;
 
           DB::table('gross_total')->where([
             ['year',$year],
@@ -622,6 +724,34 @@ class System_Budget extends Controller
               ['division' => 1,'revenue' => $output['area_east_revenue_'.$i], 'cost' => $output['area_east_cost_'.$i], 'profit' => $output['area_east_profit_'.$i], 'profit_rate' => $output['area_east_profitRate_'.$i], 'setting_rate' => $output['area_east_settingRate_'.$i], 'updated_at' => new DateTime, 'headoffice_expense' => $output['area_east_expense_'.$i]]
               );
           }
+          DB::table('sub_budget')
+            ->where([
+              ['month',$month],
+              ['year',$year],
+              ['area',1]
+            ])
+            ->update(
+              ['division' => 1, 'revenue' => $output['company_west_sub_sale'], 'cost' => $output['company_west_sub_cost'], 'profit' => $output['company_west_sub_profit'], 'profit_rate' => $output['comapny_west_sub_profit_rate'], 'created_at' => new DateTime, 'headoffice_expense' => $output['comapny_west_sub_expense']]
+            );
+            DB::table('sub_budget')
+              ->where([
+                ['month',$month],
+                ['year',$year],
+                ['area',2]
+              ])
+              ->update(
+                ['division' => 1, 'revenue' => $output['company_central_sub_sale'], 'cost' => $output['company_central_sub_cost'], 'profit' => $output['company_central_sub_profit'], 'profit_rate' => $output['company_central_sub_profit_rate'], 'created_at' => new DateTime, 'headoffice_expense' => $output['company_central_sub_expense']]
+              );
+              DB::table('sub_budget')
+                ->where([
+                  ['month',$month],
+                  ['year',$year],
+                  ['area',3]
+                ])
+                ->update(
+                  ['division' => 1, 'revenue' => $output['company_east_sub_sale'], 'cost' => $output['company_east_sub_cost'], 'profit' => $output['company_east_sub_profit'], 'profit_rate' => $output['company_east_sub_profit_rate'], 'created_at' => new DateTime, 'headoffice_expense' => $output['company_east_sub_expense']]
+                );
+
           DB::commit();
         }
         catch(\Exception $e)
@@ -848,7 +978,57 @@ class System_Budget extends Controller
                                                ['area','=', 3]
                                   ])
                            ->get();
-        //
+      //
+      $sub_budget_west = DB::table('sub_budget')
+                                             ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                                             ->where([
+                                               ['month','=',$month],
+                                               ['year','=',$year],
+                                               ['area','=',1]
+                                             ])
+                                             ->get();
+      $sub_budget_central = DB::table('sub_budget')
+                                             ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                                             ->where([
+                                               ['month','=',$month],
+                                               ['year','=',$year],
+                                               ['area','=',2]
+                                             ])
+                                             ->get();
+      $sub_budget_east = DB::table('sub_budget')
+                                             ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                                             ->where([
+                                                ['month','=',$month],
+                                                ['year','=',$year],
+                                                ['area','=',3]
+                                              ])
+                                              ->get();
+                                              //
+      $sub_forecast_west = DB::table('sub_forecast')
+                        ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                                                                ->where([
+                                                                   ['month','=',$month],
+                                                                   ['year','=',$year],
+                                                                   ['area','=',1]
+                                                                 ])
+                                                                 ->get();
+      $sub_forecast_central = DB::table('sub_forecast')
+                                                                ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                                                                ->where([
+                                                                      ['month','=',$month],
+                                                                      ['year','=',$year],
+                                                                      ['area','=',2]
+                                                                    ])
+                                                                    ->get();
+      $sub_forecast_east = DB::table('sub_forecast')
+                                                                ->select('revenue','cost','headoffice_expense','profit','profit_rate')
+                                                                ->where([
+                                                                      ['month','=',$month],
+                                                                      ['year','=',$year],
+                                                                      ['area','=',3]
+                                                                    ])
+                                                                    ->get();
+      //
       $area_west = DB::table('location_master')
                           ->select('location_name')
                           ->where('area_id','=',1)
@@ -879,20 +1059,20 @@ class System_Budget extends Controller
                   if(session_status()===PHP_SESSION_NONE){
                      session_start();
                      if($_SESSION['role']=='admin'){
-                       return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                       return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','sub_forecast_west','sub_forecast_central','sub_forecast_east'));
                               }
                       else {
-                        return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross'));
+                        return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross','sub_budget_west','sub_budget_central','sub_budget_east'));
                             }
                       }
                       elseif (session_status()===PHP_SESSION_ACTIVE)
                       {
                         if($_SESSION['role']=='admin'){
-                          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east'));
+                          return view ('admin.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','sub_forecast_west','sub_forecast_central','sub_forecast_east'));
                        }
                        else {
 
-                         return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross'));
+                         return view ('manager.BudgetManagement',compact('area_west','area_central','area_east','l','j','k','area_west_budget','area_central_budget','area_east_budget','month','year','insert','update','location_forecast_west','location_forecast_central','location_forecast_east','location_final_west','location_final_central','location_final_east','gross','sub_budget_west','sub_budget_central','sub_budget_east'));
                         }
                     }
 }
