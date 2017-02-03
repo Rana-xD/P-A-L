@@ -319,11 +319,11 @@
 	 									 @endif
 											<td class="forecast-profit">
 												<span>&yen;</span>
-												<input type="hidden" value="" class="forecast hidden-profit" name="forecast_west_profit_{{ $l }}">
+												<input type="hidden" value="0" class="forecast hidden-profit" name="forecast_west_profit_{{ $l }}">
 											</td>
 											<td class="forecast-profit-rate">
 												<span>%</span>
-												<input type="hidden" class="forecast hidden-profit-rate" name="forecast_west_profitRate_{{ $l }}">
+												<input type="hidden" value="0" class="forecast hidden-profit-rate" name="forecast_west_profitRate_{{ $l }}">
 											</td>
 
 											<td>&yen;</td>
@@ -415,7 +415,7 @@
 											</td>
 											<td class="forecast-sub-profit-rate">
 												<span>%</span>
-												<input type="hidden" class="forecast sub-rate-hidden" name="forecast_west_sub_profit_rate">
+												<input type="hidden" value="0" class="forecast sub-rate-hidden" name="forecast_west_sub_profit_rate">
 											</td>
 
 											<td>
@@ -571,11 +571,11 @@
 	 									 @endif
 											<td class="forecast-profit">
 												<span>&yen;</span>
-												<input type="hidden" value="" class="forecast hidden-profit" name="forecast_central_profit_{{ $k }}">
+												<input type="hidden" value="0" class="forecast hidden-profit" name="forecast_central_profit_{{ $k }}">
 											</td>
 											<td class="forecast-profit-rate">
 												<span>%</span>
-												<input type="hidden" class="forecast hidden-profit-rate" name="forecast_central_profitRate_{{ $k }}">
+												<input type="hidden" value="0" class="forecast hidden-profit-rate" name="forecast_central_profitRate_{{ $k }}">
 											</td>
 
 											<td>&yen;</td>
@@ -666,7 +666,7 @@
 											</td>
 											<td class="forecast-sub-profit-rate">
 												<span>%</span>
-												<input type="hidden" class="forecast sub-rate-hidden" name="forecast_central_sub_profit_rate">
+												<input type="hidden" value="0" class="forecast sub-rate-hidden" name="forecast_central_sub_profit_rate">
 											</td>
 
 											<td>
@@ -822,11 +822,11 @@
 	 									 @endif
 											<td class="forecast-profit">
 												<span>&yen;</span>
-												<input type="hidden" value="" class="forecast hidden-profit" name="forecast_east_profit_{{ $j }}">
+												<input type="hidden" value="0" class="forecast hidden-profit" name="forecast_east_profit_{{ $j }}">
 											</td>
 											<td class="forecast-profit-rate">
 												<span>%</span>
-												<input type="hidden" class="forecast hidden-profit-rate" name="forecast_east_profitRate_{{ $j }}">
+												<input type="hidden" value="0" class="forecast hidden-profit-rate" name="forecast_east_profitRate_{{ $j }}">
 											</td>
 
 											<td>&yen;</td>
@@ -917,7 +917,7 @@
 											</td>
 											<td class="forecast-sub-profit-rate">
 												<span>%</span>
-												<input type="hidden" class="forecast sub-rate-hidden" name="forecast_east_sub_profit_rate">
+												<input type="hidden" value="0" class="forecast sub-rate-hidden" name="forecast_east_sub_profit_rate">
 											</td>
 
 											<td>
@@ -1022,7 +1022,7 @@
 				  									<!-- Gross profit -->
 				  								</td>
 				  								<td>
-														{{ $gross[0]->profit }}%
+														{{ $gross[0]->profit_rate }}%
 				  									<!-- Gross profit rate -->
 				  								</td>
 
@@ -1914,7 +1914,7 @@
 												 <!-- Gross profit -->
 											 </td>
 											 <td>
-												 {{ $gross[0]->profit }}%
+												 {{ $gross[0]->profit_rate }}%
 												 <!-- Gross profit rate -->
 											 </td>
 
@@ -1927,7 +1927,6 @@
 					 <div class="submit-row">
 									 <button type="submit" class="btn-sumit">Done</button>
 								 </div>
-
 				 </div>
 			 </form>
 		 </div>

@@ -21,10 +21,10 @@ class System_TimeManagementorWorker extends Controller
 
       $staff = DB::table('staff_master')
              ->select('staff_name','id')
-             ->where('location','=',$locations[1]->location_id)
+             ->where('location','=',$locations[2]->location_id)
              ->get();
       $process = DB::table('process_master')->get();
-      $default = $locations[1]->location_id;
+      $default = $locations[2]->location_id;
 
 
      return view ('TimeManagementIndividual',compact('default','staff','locations','process'));
@@ -51,7 +51,11 @@ class System_TimeManagementorWorker extends Controller
    // Get specific user info
    public function get_user_info(Request $request, $userid){
     if($request->ajax()){
-      $date = $request->date;
+      $date = $request->input('_date');
+      if(empty($date))
+      {
+        return response()->json(['user'=>'']);
+      }
       $date_1  = DateTime::createFromFormat('m/d/Y', $date);
       $newdate = $date_1->format('Y-m-d');
       $exist = DB::table('time_management')->select('start_time','end_time','rest','process')->where([

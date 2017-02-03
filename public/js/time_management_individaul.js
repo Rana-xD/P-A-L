@@ -28,7 +28,7 @@ $(function(){
 					$('#shift_schedule').empty();
 					var staffs = response.staff,
 						process = response.process,
-						tasksProcess;
+						tasksProcess = "";
 					// Empty previous data
 					$(staff_ele).empty()
 					.append(
@@ -56,28 +56,28 @@ $(function(){
 									'<select name="hour_'+(i)+'_1" class="tasks-select">'+
 										'<option value="A"></option>'+
 										tasksProcess +
-										'<option vslue="R">Rest</option>'+
+										'<option value="R">Rest</option>'+
 									'</select>'+
 								'</div>'+
 								'<div class="task">'+
 									'<select name="hour_'+(i)+'_2" class="tasks-select">'+
 										'<option value="A"></option>'+
 										tasksProcess +
-										'<option vslue="R">Rest</option>'+
+										'<option value="R">Rest</option>'+
 									'</select>'+
 								'</div>'+
 								'<div class="task">'+
 									'<select name="hour_'+(i)+'_3" class="tasks-select">'+
 										'<option value="A"></option>'+
 		                                tasksProcess+
-		                                '<option vslue="R">Rest</option>'+
+		                                '<option value="R">Rest</option>'+
 									'</select>'+
 								'</div>'+
 								'<div class="task">'+
 									'<select name="hour_'+(i)+'_4" class="tasks-select">'+
 										'<option value="A"></option>'+
 		                                tasksProcess+
-		                                '<option vslue="R">Rest</option>'+
+		                                '<option value="R">Rest</option>'+
 									'</select>'+
 								'</div>'+
 							'</div>'+
@@ -90,7 +90,7 @@ $(function(){
 					.append(
 						'<option disabled="disabled" selected>Select task</option>'+
 						tasksProcess+
-						'<option vslue="R">Rest</option>'
+						'<option value="R">Rest</option>'
 					);
 
 					taskVisibility();
@@ -105,18 +105,22 @@ $(function(){
 	// Ajax request specific user information
 	(function getUserInfo(){
 		var shiftSched_ele = $('#shift_schedule');
-		var dates = $('#date').val();
+
 		// Bind onchange event on staff list
 		$('#staff_list').on('change', function(){
 			var user = $(this).val(),
-				url = "/api/user/"+user;
-
+				url = "/api/user/"+user,
+				dates = $('#date_record').val();
+				if($.trim(dates) == "" || dates == null){
+					swal("Field Required","Date field required!", "error");
+					return;
+				}
 			// Start ajax request
 			$.ajax({
 				url: url,
 				type: 'GET',
 				dataType: 'json',
-				data:{_token:$('meta[name=csrf-token]').attr('content'),date:dates},
+				data:{_token:$('meta[name=csrf-token]').attr('content'),_date:dates},
 				success: function(response){
 					console.log(JSON.stringify(response));
 					// Empthy previous data
@@ -144,14 +148,35 @@ $(function(){
 							'</tbody>'+
 						'</table>'
 					);
-					var startTime = (response.user[0].time_in).split(':'),
-						endTime = (response.user[0].time_out).split(':');
 
-					$('#from-hour .time-input').val(startTime[0]);
-					$('#from-minute .time-input').val(startTime[1]);
-					$('#to-hour .time-input').val(endTime[0]);
-					$('#to-minute .time-input').val(endTime[1]);
-					$('#rest_minute .time-input').val(response.user[0].rest);
+					$('#hours-range .task-hour .tasks-select').val('A');
+
+					if(response.user_exist){
+						var user = response.user_exist;
+						var selectsEle = $('#hours-range .task-hour .tasks-select');
+						var tasks = (user[0].process).split(',');
+						console.log(tasks.length);
+						for(var i=0;i<selectsEle.length;i++){
+							$(selectsEle[i]).val(tasks[i]);
+						}
+						var startTime = (user[0].start_time).split(':'),
+						endTime = (user[0].end_time).split(':');
+
+						$('#from-hour .time-input').val(startTime[0]);
+						$('#from-minute .time-input').val(startTime[1]);
+						$('#to-hour .time-input').val(endTime[0]);
+						$('#to-minute .time-input').val(endTime[1]);
+						$('#rest_minute .time-input').val(user[0].rest);
+					}else{
+						var startTime = (response.user[0].time_in).split(':'),
+								endTime = (response.user[0].time_out).split(':');
+
+						$('#from-hour .time-input').val(startTime[0]);
+						$('#from-minute .time-input').val(startTime[1]);
+						$('#to-hour .time-input').val(endTime[0]);
+						$('#to-minute .time-input').val(endTime[1]);
+						$('#rest_minute .time-input').val(response.user[0].rest);
+					}
 
 					taskVisibility();
 					triggerBulkTimeInOut();
@@ -196,11 +221,11 @@ $(function(){
 		// Check whether value is number and exactly length
 		function isNumisLength(num,len){
 			var code = "";
-			if(!($.isNumeric(num)) || num.length != len){
-				if(!($.isNumeric(num)) && num.length != len){
+			if(!$.isNumeric(num) || num.length !== len){
+				if(!$.isNumeric(num) && num.length !== len){
 					code = '001';
 					return code;
-				}else if(num.length != len){
+				}else if(num.length !== len){
 					code = '002';
 					return code;
 				}else{
@@ -235,15 +260,29 @@ $(function(){
 		// Validate minute
 		function isValidMinute(eleObj){
 			var validMinute = [0,15,30,45],
+				validRestMinute = [0,15,30,45,60,75,90,105,120],
 				val = $(eleObj).val();
-			if($.isNumeric(val) && val.length == 2){
-				if($.inArray(parseInt(val),validMinute) > (-1)){
-					return true;
+
+			if($(eleObj).parent().is('.rest_minute')){
+				if($.isNumeric(val) && (val.length ==2 || val.length ==3)){
+					if($.inArray(parseInt(val),validRestMinute) > (-1)){
+						return true;
+					}else{
+						return false;
+					}
 				}else{
 					return false;
 				}
 			}else{
-				return false;
+				if($.isNumeric(val) && val.length == 2){
+					if($.inArray(parseInt(val),validMinute) > (-1)){
+						return true;
+					}else{
+						return false;
+					}
+				}else{
+					return false;
+				}
 			}
 
 		}
@@ -294,20 +333,36 @@ $(function(){
 			}
 
 			var goodToGo = isValidMinute(instance);
-			if(!goodToGo){
-				var val = parseInt(value) || 0;
-				var floorVal = Math.floor((val+15) / 15) * 15;
-				$(instance).val(floorVal>=60 ? '00' : floorVal).change();
-				notify('007');
-				return;
-			}
+			if($(instance).parent().is('.rest_minute')){
+				if(!goodToGo){
+					var val = parseInt(value) || 0;
+					var floorVal = Math.floor((val+15) / 15) * 15;
+					$(instance).val(floorVal>120 ? '00' : floorVal).change();
+					notify('009');
+					return;
+				}
 
-
-			value = parseInt(value);
-			if(value != 45){
-				$(instance).val(parseInt(value)+15).change();
+				value = parseInt(value);
+				if(value <= 105){
+					$(instance).val(parseInt(value)+15).change();
+				}else{
+					$(instance).val('00').change();
+				}
 			}else{
-				$(instance).val('00').change();
+				if(!goodToGo){
+					var val = parseInt(value) || 0;
+					var floorVal = Math.floor((val+15) / 15) * 15;
+					$(instance).val(floorVal>=60 ? '00' : floorVal).change();
+					notify('007');
+					return;
+				}
+
+				value = parseInt(value);
+				if(value != 45){
+					$(instance).val(parseInt(value)+15).change();
+				}else{
+					$(instance).val('00').change();
+				}
 			}
 
 		}
@@ -345,22 +400,42 @@ $(function(){
 
 			// validate time input
 			var goodToGo = isValidMinute(instance);
-			if(!goodToGo){
-				var val = parseInt(value) || 0;
-				var floorVal = Math.floor((val+15) / 15) * 15;
-				$(instance).val(floorVal>=60 ? '00' : floorVal).change();
-				notify('007');
-				return;
-			}
+			if($(instance).parent().is('.rest_minute')){
+				if(!goodToGo){
+					var val = parseInt(value) || 0;
+					var floorVal = Math.floor((val+15) / 15) * 15;
+					$(instance).val(floorVal>120 ? '00' : floorVal).change();
+					notify('009');
+					return;
+				}
 
 
-			value = parseInt(value);
-			if(value !== 0 && value != 15){
-				$(instance).val(value-15).change();
-			}else if(value == 15){
-				$(instance).val('00').change();
+				value = parseInt(value);
+				if(value !== 0 && value != 15){
+					$(instance).val(value-15).change();
+				}else if(value == 15){
+					$(instance).val('00').change();
+				}else{
+					$(instance).val('120').change();
+				}
 			}else{
-				$(instance).val('45').change();
+				if(!goodToGo){
+					var val = parseInt(value) || 0;
+					var floorVal = Math.floor((val+15) / 15) * 15;
+					$(instance).val(floorVal>=60 ? '00' : floorVal).change();
+					notify('007');
+					return;
+				}
+
+
+				value = parseInt(value);
+				if(value !== 0 && value != 15){
+					$(instance).val(value-15).change();
+				}else if(value == 15){
+					$(instance).val('00').change();
+				}else{
+					$(instance).val('45').change();
+				}
 			}
 
 		}
@@ -368,14 +443,15 @@ $(function(){
 		// Listen on input time change event
 		$(timeInput).donetyping(function(){
 
-			var val = $(this).val() || 0;
+			var val = $(this).val();
 			var mama = $(this).parent();
 			// If parent of input is hour
 			if($(mama).hasClass('hour')){
 				// Check if time is numeric & exact length
-				var code = isNumisLength(val, 2);
-				if(!code == true){
-					$(this).val('06');
+				var code = isNumisLength(val, 2),
+					finalVal = 0;
+				if(!code === true){
+					$(this).val('06').change();
 					notify(code);
 					taskVisibility();
 					triggerBulkTimeInOut();
@@ -384,25 +460,38 @@ $(function(){
 
 				// Check it's a minute range
 				if(!isMinMax(parseInt(val), 6, 36)){
-					$(this).val('06');
+					$(this).val('06').change();
 					notify('004');
 					taskVisibility();
 					triggerBulkTimeInOut();
 					return;
 				}
+				finalVal = parseInt(val);
+				$(this).val(finalVal<10 ? '0'+finalVal : finalVal);
 			}
 
 			// If parent is minute input
 			if($(mama).hasClass('minute')){
 
 				// Check if time is numeric & exact length
-				if(!isValidMinute($(this))){
-					var value = parseInt(val) || 0;
-					var floorVal = Math.floor((value+15) / 15) * 15;
-					$(this).val(floorVal>=60 ? '00' : floorVal);
-					notify('007');
-					taskVisibility();
-					triggerBulkTimeInOut();
+				if($(this).parent().is('.rest_minute')){
+					if(!isValidMinute($(this))){
+						var value = parseInt(val) || 0;
+						var floorVal = Math.floor((value+15) / 15) * 15;
+						$(this).val(floorVal>120 ? '00' : floorVal);
+						notify('009');
+						taskVisibility();
+						triggerBulkTimeInOut();
+					}
+				}else{
+					if(!isValidMinute($(this))){
+						var value = parseInt(val) || 0;
+						var floorVal = Math.floor((value+15) / 15) * 15;
+						$(this).val(floorVal>=60 ? '00' : floorVal);
+						notify('007');
+						taskVisibility();
+						triggerBulkTimeInOut();
+					}
 				}
 			}
 
@@ -410,7 +499,7 @@ $(function(){
 			if(!isValidTimeRange()){
 				var toVal = parseInt($(fromHour).val()) + 1;
 				toVal < 10 ? toVal = '0'+toVal : toVal = toVal;
-				$(toHour).val(toVal>36 ? '36' : toVal);
+				$(toHour).val(toVal>36 ? '36' : toVal).change();
 				notify('006');
 				taskVisibility();
 				triggerBulkTimeInOut();
@@ -444,6 +533,33 @@ $(function(){
 				'display' : 'block',
 			});
 		}
+	});
+
+	// Listen on task select change
+	// to validate rest time
+	$('#hours-range .task-hour .tasks-select').on('change',function(){
+		// Default 15 to prevent error number divide with 0
+		var restMin = parseInt($('#rest_minute .time-input').val() || 0),
+			validRest = ((restMin + 15) / 15) -1,
+			foundRest = 0,
+			obj = $(this);
+			$('#hours-range .task-hour .tasks-select').each(function(){
+				if($(this).val() == "R"){
+					foundRest +=1;
+				}
+				if(foundRest>validRest){
+					$(obj).val('A');
+					swal("Invalid rest time","Rest time exceed "+(validRest * 15)+" minute","warning");
+					return;
+				}
+			});
+
+	});
+
+	// Listen on rest time change
+	// to unselect task with rest value
+	$('#rest_minute .time-input').on('change', function(){
+
 	});
 
 	// Prevent action button from submit
