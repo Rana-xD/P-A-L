@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TimeManagement extends Migration
+class TimeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -27,7 +27,6 @@ class TimeManagement extends Migration
           $table->integer('rest');
           $table->string('process',400);
           $table->timestamps();
-      
         });
     }
 
