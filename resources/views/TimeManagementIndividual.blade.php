@@ -247,7 +247,7 @@
                         	<div class="heading">
                         		<h4>Rest</h4>
                         	</div>
-                        	<div class="minute" id="rest_minute">
+                        	<div class="minute rest_minute" id="rest_minute">
                         		<span class="increase increaseMinute minute">
                         			<i class="fa fa-plus"></i>
                         		</span>
@@ -308,90 +308,101 @@
                 </div>
 
                 <div class="row task-container">
-                    <div class="tasks-range">
+                    <div class="tasks-scroll">
+                        <div class="duration-header">
+                            <li><span>hh:00 mn - hh:15 mn</span></li>
+                            <li><span>hh:15 mn - hh:30 mn</span></li>
+                            <li><span>hh:30 mn - hh:45 mn</span></li>
+                            <li><span>hh:45 mn - hh:00 mn</span></li>
+                        </div>
+                        <div class="scroll">
 
-                    	<div class="time-bar">
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                            <span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                            <span></span>
-                    		<span></span>
-                    		<span></span>
-                    		<span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                    	</div>
+                            <div class="tasks-range">
 
+                            	<div class="time-bar">
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                                    <span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                                    <span></span>
+                            		<span></span>
+                            		<span></span>
+                            		<span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                            	</div>
 
-                            <ul id="hours-range" class="hours-range">
-                            @for($i=6;$i<36;$i++)
-                                <li class="task-hour">
-                                    <div class="tasks">
-                                        <div class="task">
-                                            <select name="hour_{{$i}}_1" class="tasks-select">
-                                                <option value="A"></option>
-                                                @foreach($process as $task)
-                                                <option value="{{$task->id}}">{{$task->process_name}}</option>
-                                                @endforeach
-                                                <option value="R">Rest</option>
-                                            </select>
+                                <ul id="hours-range" class="hours-range">
+                                @for($i=6;$i<36;$i++)
+                                    <li class="task-hour">
+                                        <div class="tasks">
+                                            <div class="task">
+                                                <select name="hour_{{$i}}_1" class="tasks-select">
+                                                    <option value="A"></option>
+                                                    @foreach($process as $task)
+                                                    <option value="{{$task->id}}">{{$task->process_name}}</option>
+                                                    @endforeach
+                                                    <option value="R">Rest</option>
+                                                </select>
+                                            </div>
+                                            <div class="task">
+                                                <select name="hour_{{$i}}_2" class="tasks-select">
+                                                    <option value="A"></option>
+                                                    @foreach($process as $task)
+                                                    <option value="{{$task->id}}">{{$task->process_name}}</option>
+                                                    @endforeach
+                                                    <option value="R">Rest</option>
+                                                </select>
+                                            </div>
+                                            <div class="task">
+                                                <select name="hour_{{$i}}_3" class="tasks-select">
+                                                    <option value="A"></option>
+                                                    @foreach($process as $task)
+                                                    <option value="{{$task->id}}">{{$task->process_name}}</option>
+                                                    @endforeach
+                                                    <option value="R">Rest</option>
+                                                </select>
+                                            </div>
+                                            <div class="task">
+                                                <select name="hour_{{$i}}_4" class="tasks-select">
+                                                    <option value="A"></option>
+                                                    @foreach($process as $task)
+                                                    <option value="{{$task->id}}">{{$task->process_name}}</option>
+                                                    @endforeach
+                                                    <option value="R">Rest</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="task">
-                                            <select name="hour_{{$i}}_2" class="tasks-select">
-                                                <option value="A"></option>
-                                                @foreach($process as $task)
-                                                <option value="{{$task->id}}">{{$task->process_name}}</option>
-                                                @endforeach
-                                                <option value="R">Rest</option>
-                                            </select>
-                                        </div>
-                                        <div class="task">
-                                            <select name="hour_{{$i}}_3" class="tasks-select">
-                                                <option value="A"></option>
-                                                @foreach($process as $task)
-                                                <option value="{{$task->id}}">{{$task->process_name}}</option>
-                                                @endforeach
-                                                <option value="R">Rest</option>
-                                            </select>
-                                        </div>
-                                        <div class="task">
-                                            <select name="hour_{{$i}}_4" class="tasks-select">
-                                                <option value="A"></option>
-                                                @foreach($process as $task)
-                                                <option value="{{$task->id}}">{{$task->process_name}}</option>
-                                                @endforeach
-                                                <option value="R">Rest</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </li>
-                            @endfor
-                            </ul>
-                            <div class="submit-div">
-                                <input type="submit" class="submit" value="Submit">
+                                    </li>
+                                @endfor
+                                </ul>
+
                             </div>
+                        </div>
+                    </div>
 
+                    <div class="submit-div">
+                        <input type="submit" class="submit" value="Submit">
                     </div>
                 </div>
                 </div>

@@ -124,7 +124,54 @@ body{
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  overflow-x: scroll;
+}
+
+
+.tasks-scroll{
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  
+  &:after,
+  &:before{
+    position: relative;
+    width: 100%;
+    display: table;
+    content: "";
+  }
+
+  &:after{
+    clear: both;
+    zoom: 1;
+  }
+
+  .duration-header{
+    position: relative;
+    float: left;
+    width: 12%;
+    margin-top: 50px;
+
+    li{
+      display: block;
+      height: 23px;
+      text-align: center;
+    }
+
+    span{
+      line-height: 1;
+      color: #2e2e2e;
+      font-size: 12px;
+    }
+  }
+
+  .scroll{
+    position: relative;
+    width: 88%;
+    float: left;
+    box-sizing: border-box;
+    overflow-x: scroll;
+  }
+
 }
 
 .content{
@@ -297,6 +344,34 @@ body{
 
   }
 
+  .submit-div{
+    float: left;
+    position: relative;
+    margin: 20px 0;
+    width: 100%;
+
+    .submit{
+      border: none;
+      font-size: 1.1em;
+      font-weight: 600;
+      padding: 10px 30px;
+      float: right;
+      color: #fff;
+      background: linear-gradient(to left,#2ECC71,#27ae60);
+      display: inline-block;
+      cursor: pointer;
+      box-shadow: 0 6px 10px rgba(50,50,93,.11),0 2px 5px rgba(0,0,0,.08);
+      transition: all .25s ease-out;
+      -webkit-transition: all .25s ease-out;
+      -moz-transition: all .25s ease-out;
+
+      &:hover{
+        background:linear-gradient(to left,#2aCd71,#24af60);
+        box-shadow: 0 1px 3px rgba(50,50,93,.11),0 0px 1px rgba(0,0,0,.08);
+      }
+    }
+  }
+
   .tasks-range{
     position: relative;
     width: auto;
@@ -385,32 +460,6 @@ body{
       margin: 0;
       padding: 0;
 
-    }
-
-    .submit-div{
-      float: left;
-      position: relative;
-      margin: 20px 0;
-
-      .submit{
-        border: none;
-        font-size: 1.1em;
-        font-weight: 600;
-        padding: 10px 30px;
-        color: #fff;
-        background: linear-gradient(to left,#2ECC71,#27ae60);
-        display: inline-block;
-        cursor: pointer;
-        box-shadow: 0 6px 10px rgba(50,50,93,.11),0 2px 5px rgba(0,0,0,.08);
-        transition: all .25s ease-out;
-        -webkit-transition: all .25s ease-out;
-        -moz-transition: all .25s ease-out;
-
-        &:hover{
-          background:linear-gradient(to left,#2aCd71,#24af60);
-          box-shadow: 0 1px 3px rgba(50,50,93,.11),0 0px 1px rgba(0,0,0,.08);
-        }
-      }
     }
 
     .hours-range{
