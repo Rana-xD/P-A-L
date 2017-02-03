@@ -21,10 +21,10 @@ class System_TimeManagementorWorker extends Controller
 
       $staff = DB::table('staff_master')
              ->select('staff_name','id')
-             ->where('location','=',$locations[1]->location_id)
+             ->where('location','=',$locations[2]->location_id)
              ->get();
       $process = DB::table('process_master')->get();
-      $default = $locations[1]->location_id;
+      $default = $locations[2]->location_id;
 
 
      return view ('TimeManagementIndividual',compact('default','staff','locations','process'));
