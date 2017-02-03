@@ -140,7 +140,7 @@ body {
 .tasks-scroll .duration-header {
   position: relative;
   float: left;
-  width: 12%;
+  width: 150px;
   margin-top: 50px;
 }
 
@@ -158,8 +158,7 @@ body {
 
 .tasks-scroll .scroll {
   position: relative;
-  width: 88%;
-  float: left;
+  width: auto;
   box-sizing: border-box;
   overflow-x: scroll;
 }
@@ -372,7 +371,7 @@ body {
 
 .content .tasks-range {
   position: relative;
-  width: auto;
+  width: 2160px;
   margin-top: 50px;
   padding: 0px 30px 20px 30px;
 }
@@ -474,51 +473,9 @@ body {
   width: 70px;
   padding: 1px;
   box-sizing: border-box;
-  /* &:before{
-        position: absolute;
-        background: #333;
-        top: -36px;
-        left: -7px;
-        z-index: 1;
-        content: "";
-        font-size: 11px;
-        color: #fff;
-        display: block;
-        width: 34px;
-        box-sizing: border-box;
-        padding:2px 1px;
-        text-align: center;
-        line-height: 1;
-        height: 16px;
-        transform: rotate(-35deg);
-        content: counter(tasks-counter)":00";
-      } */
-  /* &:last-child:after{
-        position: absolute;
-        background: #333;
-        top: -36px;
-        right: -25px;
-        z-index: 1;
-        content: "";
-        font-size: 11px;
-        color: #fff;
-        display: block;
-        width: 34px;
-        box-sizing: border-box;
-        padding:2px 1px;
-        text-align: center;
-        line-height: 1;
-        height: 16px;
-        transform: rotate(-35deg);
-        content: "36:00";
-      } */
 }
 
 .content .tasks-range .tasks-select {
-  /* -webkit-appearance: none;
-      -moz-appearance: none;
-      ms-appearance: none;
-      appearance: none; */
   outline: none;
   display: block;
   position: relative;
@@ -531,6 +488,14 @@ body {
   font-size: 13px;
   background: #fff;
   color: #666;
+}
+
+.content .tasks-range .tasks-select.visible {
+  visibility: visible;
+}
+
+.content .tasks-range .tasks-select.hide {
+  visibility: hidden;
 }
 
 .content .tasks-range .tasks {
@@ -995,6 +960,33 @@ table input[type="text"] {
   clear: both;
 }
 
+/* Page time management individaul */
+/* Bulk action select and button */
+.date-schedule {
+  padding: 20px 0;
+}
+
+.bulk-action .custom-select {
+  outline: none;
+  position: relative;
+  padding: 5px 7px;
+  border: none;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  background: #fff;
+  color: #666;
+}
+
+.bulk-reset-action {
+  display: none;
+}
+
+.bulk-task-shortcut {
+  display: none;
+}
+
 /* Media screen query */
 @media screen and (max-width: 768px) {
   .sm-hide {
@@ -1009,5 +1001,8 @@ table input[type="text"] {
   .content .input-group {
     margin-bottom: 25px;
     width: 46%;
+  }
+  .content .rest-hour {
+    margin: 0 auto;
   }
 }

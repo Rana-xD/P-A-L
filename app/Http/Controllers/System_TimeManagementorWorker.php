@@ -61,7 +61,7 @@ class System_TimeManagementorWorker extends Controller
       {
         return response()->json(['user'=>'']);
       }
-      $date_1  = DateTime::createFromFormat('m/d/Y', $date);
+      $date_1  = DateTime::createFromFormat('Y/m/d', $date);
       $newdate = $date_1->format('Y-m-d');
       $exist = DB::table('time_management')->select('start_time','end_time','rest','process')->where([
         ['date','=',$newdate],
