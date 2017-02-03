@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DateTimeZone;
 use Illuminate\Http\Request;
 use DB;
 use DateTime;
@@ -30,7 +30,7 @@ class System_TimeManagementorWorker extends Controller
       $timestamp = time();
       $dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
       $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
-      $time =  $dt->format('d.m.Y, H:i:s');
+      $time =  $dt->format('d.m.Y');
 
      return view ('TimeManagementIndividual',compact('default','staff','locations','process','time'));
   }
