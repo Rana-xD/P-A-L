@@ -24,19 +24,6 @@
             width: 100%;
         }
 
-        .location_staffs{
-            margin-top: 20px;
-        }
-
-        .location_staffs select{
-            padding: 7px 10px;
-            min-width: 150px;
-            outline: none;
-            border: 1px solid #f5f5f5;
-            background: #fff;
-            box-shadow: 0px 1px 2px rgba(0,0,0,0.1);
-        }
-
         .row::before,
         .row::after{
             display: table;
@@ -116,7 +103,7 @@
 						</div>
                         <div class="inline">
                             <label>Location : </label>
-                            <select name="location" id="location" class="custom_select">
+                            <select name="location" id="location" class="custom-select">
                                 <option hidden></option>
                                 @foreach($locations as $loc)
                                 <option {{ $default == $loc->location_id ? 'selected="selected"' : '' }} value="{{ $loc->location_id }}">{{ $loc->location_name }}</option>
@@ -125,7 +112,7 @@
                         </div>
                         <div class="inline">
                             <label>Staff : </label>
-                            <select name="staff" id="staff_list" class="custom_select">
+                            <select name="staff" id="staff_list" class="custom-select">
                                 <option hidden></option>
                                 @foreach($staff as $worker)
                                 <option value="{{ $worker->id }}">{{ $worker->staff_name }}</option>

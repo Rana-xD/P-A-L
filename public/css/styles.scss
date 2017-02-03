@@ -1007,19 +1007,51 @@ table {
   padding: 20px 0;
 }
 
-.bulk-action{
-  .custom-select{
+.location_staffs{
+  margin-top: 20px;
+}
+
+#date_record{
+
+}
+
+.custom-select{
+  outline: none;
+  position: relative;
+  padding: 5px 7px;
+  min-width: 120px;
+  border: none;
+  box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  background: #fff;
+  color: #666;
+}
+
+.action-form{
+  margin-top: 20px;
+
+  .resetBtn,
+  .bulk-action-btn{
     outline: none;
-    position: relative;
-    padding: 5px 7px;
+    padding: 7px 15px;
     border: none;
-    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.1);
-    box-sizing: border-box;
+    cursor: pointer;
+    color: #fff;
     font-family: "Raleway", sans-serif;
+    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.1);
     font-size: 15px;
-    background: #fff;
-    color: #666;
   }
+
+  .resetBtn{
+    background: #e74c3c;
+  }
+
+  .bulk-action-btn{
+    background: #3498db;
+  }
+
 }
 
 .bulk-reset-action{
