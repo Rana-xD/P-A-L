@@ -34,7 +34,7 @@ app.directive('numbersOnly', function() {
         link: function(scope, element, attrs, modelCtrl) {
             modelCtrl.$parsers.push(function(inputValue) {
                 if (inputValue == undefined) return ''
-                var onlyNumeric = inputValue.replace(/[^0-9\,]/g, '');
+                var onlyNumeric = inputValue.replace(/[^0-9]/g, '');
                 if (onlyNumeric != inputValue) {
                     modelCtrl.$setViewValue(onlyNumeric);
                     modelCtrl.$render();
@@ -278,5 +278,46 @@ jQuery(document).ready(function($) {
             });
         }
     });
+
+    /*******Time Management Individual *********/
+    var d = new Date();
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+    var year = d.getFullYear();
+    var smonth = [1, 3, 5, 7, 8, 10, 12];
+
+    var dateDayTime = year + '/' + (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + day;
+    var dateNightTime = year + '/' + (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + (day-1);
+
+    if((d.getHours() < 6) && (d.getHours() >= 1)) {
+        $('.date').val(dateNightTime);
+        if (day == 1) {
+            for (var i=0; i<smonth.length; i++) {
+                if ((month-1) == smonth[i]) {
+                    dateNightTime = year + '/' + (month<10 ? '0' : '') + (month-1) + '/' + "31";
+                    $('.date').val(dateNightTime);
+                } else if ((month-1) == 2) {
+                    if((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)){
+                      dateNightTime = year + '/' + "02" + '/' + "29";
+                      $('.date').val(dateNightTime);
+                    }else{
+                      dateNightTime = year + '/' + "02" + '/' + "28";
+                      $('.date').val(dateNightTime);
+                    }
+                } else {
+                    dateNightTime = year + '/' + (month<10 ? '0' : '') + (month-1) + '/' + "30";
+                    $('.date').val(dateNightTime);
+                }
+            }
+        }
+
+        if ((month == 1) && (day == 1)) {
+            dateNightTime = (year-1) + '/' + "12" + '/' + "31";
+        }
+    } else if((d.getHours() == 6) && (d.getMinutes() >= 0) || ((d.getHours() == 0) && d.getMinutes() <= 59)) {
+        $('.date').val(dateDayTime);
+    } else {
+        $('.date').val(dateDayTime);
+    }
 
 });

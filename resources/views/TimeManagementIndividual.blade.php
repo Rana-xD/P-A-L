@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
 	<title>PAL</title>
     <meta charset="utf-8">
@@ -10,9 +10,10 @@
 	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome.css">
 	<script src="/js/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"><\/script>')</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script src="/js/script.js"></script>
     <script src="/js/time_management_individaul.js"></script>
-    {{-- <script src="/js/validationcheck.js"></script> --}}
+    <script src="/js/validationcheck.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="sweetalert.min.js"></script>
@@ -93,9 +94,12 @@
         #hours-range .task-hour .tasks-select.hide{
             visibility: hidden;
         }
+        .date-schedule {
+            padding: 20px 0;
+        }
     </style>
 </head>
-<body>
+<body ng-controller="MainCtrl">
 <div class="header">
     <div class="container">
         <div class="logo">
@@ -127,8 +131,7 @@
 						  <h4>
 							Select date :
 						  </h4>
-						<input type="text" id="date" name="date" ng-model="date" class="datepicker alert" ng-readonly="true" ng-required="true">
-						<p class="custom-error date-err ng-hide" ng-show="input_form.date.$touched && input_form.date.$error.required">This field is required</p>
+						<input type="text" name="date" class="date alert" ng-readonly="true" ng-required="true">
 						<input type="hidden" name="current_date" id="current_date">
 						</div>
                         <div class="inline">
@@ -394,13 +397,6 @@
                 </div>
             </form>
         </div>
-        <script>
-        $(function(){
-          $('.datepicker').datepicker({
-            maxDate: new Date()
-          });
-        });
-        </script>
   </body>
 </body>
 </html>
