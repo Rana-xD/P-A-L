@@ -25,9 +25,14 @@ class System_TimeManagementorWorker extends Controller
              ->get();
       $process = DB::table('process_master')->get();
       $default = $locations[2]->location_id;
+      //generate JP timezone
+      $tz = 'Asia/Tokyo';
+      $timestamp = time();
+      $dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
+      $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+      $time =  $dt->format('d.m.Y, H:i:s');
 
-
-     return view ('TimeManagementIndividual',compact('default','staff','locations','process'));
+     return view ('TimeManagementIndividual',compact('default','staff','locations','process','time'));
   }
   catch(\Exception $e)
       {
