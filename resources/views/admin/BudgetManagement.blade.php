@@ -1184,10 +1184,10 @@
 		        <div class="navbar">
 		            <nav class="global_nav">
 		                <ul>
-		                    <li><a href="/time_management">Time Management</a></li>
-												<li><a href="budget">Budget Management</a></li>
-												{{-- <li><a href="kpi">L-KPI</a></li> --}}
-		                    <li><a href="work">Shift Table</a></li>
+											<li><a href="time_management">時間管理</a></li>
+											<li><a href="budget">予算管理</a></li>
+											{{-- <li><a href="kpi">L-KPI</a></li> --}}
+											<li><a href="work">シフト表</a></li>
 		                </ul>
 		            </nav>
 		        </div>

@@ -370,7 +370,7 @@
               <th>No</th>
               <th>事故タイプ</th>
               <th>事故件数</th>
-              <th>賠償金</th>
+              <th>賠償金額</th>
               <th>事故内容</th>
             </tr>
             @foreach ($accidents as $accident)
