@@ -129,13 +129,13 @@
                     <div class="form-group">
 					   <div class="date-schedule">
 						  <h4>
-							Select date :
+							日付
 						  </h4>
 						<input type="text" name="date" class="date alert" ng-readonly="true" ng-required="true">
 						<input type="hidden" name="current_date" id="current_date">
 						</div>
                         <div class="inline">
-                            <label>Location : </label>
+                            <label>現場 : </label>
                             <select name="location" id="location" class="custom_select">
                                 <option hidden></option>
                                 @foreach($locations as $loc)
@@ -144,7 +144,7 @@
                             </select>
                         </div>
                         <div class="inline">
-                            <label>Staff : </label>
+                            <label>スタッフ名 : </label>
                             <select name="staff" id="staff_list" class="custom_select">
                                 <option hidden></option>
                                 @foreach($staff as $worker)
@@ -167,7 +167,7 @@
                         <div class="from time-group">
                         	<div class="heading">
                         		<h4>
-                        			Time in
+                        			作業開始時刻
                         		</h4>
                         	</div>
                             <div class="hour" id="from-hour">
@@ -210,7 +210,7 @@
                         <div class="to time-group">
                         	<div class="heading">
                         		<h4>
-                        			Time out
+                        			作業終了時刻
                         		</h4>
                         	</div>
                             <div class="hour" id="to-hour">
@@ -245,7 +245,7 @@
 
                         <div class="rest-hour">
                         	<div class="heading">
-                        		<h4>Rest</h4>
+                        		<h4>休憩時間</h4>
                         	</div>
                         	<div class="minute rest_minute" id="rest_minute">
                         		<span class="increase increaseMinute minute">
@@ -273,11 +273,11 @@
 
                 <div class="row bulk-action">
                     <div class="form-group">
-                        <label for="bulk-action-select">Shortcut action : </label>
+                        <label for="bulk-action-select">ショートカット : </label>
                         <select id="bulk-action-select" class="bulk-action-select custom-select">
                             <option disabled="disabled" selected></option>
-                            <option value="0">Multiple tasks with one click</option>
-                            <option value="1">Reset</option>
+                            <option value="0">複数選択</option>
+                            <option value="1">リセット</option>
                         </select>
                         <div class="action-form">
                             <div class="bulk-reset-action">
@@ -286,21 +286,21 @@
 
                             <div id="bulk-task-shortcut" class="bulk-task-shortcut">
                                 <select id="bulk_action_time_in" class="bulk_action_time_in">
-                                    <option disabled="disabled" selected>From time</option>
+                                    <option disabled="disabled" selected>開始時刻</option>
 
                                 </select>
                                 <select id="bulk_action_time_out" class="bulk_action_time_out">
-                                    <option disabled="disabled" selected>To time</option>
+                                    <option disabled="disabled" selected>終了時刻</option>
 
                                 </select>
                                 <select class="bulk_action_tasks" id="bulk_action_tasks">
-                                    <option disabled="disabled" selected>Select task</option>
+                                    <option disabled="disabled" selected>タスク選択</option>
                                     @foreach($process as $task)
                                     <option value="{{$task->id}}">{{$task->process_name}}</option>
                                     @endforeach
                                     <option value="R">Rest</option>
                                 </select>
-                                <button class="preventSubmit" onclick="triggerShortcutTask('0')">Select Now</button>
+                                <button class="preventSubmit" onclick="triggerShortcutTask('0')">選択確定</button>
                             </div>
                         </div>
                     </div>
@@ -402,7 +402,7 @@
                     </div>
 
                     <div class="submit-div">
-                        <input type="submit" class="submit" value="Submit">
+                        <input type="submit" class="submit" value="確定">
                     </div>
                 </div>
                 </div>

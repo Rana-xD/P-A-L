@@ -21,10 +21,10 @@
         <div class="navbar">
             <nav class="global_nav">
                 <ul>
-                    <li><a href="time_management">Time Management</a></li>
-                    <li><a href="budget">Budget Management</a></li>
+                    <li><a href="time_management">時間管理</a></li>
+                    <li><a href="budget">予算管理</a></li>
                     {{-- <li><a href="kpi">L-KPI</a></li> --}}
-                    <li><a href="work">Shift Table</a></li>
+                    <li><a href="work">シフト表</a></li>
                 </ul>
             </nav>
         </div>
@@ -39,7 +39,7 @@
                 <div class="left">
                     <div class="report-header">
                        <div class="location">
-                           <h3>Location 1</h3>
+                           <h3>現場</h3>
                        </div>
 
                        <div class="stuff-list">
@@ -55,11 +55,11 @@
                     <table>
                         <tr class="heading">
                             <th>No</th>
-                            <th>Stuff name</th>
-                            <th>Time in</th>
-                            <th>Time out</th>
-                            <th>Rest</th>
-                            <th>Total</th>
+                            <th>スタッフ名</th>
+                            <th>作業開始時刻</th>
+                            <th>作業終了時刻</th>
+                            <th>休憩時間</th>
+                            <th>合計作業時間</th>
                         </tr>
                         <tr class="record">
                             <td class="stuff-no"></td>

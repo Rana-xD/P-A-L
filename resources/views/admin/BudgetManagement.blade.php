@@ -166,10 +166,10 @@
 		        <div class="navbar">
 		            <nav class="global_nav">
 		                <ul>
-		                    <li><a href="/time_management">Time Management</a></li>
-												<li><a href="budget">Budget Management</a></li>
-												{{-- <li><a href="kpi">L-KPI</a></li> --}}
-		                    <li><a href="work">Shift Table</a></li>
+											<li><a href="time_management">時間管理</a></li>
+											<li><a href="budget">予算管理</a></li>
+											{{-- <li><a href="kpi">L-KPI</a></li> --}}
+											<li><a href="work">シフト表</a></li>
 		                </ul>
 		            </nav>
 		        </div>
@@ -180,24 +180,24 @@
 				<form action="budget-admin-date" method="POST">
 					{{ csrf_field() }}
 					<div style="margin-top: 20px">
-						<label for="month">Select a month</label>
+						<label for="month">月選択</label>
 						<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
 							<option value="" selected hidden></option>
-							<option value="1" id="1">JANUARY</option>
-							<option value="2" id="2">FEBRAURY</option>
-							<option value="3" id="3">MARCH</option>
-							<option value="4" id="4">APRIL</option>
-							<option value="5" id="5">MAY</option>
-							<option value="6" id="6">JUNE</option>
-							<option value="7" id="7">JULY</option>
-							<option value="8" id="8">AUGUST</option>
-							<option value="9" id="9">SEPTEMBER</option>
-							<option value="10" id="10">OCTOBER</option>
-							<option value="11" id="11">NOVEMBER</option>
-							<option value="12" id="12">DECEMBER</option>
+							<option value="1">1月</option>
+							<option value="2">2月</option>
+							<option value="3">3月</option>
+							<option value="4">4月</option>
+							<option value="5">5月</option>
+							<option value="6">6月</option>
+							<option value="7">7月</option>
+							<option value="8">8月</option>
+							<option value="9">9月</option>
+							<option value="10">10月</option>
+							<option value="11">11月</option>
+							<option value="12">12月</option>
 						</select>
 
-						<label for="year">Year</label>
+						<label for="year">年</label>
 						<select id="year" name="year">
 							<option value="" selected hidden></option>
 							@php
@@ -208,7 +208,7 @@
 								}
 							@endphp
 						</select>
-						<button type="submit" class="btn-sumit">Done</button>
+						<button type="submit" class="btn-sumit">確定</button>
 					</div>
 				</form>
 				</br>
@@ -222,7 +222,7 @@
 						<div class="indi-area">
 							<div class="area-heading">
 								<h2>
-									Kanto
+									関東
 								</h2>
 							</div>
 							<table class="scroll">
@@ -235,33 +235,33 @@
 										<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 									</tr>
 									<tr>
-										<th>Location</th>
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Setting rate</th>
+										<th>現場</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>目標引き上げ率</th>
 
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
 
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
 									</tr>
 								</thead>
@@ -411,7 +411,7 @@
 									</tr>
 									@endforeach
 									<tr class="subtotal">
-										<td>Subtotal</td>
+										<td>地区合計</td>
 										<td class="sub-sale">
 											<span></span>
 											<input type="hidden" class="company sub-sale-hidden" name="company_west_sub_sale">
@@ -523,7 +523,7 @@
 						<div class="indi-area">
 							<div class="area-heading">
 								<h2>
-									Chubu
+									中部
 								</h2>
 							</div>
 							<table class="scroll">
@@ -536,33 +536,33 @@
 										<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 									</tr>
 									<tr>
-										<th>Location</th>
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Setting rate</th>
+										<th>現場</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>目標引き上げ率</th>
 
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
 
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
 									</tr>
 								</thead>
@@ -710,7 +710,7 @@
 									</tr>
 									@endforeach
 									<tr class="subtotal">
-										<td>Subtotal</td>
+										<td>地区合計</td>
 										<td class="sub-sale">
 											<span></span>
 											<input type="hidden" class="company sub-sale-hidden" name="company_central_sub_sale">
@@ -822,7 +822,7 @@
 						<div class="indi-area">
 							<div class="area-heading">
 								<h2>
-									Kansai
+									関西
 								</h2>
 							</div>
 							<table class="scroll">
@@ -835,33 +835,33 @@
 										<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
 									</tr>
 									<tr>
-										<th>Location</th>
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Setting rate</th>
+										<th>現場</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>目標引き上げ率</th>
 
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
 
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
-										<th>Sales</th>
-										<th>Cost</th>
-										<th>Expense</th>
-										<th>Profit</th>
-										<th>Profit rate</th>
-										<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
 									</tr>
 								</thead>
@@ -1009,7 +1009,7 @@
 									</tr>
 									@endforeach
 									<tr class="subtotal">
-										<td>Subtotal</td>
+										<td>地区合計</td>
 										<td class="sub-sale">
 											<span>&yen;</span>
 											<input type="hidden" class="company sub-sale-hidden" name="company_east_sub_sale">
@@ -1133,7 +1133,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>Gross total</td>
+										<td>全国合計</td>
 										<td class="gross-sale">
 											<span>&yen;</span>
 											<input type="hidden" value="" name="gross_sale" class="gross-sale-hidden">
@@ -1165,7 +1165,7 @@
 						</div>
 
 						<div class="submit-row">
-	            	<button type="submit" class="btn-sumit">Done</button>
+	            	<button type="submit" class="btn-sumit">確定</button>
 	          </div>
 
 					</div>
@@ -1199,24 +1199,24 @@
 				<form action="budget-admin-date" method="POST">
 					{{ csrf_field() }}
 				      <div style="margin-top: 20px">
-					<label for="month">Select a month</label>
+					<label for="month">月選択</label>
 					<select id="month" name="month" style="margin-left: 5px; margin-right: 30px; width: 100px">
 						<option value="" selected hidden></option>
-						<option value="1" id="1">JANUARY</option>
-						<option value="2" id="2">FEBRAURY</option>
-						<option value="3" id="3">MARCH</option>
-						<option value="4" id="4">APRIL</option>
-						<option value="5" id="5">MAY</option>
-						<option value="6" id="6">JUNE</option>
-						<option value="7" id="7">JULY</option>
-						<option value="8" id="8">AUGUST</option>
-						<option value="9" id="9">SEPTEMBER</option>
-						<option value="10" id="10">OCTOBER</option>
-						<option value="11" id="11">NOVEMBER</option>
-						<option value="12" id="12">DECEMBER</option>
+						<option value="1">1月</option>
+						<option value="2">2月</option>
+						<option value="3">3月</option>
+						<option value="4">4月</option>
+						<option value="5">5月</option>
+						<option value="6">6月</option>
+						<option value="7">7月</option>
+						<option value="8">8月</option>
+						<option value="9">9月</option>
+						<option value="10">10月</option>
+						<option value="11">11月</option>
+						<option value="12">12月</option>
 					</select>
 
-					<label for="year">Year</label>
+					<label for="year">年</label>
 					<select id="year" name="year">
 						<option value="" selected hidden></option>
 						@php
@@ -1227,7 +1227,7 @@
 							}
 						@endphp
 					</select>
-					<button type="submit" class="btn-sumit">Done</button>
+					<button type="submit" class="btn-sumit">確定</button>
 				</div>
 				</form>
 				</br>
@@ -1241,7 +1241,7 @@
   					<div class="indi-area">
   						<div class="area-heading">
   							<h2>
-  								Kanto
+  								関東
   							</h2>
   						</div>
   						<table class="scroll">
@@ -1254,34 +1254,33 @@
   									<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
   								</tr>
   								<tr>
-  									<th>Location</th>
+										<th>現場</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>目標引き上げ率</th>
 
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
-  									<th>Setting rate</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
 
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
-  									<th>Profit gap</th>
-
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
-  									<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
   								</tr>
   							</thead>
@@ -1431,7 +1430,7 @@
   								</tr>
   								@endforeach
   								<tr class="subtotal">
-  									<td>Subtotal</td>
+  									<td>地区合計</td>
   									<td class="sub-sale">
   										<span></span>
   										<input type="hidden" class="company sub-sale-hidden" name="company_west_sub_sale">
@@ -1546,7 +1545,7 @@
   					<div class="indi-area">
   						<div class="area-heading">
   							<h2>
-  								Chubu
+  								中部
   							</h2>
   						</div>
   						<table class="scroll">
@@ -1559,33 +1558,33 @@
   									<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
   								</tr>
   								<tr>
-  									<th>Location</th>
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
-  									<th>Setting rate</th>
+										<th>現場</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>目標引き上げ率</th>
 
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
 
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
-  									<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
-  									<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
   								</tr>
   							</thead>
@@ -1732,7 +1731,7 @@
   								</tr>
   								@endforeach
   								<tr class="subtotal">
-  									<td>Subtotal</td>
+  									<td>地区合計</td>
   									<td class="sub-sale">
   										<span></span>
   										<input type="hidden" class="company sub-sale-hidden" name="central_sub_sale">
@@ -1844,7 +1843,7 @@
   					<div class="indi-area">
   						<div class="area-heading">
   							<h2>
-  								Kansai
+  								関西
   							</h2>
   						</div>
   						<table class="scroll">
@@ -1857,33 +1856,33 @@
   									<th style="background: #f1c40f; padding-left: 30px;" colspan="6">確定数値</th>
   								</tr>
   								<tr>
-  									<th>Location</th>
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
-  									<th>Setting rate</th>
+										<th>現場</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>目標引き上げ率</th>
 
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
 
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
-  									<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
-  									<th>Sales</th>
-  									<th>Cost</th>
-  									<th>Expense</th>
-  									<th>Profit</th>
-  									<th>Profit rate</th>
-  									<th>Profit gap</th>
+										<th>売上</th>
+										<th>原価</th>
+										<th>本社費</th>
+										<th>利益</th>
+										<th>利益率</th>
+										<th>利益差</th>
 
   								</tr>
   							</thead>
@@ -2028,7 +2027,7 @@
   								</tr>
   								@endforeach
   								<tr class="subtotal">
-  									<td>Subtotal</td>
+  									<td>地区合計</td>
   									<td class="sub-sale">
   										<span></span>
   										<input type="hidden" class="company sub-sale-hidden" name="east_sub_sale">
@@ -2152,7 +2151,7 @@
   							</thead>
 	  						<tbody>
 	  							<tr>
-	  								<td>Gross total</td>
+	  								<td>全国合計</td>
 	  								<td class="gross-sale">
 	  									<span>&yen;</span>
 	  									<input type="hidden" value="" name="gross_sale" class="gross-sale-hidden">
@@ -2183,7 +2182,7 @@
   						</table>
   					</div>
   					<div class="submit-row">
-              <button type="submit" class="btn-sumit">Done</button>
+              <button type="submit" class="btn-sumit">確定</button>
             </div>
 				  </div>
 				</form>

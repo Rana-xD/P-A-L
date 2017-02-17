@@ -116,8 +116,8 @@
       }
 
       .custom-error {
-        color: red; 
-        font-size: small; 
+        color: red;
+        font-size: small;
         margin: 2px 0 0 0;
       }
       .comment {
@@ -143,10 +143,10 @@
   	        <div class="navbar">
   	            <nav class="global_nav">
   	                <ul>
-  										<li><a href="time_management">Time Management</a></li>
-                      <li><a href="budget">Budget Management</a></li>
+                      <li><a href="time_management">時間管理</a></li>
+  										<li><a href="budget">予算管理</a></li>
                       <li><a href="kpi">L-KPI</a></li>
-  										<li><a href="work">Shift Table</a></li>
+                      <li><a href="work">シフト表</a></li>
   	                </ul>
   	            </nav>
   	        </div>
@@ -163,7 +163,7 @@
                 <div class="from">
                   <div class="heading">
                     <h4>
-                      Clock out time 1
+                      業務終了時刻1
                     </h4>
                   </div>
                     <div class="hour" id="from-hour">
@@ -208,7 +208,7 @@
                 <div class="to">
                   <div class="heading">
                     <h4>
-                      Clock out time 2
+                      業務終了時刻2
                     </h4>
                   </div>
                     <div class="hour" id="to-hour">
@@ -251,7 +251,7 @@
                 <div class="from">
                   <div class="heading">
                     <h4>
-                      Clock out time 3
+                      業務終了時刻3
                     </h4>
                   </div>
                     <div class="hour" id="to-hour">
@@ -294,7 +294,7 @@
                 <div class="to">
                   <div class="heading">
                     <h4>
-                      Clock out time 4
+                      業務終了時刻4
                     </h4>
                   </div>
                     <div class="hour" id="to-hour">
@@ -331,7 +331,7 @@
         </div>
         <div class="date-schedule">
           <h4>
-            Select date :
+            日付選択 :
           </h4>
           <input type="text" name="date" ng-model="date" class="datepicker alert" ng-readonly="true" ng-required="true">
           <p class="custom-error date-err ng-hide" ng-show="input_form.date.$touched && input_form.date.$error.required">This field is required</p>
@@ -342,9 +342,9 @@
           <table class="table table-sm">
             <tr>
               <th>No</th>
-              <th>Category</th>
-              <th>Quantity</th>
-              <th>Sales</th>
+              <th>カテゴリ</th>
+              <th>物量</th>
+              <th>売上実績</th>
             </tr>
             @foreach ($categories as $category)
             <!-- <p>Test : {{ $categories[0]->category_name }}</p> -->
@@ -368,10 +368,10 @@
           <table class="table table-sm">
             <tr>
               <th>No</th>
-              <th>Accident</th>
-              <th>Quantity</th>
-              <th>Amount to pay</th>
-              <th>Comment</th>
+              <th>事故タイプ</th>
+              <th>事故件数</th>
+              <th>賠償金</th>
+              <th>事故内容</th>
             </tr>
             @foreach ($accidents as $accident)
               <tr>
@@ -403,9 +403,9 @@
           <table class="table table-sm">
             <tr>
               <th>No</th>
-              <th>Category</th>
-              <th>Quantity</th>
-              <th>Sales</th>
+              <th>カテゴリ</th>
+              <th>物量</th>
+              <th>売上実績</th>
             </tr>
             @foreach ($categories as $category)
               <tr ng-show="!quantity_{{++$j}}">
@@ -423,12 +423,8 @@
             @endforeach
             </table>
           <div class="submit-row">
-            <div class="fileupload">
-              <input id="filebtn" class="uploadfile" type="file" name="files" data-multiple-caption="{count} files selected" multiple />
-              <label for="filebtn">Choose file</label>
-            </div>
-            <button ng-if="input_form.$valid" type="submit" class="btn-sumit">Done</button>
-            <button id="error-submit" ng-if="input_form.$invalid" type="button" class="btn-sumit">Done</button>
+            <button ng-if="input_form.$valid" type="submit" class="btn-sumit">保存</button>
+            <button id="error-submit" ng-if="input_form.$invalid" type="button" class="btn-sumit">保存</button>
           </div>
         </div>
       </div>
@@ -437,7 +433,7 @@
 
   <script>
     $(function(){
-      $('.datepicker').datepicker({ 
+      $('.datepicker').datepicker({
         maxDate: new Date()
       });
     });

@@ -88,7 +88,7 @@ $(function(){
 					$('#bulk_action_tasks')
 					.empty()
 					.append(
-						'<option disabled="disabled" selected>Select task</option>'+
+						'<option disabled="disabled" selected>タスク選択</option>'+
 						tasksProcess+
 						'<option value="R">Rest</option>'
 					);
@@ -660,14 +660,14 @@ function triggerBulkTimeInOut(){
 	$('#bulk_action_time_in')
 	.empty()
 	.append(
-		'<option disabled="disabled" selected>From time</option>'+
+		'<option disabled="disabled" selected>開始時刻</option>'+
 		timeSet
 	);
 
 	$('#bulk_action_time_out')
 	.empty()
 	.append(
-		'<option disabled="disabled" selected>To time</option>'+
+		'<option disabled="disabled" selected>終了時刻</option>'+
 		timeSet
 	);
 }
