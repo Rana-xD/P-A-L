@@ -148,7 +148,7 @@ body{
   .duration-header{
     position: relative;
     float: left;
-    width: 12%;
+    width: 150px;
     margin-top: 50px;
 
     li{
@@ -166,10 +166,10 @@ body{
 
   .scroll{
     position: relative;
-    width: 88%;
-    float: left;
+    width: auto;
     box-sizing: border-box;
     overflow-x: scroll;
+    
   }
 
 }
@@ -374,7 +374,7 @@ body{
 
   .tasks-range{
     position: relative;
-    width: auto;
+    width: 2160px;
     margin-top: 50px;
     padding: 0px 30px 20px 30px;
 
@@ -478,55 +478,11 @@ body{
       width: 70px;
       padding: 1px;
       box-sizing: border-box;
-      
-
-      /* &:before{
-        position: absolute;
-        background: #333;
-        top: -36px;
-        left: -7px;
-        z-index: 1;
-        content: "";
-        font-size: 11px;
-        color: #fff;
-        display: block;
-        width: 34px;
-        box-sizing: border-box;
-        padding:2px 1px;
-        text-align: center;
-        line-height: 1;
-        height: 16px;
-        transform: rotate(-35deg);
-        content: counter(tasks-counter)":00";
-      } */
-
-      /* &:last-child:after{
-        position: absolute;
-        background: #333;
-        top: -36px;
-        right: -25px;
-        z-index: 1;
-        content: "";
-        font-size: 11px;
-        color: #fff;
-        display: block;
-        width: 34px;
-        box-sizing: border-box;
-        padding:2px 1px;
-        text-align: center;
-        line-height: 1;
-        height: 16px;
-        transform: rotate(-35deg);
-        content: "36:00";
-      } */
 
     }
 
     .tasks-select{
-      /* -webkit-appearance: none;
-      -moz-appearance: none;
-      ms-appearance: none;
-      appearance: none; */
+      
       outline: none;
       display: block;
       position: relative;
@@ -540,6 +496,13 @@ body{
       background: #fff;
       color: #666;
 
+      &.visible{
+        visibility: visible;
+      }
+
+      &.hide{
+        visibility: hidden;
+      }
 
     }
 
@@ -1038,6 +1001,66 @@ table {
     clear: both;
   }
 }
+/* Page time management individaul */
+/* Bulk action select and button */
+.date-schedule {
+  padding: 20px 0;
+}
+
+.location_staffs{
+  margin-top: 20px;
+}
+
+#date_record{
+
+}
+
+.custom-select{
+  outline: none;
+  position: relative;
+  padding: 5px 7px;
+  min-width: 120px;
+  border: none;
+  box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  background: #fff;
+  color: #666;
+}
+
+.action-form{
+  margin-top: 20px;
+
+  .resetBtn,
+  .bulk-action-btn{
+    outline: none;
+    padding: 7px 15px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-family: "Raleway", sans-serif;
+    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.1);
+    font-size: 15px;
+  }
+
+  .resetBtn{
+    background: #e74c3c;
+  }
+
+  .bulk-action-btn{
+    background: #3498db;
+  }
+
+}
+
+.bulk-reset-action{
+  display: none;
+}
+
+.bulk-task-shortcut{
+  display: none;
+}
 
 /* Media screen query */
 @media screen and (max-width: 768px){
@@ -1058,6 +1081,10 @@ table {
     .input-group{
       margin-bottom: 25px;
       width: 46%;
+    }
+
+    .rest-hour{
+      margin: 0 auto;
     }
   }
 

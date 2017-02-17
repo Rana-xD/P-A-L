@@ -24,19 +24,6 @@
             width: 100%;
         }
 
-        .location_staffs{
-            margin-top: 20px;
-        }
-
-        .location_staffs select{
-            padding: 7px 10px;
-            min-width: 150px;
-            outline: none;
-            border: 1px solid #f5f5f5;
-            background: #fff;
-            box-shadow: 0px 1px 2px rgba(0,0,0,0.1);
-        }
-
         .row::before,
         .row::after{
             display: table;
@@ -77,26 +64,6 @@
             background-color: #f5f5f5;
         }
 
-        .content .tasks-range{
-            width: 2160px;
-        }
-
-        .bulk-reset-action{
-            display: none;
-        }
-
-        .bulk-task-shortcut{
-            display: none;
-        }
-        #hours-range .task-hour .tasks-select.visible{
-            visibility: visible;
-        }
-        #hours-range .task-hour .tasks-select.hide{
-            visibility: hidden;
-        }
-        .date-schedule {
-            padding: 20px 0;
-        }
     </style>
 </head>
 <body ng-controller="MainCtrl">
@@ -131,7 +98,7 @@
 						  <h4>
 							日付
 						  </h4>
-						<input type="text" name="date" class="date alert" ng-readonly="true" ng-required="true">
+						<input type="text" name="date" class="date alert" id="date_record">
 						<input type="hidden" name="current_date" id="current_date">
 						</div>
                         <div class="inline">
@@ -144,6 +111,7 @@
                             </select>
                         </div>
                         <div class="inline">
+
                             <label>スタッフ名 : </label>
                             <select name="staff" id="staff_list" class="custom_select">
                                 <option hidden></option>
@@ -281,18 +249,20 @@
                         </select>
                         <div class="action-form">
                             <div class="bulk-reset-action">
-                                <button class="preventSubmit" onclick="triggerShortcutTask('1')">Reset tasks</button>
+                                <button class="preventSubmit resetBtn" onclick="triggerShortcutTask('1')">Reset tasks</button>
                             </div>
 
                             <div id="bulk-task-shortcut" class="bulk-task-shortcut">
-                                <select id="bulk_action_time_in" class="bulk_action_time_in">
+            									<select id="bulk_action_time_in" class="bulk_action_time_in">
                                     <option disabled="disabled" selected>開始時刻</option>
 
                                 </select>
+
                                 <select id="bulk_action_time_out" class="bulk_action_time_out">
                                     <option disabled="disabled" selected>終了時刻</option>
 
                                 </select>
+
                                 <select class="bulk_action_tasks" id="bulk_action_tasks">
                                     <option disabled="disabled" selected>タスク選択</option>
                                     @foreach($process as $task)
@@ -301,6 +271,7 @@
                                     <option value="R">Rest</option>
                                 </select>
                                 <button class="preventSubmit" onclick="triggerShortcutTask('0')">選択確定</button>
+
                             </div>
                         </div>
                     </div>
